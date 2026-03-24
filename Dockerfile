@@ -1,5 +1,5 @@
-# Use Java 17 LTS base image (works on Render)
-FROM bellsoft/liberica-openjdk-alpine:17
+# Use Java 21 LTS base image (works on Render)
+FROM bellsoft/liberica-openjdk-alpine:21
 
 # Set working directory inside the container
 WORKDIR /app
