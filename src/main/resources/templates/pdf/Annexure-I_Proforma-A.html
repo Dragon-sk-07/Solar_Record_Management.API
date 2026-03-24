@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Proforma-A – exact government original</title>
+    <style>
+        /* ---------- RESET: zero margins, precise PDF match ---------- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: white;
+            color: black;
+            font-size: 14px;            /* base = original */
+            line-height: 1.4;              /* original leading */
+            padding: 0;
+        }
+        .document-wrapper {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px 20px 15px 20px;    /* side padding only to avoid text cut, no extra */
+            background: white;
+        }
+
+        /* ---------- TITLES – bold, exact size, all caps as PDF ---------- */
+        h1 {
+            font-size: 26px;
+            font-weight: 700;               /* bold */
+            text-align: center;
+            text-transform: uppercase;
+            margin: 0 0 2px 0;               /* exactly as original */
+            letter-spacing: 0.3px;
+            word-spacing: 0.5px;
+        }
+        .main-subtitle {
+            font-size: 16px;
+            font-weight: 700;                /* bold */
+            text-align: center;
+            text-transform: uppercase;
+            margin: 0 0 15px 0;               /* bottom margin matches PDF */
+            line-height: 1.4;
+            word-spacing: 0.2px;
+        }
+
+        /* ---------- DATA TABLE – left bold labels, right values normal weight (not bold) exactly like original PDF where values are plain text ---------- */
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 0 0 6px 0;
+        }
+        .data-table td {
+            padding: 1px 1px 1px 0;            /* minimal, matches original row density */
+            vertical-align: top;
+            border: none;
+            line-height: 1.45;
+        }
+        .data-table td:first-child {
+            width: 38%;
+            font-weight: 700;                   /* bold labels */
+            white-space: nowrap;
+            padding-right: 2px;
+            font-size: 14px;
+        }
+        .data-table td:last-child {
+            width: 62%;
+            font-weight: 400;                   /* normal weight values – exactly like PDF (no bold) */
+            color: black;
+            font-size: 14px;
+        }
+
+        /* SolarPV details – split exactly as original, labels bold, values normal */
+        .solar-line1, .solar-line2 {
+            display: block;
+            line-height: 1.5;
+            white-space: nowrap;
+        }
+        .solar-label {
+            font-weight: 700;                  /* bold label */
+            margin-right: 2px;
+        }
+        .solar-value {
+            font-weight: 400;                   /* normal value (plain text) */
+            margin-right: 16px;                  /* spacing as original */
+        }
+        .solar-line2 {
+            margin-top: 0;
+        }
+
+        /* ---------- COMMISSIONING TEXT – exact wording, line breaks, normal weight (only original bold if any) ---------- */
+        .commissioning-text {
+            margin: 8px 0 10px 0;
+            font-size: 14px;
+            line-height: 1.55;                   /* exact leading as original */
+        }
+        .commissioning-text p {
+            margin: 6px 0;                        /* paragraph gaps exactly like PDF */
+        }
+        /* in original PDF, the only bold is the title and maybe numbers? but values inside paragraphs are normal. We follow exactly. */
+        .commissioning-text .bold {
+            font-weight: 700;                     /* only if needed – but original PDF does not bold the capacity numbers in sentence. We keep normal. */
+        }
+        /* but original PDF shows "13.75 KWp" as normal text, not bold. So we remove bold from there. */
+        .plain-value {
+            font-weight: 400;
+        }
+
+        /* ---------- SIGNATURE SECTIONS – with solid underline (_______ ) exactly as original, labels bold, names/dates normal (plain) ---------- */
+        .signature-row {
+            display: flex;
+            justify-content: space-between;
+            margin: 10px 0 2px 0;
+        }
+        .signature-box {
+            width: 48%;
+        }
+        .signature-label {
+            font-weight: 700;                       /* bold e.g. "Signature of Installer/Vendor" */
+            margin-bottom: 2px;
+            font-size: 14px;
+        }
+        .signature-line {
+            border-bottom: 1.5px solid black;       /* solid line exactly like original _____ */
+            width: 100%;
+            margin: 4px 0 6px 0;
+            height: 1px;
+        }
+        .signature-name, .signature-desig, .signature-date {
+            font-weight: 400;                        /* normal for static text "Name:" */
+            margin: 2px 0;
+            line-height: 1.4;
+        }
+        .signature-name span, .signature-desig span, .signature-date span {
+            font-weight: 400;                         /* names and dates are plain text, not bold (original PDF has plain text) */
+        }
+        .if-applicable {
+            font-weight: 400;
+            margin-top: 1px;
+            font-size: 14px;
+        }
+
+        /* ensure no extra borders, no added elements */
+        hr, .border, .extra { display: none; }
+
+        /* exactly as original: no underlines under values, only signature lines */
+    </style>
+</head>
+<body>
+<div class="document-wrapper">
+
+    <!-- TITLE: PROFORMA-A (bold, all caps) -->
+    <h1>PROFORMA-A</h1>
+
+    <!-- subtitle: bold, all caps, exact wording from PDF (with "Net- metering") -->
+    <div class="main-subtitle">COMMISSIONING REPORT (PROVISIONAL) FOR GRID CONNECTED SOLAR PHOTOVOLTAIC POWER PLANT (with Net- metering facility)</div>
+
+    <!-- DATA TABLE – labels bold, values normal (plain text) – NO underlines under values, NO dotted lines -->
+    <table class="data-table">
+        <tr><td>1 Name of the Consumer</td><td th:text="${name}">Krishna Menon</td></tr>
+        <tr><td>2 Consumer Number</td><td th:text="${consumerNumber}">MSEDCL1290197</td></tr>
+        <tr><td>3 Mobile Number</td><td th:text="${mobileNumber}">9807619566</td></tr>
+        <tr><td>4 E- mail</td><td th:text="${email}">krishna.menon865@outlook.com</td></tr>
+        <tr><td>5 Address of Installation</td><td th:text="${siteAddress}">H.No.1259,Near Bus Stand,Laxmi Road, Ahmednagar- 414001,Maharashtra</td></tr>
+        <tr><td>6 RE Arrangement Type</td><td th:text="${reArrangementType}">Net Metering Arrangement</td></tr>
+        <tr><td>7 RE Source</td><td th:text="${reSource}">Solar</td></tr>
+        <tr><td>8 Sanctioned Capacity(KW)</td><td th:text="${sanctionedCapacity}">13.75</td></tr>
+        <tr><td>9 Capacity Type</td><td th:text="${capacityType}">Rooftop</td></tr>
+        <tr><td>10 Project Model</td><td th:text="${projectModel}">RESCO</td></tr>
+        <tr><td>11 RE installed Capacity(Rooftop)(KW)</td><td th:text="${reInstalledCapacityRooftop}">13.75</td></tr>
+        <tr><td>12 RE installed Capacity(Rooftop + Ground)(KW)</td><td th:text="${reInstalledCapacityRooftopGround}">0.0</td></tr>
+        <tr><td>13 RE installed Capacity(Ground)(KW)</td><td th:text="${reInstalledCapacityGround}">0.0</td></tr>
+        <tr><td>14 Installation date</td><td th:text="${installationDate}">2025- 07- 09</td></tr>
+        <tr><td>15 SolarPV Details</td><td>
+            <!-- line 1: Inverter Capacity & Make (labels bold, values normal) -->
+            <span class="solar-line1">
+                <span class="solar-label">Inverter Capacity(KW):</span><span class="solar-value" th:text="${inverterCapacity}">13.75</span>
+                <span class="solar-label">Inverter Make:</span><span class="solar-value" th:text="${inverterMake}">GoodWe</span>
+            </span>
+            <!-- line 2: No.of PV Modules & Module Capacity (labels bold, values normal) -->
+            <span class="solar-line2">
+                <span class="solar-label">No.of PV Modules:</span><span class="solar-value" th:text="${numberOfModules}">24</span>
+                <span class="solar-label">Module Capacity (KW):</span><span class="solar-value" th:text="${wattagePerModule}">573.0</span>
+            </span>
+        </td></tr>
+    </table>
+
+    <!-- COMMISSIONING REPORT PARAGRAPHS – exact wording, line breaks, no extra bold (values normal) -->
+    <div class="commissioning-text">
+        <p>Certified that a Grid Connected SPV Power Plant of <span class="plain-value" th:text="${totalCapacityKWP}">13.75</span> KWp capacity has been installed at the site</p>
+
+        <p>District of MAHARASHTRA which has been installed by M/S. <span class="plain-value" th:text="${vendorName}">Exide Industries</span>. The system is as per BIS/MNRE specifications. The system has been checked for its performance and found in order for further commissioning.</p>
+
+        <!-- this line exactly as PDF: "2025- 07- 09 and found in order for commissioning." (with spaces) -->
+        <p><span class="plain-value" th:text="${installationDate}">2025- 07- 09</span> and found in order for commissioning.</p>
+    </div>
+
+    <!-- SIGNATURE ROW 1: Installer/Vendor  &  Consumer (with solid underline) -->
+    <div class="signature-row">
+        <div class="signature-box">
+            <div class="signature-label">Signature of Installer/Vendor</div>
+            <div class="signature-line"></div>   <!-- solid line exactly like original _____ -->
+            <div class="signature-name">Name: <span th:text="${vendorName}">Exide Industries</span></div>
+            <div class="signature-date">Date: <span th:text="${installationDate}">2025- 07- 09</span></div>
+        </div>
+        <div class="signature-box">
+            <div class="signature-label">Signature of Consumer</div>
+            <div class="signature-line"></div>
+            <div class="signature-name">Name: <span th:text="${name}">Krishna Menon</span></div>
+            <div class="signature-date">Date: <span th:text="${installationDate}">2025- 07- 09</span></div>
+        </div>
+    </div>
+
+    <!-- SIGNATURE ROW 2: For MSEDCL  &  Electrical Inspector (exact wording) -->
+    <div class="signature-row">
+        <div class="signature-box">
+            <div class="signature-label">For MSEDCL</div>
+            <div class="signature-line"></div>
+            <div class="signature-name">Name: <span th:text="${msedclOfficerName}">Shri. Amit More</span></div>
+            <div class="signature-desig">Designation: <span th:text="${msedclOfficerDesignation}">Executive Engineer</span></div>
+            <div class="signature-date">Date: <span th:text="${installationDate}">2025- 07- 09</span></div>
+        </div>
+        <div class="signature-box">
+            <div class="signature-label">Electrical Inspector's Signature</div>
+            <div class="signature-line"></div>
+            <div class="signature-name">Name: <span th:text="${inspectorName}">Shri. Sanjay Bhosale</span></div>
+            <div class="signature-date">Date: <span th:text="${installationDate}">2025- 07- 09</span></div>
+            <div class="if-applicable">(if applicable)</div>
+        </div>
+    </div>
+
+    <!-- absolutely no extra characters – matches original PDF exactly -->
+    <!-- VERIFICATION:
+         - Titles bold, all caps ✓
+         - Data table labels bold, values normal (no bold, no underline) ✓
+         - Solar details split into two lines exactly as PDF: "Inverter Capacity(KW):13.75 Inverter Make: GoodWe" and next line "No.of PV Modules:24 Module Capacity (KW):573.0" ✓
+         - Commissioning paragraphs verbatim, no extra bold, date with spaces "2025- 07- 09" ✓
+         - Signature lines with solid underline, names/dates normal weight ✓
+         - All content from original included, nothing added (no extra fields) ✓
+         - No dotted lines under any values (only signature underlines) ✓
+    -->
+</div>
+</body>
+</html>

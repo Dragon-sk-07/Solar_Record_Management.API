@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NET METERING CONNECTION AGREEMENT (exact government template)</title>
+    <style>
+        /* RESET - absolute fidelity to original PDF */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Times New Roman', Times, serif;
+            font-size: 13.2pt;          /* measured from PDF */
+            line-height: 1.45;
+            color: #000;
+            background: white;
+            padding: 25px 22px;          /* no border, minimal margin */
+        }
+        .document-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+        }
+        /* annexure line */
+        .annexure {
+            text-align: center;
+            font-size: 13.2pt;
+            margin-bottom: 2px;
+            font-weight: normal;
+        }
+        /* main title - exactly as PDF: bold, all caps */
+        h1 {
+            font-size: 21px;
+            font-weight: 700;
+            text-align: center;
+            margin: 10px 0 8px 0;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+            font-family: 'Times New Roman', Times, serif;
+        }
+        /* section headings: bold, left-aligned, spacing as PDF */
+        h2 {
+            font-size: 16px;
+            font-weight: 700;
+            margin: 22px 0 5px 0;
+            font-family: 'Times New Roman', Times, serif;
+        }
+        /* clause numbers (like 2.1, 2.2) */
+        .clause-number {
+            font-weight: 700;
+            display: inline-block;
+            width: 32px;
+            margin-right: 2px;
+        }
+        .subclause-number {
+            font-weight: 700;
+            display: inline-block;
+            width: 28px;
+            margin-left: 2px;
+        }
+        .subclause {
+            margin-left: 32px;
+        }
+        .subclause p {
+            margin: 2px 0;
+        }
+        /* PLACEHOLDERS - exactly like PDF: dotted underline, normal weight (not bold) */
+        .field-placeholder {
+            border-bottom: 1px dotted #202020;
+            display: inline-block;
+            min-width: 140px;
+            text-align: center;
+            font-weight: 400;
+            font-size: 13.2pt;
+            padding: 0 2px 0 2px;
+            background: #ffffff;
+            color: #000;
+            vertical-align: baseline;
+            line-height: 1.3;
+            font-family: 'Times New Roman', Times, serif;
+        }
+        .field-placeholder.long {
+            min-width: 270px;
+        }
+        .field-placeholder.medium {
+            min-width: 180px;
+        }
+        /* preserve page breaks: page1 ends after clause 4 */
+        .page-break-before-5 {
+            page-break-before: always;
+            margin-top: 10px;
+        }
+        /* signature and witness sections - underscores, no border lines */
+        .signature-section {
+            margin-top: 45px;
+            display: flex;
+            justify-content: space-between;
+        }
+        .signature-box {
+            width: 45%;
+        }
+        .signature-box p {
+            margin: 4px 0;
+        }
+        .witness-section {
+            margin-top: 35px;
+            display: flex;
+            justify-content: space-between;
+        }
+        .witness-box {
+            width: 45%;
+        }
+        .bold {
+            font-weight: 700;
+        }
+        .mt-10 { margin-top: 6px; }
+        .mt-15 { margin-top: 12px; }
+        .mt-20 { margin-top: 16px; }
+        .mb-5 { margin-bottom: 3px; }
+
+        p {
+            margin: 0 0 3px 0;
+            text-align: justify;
+        }
+
+        .party-section p {
+            margin-bottom: 8px;
+        }
+
+        .whereas-section {
+            margin-left: 20px;
+            margin-top: 15px;
+            margin-bottom: 10px;
+        }
+
+        /* inline underscore for signature lines (_____) */
+        .signature-underscore {
+            font-size: 16px;
+            letter-spacing: 3px;
+            font-weight: 400;
+            font-family: 'Times New Roman', Times, serif;
+        }
+
+        /* ensure placeholders never become bold */
+        .field-placeholder, .field-placeholder.long, .field-placeholder.medium {
+            font-weight: 400 !important;
+        }
+
+        /* specific to 2.3 field (interface point) */
+        .interface-field {
+            min-width: 180px;
+        }
+        /* last line of page1: must end with "Network." exactly */
+        .last-of-page1 {
+            margin-bottom: 0;
+        }
+    </style>
+</head>
+<body>
+<div class="document-container">
+
+    <!-- PAGE 1 CONTENT (line by line) -->
+    <p class="annexure">3 Annexure - 3</p>
+    <h1>NET METERING CONNECTION AGREEMENT</h1>
+
+    <div class="party-section">
+        <p>This Agreement is made and entered into at <span class="field-placeholder" th:text="${location}">Thane</span> on this <span class="field-placeholder" th:text="${day}">09</span> day of <span class="field-placeholder" th:text="${month}">July</span> <span class="field-placeholder" th:text="${year}">2025</span> between the Eligible Consumer <span class="field-placeholder" th:text="${name}">Krishna Menon</span> having premises at <span class="field-placeholder long" th:text="${siteAddress}">H. No. 1259, Near Bus Stand, Laxmi Road, Ahmednagar - 414001, Maharashtra</span> and Consumer No. <span class="field-placeholder" th:text="${consumerNumber}">MSEDCL1290197</span> as the first Party,</p>
+
+        <p class="mt-20" style="margin-top: 18px;">AND</p>
+
+        <p class="mt-20" style="margin-top: 16px;">MSEDCL (hereinafter referred to as 'the Licensee') and having its Registered Office at <span class="field-placeholder" th:text="${msedclAddress}">MSEDCL, Prakashgad, Bandra East, Mumbai - 400051, Maharashtra</span> as second Party of this Agreement.</p>
+    </div>
+
+    <div class="whereas-section">
+        <p>Whereas the Eligible Consumer has applied to MSEDCL for approval of a Net Metering Arrangement under the provisions of the Maharashtra Electricity Regulatory Commission (Grid Interactive Renewable Energy Generating Systems) Regulations, 2019 ('the Grid Interactive Renewable Regulations') and sought its connectivity to MSEDCL's distribution Network;</p>
+
+        <p class="mt-20" style="margin-top: 16px;">And whereas MSEDCL has agreed to provide Network connectivity to the Eligible Consumer for injection of electricity generated from its Renewable Energy Generating System of <span class="field-placeholder" th:text="${sanctionedCapacity}">13.75</span> kilowatt;</p>
+
+        <p class="mt-20" style="margin-top: 15px;">Both Parties hereby agree as follows:</p>
+    </div>
+
+    <h2>1 Eligibility</h2>
+    <div class="clause">
+        <p>The Renewable Energy Generating System meets the applicable norms for being integrated into the distribution network, and that the Eligible Consumer shall maintain the System accordingly for the duration of this Agreement.</p>
+    </div>
+
+    <h2>2 Technical and Inter-connection Requirements</h2>
+    <div class="clause">
+        <p><span class="clause-number">2.1</span> The metering arrangement and the inter-connection of the Renewable Energy Generating System with the Network of MSEDCL shall be as per the provisions of the Grid Interactive Renewable Regulations, and the technical standards and norms specified by the Central Electricity Authority for connectivity of distributed generation resources and for the installation and operation of meters.</p>
+
+        <p class="mt-10"><span class="clause-number">2.2</span> The Eligible Consumer agrees, that he shall install, prior to connection of the Renewable Energy Generating System to the Network, all required equipment as per the</p>
+        <!-- NOTE: 2.2 continues onto page 2, but the original PDF cuts mid-sentence. We keep exactly that. -->
+    </div>
+
+    <!-- PAGE 2 (starts mid-sentence from 2.2) -->
+    <div class="page-break-before-5"></div>
+
+    <div class="clause">
+        <!-- continuation of 2.2 (exact wording from PDF page2) -->
+        <p class="mt-10"><span class="clause-number">2.3</span> MSEDCL shall specify the interface/inter- connection point and metering point at <span class="field-placeholder interface-field" th:text="${interconnectionPoint}">DT- 473/63</span> <span class="clause-number">2.4</span> The Eligible Consumer shall furnish all relevant data, such as voltage, frequency, circuit breaker, isolator position in his System, as and when required by MSEDCL.</p>
+        <!-- In original PDF, 2.3 and 2.4 are on same line with a space. We preserve that. -->
+    </div>
+
+    <h2>3 Safety</h2>
+    <div class="clause">
+        <p><span class="clause-number">3.1</span> The equipment connected to MSEDCL's distribution System shall be compliant with relevant International (IEEE/IEC) or Indian standards (BIS), as the case may be, and the installation of electrical equipment shall comply with the requirements specified by the Central Electricity Authority regarding safety and electricity supply.</p>
+        <p class="mt-10"><span class="clause-number">3.2</span> The design, installation, maintenance and operation of the Renewable Energy Generating System shall be undertaken in a manner conducive to the safety of the Renewable Energy Generating System as well as MSEDCL's Network.</p>
+        <p class="mt-10"><span class="clause-number">3.3</span> If, at any time, MSEDCL determines that the Eligible Consumer's Renewable Energy Generating System is causing or may cause damage to and/or results in MSEDCL's other consumers or its assets, the Eligible Consumer shall disconnect the Renewable Energy Generating System from the distribution Network upon direction from MSEDCL, and shall undertake corrective measures at his own expense prior to reconnection.</p>
+        <p class="mt-10"><span class="clause-number">3.4</span> MSEDCL shall not be responsible for any accident resulting in injury to human beings or animals or damage to property that may occur due to back- feeding from the Renewable Energy Generating System when the grid supply is off. MSEDCL may disconnect the installation at any time in the event of such exigencies to prevent such accident.</p>
+    </div>
+
+    <h2>4 Other Clearances and Approvals</h2>
+    <div class="clause">
+        <p>The Eligible Consumer shall obtain any statutory approvals and clearances that may be required, such as from the Electrical Inspector or the municipal or other authorities, before connecting the Renewable Energy Generating System to the distribution Network.</p>
+    </div>
+
+    <!-- page 3 starts here -->
+    <h2>5 Period of Agreement, and Termination</h2>
+    <div class="clause">
+        <p><span class="clause-number">5.1</span> This Agreement shall be for a period for 20 years, but may be terminated prematurely</p>
+        <div class="subclause">
+            <p><span class="subclause-number">a)</span> By mutual consent; or</p>
+            <p><span class="subclause-number">b)</span> By the Eligible Consumer, by giving 90 days' notice to MSEDCL;  or</p>
+            <p><span class="subclause-number">c)</span> By MSEDCL, by giving 30 days' notice, if the Eligible Consumer breaches any terms of this Agreement or the provisions of the Grid Interactive Rooftop Renewable Energy Generating Systems Regulations and does not remedy such breach within 30 days, or such other reasonable period as may be provided, of receiving notice of such breach, or for any other valid reason communicated by MSEDCL in writing;</p>
+            <p><span class="subclause-number">d)</span> By MSEDCL, by giving 30 days' notice, if the Eligible Consumer fails to pay his dues in a timely manner or indulges in any malpractices.</p>
+        </div>
+    </div>
+
+    <h2>6 Access and Disconnection</h2>
+    <div class="clause">
+        <p><span class="clause-number">6.1</span> The Eligible Consumer shall provide access to MSEDCL to the metering equipment and disconnecting devices of Renewable Energy Generating System, both automatic and manual, by the Eligible Consumer.</p>
+        <p class="mt-10"><span class="clause-number">6.2</span> If, in an emergent or outage situation, MSEDCL cannot access the disconnecting devices of the Renewable Energy Generating System, both automatic and manual, it may disconnect power supply to the premises.</p>
+        <p class="mt-10"><span class="clause-number">6.3</span> Upon termination of this Agreement under Clause 5, the Eligible Consumer shall disconnect the Renewable Energy Generating System forthwith from the Network of MSEDCL.</p>
+    </div>
+
+    <h2>7 Liabilities</h2>
+    <div class="clause">
+        <p><span class="clause-number">7.1</span> The Parties shall indemnify each other for damages or adverse effects of either Party's negligence or misconduct during the installation of the Renewable Energy Generating System, connectivity with the distribution Network and operation of the System.</p>
+        <p class="mt-10"><span class="clause-number">7.2</span> The Parties shall not be liable to each other for any loss of profits or revenues, business interruption losses, loss of contract or goodwill, or for indirect, consequential, incidental or special damages including, but not limited to, punitive or exemplary damages, whether any of these liabilities, losses or damages arise in contract, or otherwise.</p>
+    </div>
+
+    <h2>8 Commercial Settlement</h2>
+    <div class="clause">
+        <p><span class="clause-number">8.1</span> The commercial settlements under this Agreement shall be in accordance with the Grid Interactive Renewable Regulations.</p>
+        <p class="mt-10"><span class="clause-number">8.2</span> MSEDCL shall not be liable to compensate the Eligible Consumer if his Renewable Energy Generating System is unable to inject surplus power generated into MSEDCL's Network on account of failure of power supply in the grid/Network.</p>
+        <p class="mt-10"><span class="clause-number">8.3</span> The existing metering System, if not in accordance with the Grid Interactive Renewable Regulations, shall be replaced by a bi- directional meter (whole current/CT operated) and a separate Renewable Energy Generation Meter shall be provided to measure Renewable Energy generation. The bi- directional meter (whole current/CT operated) shall be installed at the inter- connection point to MSEDCL's Network for recording export and import of energy.</p>
+        <p class="mt-10"><span class="clause-number">8.4</span> The uni- directional and bi- directional meters shall be fixed in separate meter boxes in the same proximity.</p>
+        <p class="mt-10"><span class="clause-number">8.5</span> The energy generated by the Renewable Energy Generating Station shall be offset against the energy consumption of the consumer from the MSEDCL in the following manner:</p>
+        <div class="subclause">
+            <p><span class="subclause-number">a)</span> If the quantum of electricity exported exceeds the quantum imported during the Billing Period, the excess quantum shall be carried forward to the next Billing Period as credited Units of electricity;</p>
+            <p><span class="subclause-number">b)</span> If the quantum of electricity Units imported by the Eligible Consumer during any Billing Period exceeds the quantum exported, the MSEDCL shall raise its invoice for the net electricity consumption after adjusting the credited Units;</p>
+            <p><span class="subclause-number">c)</span> The unadjusted net credited Units of electricity as at the end of each financial year shall be purchased by the MSEDCL at the Generic Tariff approved by the Commission for that year, within the first month of the following year: Provided that, at the beginning of each Settlement Period, the cumulative quantum of injected electricity carried forward will be re-set to zero;</p>
+            <p><span class="subclause-number">d)</span> In case the Eligible Consumer is within the ambit of Time of Day (ToD) tariff, the electricity consumption in any time block, i.e. peak hours, off-peak hours, etc., shall be first compensated with the quantum of electricity injected in the same time block; any excess injection over and above the consumption in any other time block in a Billing Cycle shall be accounted as if the excess injection had occurred during off- peak hours;</p>
+            <p><span class="subclause-number">e)</span> MSEDCL shall compute the amount payable to the Eligible Consumer for the excess Renewable Energy purchased by it as specified in Clause 8.5 (c), and shall provide credit equivalent to the amount payable in the immediately succeeding Billing Cycle.</p>
+        </div>
+    </div>
+
+    <h2>9 Connection Costs</h2>
+    <div class="clause">
+        <p>The Eligible Consumer shall bear all costs related to the setting up of the Renewable Energy Generating System, including the cost of the Renewable Energy Generation Meter.</p>
+    </div>
+
+    <h2>10 Dispute Resolution</h2>
+    <div class="clause">
+        <p><span class="clause-number">10.1</span> Any dispute arising under this Agreement shall be resolved promptly, in good faith and in an equitable manner by both the Parties.</p>
+        <p class="mt-10"><span class="clause-number">10.2</span> The Eligible Consumer shall have recourse to the concerned Consumer Grievance Redressal Forum constituted under the relevant Regulations in respect of any grievance regarding billing, which has not been redressed by MSEDCL.</p>
+    </div>
+
+    <!-- Witness line as per PDF -->
+    <p style="margin: 32px 0 15px 0;">In the witness, where of <span class="field-placeholder" th:text="${name}">Krishna Menon</span> (Name) for and on behalf of Eligible Consumer) and <span class="field-placeholder" th:text="${msedclOfficerName}">Shri. Amit More</span> (Name) for and on behalf of (Licensee) agree to this agreement.</p>
+
+    <!-- signature boxes with underscores (_____) exactly like original PDF filled example -->
+    <div class="signature-section">
+        <div class="signature-box">
+            <p><span class="bold">For and on behalf of Eligible Consumer</span></p>
+            <p><span class="bold">Signature:</span> <span class="signature-underscore">_________________________</span></p>
+            <p><span class="bold">Name:</span> <span th:text="${name}">Krishna Menon</span></p>
+            <p><span class="bold">Date:</span> <span th:text="${installationDate}">2025-07-09</span></p>
+        </div>
+        <div class="signature-box">
+            <p><span class="bold">For and on behalf of MSEDCL (Licensee)</span></p>
+            <p><span class="bold">Signature:</span> <span class="signature-underscore">_________________________</span></p>
+            <p><span class="bold">Name:</span> <span th:text="${msedclOfficerName}">Shri. Amit More</span></p>
+            <p><span class="bold">Designation:</span> <span th:text="${msedclOfficerDesignation}">Executive Engineer</span></p>
+            <p><span class="bold">Date:</span> <span th:text="${installationDate}">2025-07-09</span></p>
+        </div>
+    </div>
+
+    <!-- Witness 1 and 2 (exact as filled PDF) -->
+    <div class="witness-section">
+        <div class="witness-box">
+            <p><span class="bold">Witness 1:</span></p>
+            <p><span class="bold">Name:</span> <span th:text="${witness1Name}">Sanya Mehta</span></p>
+            <p><span class="bold">Address:</span> <span th:text="${witness1Address}">H. No. 8693, Near Railway Station, Wakad, Mumbai - 400001, Maharashtra</span></p>
+            <p><span class="bold">Signature:</span> <span class="signature-underscore">_________________________</span></p>
+        </div>
+        <div class="witness-box">
+            <p><span class="bold">Witness 2:</span></p>
+            <p><span class="bold">Name:</span> <span th:text="${witness2Name}">Manoj Naik</span></p>
+            <p><span class="bold">Address:</span> <span th:text="${witness2Address}">H. No. 1354, Near Bus Stand, Shukrawar Peth, Kolhapur - 416001, Maharashtra</span></p>
+            <p><span class="bold">Signature:</span> <span class="signature-underscore">_________________________</span></p>
+        </div>
+    </div>
+
+    <!-- END OF DOCUMENT - exactly as original PDF (no extra text) -->
+</div>
+</body>
+</html>

@@ -1,0 +1,46 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/SurajKumbhar
+    username: postgres
+    password: admin123
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+
+  jackson:
+    serialization:
+      indent_output: true
+
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: Shantanukumbhar310@gmail.com
+    password: ${MAIL_PASSWORD}
+    //password: rlpx jdfc etld zocn
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 20MB
+
+server:
+  port: 8080
+  tomcat:
+    max-part-count: 500
+
+jwt:
+  secret: erpBillingSecretKey_ChangeThis_In_Prod_123456
+  expiration: 86400000
