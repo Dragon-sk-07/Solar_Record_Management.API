@@ -1,5 +1,5 @@
-# Use OpenJDK 21 as base image
-FROM openjdk:21
+# Use OpenJDK 17 LTS as base image
+FROM openjdk:17
 
 # Set working directory inside the container
 WORKDIR /app
@@ -10,14 +10,12 @@ COPY .mvn/ .mvn
 COPY pom.xml .
 COPY src/ ./src
 
-# Make Maven wrapper executable
+# Make mvnw executable and build
 RUN chmod +x mvnw
-
-# Build the Spring Boot app
 RUN ./mvnw clean install -DskipTests
 
-# Expose the port your app runs on
+# Expose Spring Boot default port
 EXPOSE 8080
 
-# Command to run the app
+# Start the Spring Boot app
 CMD ["java", "-jar", "target/Customer_Portal_29-0.0.1-SNAPSHOT.jar"]
