@@ -4,4 +4,3 @@ services:
     runtime: java
     buildCommand: "./mvnw clean package -DskipTests"
     startCommand: "java -jar target/*.jar"
-    plan: free
