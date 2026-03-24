@@ -1,8 +1,8 @@
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/SurajKumbhar
-    username: postgres
-    password: admin123
+    url: ${SPRING_DATASOURCE_URL}
+    username: ${SPRING_DATASOURCE_USERNAME}
+    password: ${SPRING_DATASOURCE_PASSWORD}
     driver-class-name: org.postgresql.Driver
 
   jpa:
@@ -21,9 +21,8 @@ spring:
   mail:
     host: smtp.gmail.com
     port: 587
-    username: Shantanukumbhar310@gmail.com
+    username: ${MAIL_USERNAME}
     password: ${MAIL_PASSWORD}
-    //password: rlpx jdfc etld zocn
     properties:
       mail:
         smtp:
@@ -42,5 +41,5 @@ server:
     max-part-count: 500
 
 jwt:
-  secret: erpBillingSecretKey_ChangeThis_In_Prod_123456
+  secret: ${JWT_SECRET}
   expiration: 86400000
