@@ -59,37 +59,40 @@ public class AuthService {
 
     public void sendOtp(String target) {
 
+        // Remove previous OTP if exists
         otpRepo.findTopByTargetOrderByExpiryTimeDesc(target)
                 .ifPresent(otpRepo::delete);
 
+        // Generate 6-digit OTP
         String otp = String.valueOf((int)(Math.random() * 900000) + 100000);
 
+        // Save OTP with 5 minutes expiry
         OtpVerification o = new OtpVerification();
         o.setTarget(target);
         o.setOtp(otp);
         o.setExpiryTime(LocalDateTime.now().plusMinutes(5));
-
         otpRepo.save(o);
 
         if (target.contains("@")) {
-            // Try sending email
+            // EMAIL OTP
             try {
-                sendEmailOtp(target, otp);
-                System.out.println("EMAIL OTP sent to " + target);
+                sendEmailOtp(target, otp); // try sending email
             } catch (Exception e) {
-                System.err.println("Email sending failed, falling back to console: " + e.getMessage());
-                System.out.println("=================================");
-                System.out.println(" EMAIL OTP for " + target + " : " + otp);
-                System.out.println("=================================");
+                System.err.println("Email sending failed: " + e.getMessage());
             }
-        } else {
-            // MOBILE OTP (Console)
+
+            // Always show in console
             System.out.println("=================================");
-            System.out.println("MOBILE OTP for " + target + " : " + otp);
+            System.out.println("EMAIL OTP : " + otp);
+            System.out.println("=================================");
+
+        } else {
+            // MOBILE OTP
+            System.out.println("=================================");
+            System.out.println("MOBILE OTP : " + otp);
             System.out.println("=================================");
         }
     }
-
 
     public void verifyOtp(String target, String otp) {
 
