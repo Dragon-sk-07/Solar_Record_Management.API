@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:2929")
+@CrossOrigin(origins = {"http://localhost:2929", "https://your-frontend-url.onrender.com"})
 @RequestMapping("/solar-records")
 public class SolarRecordController {
 
