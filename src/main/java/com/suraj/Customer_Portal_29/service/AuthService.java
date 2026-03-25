@@ -74,21 +74,21 @@ public class AuthService {
         otpRepo.save(o);
 
         if (target.contains("@")) {
-            // Immediately show OTP in console
+            // Email OTP with user identifier
             System.out.println("=================================");
-            System.out.println("EMAIL OTP : " + otp);
+            System.out.println("Email: " + target + " | OTP: " + otp);
             System.out.println("=================================");
 
             // Then try sending email
             try {
                 sendEmailOtp(target, otp);
             } catch (Exception e) {
-                System.err.println("Email sending failed: " + e.getMessage());
+                System.err.println("Email sending failed for " + target + ": " + e.getMessage());
             }
         } else {
-            // MOBILE OTP (Console)
+            // Mobile OTP with user identifier
             System.out.println("=================================");
-            System.out.println("MOBILE OTP : " + otp);
+            System.out.println("Mobile: " + target + " | OTP: " + otp);
             System.out.println("=================================");
         }
     }
