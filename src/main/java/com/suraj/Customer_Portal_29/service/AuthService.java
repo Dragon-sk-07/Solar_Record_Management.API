@@ -74,20 +74,19 @@ public class AuthService {
         otpRepo.save(o);
 
         if (target.contains("@")) {
-            // EMAIL OTP
-            try {
-                sendEmailOtp(target, otp); // try sending email
-            } catch (Exception e) {
-                System.err.println("Email sending failed: " + e.getMessage());
-            }
-
-            // Always show in console
+            // Immediately show OTP in console
             System.out.println("=================================");
             System.out.println("EMAIL OTP : " + otp);
             System.out.println("=================================");
 
+            // Then try sending email
+            try {
+                sendEmailOtp(target, otp);
+            } catch (Exception e) {
+                System.err.println("Email sending failed: " + e.getMessage());
+            }
         } else {
-            // MOBILE OTP
+            // MOBILE OTP (Console)
             System.out.println("=================================");
             System.out.println("MOBILE OTP : " + otp);
             System.out.println("=================================");
