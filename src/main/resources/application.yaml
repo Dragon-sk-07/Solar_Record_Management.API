@@ -36,7 +36,8 @@ spring:
       max-request-size: 20MB
 
 server:
-  port: 8080
+#  port: 8080
+  port: ${PORT:8080}
   tomcat:
     max-part-count: 500
 
