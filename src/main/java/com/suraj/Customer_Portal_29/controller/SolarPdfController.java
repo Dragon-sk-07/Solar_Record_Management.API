@@ -106,7 +106,7 @@ public class SolarPdfController {
 //  ADD THIS - Aadhar Image to Base64
         if (record.getAadharImagePath() != null && !record.getAadharImagePath().isEmpty()) {
             try {
-                String uploadDir = System.getProperty("user.dir") + "/uploads/";
+                String uploadDir = System.getProperty("user.dir") + "/";
                 String imagePathStr = record.getAadharImagePath();
                 // Remove leading slash if present
                 if (imagePathStr.startsWith("/")) {
