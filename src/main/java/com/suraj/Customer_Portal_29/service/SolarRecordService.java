@@ -78,6 +78,12 @@ public class SolarRecordService {
         List<String> photoPaths = savePhotos(req.getSitePhotos());
         entity.setSitePhotos(photoPaths);
 
+        if (req.getAadharImage() != null && !req.getAadharImage().isEmpty()) {
+            entity.setAadharImagePath(saveAadharImage(req.getAadharImage()));
+        } else if (req.getExistingAadharImage() != null) {
+            entity.setAadharImagePath(req.getExistingAadharImage());
+        }
+
         return entity;
     }
 
@@ -99,6 +105,12 @@ public class SolarRecordService {
 
         if (req.getExistingPhotos() != null) {
             updatedPhotos.addAll(req.getExistingPhotos());
+        }
+
+        if (req.getAadharImage() != null && !req.getAadharImage().isEmpty()) {
+            entity.setAadharImagePath(saveAadharImage(req.getAadharImage()));
+        } else if (req.getExistingAadharImage() != null) {
+            entity.setAadharImagePath(req.getExistingAadharImage());
         }
 
         if (req.getSitePhotos() != null && !req.getSitePhotos().isEmpty()) {
@@ -218,6 +230,7 @@ public class SolarRecordService {
         res.setSiteAddress(entity.getSiteAddress());
         res.setCategory(entity.getCategory());
         res.setAadharNumber(entity.getAadharNumber());
+        res.setAadharImagePath(entity.getAadharImagePath());
 
         res.setSanctionNumber(entity.getSanctionNumber());
         res.setSanctionedCapacity(entity.getSanctionedCapacity());
@@ -287,6 +300,29 @@ public class SolarRecordService {
         res.setSitePhotos(entity.getSitePhotos());
 
         return res;
+    }
+
+    private String saveAadharImage(MultipartFile file) {
+        if (file == null || file.isEmpty()) {
+            return null;
+        }
+        try {
+            String timestamp = String.valueOf(System.currentTimeMillis());
+            String originalFilename = file.getOriginalFilename();
+            String extension = originalFilename != null ?
+                    originalFilename.substring(originalFilename.lastIndexOf(".")) : ".jpg";
+            String fileName = "aadhar_" + timestamp + "_" + UUID.randomUUID().toString().substring(0, 8) + extension;
+
+            Path uploadPath = Paths.get(UPLOAD_DIR);
+            Path filePath = uploadPath.resolve(fileName);
+
+            Files.createDirectories(uploadPath);
+            Files.write(filePath, file.getBytes());
+
+            return "/uploads/" + fileName;
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to upload Aadhar image: " + e.getMessage(), e);
+        }
     }
 
     private List<String> savePhotos(List<MultipartFile> files) {

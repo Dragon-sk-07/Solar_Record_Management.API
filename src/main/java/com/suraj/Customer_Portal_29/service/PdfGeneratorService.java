@@ -57,4 +57,8 @@ public class PdfGeneratorService {
             throw new RuntimeException("PDF generation failed", e);
         }
     }
+    public static String imageToBase64(byte[] imageBytes, String mimeType) {
+        String base64 = java.util.Base64.getEncoder().encodeToString(imageBytes);
+        return "data:" + mimeType + ";base64," + base64;
+    }
 }

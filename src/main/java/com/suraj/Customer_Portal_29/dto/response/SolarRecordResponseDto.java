@@ -86,4 +86,5 @@ public class SolarRecordResponseDto {
     private String witness2Address;
 
     private List<String> sitePhotos;
+    private String aadharImagePath;
 }

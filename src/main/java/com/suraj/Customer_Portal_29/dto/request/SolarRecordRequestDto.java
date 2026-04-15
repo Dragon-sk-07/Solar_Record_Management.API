@@ -205,4 +205,7 @@ public class SolarRecordRequestDto {
     // ==================== SITE PHOTOS ====================
     private List<MultipartFile> sitePhotos;
     private List<String> existingPhotos;
+
+    private MultipartFile aadharImage;
+    private String existingAadharImage;
 }

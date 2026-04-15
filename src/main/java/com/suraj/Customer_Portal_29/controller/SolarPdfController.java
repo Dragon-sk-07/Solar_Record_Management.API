@@ -7,6 +7,9 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -99,6 +102,26 @@ public class SolarPdfController {
 
         // ================= AADHAR DETAILS =================
         data.put("aadharNumber", record.getAadharNumber() != null ? record.getAadharNumber() : "_________________________");
+
+//  ADD THIS - Aadhar Image to Base64
+        if (record.getAadharImagePath() != null && !record.getAadharImagePath().isEmpty()) {
+            try {
+                String uploadDir = System.getProperty("user.dir") + "/uploads/";
+                String imagePathStr = record.getAadharImagePath();
+                // Remove leading slash if present
+                if (imagePathStr.startsWith("/")) {
+                    imagePathStr = imagePathStr.substring(1);
+                }
+                Path imagePath = Paths.get(uploadDir + imagePathStr);
+                byte[] imageBytes = Files.readAllBytes(imagePath);
+                String aadharImageBase64 = PdfGeneratorService.imageToBase64(imageBytes, "image/jpeg");
+                data.put("aadharImageBase64", aadharImageBase64);
+            } catch (Exception e) {
+                data.put("aadharImageBase64", null);
+            }
+        } else {
+            data.put("aadharImageBase64", null);
+        }
 
         // ================= AGREEMENT DETAILS =================
         LocalDate now = LocalDate.now();

@@ -217,4 +217,7 @@ public class SolarRecord {
     @CollectionTable(name = "solar_site_photos", joinColumns = @JoinColumn(name = "solar_record_id"))
     @Column(name = "photo", columnDefinition = "TEXT")
     private List<String> sitePhotos;
+
+    @Column(name = "aadhar_image_path")
+    private String aadharImagePath;
 }
