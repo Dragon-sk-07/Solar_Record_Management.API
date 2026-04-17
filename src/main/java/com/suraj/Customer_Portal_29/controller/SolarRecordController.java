@@ -5,6 +5,7 @@ import com.suraj.Customer_Portal_29.dto.response.ApiResponseDto;
 import com.suraj.Customer_Portal_29.dto.response.SolarRecordResponseDto;
 import com.suraj.Customer_Portal_29.service.SolarRecordService;
 import jakarta.validation.Valid;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -21,15 +22,16 @@ public class SolarRecordController {
 
     // ================= CREATE =================
     @PostMapping(consumes = "multipart/form-data")
-    public ApiResponseDto<SolarRecordResponseDto> save(
+    public ResponseEntity<ApiResponseDto<SolarRecordResponseDto>> save(
             @Valid @ModelAttribute SolarRecordRequestDto request
     ){
-
         SolarRecordResponseDto data = service.save(request);
 
-        return new ApiResponseDto<>(
-                "Solar record created successfully",
-                data
+        return ResponseEntity.status(201).body(
+                new ApiResponseDto<>(
+                        "Solar record created successfully",
+                        data
+                )
         );
     }
 

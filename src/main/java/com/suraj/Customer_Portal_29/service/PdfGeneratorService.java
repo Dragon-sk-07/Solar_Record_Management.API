@@ -4,12 +4,14 @@ import com.openhtmltopdf.pdfboxout.PdfRendererBuilder;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Entities;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
 
 import java.io.ByteArrayOutputStream;
 import java.util.Map;
+import java.util.concurrent.CompletableFuture;
 
 @Service
 public class PdfGeneratorService {
@@ -60,5 +62,9 @@ public class PdfGeneratorService {
     public static String imageToBase64(byte[] imageBytes, String mimeType) {
         String base64 = java.util.Base64.getEncoder().encodeToString(imageBytes);
         return "data:" + mimeType + ";base64," + base64;
+    }
+    @Async
+    public CompletableFuture<byte[]> generatePdfAsync(String type, Map<String, Object> data) {
+        return CompletableFuture.completedFuture(generatePdf(type, data));
     }
 }

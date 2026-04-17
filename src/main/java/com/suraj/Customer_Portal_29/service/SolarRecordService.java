@@ -4,8 +4,11 @@ import com.suraj.Customer_Portal_29.dto.request.SolarRecordRequestDto;
 import com.suraj.Customer_Portal_29.dto.response.SolarRecordResponseDto;
 import com.suraj.Customer_Portal_29.entity.SolarRecord;
 import com.suraj.Customer_Portal_29.repository.SolarRecordRepository;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -18,12 +21,19 @@ import java.util.stream.Collectors;
 @Service
 public class SolarRecordService {
 
+
     private final SolarRecordRepository repository;
+    private final ModelMapper modelMapper;
+
+    public SolarRecordService(SolarRecordRepository repository,
+                              ModelMapper modelMapper) {
+        this.repository = repository;
+        this.modelMapper = modelMapper;
+    }
     private static final String UPLOAD_DIR = System.getProperty("user.dir") + "/uploads/";
 
-    public SolarRecordService(SolarRecordRepository repository) {
-        this.repository = repository;
-    }
+
+
 
     public SolarRecordResponseDto save(SolarRecordRequestDto request) {
         SolarRecord entity = mapToEntity(request);
@@ -38,6 +48,7 @@ public class SolarRecordService {
                 .collect(Collectors.toList());
     }
 
+    @Cacheable(value = "solarRecords", key = "#id")
     public SolarRecordResponseDto findById(String id) {
         SolarRecord entity = findEntityById(id);
         return mapToResponse(entity);
@@ -117,7 +128,9 @@ public class SolarRecordService {
             updatedPhotos.addAll(savePhotos(req.getSitePhotos()));
         }
 
-        entity.setSitePhotos(updatedPhotos);
+        entity.setSitePhotos(
+                updatedPhotos.stream().distinct().collect(Collectors.toList())
+        );
     }
 
     private void mapBasicFields(SolarRecord entity, SolarRecordRequestDto req) {
@@ -218,88 +231,7 @@ public class SolarRecordService {
     }
 
     private SolarRecordResponseDto mapToResponse(SolarRecord entity) {
-        SolarRecordResponseDto res = new SolarRecordResponseDto();
-
-        res.setId(entity.getId());
-        res.setCreatedAt(entity.getCreatedAt() != null ? entity.getCreatedAt().toString() : null);
-
-        res.setName(entity.getName());
-        res.setConsumerNumber(entity.getConsumerNumber());
-        res.setMobileNumber(entity.getMobileNumber());
-        res.setEmail(entity.getEmail());
-        res.setSiteAddress(entity.getSiteAddress());
-        res.setCategory(entity.getCategory());
-        res.setAadharNumber(entity.getAadharNumber());
-        res.setAadharImagePath(entity.getAadharImagePath());
-
-        res.setSanctionNumber(entity.getSanctionNumber());
-        res.setSanctionedCapacity(entity.getSanctionedCapacity());
-        res.setInstalledCapacity(entity.getInstalledCapacity());
-
-        res.setReArrangementType(entity.getReArrangementType());
-        res.setReSource(entity.getReSource());
-        res.setCapacityType(entity.getCapacityType());
-        res.setProjectModel(entity.getProjectModel());
-        res.setReInstalledCapacityRooftop(entity.getReInstalledCapacityRooftop());
-        res.setReInstalledCapacityRooftopGround(entity.getReInstalledCapacityRooftopGround());
-        res.setReInstalledCapacityGround(entity.getReInstalledCapacityGround());
-        res.setInstallationDate(entity.getInstallationDate() != null ? entity.getInstallationDate().toString() : null);
-
-        res.setModuleMake(entity.getModuleMake());
-        res.setAlmmModelNumber(entity.getAlmmModelNumber());
-        res.setWattagePerModule(entity.getWattagePerModule());
-        res.setNumberOfModules(entity.getNumberOfModules());
-        res.setTotalCapacityKWP(entity.getTotalCapacityKWP());
-        res.setModuleSerialNumbers(entity.getModuleSerialNumbers());
-        res.setCellManufacturerName(entity.getCellManufacturerName());
-        res.setCellGSTInvoiceNo(entity.getCellGSTInvoiceNo());
-
-        res.setProductWarranty(entity.getProductWarranty());
-        res.setPerformanceWarranty(entity.getPerformanceWarranty());
-
-        res.setInverterMake(entity.getInverterMake());
-        res.setInverterModelNumber(entity.getInverterModelNumber());
-        res.setInverterRating(entity.getInverterRating());
-        res.setInverterCapacity(entity.getInverterCapacity());
-        res.setChargeControllerType(entity.getChargeControllerType());
-        res.setMpptCapacity(entity.getMpptCapacity());
-        res.setHpd(entity.getHpd());
-        res.setYearOfManufacturing(entity.getYearOfManufacturing());
-
-        res.setNumberOfEarthings(entity.getNumberOfEarthings());
-        res.setEarthResistance(entity.getEarthResistance());
-        res.setLighteningArrester(entity.getLighteningArrester());
-
-        res.setVendorName(entity.getVendorName());
-        res.setVendorStamp(entity.getVendorStamp());
-        res.setVendorAddress(entity.getVendorAddress());
-        res.setAuthorizedPersonName(entity.getAuthorizedPersonName());
-        res.setDesignation(entity.getDesignation());
-
-        res.setMsedclAddress(entity.getMsedclAddress());
-        res.setMsedclOfficerName(entity.getMsedclOfficerName());
-        res.setMsedclOfficerDesignation(entity.getMsedclOfficerDesignation());
-        res.setInspectorName(entity.getInspectorName());
-
-        res.setLocation(entity.getLocation());
-        res.setDay(entity.getDay());
-        res.setMonth(entity.getMonth());
-        res.setYear(entity.getYear());
-        res.setInterconnectionPoint(entity.getInterconnectionPoint());
-
-        res.setApplicationNumber(entity.getApplicationNumber());
-        res.setApplicationDate(entity.getApplicationDate() != null ? entity.getApplicationDate().toString() : null);
-        res.setDiscomName(entity.getDiscomName());
-        res.setPlace(entity.getPlace());
-
-        res.setWitness1Name(entity.getWitness1Name());
-        res.setWitness1Address(entity.getWitness1Address());
-        res.setWitness2Name(entity.getWitness2Name());
-        res.setWitness2Address(entity.getWitness2Address());
-
-        res.setSitePhotos(entity.getSitePhotos());
-
-        return res;
+        return modelMapper.map(entity, SolarRecordResponseDto.class);
     }
 
     private String saveAadharImage(MultipartFile file) {
@@ -316,8 +248,10 @@ public class SolarRecordService {
             Path uploadPath = Paths.get(UPLOAD_DIR);
             Path filePath = uploadPath.resolve(fileName);
 
-            Files.createDirectories(uploadPath);
-            Files.write(filePath, file.getBytes());
+            if (!Files.exists(uploadPath)) {
+                Files.createDirectories(uploadPath);
+            }
+            Files.copy(file.getInputStream(), filePath);
 
             return "/uploads/" + fileName;
         } catch (Exception e) {

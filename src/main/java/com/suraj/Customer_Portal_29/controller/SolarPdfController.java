@@ -113,7 +113,12 @@ public class SolarPdfController {
                     imagePathStr = imagePathStr.substring(1);
                 }
                 Path imagePath = Paths.get(uploadDir + imagePathStr);
-                byte[] imageBytes = Files.readAllBytes(imagePath);
+                byte[] imageBytes;
+                try (var inputStream = Files.newInputStream(imagePath)) {
+                    imageBytes = inputStream.readAllBytes();
+                    String aadharImageBase64 = PdfGeneratorService.imageToBase64(imageBytes, "image/jpeg");
+                    data.put("aadharImageBase64", aadharImageBase64);
+                }
                 String aadharImageBase64 = PdfGeneratorService.imageToBase64(imageBytes, "image/jpeg");
                 data.put("aadharImageBase64", aadharImageBase64);
             } catch (Exception e) {
@@ -150,7 +155,7 @@ public class SolarPdfController {
         // ================= PHOTOS =================
         data.put("sitePhotos", record.getSitePhotos());
 
-        byte[] pdf = pdfService.generatePdf(type, data);
+        byte[] pdf = pdfService.generatePdfAsync(type, data).join();
 
         String filename = type;
         switch(type) {
@@ -159,7 +164,7 @@ public class SolarPdfController {
             case "dcr": filename = "Declaration_FOR_DCR.pdf"; break;
             case "agreement": filename = "NET_METERING_CONNECTION_AGREEMENT.pdf"; break;
             case "indemnity": filename = "INDEMNITY_BOND.pdf"; break;
-            default: filename = type + ".pdf";
+            default: filename = "document_" + System.currentTimeMillis() + ".pdf";
         }
 
         return ResponseEntity.ok()
