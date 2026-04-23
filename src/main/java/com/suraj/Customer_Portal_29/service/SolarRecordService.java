@@ -120,24 +120,23 @@ public class SolarRecordService {
         entity.setSitePhotos(updatedPhotos.stream().distinct().collect(Collectors.toList()));
 
         // Handle Aadhar Images - REPLACE completely
+        // Handle Aadhar Images - UPDATE properly
         if (req.getAadharImages() != null && !req.getAadharImages().isEmpty()) {
-            // Delete old files
+            // User uploaded new files - replace all
             if (entity.getAadharImages() != null) {
                 for (String oldPath : entity.getAadharImages()) {
-                    try {
-                        Files.deleteIfExists(Paths.get(System.getProperty("user.dir"), oldPath));
-                    } catch (Exception e) {}
+                    try { Files.deleteIfExists(Paths.get(System.getProperty("user.dir"), oldPath)); } catch (Exception e) {}
                 }
             }
-            // Save new files
             entity.setAadharImages(saveAadharImages(req.getAadharImages()));
+        } else if (req.getExistingAadharImages() != null && !req.getExistingAadharImages().isEmpty()) {
+            // Keep existing files (no change)
+            entity.setAadharImages(req.getExistingAadharImages());
         } else {
-            // NO images in request - delete all
+            // User removed all images
             if (entity.getAadharImages() != null) {
                 for (String oldPath : entity.getAadharImages()) {
-                    try {
-                        Files.deleteIfExists(Paths.get(System.getProperty("user.dir"), oldPath));
-                    } catch (Exception e) {}
+                    try { Files.deleteIfExists(Paths.get(System.getProperty("user.dir"), oldPath)); } catch (Exception e) {}
                 }
             }
             entity.setAadharImages(null);
