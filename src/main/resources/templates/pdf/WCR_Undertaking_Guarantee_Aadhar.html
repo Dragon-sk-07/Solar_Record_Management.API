@@ -33,23 +33,22 @@
             margin: 0 0 10px 0;
         }
         h2 {
-            font-size: 14px;
+            font-size: 16px;
             font-weight: 700;
             text-align: center;
             text-transform: uppercase;
-            margin: 20px 0 15px 0;
+            margin: 25px 0 15px 0;
         }
         table {
             width: 100%;
             border-collapse: collapse;
-            border: 1px solid #000;
-            font-size: 11px;
+            border: 1.2px solid #000;
+            font-size: 12px;
             table-layout: fixed;
-            margin: 10px 0;
         }
         td {
             border: 1px solid #000;
-            padding: 5px 6px;
+            padding: 4px 6px;
             vertical-align: top;
         }
         .col-srno {
@@ -79,11 +78,11 @@
         .signature-flex {
             display: flex;
             justify-content: space-between;
-            margin: 20px 0;
-            gap: 30px;
+            margin: 15px 0;
+            gap: 20px;
         }
         .signature-item {
-            flex: 1;
+            width: 48%;
         }
         .stamp-box {
             border: 1.5px solid #000;
@@ -93,7 +92,7 @@
             align-items: center;
             justify-content: center;
             background: white;
-            margin-top: 8px;
+            margin-top: 4px;
             font-size: 11px;
             text-align: center;
         }
@@ -102,41 +101,23 @@
             border: 1.5px solid #000;
             padding: 15px;
         }
-        /* AADHAR CARD STYLES */
+        /* AADHAR CARD STYLES - Perfect fit */
         .aadhar-card-container {
             margin: 15px 0;
-            border: 1px dashed #444;
+            border: 2px dashed #444;
             background: #f9f9f9;
-            padding: 15px;
-        }
-        .aadhar-images-wrapper {
+            min-height: 180px;
             display: flex;
-            gap: 15px;
-            flex-wrap: wrap;
-            justify-content: center;
             align-items: center;
-        }
-        .aadhar-card-item {
-            flex: 1;
-            min-width: 280px;
-            max-width: 350px;
-            display: flex;
             justify-content: center;
-            align-items: center;
-        }
-        .aadhar-card-item.single {
-            max-width: 350px;
-            margin: 0 auto;
+            padding: 10px;
         }
         .aadhar-image {
-            width: 100%;
-            max-width: 320px;
-            height: auto;
-            aspect-ratio: 86 / 54;
-            object-fit: cover;
-            border: 1px solid #ccc;
-            background: white;
-            padding: 6px;
+            max-width: 100%;
+            max-height: 160px;
+            object-fit: contain;
+            display: block;
+            margin: 0 auto;
         }
         .aadhar-placeholder {
             text-align: center;
@@ -153,12 +134,40 @@
         }
         .page-break {
             margin-top: 40px;
-            page-break-before: always;
         }
         .undertaking-p1, .undertaking-p2 {
             margin: 12px 0;
             text-align: justify;
         }
+        /* Add these new styles */
+.aadhar-images-wrapper {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+
+.aadhar-card-item {
+    flex: 0 1 auto;
+}
+
+.aadhar-card-item.single {
+    margin: 0 auto;
+}
+
+.aadhar-image {
+    max-width: 320px;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 86 / 54;
+    object-fit: cover;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    background: white;
+    padding: 8px;
+}
     </style>
 </head>
 <body>
@@ -174,33 +183,33 @@
         <tr><td class="col-srno">3</td><td class="col-obs">Site/Location With Complete Address</td><td class="col-value"><span class="value-field" th:text="${siteAddress}">_________________________</span></td></tr>
         <tr><td class="col-srno">4</td><td class="col-obs">Category: Govt/Private Sector</td><td class="col-value"><span class="value-field" th:text="${category}">_________________________</span></td></tr>
         <tr><td class="col-srno">5</td><td class="col-obs">Sanction number</td><td class="col-value"><span class="value-field" th:text="${sanctionNumber}">_________________________</span></td></tr>
-        <tr><td class="col-srno">6</td><td class="col-obs">Sanctioned Capacity (KW)</td><td class="col-value"><span class="value-field" th:text="${sanctionedCapacity}">_________________________</span></td></tr>
-        <tr><td class="col-srno"></td><td class="col-obs">Installed Capacity (KW)</td><td class="col-value"><span class="value-field" th:text="${installedCapacity}">_________________________</span></td></tr>
+        <tr><td class="col-srno">6</td><td class="col-obs">Sanctioned Capacity of solar PV system (KW) Installed</td><td class="col-value"><span class="value-field" th:text="${sanctionedCapacity}">_________________________</span></td></tr>
+        <tr><td class="col-srno"></td><td class="col-obs">Capacity of solar PV system (KW) Installed</td><td class="col-value"><span class="value-field" th:text="${installedCapacity}">_________________________</span></td></tr>
         <tr><td class="col-srno">7</td><td colspan="2" class="bold">Specification of the Modules</td></tr>
         <tr><td class="col-srno"></td><td class="col-obs">Make of Module</td><td class="col-value"><span class="value-field" th:text="${moduleMake}">_________________________</span></td></tr>
         <tr><td class="col-srno"></td><td class="col-obs">ALMM Model Number</td><td class="col-value"><span class="value-field" th:text="${almmModelNumber}">_________________________</span></td></tr>
         <tr><td class="col-srno"></td><td class="col-obs">Wattage per module</td><td class="col-value"><span class="value-field" th:text="${wattagePerModule}">_________________________</span></td></tr>
-        <tr><td class="col-srno"></td><td class="col-obs">No. of Modules</td><td class="col-value"><span class="value-field" th:text="${numberOfModules}">_________________________</span></td></tr>
+        <tr><td class="col-srno"></td><td class="col-obs">No. of Module</td><td class="col-value"><span class="value-field" th:text="${numberOfModules}">_________________________</span></td></tr>
         <tr><td class="col-srno"></td><td class="col-obs">Total Capacity (KWP)</td><td class="col-value"><span class="value-field" th:text="${totalCapacityKWP}">_________________________</span></td></tr>
-        <tr><td class="col-srno"></td><td class="col-obs">Warranty Details</td><td class="col-value"><span class="value-field" th:text="${productWarranty}">_________________________</span> / <span class="value-field" th:text="${performanceWarranty}">_________________________</span></td></tr>
-        <tr><td class="col-srno">8</td><td colspan="2" class="bold">Inverter Details</td></tr>
-        <tr><td class="col-srno"></td><td class="col-obs">Make &amp; Model of Inverter</td><td class="col-value"><span class="value-field" th:text="${inverterMake}">_________________________</span> / <span class="value-field" th:text="${inverterModelNumber}">_________________________</span></td></tr>
+        <tr><td class="col-srno"></td><td class="col-obs">Warrantee Details (Product + Performance)</td><td class="col-value"><span class="value-field" th:text="${warrantyDetails}">_________________________</span></td></tr>
+        <tr><td class="col-srno">8</td><td colspan="2" class="bold">PCU</td></tr>
+        <tr><td class="col-srno"></td><td class="col-obs">Make &amp; Model number of Inverter</td><td class="col-value"><span class="value-field" th:text="${inverterMakeModel}">_________________________</span></td></tr>
         <tr><td class="col-srno"></td><td class="col-obs">Rating</td><td class="col-value"><span class="value-field" th:text="${inverterRating}">_________________________</span></td></tr>
-        <tr><td class="col-srno"></td><td class="col-obs">Charge Controller Type</td><td class="col-value"><span class="value-field" th:text="${chargeControllerType}">_________________________</span></td></tr>
-        <tr><td class="col-srno"></td><td class="col-obs">Inverter Capacity (KW)</td><td class="col-value"><span class="value-field" th:text="${inverterCapacity}">_________________________</span></td></tr>
-        <tr><td class="col-srno"></td><td class="col-obs">HPD / Islanding Protection</td><td class="col-value"><span class="value-field" th:text="${hpd}">_________________________</span></td></tr>
+        <tr><td class="col-srno"></td><td class="col-obs">Type of charge controller/ MPPT</td><td class="col-value"><span class="value-field" th:text="${chargeControllerType}">_________________________</span></td></tr>
+        <tr><td class="col-srno"></td><td class="col-obs">Capacity of Inverter</td><td class="col-value"><span class="value-field" th:text="${inverterCapacity}">_________________________</span></td></tr>
+        <tr><td class="col-srno"></td><td class="col-obs">HPD</td><td class="col-value"><span class="value-field" th:text="${hpd}">_________________________</span></td></tr>
         <tr><td class="col-srno"></td><td class="col-obs">Year of manufacturing</td><td class="col-value"><span class="value-field" th:text="${yearOfManufacturing}">_________________________</span></td></tr>
         <tr><td class="col-srno">9</td><td colspan="2" class="bold">Earthing and Protections</td></tr>
-        <tr><td class="col-srno"></td><td class="col-obs">No of Earthings with Earth Resistance</td><td class="col-value"><span class="value-field" th:text="${numberOfEarthings}">_________________________</span> with <span class="value-field" th:text="${earthResistance}">_________________________</span> Ohms</td></tr>
-        <tr><td class="col-srno"></td><td class="col-obs">Earth Resistance (&lt;5 Ohms as per MNRE)</td><td class="col-value">Certified</td></tr>
+        <tr><td class="col-srno"></td><td class="col-obs">No of Separate Earthings with earth Resistance</td><td class="col-value"><span class="value-field" th:text="${numberOfEarthings}">_________________________</span> with <span class="value-field" th:text="${earthResistance}">_________________________</span> Ohms</td></tr>
+        <tr><td class="col-srno"></td><td class="col-obs">It is certified that the Earth Resistance measure in presence of Licensed Electrical Contractor/Supervisor and found in order i.e. less than 5 Ohms as per MNRE OM Dtd. 07.06.24 for CFA Component.</td><td class="col-value"><span class="value-field">Certified</span></td></tr>
         <tr><td class="col-srno"></td><td class="col-obs">Lightening Arrester</td><td class="col-value"><span class="value-field" th:text="${lighteningArrester}">_________________________</span></td></tr>
     </table>
 
     <div class="undertaking-p1">
-        <p>We <span class="value-field" th:text="${vendorName}">_________________________</span> &amp; <span class="value-field" th:text="${name}">_________________________</span> bearing Consumer Number <span class="value-field" th:text="${consumerNumber}">_________________________</span>. Ensured structural stability of installed solar power plant and obtained requisite permissions from the concerned authority. MSEDCL will not be held responsible for any loss to property or human life.</p>
+        <p>We <span class="value-field" th:text="${vendorName}">_________________________</span> &amp; <span class="value-field" th:text="${consumerName}">_________________________</span> bearing Consumer Number <span class="value-field" th:text="${consumerNumber}">_________________________</span>. Ensured structural stability of installed solar power plant and obtained requisite permissions from the concerned authority. If in future, by virtue of any means due to collapsing or damage to installed solar power plant, MSEDCL will not be held responsible for any loss to property or human life, if any.</p>
     </div>
     <div class="undertaking-p2">
-        <p>Certified that installed Solar PV System is working properly with electrical safety &amp; Islanding switch. We will be held responsible for non-working of islanding mechanism and back feed to the de-energized grid.</p>
+        <p>This is to Certified above Installed Solar PV System is working properly with electrical safety &amp; Islanding switch in case of any presence of backup inverter an arrangement should be made in such way the backup inverter supply should never be synchronized with solar inverter to avoid any electrical accident due to back feeding. We will be held responsible for non- working of islanding mechanism and back feed to the de- energized grid.</p>
     </div>
 
     <div class="signature-flex">
@@ -212,24 +221,23 @@
         <div class="signature-item">
             <span class="bold">Signature [Consumer]</span>
             <div class="signature-line"></div>
-            <span class="value-field" th:text="${name}">_________________________</span>
+            <span class="value-field" th:text="${consumerName}">_________________________</span>
         </div>
     </div>
 
     <!-- PAGE 2 -->
     <div class="page-break"></div>
-    <h2>GUARANTEE CERTIFICATE UNDERTAKING BY VENDOR</h2>
+    <h2>GUARANTEE CERTIFICATE UNDERTAKING TO BE SUBMITTED BY VENDOR</h2>
 
     <div style="margin: 15px 0 20px;">
-        <p>The undersigned will provide free repair/maintenance services for 5 years of CMC period from commissioning date. Non-performing components will be replaced/repaired free of cost.</p>
+        <p>The undersigned will provide the services to the consumers for repairs/maintenance of the RTS plant free of cost for 5 years of the comprehensive Maintenance Contract (CMC) period from the date of commissioning of the plant. Non performing/under- performing system component will be replaced/repaired free of cost in the CMC period</p>
     </div>
 
     <div class="signature-flex">
         <div class="signature-item">
             <span class="bold">Signature [Vendor]</span>
             <div class="signature-line"></div>
-            <span class="value-field" th:text="${authorizedPersonName}">_________________________</span>
-            <div th:text="${designation}">Designation</div>
+            <span class="value-field" th:text="${vendorName}">_________________________</span>
         </div>
         <div class="signature-item">
             <span class="bold">Stamp &amp; Seal</span>
@@ -239,13 +247,14 @@
         </div>
     </div>
 
-    <!-- AADHAR SECTION -->
+    <!-- AADHAR SECTION WITH IMAGE SUPPORT -->
     <div class="aadhar-block">
-        <p style="font-size: 13px; font-weight: 700; margin-bottom: 8px;">Identity Details of Consumer:</p>
+        <p style="font-size: 13px; font-weight: 700; margin-bottom: 8px;">Identity Details of Consumer: -</p>
         <div class="aadhar-number-text">
             <span class="bold">Aadhar Number:</span> <span class="value-field" th:text="${aadharNumber}">_________________________</span>
         </div>
 
+        <!-- Aadhar Card Image Display - Perfect Fit -->
         <div class="aadhar-card-container">
             <div th:if="${aadharImagesBase64 != null and !aadharImagesBase64.isEmpty()}">
                 <div th:class="${aadharImagesBase64.size() == 1 ? 'aadhar-card-item single' : 'aadhar-images-wrapper'}">
@@ -259,7 +268,7 @@
             </div>
         </div>
 
-        <p class="text-right"><span class="bold">[SELF ATTESTED]</span></p>
+        <p class="text-right" style="margin-top: 8px;"><span class="bold">[SELF ATTESTED]</span></p>
     </div>
 
 </div>
