@@ -227,12 +227,15 @@
 
         <!-- Aadhar Card Image Display - Perfect Fit -->
         <div class="aadhar-card-container">
-            <div th:if="${aadharImageBase64 != null and aadharImageBase64 != ''}">
-                <img th:src="${aadharImageBase64}" alt="Aadhar Card" class="aadhar-image"/>
+            <div th:if="${aadharImagesBase64 != null and !aadharImagesBase64.isEmpty()}">
+                <div th:each="imgBase64 : ${aadharImagesBase64}">
+                    <img th:src="${imgBase64}" alt="Aadhar Card" class="aadhar-image"/>
+                </div>
             </div>
-            <div th:unless="${aadharImageBase64 != null and aadharImageBase64 != ''}" class="aadhar-placeholder">
+            <div th:unless="${aadharImagesBase64 != null and !aadharImagesBase64.isEmpty()}" class="aadhar-placeholder">
                 Upload Xerox of AADHAR CARD HERE<br/>SHOULD BE SELF ATTESTED BY CONSUMER
             </div>
+
         </div>
 
         <p class="text-right" style="margin-top: 8px;"><span class="bold">[SELF ATTESTED]</span></p>

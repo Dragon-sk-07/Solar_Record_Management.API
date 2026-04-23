@@ -218,6 +218,8 @@ public class SolarRecord {
     @Column(name = "photo", columnDefinition = "TEXT")
     private List<String> sitePhotos;
 
-    @Column(name = "aadhar_image_path")
-    private String aadharImagePath;
+    @ElementCollection
+    @CollectionTable(name = "solar_aadhar_images", joinColumns = @JoinColumn(name = "solar_record_id"))
+    @Column(name = "aadhar_image", columnDefinition = "TEXT")
+    private List<String> aadharImages;
 }

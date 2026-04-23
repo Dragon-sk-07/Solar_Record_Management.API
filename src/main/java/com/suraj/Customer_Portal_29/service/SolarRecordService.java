@@ -89,20 +89,8 @@ public class SolarRecordService {
         List<String> photoPaths = savePhotos(req.getSitePhotos());
         entity.setSitePhotos(photoPaths);
 
-        // DEBUG - Add these lines
-        System.out.println("=== AADHAR DEBUG IN MAP TO ENTITY ===");
-        System.out.println("req.getAadharImage(): " + req.getAadharImage());
-        System.out.println("req.getExistingAadharImage(): " + req.getExistingAadharImage());
-
-        if (req.getAadharImage() != null && !req.getAadharImage().isEmpty()) {
-            System.out.println("Saving new Aadhar image: " + req.getAadharImage().getOriginalFilename());
-            entity.setAadharImagePath(saveAadharImage(req.getAadharImage()));
-        } else if (req.getExistingAadharImage() != null && !req.getExistingAadharImage().isEmpty()) {
-            System.out.println("Using existing Aadhar image: " + req.getExistingAadharImage());
-            entity.setAadharImagePath(req.getExistingAadharImage());
-        } else {
-            System.out.println("NO AADHAR IMAGE PROVIDED - Both are null/empty");
-        }
+        List<String> aadharPaths = saveAadharImages(req.getAadharImages());
+        entity.setAadharImages(aadharPaths);
 
         return entity;
     }
@@ -127,10 +115,11 @@ public class SolarRecordService {
             updatedPhotos.addAll(req.getExistingPhotos());
         }
 
-        if (req.getAadharImage() != null && !req.getAadharImage().isEmpty()) {
-            entity.setAadharImagePath(saveAadharImage(req.getAadharImage()));
-        } else if (req.getExistingAadharImage() != null && !req.getExistingAadharImage().isEmpty()) {
-            entity.setAadharImagePath(req.getExistingAadharImage());
+        if (req.getAadharImages() != null && !req.getAadharImages().isEmpty()) {
+            List<String> newAadharPaths = saveAadharImages(req.getAadharImages());
+            List<String> existingAadhar = entity.getAadharImages() != null ? entity.getAadharImages() : new ArrayList<>();
+            existingAadhar.addAll(newAadharPaths);
+            entity.setAadharImages(existingAadhar);
         }
 
         if (req.getSitePhotos() != null && !req.getSitePhotos().isEmpty()) {
@@ -242,14 +231,20 @@ public class SolarRecordService {
     private SolarRecordResponseDto mapToResponse(SolarRecord entity) {
         SolarRecordResponseDto response = new SolarRecordResponseDto();
         modelMapper.map(entity, response);
-        response.setAadharImagePath(entity.getAadharImagePath());
-        System.out.println("DEBUG - Entity path: " + entity.getAadharImagePath());
-        System.out.println("DEBUG - Response path: " + response.getAadharImagePath());
+        response.setAadharImages(entity.getAadharImages());
         return response;
     }
 
-    private String saveAadharImage(MultipartFile file) {
-        if (file == null || file.isEmpty()) return null;
+    private List<String> saveAadharImages(List<MultipartFile> files) {
+        if (files == null || files.isEmpty()) {
+            return Collections.emptyList();
+        }
+        return files.stream()
+                .map(this::saveSingleAadharImage)
+                .filter(Objects::nonNull)
+                .collect(Collectors.toList());
+    }
+    private String saveSingleAadharImage(MultipartFile file) {
         try {
             String originalExt = file.getOriginalFilename();
             String ext = originalExt != null && originalExt.contains(".") ? originalExt.substring(originalExt.lastIndexOf(".")) : ".jpg";
@@ -261,12 +256,9 @@ public class SolarRecordService {
             Path filePath = uploadPath.resolve(fileName);
             Files.copy(file.getInputStream(), filePath);
 
-            String savedPath = "/uploads/" + fileName;
-            System.out.println("✅ Aadhar saved: " + savedPath);
-            return savedPath;
+            return "/uploads/" + fileName;
         } catch (Exception e) {
-            System.err.println("❌ Aadhar save failed: " + e.getMessage());
-            e.printStackTrace();
+            System.err.println("Failed to upload Aadhar image: " + e.getMessage());
             return null;
         }
     }

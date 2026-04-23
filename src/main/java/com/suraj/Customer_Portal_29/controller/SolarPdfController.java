@@ -13,7 +13,9 @@ import java.nio.file.Paths;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -103,21 +105,22 @@ public class SolarPdfController {
         // ================= AADHAR DETAILS =================
         data.put("aadharNumber", record.getAadharNumber() != null ? record.getAadharNumber() : "_________________________");
 
-        if (record.getAadharImagePath() != null && !record.getAadharImagePath().isEmpty()) {
-            try {
-                Path imagePath = Paths.get(System.getProperty("user.dir"), record.getAadharImagePath());
-                if (Files.exists(imagePath)) {
-                    byte[] imageBytes = Files.readAllBytes(imagePath);
-                    data.put("aadharImageBase64", PdfGeneratorService.imageToBase64(imageBytes, "image/jpeg"));
-                } else {
-                    data.put("aadharImageBase64", null);
+        List<String> aadharBase64Images = new ArrayList<>();
+        if (record.getAadharImages() != null && !record.getAadharImages().isEmpty()) {
+            for (String imagePathStr : record.getAadharImages()) {
+                try {
+                    Path imagePath = Paths.get(System.getProperty("user.dir"), imagePathStr);
+                    if (Files.exists(imagePath)) {
+                        byte[] imageBytes = Files.readAllBytes(imagePath);
+                        aadharBase64Images.add(PdfGeneratorService.imageToBase64(imageBytes, "image/jpeg"));
+                    }
+                } catch (Exception e) {
+                    // Skip failed images
                 }
-            } catch (Exception e) {
-                data.put("aadharImageBase64", null);
             }
-        } else {
-            data.put("aadharImageBase64", null);
         }
+        data.put("aadharImagesBase64", aadharBase64Images);
+
 
         // ================= AGREEMENT DETAILS =================
         LocalDate now = LocalDate.now();
