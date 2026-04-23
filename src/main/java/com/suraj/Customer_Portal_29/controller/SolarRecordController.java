@@ -25,14 +25,14 @@ public class SolarRecordController {
     public ResponseEntity<ApiResponseDto<SolarRecordResponseDto>> save(
             @Valid @ModelAttribute SolarRecordRequestDto request
     ){
-        SolarRecordResponseDto data = service.save(request);
+        System.out.println("=== CONTROLLER DEBUG ===");
+        System.out.println("AadharImage from request: " + request.getAadharImage());
 
+        SolarRecordResponseDto data = service.save(request);
         return ResponseEntity.status(201).body(
-                new ApiResponseDto<>(
-                        "Solar record created successfully",
-                        data
-                )
+                new ApiResponseDto<>("Solar record created successfully", data)
         );
+
     }
 
 

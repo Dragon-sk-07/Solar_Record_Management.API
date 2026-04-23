@@ -89,10 +89,19 @@ public class SolarRecordService {
         List<String> photoPaths = savePhotos(req.getSitePhotos());
         entity.setSitePhotos(photoPaths);
 
+        // DEBUG - Add these lines
+        System.out.println("=== AADHAR DEBUG IN MAP TO ENTITY ===");
+        System.out.println("req.getAadharImage(): " + req.getAadharImage());
+        System.out.println("req.getExistingAadharImage(): " + req.getExistingAadharImage());
+
         if (req.getAadharImage() != null && !req.getAadharImage().isEmpty()) {
+            System.out.println("Saving new Aadhar image: " + req.getAadharImage().getOriginalFilename());
             entity.setAadharImagePath(saveAadharImage(req.getAadharImage()));
         } else if (req.getExistingAadharImage() != null && !req.getExistingAadharImage().isEmpty()) {
+            System.out.println("Using existing Aadhar image: " + req.getExistingAadharImage());
             entity.setAadharImagePath(req.getExistingAadharImage());
+        } else {
+            System.out.println("NO AADHAR IMAGE PROVIDED - Both are null/empty");
         }
 
         return entity;
