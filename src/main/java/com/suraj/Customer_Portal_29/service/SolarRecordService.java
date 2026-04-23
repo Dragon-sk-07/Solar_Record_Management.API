@@ -5,6 +5,7 @@ import com.suraj.Customer_Portal_29.dto.response.SolarRecordResponseDto;
 import com.suraj.Customer_Portal_29.entity.SolarRecord;
 import com.suraj.Customer_Portal_29.repository.SolarRecordRepository;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import org.modelmapper.ModelMapper;
@@ -54,6 +55,7 @@ public class SolarRecordService {
         return mapToResponse(entity);
     }
 
+    @CacheEvict(value = "solarRecords", key = "#id")
     public SolarRecordResponseDto update(String id, SolarRecordRequestDto request) {
         SolarRecord existing = findEntityById(id);
         updateEntity(existing, request);
@@ -119,15 +121,15 @@ public class SolarRecordService {
         }
         entity.setSitePhotos(updatedPhotos.stream().distinct().collect(Collectors.toList()));
 
-        // Handle Aadhar Images - SAME LOGIC AS SITE PHOTOS
+        // Handle Aadhar Images - MERGE existing + new (SAME LOGIC AS SITE PHOTOS)
         List<String> updatedAadharImages = new ArrayList<>();
-        if (req.getExistingAadharImages() != null) {
+        if (req.getExistingAadharImages() != null && !req.getExistingAadharImages().isEmpty()) {
             updatedAadharImages.addAll(req.getExistingAadharImages());
         }
         if (req.getAadharImages() != null && !req.getAadharImages().isEmpty()) {
             updatedAadharImages.addAll(saveAadharImages(req.getAadharImages()));
         }
-        entity.setAadharImages(updatedAadharImages.stream().distinct().collect(Collectors.toList()));
+        entity.setAadharImages(updatedAadharImages.isEmpty() ? null : updatedAadharImages);
     }
 
     private void mapBasicFields(SolarRecord entity, SolarRecordRequestDto req) {
