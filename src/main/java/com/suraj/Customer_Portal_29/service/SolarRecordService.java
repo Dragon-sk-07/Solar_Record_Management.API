@@ -119,7 +119,7 @@ public class SolarRecordService {
         }
         entity.setSitePhotos(updatedPhotos.stream().distinct().collect(Collectors.toList()));
 
-        // Handle Aadhar Images - Replace logic
+        // Handle Aadhar Images - REPLACE completely
         if (req.getAadharImages() != null && !req.getAadharImages().isEmpty()) {
             // Delete old files
             if (entity.getAadharImages() != null) {
@@ -131,11 +131,8 @@ public class SolarRecordService {
             }
             // Save new files
             entity.setAadharImages(saveAadharImages(req.getAadharImages()));
-        } else if (req.getExistingAadharImages() != null) {
-            // Keep existing images
-            entity.setAadharImages(req.getExistingAadharImages());
         } else {
-            // Delete all if no images provided
+            // NO images in request - delete all
             if (entity.getAadharImages() != null) {
                 for (String oldPath : entity.getAadharImages()) {
                     try {
