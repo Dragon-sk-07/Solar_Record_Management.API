@@ -139,6 +139,35 @@
             margin: 12px 0;
             text-align: justify;
         }
+        /* Add these new styles */
+.aadhar-images-wrapper {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+
+.aadhar-card-item {
+    flex: 0 1 auto;
+}
+
+.aadhar-card-item.single {
+    margin: 0 auto;
+}
+
+.aadhar-image {
+    max-width: 320px;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 86 / 54;
+    object-fit: cover;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    background: white;
+    padding: 8px;
+}
     </style>
 </head>
 <body>
@@ -228,14 +257,15 @@
         <!-- Aadhar Card Image Display - Perfect Fit -->
         <div class="aadhar-card-container">
             <div th:if="${aadharImagesBase64 != null and !aadharImagesBase64.isEmpty()}">
-                <div th:each="imgBase64 : ${aadharImagesBase64}">
-                    <img th:src="${imgBase64}" alt="Aadhar Card" class="aadhar-image"/>
+                <div th:class="${aadharImagesBase64.size() == 1 ? 'aadhar-card-item single' : 'aadhar-images-wrapper'}">
+                    <div class="aadhar-card-item" th:each="imgBase64 : ${aadharImagesBase64}">
+                        <img th:src="${imgBase64}" alt="Aadhar Card" class="aadhar-image"/>
+                    </div>
                 </div>
             </div>
             <div th:unless="${aadharImagesBase64 != null and !aadharImagesBase64.isEmpty()}" class="aadhar-placeholder">
                 Upload Xerox of AADHAR CARD HERE<br/>SHOULD BE SELF ATTESTED BY CONSUMER
             </div>
-
         </div>
 
         <p class="text-right" style="margin-top: 8px;"><span class="bold">[SELF ATTESTED]</span></p>

@@ -109,26 +109,42 @@ public class SolarRecordService {
         mapApplicationFields(entity, req);
         mapWitnessFields(entity, req);
 
+        // Handle Site Photos
         List<String> updatedPhotos = new ArrayList<>();
-
         if (req.getExistingPhotos() != null) {
             updatedPhotos.addAll(req.getExistingPhotos());
         }
-
-        if (req.getAadharImages() != null && !req.getAadharImages().isEmpty()) {
-            List<String> newAadharPaths = saveAadharImages(req.getAadharImages());
-            List<String> existingAadhar = entity.getAadharImages() != null ? entity.getAadharImages() : new ArrayList<>();
-            existingAadhar.addAll(newAadharPaths);
-            entity.setAadharImages(existingAadhar);
-        }
-
         if (req.getSitePhotos() != null && !req.getSitePhotos().isEmpty()) {
             updatedPhotos.addAll(savePhotos(req.getSitePhotos()));
         }
+        entity.setSitePhotos(updatedPhotos.stream().distinct().collect(Collectors.toList()));
 
-        entity.setSitePhotos(
-                updatedPhotos.stream().distinct().collect(Collectors.toList())
-        );
+        // Handle Aadhar Images - Replace logic
+        if (req.getAadharImages() != null && !req.getAadharImages().isEmpty()) {
+            // Delete old files
+            if (entity.getAadharImages() != null) {
+                for (String oldPath : entity.getAadharImages()) {
+                    try {
+                        Files.deleteIfExists(Paths.get(System.getProperty("user.dir"), oldPath));
+                    } catch (Exception e) {}
+                }
+            }
+            // Save new files
+            entity.setAadharImages(saveAadharImages(req.getAadharImages()));
+        } else if (req.getExistingAadharImages() != null) {
+            // Keep existing images
+            entity.setAadharImages(req.getExistingAadharImages());
+        } else {
+            // Delete all if no images provided
+            if (entity.getAadharImages() != null) {
+                for (String oldPath : entity.getAadharImages()) {
+                    try {
+                        Files.deleteIfExists(Paths.get(System.getProperty("user.dir"), oldPath));
+                    } catch (Exception e) {}
+                }
+            }
+            entity.setAadharImages(null);
+        }
     }
 
     private void mapBasicFields(SolarRecord entity, SolarRecordRequestDto req) {

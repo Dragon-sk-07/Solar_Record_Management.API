@@ -208,4 +208,6 @@ public class SolarRecordRequestDto {
     private List<String> existingPhotos;
 
     private List<MultipartFile> aadharImages;
+
+    private List<String> existingAadharImages;
 }
