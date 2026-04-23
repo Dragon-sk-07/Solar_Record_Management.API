@@ -105,12 +105,13 @@ public class SolarPdfController {
 
         if (record.getAadharImagePath() != null && !record.getAadharImagePath().isEmpty()) {
             try {
-                String imagePathStr = record.getAadharImagePath().startsWith("/") ? record.getAadharImagePath().substring(1) : record.getAadharImagePath();
-                Path imagePath = Paths.get(System.getProperty("user.dir"), imagePathStr);
+                Path imagePath = Paths.get(System.getProperty("user.dir"), record.getAadharImagePath());
                 if (Files.exists(imagePath)) {
                     byte[] imageBytes = Files.readAllBytes(imagePath);
                     data.put("aadharImageBase64", PdfGeneratorService.imageToBase64(imageBytes, "image/jpeg"));
-                } else { data.put("aadharImageBase64", null); }
+                } else {
+                    data.put("aadharImageBase64", null);
+                }
             } catch (Exception e) {
                 data.put("aadharImageBase64", null);
             }

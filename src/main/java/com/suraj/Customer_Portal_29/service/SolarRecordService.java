@@ -120,7 +120,7 @@ public class SolarRecordService {
 
         if (req.getAadharImage() != null && !req.getAadharImage().isEmpty()) {
             entity.setAadharImagePath(saveAadharImage(req.getAadharImage()));
-        } else if (req.getExistingAadharImage() != null) {
+        } else if (req.getExistingAadharImage() != null && !req.getExistingAadharImage().isEmpty()) {
             entity.setAadharImagePath(req.getExistingAadharImage());
         }
 
@@ -231,14 +231,17 @@ public class SolarRecordService {
     }
 
     private SolarRecordResponseDto mapToResponse(SolarRecord entity) {
-        return modelMapper.map(entity, SolarRecordResponseDto.class);
+        SolarRecordResponseDto response = modelMapper.map(entity, SolarRecordResponseDto.class);
+        response.setAadharImagePath(entity.getAadharImagePath());
+        return response;
     }
 
     private String saveAadharImage(MultipartFile file) {
         if (file == null || file.isEmpty()) return null;
         try {
-            String fileName = "aadhar_" + System.currentTimeMillis() + "_" + UUID.randomUUID().toString().substring(0, 8) +
-                    (file.getOriginalFilename() != null ? file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf(".")) : ".jpg");
+            String originalExt = file.getOriginalFilename();
+            String ext = originalExt != null && originalExt.contains(".") ? originalExt.substring(originalExt.lastIndexOf(".")) : ".jpg";
+            String fileName = "aadhar_" + System.currentTimeMillis() + "_" + UUID.randomUUID().toString().substring(0, 8) + ext;
             Path uploadPath = Paths.get(UPLOAD_DIR);
             if (!Files.exists(uploadPath)) Files.createDirectories(uploadPath);
             Path filePath = uploadPath.resolve(fileName);
