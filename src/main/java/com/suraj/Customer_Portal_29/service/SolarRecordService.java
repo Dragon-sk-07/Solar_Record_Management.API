@@ -231,14 +231,21 @@ public class SolarRecordService {
     }
 
     private SolarRecordResponseDto mapToResponse(SolarRecord entity) {
-        SolarRecordResponseDto response = modelMapper.map(entity, SolarRecordResponseDto.class);
+        SolarRecordResponseDto response = new SolarRecordResponseDto();
+        modelMapper.map(entity, response);
         response.setAadharImagePath(entity.getAadharImagePath());
+        System.out.println("DEBUG - Entity path: " + entity.getAadharImagePath());
+        System.out.println("DEBUG - Response path: " + response.getAadharImagePath());
         return response;
     }
 
     private String saveAadharImage(MultipartFile file) {
-        if (file == null || file.isEmpty()) return null;
+        if (file == null || file.isEmpty()) {
+            System.out.println("DEBUG - Aadhar file is null or empty");
+            return null;
+        }
         try {
+            System.out.println("DEBUG - Saving Aadhar file: " + file.getOriginalFilename());
             String originalExt = file.getOriginalFilename();
             String ext = originalExt != null && originalExt.contains(".") ? originalExt.substring(originalExt.lastIndexOf(".")) : ".jpg";
             String fileName = "aadhar_" + System.currentTimeMillis() + "_" + UUID.randomUUID().toString().substring(0, 8) + ext;
@@ -246,9 +253,13 @@ public class SolarRecordService {
             if (!Files.exists(uploadPath)) Files.createDirectories(uploadPath);
             Path filePath = uploadPath.resolve(fileName);
             Files.copy(file.getInputStream(), filePath);
-            return "/uploads/" + fileName;
+            String path = "/uploads/" + fileName;
+            System.out.println("DEBUG - Saved to: " + path);
+            return path;
         } catch (Exception e) {
-            throw new RuntimeException("Failed to upload Aadhar image: " + e.getMessage());
+            System.err.println("DEBUG - Error: " + e.getMessage());
+            e.printStackTrace();
+            return null;
         }
     }
 
