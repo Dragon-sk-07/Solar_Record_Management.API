@@ -240,24 +240,23 @@ public class SolarRecordService {
     }
 
     private String saveAadharImage(MultipartFile file) {
-        if (file == null || file.isEmpty()) {
-            System.out.println("DEBUG - Aadhar file is null or empty");
-            return null;
-        }
+        if (file == null || file.isEmpty()) return null;
         try {
-            System.out.println("DEBUG - Saving Aadhar file: " + file.getOriginalFilename());
             String originalExt = file.getOriginalFilename();
             String ext = originalExt != null && originalExt.contains(".") ? originalExt.substring(originalExt.lastIndexOf(".")) : ".jpg";
             String fileName = "aadhar_" + System.currentTimeMillis() + "_" + UUID.randomUUID().toString().substring(0, 8) + ext;
+
             Path uploadPath = Paths.get(UPLOAD_DIR);
             if (!Files.exists(uploadPath)) Files.createDirectories(uploadPath);
+
             Path filePath = uploadPath.resolve(fileName);
             Files.copy(file.getInputStream(), filePath);
-            String path = "/uploads/" + fileName;
-            System.out.println("DEBUG - Saved to: " + path);
-            return path;
+
+            String savedPath = "/uploads/" + fileName;
+            System.out.println("✅ Aadhar saved: " + savedPath);
+            return savedPath;
         } catch (Exception e) {
-            System.err.println("DEBUG - Error: " + e.getMessage());
+            System.err.println("❌ Aadhar save failed: " + e.getMessage());
             e.printStackTrace();
             return null;
         }
