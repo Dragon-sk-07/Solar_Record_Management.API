@@ -75,6 +75,15 @@
             width: 100%;
             margin: 5px 0 3px 0;
         }
+        .signature-flex {
+            display: flex;
+            justify-content: space-between;
+            margin: 15px 0;
+            gap: 20px;
+        }
+        .signature-item {
+            width: 48%;
+        }
         .stamp-box {
             border: 1.5px solid #000;
             height: 70px;
@@ -92,6 +101,7 @@
             border: 1.5px solid #000;
             padding: 15px;
         }
+        /* AADHAR CARD STYLES - Perfect fit */
         .aadhar-card-container {
             margin: 15px 0;
             border: 2px dashed #444;
@@ -101,6 +111,13 @@
             align-items: center;
             justify-content: center;
             padding: 10px;
+        }
+        .aadhar-image {
+            max-width: 100%;
+            max-height: 160px;
+            object-fit: contain;
+            display: block;
+            margin: 0 auto;
         }
         .aadhar-placeholder {
             text-align: center;
@@ -121,33 +138,6 @@
         .undertaking-p1, .undertaking-p2 {
             margin: 12px 0;
             text-align: justify;
-        }
-        .single-image-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-        .aadhar-images-wrapper {
-            display: flex;
-            gap: 20px;
-            flex-wrap: wrap;
-            justify-content: center;
-            align-items: center;
-        }
-        .aadhar-card-item {
-            flex: 0 1 auto;
-        }
-        .aadhar-image {
-            max-width: 320px;
-            width: 100%;
-            height: auto;
-            aspect-ratio: 86 / 54;
-            object-fit: cover;
-            border: 1px solid #ccc;
-            border-radius: 8px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-            background: white;
-            padding: 8px;
         }
     </style>
 </head>
@@ -193,13 +183,13 @@
         <p>This is to Certified above Installed Solar PV System is working properly with electrical safety &amp; Islanding switch in case of any presence of backup inverter an arrangement should be made in such way the backup inverter supply should never be synchronized with solar inverter to avoid any electrical accident due to back feeding. We will be held responsible for non- working of islanding mechanism and back feed to the de- energized grid.</p>
     </div>
 
-    <div style="display: flex; justify-content: space-between; gap: 20px; margin: 15px 0;">
-        <div style="flex: 1;">
+    <div class="signature-flex">
+        <div class="signature-item">
             <span class="bold">Signature [Vendor]</span>
             <div class="signature-line"></div>
             <span class="value-field" th:text="${vendorName}">_________________________</span>
         </div>
-        <div style="flex: 1;">
+        <div class="signature-item">
             <span class="bold">Signature [Consumer]</span>
             <div class="signature-line"></div>
             <span class="value-field" th:text="${consumerName}">_________________________</span>
@@ -237,14 +227,10 @@
 
         <!-- Aadhar Card Image Display - Perfect Fit -->
         <div class="aadhar-card-container">
-            <div th:if="${aadharImagesBase64 != null and !aadharImagesBase64.isEmpty()}">
-                <div th:class="${aadharImagesBase64.size() == 1 ? 'single-image-container' : 'aadhar-images-wrapper'}">
-                    <div class="aadhar-card-item" th:each="imgBase64 : ${aadharImagesBase64}">
-                        <img th:src="${imgBase64}" alt="Aadhar Card" class="aadhar-image"/>
-                    </div>
-                </div>
+            <div th:if="${aadharImageBase64 != null and aadharImageBase64 != ''}">
+                <img th:src="${aadharImageBase64}" alt="Aadhar Card" class="aadhar-image"/>
             </div>
-            <div th:unless="${aadharImagesBase64 != null and !aadharImagesBase64.isEmpty()}" class="aadhar-placeholder">
+            <div th:unless="${aadharImageBase64 != null and aadharImageBase64 != ''}" class="aadhar-placeholder">
                 Upload Xerox of AADHAR CARD HERE<br/>SHOULD BE SELF ATTESTED BY CONSUMER
             </div>
         </div>
