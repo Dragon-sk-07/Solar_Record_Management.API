@@ -103,24 +103,15 @@ public class SolarPdfController {
         // ================= AADHAR DETAILS =================
         data.put("aadharNumber", record.getAadharNumber() != null ? record.getAadharNumber() : "_________________________");
 
-//  ADD THIS - Aadhar Image to Base64
         if (record.getAadharImagePath() != null && !record.getAadharImagePath().isEmpty()) {
             try {
-                String uploadDir = System.getProperty("user.dir") + "/";
-                String imagePathStr = record.getAadharImagePath();
-
-                if (imagePathStr.startsWith("/")) {
-                    imagePathStr = imagePathStr.substring(1);
-                }
-
-                Path imagePath = Paths.get(uploadDir + imagePathStr);
-                byte[] imageBytes = Files.readAllBytes(imagePath);
-
-                String base64 = PdfGeneratorService.imageToBase64(imageBytes, "image/jpeg");
-                data.put("aadharImageBase64", base64);
-
+                String imagePathStr = record.getAadharImagePath().startsWith("/") ? record.getAadharImagePath().substring(1) : record.getAadharImagePath();
+                Path imagePath = Paths.get(System.getProperty("user.dir"), imagePathStr);
+                if (Files.exists(imagePath)) {
+                    byte[] imageBytes = Files.readAllBytes(imagePath);
+                    data.put("aadharImageBase64", PdfGeneratorService.imageToBase64(imageBytes, "image/jpeg"));
+                } else { data.put("aadharImageBase64", null); }
             } catch (Exception e) {
-                e.printStackTrace(); // 🔥 Add this for debugging
                 data.put("aadharImageBase64", null);
             }
         } else {

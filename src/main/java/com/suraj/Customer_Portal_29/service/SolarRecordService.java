@@ -91,7 +91,7 @@ public class SolarRecordService {
 
         if (req.getAadharImage() != null && !req.getAadharImage().isEmpty()) {
             entity.setAadharImagePath(saveAadharImage(req.getAadharImage()));
-        } else if (req.getExistingAadharImage() != null) {
+        } else if (req.getExistingAadharImage() != null && !req.getExistingAadharImage().isEmpty()) {
             entity.setAadharImagePath(req.getExistingAadharImage());
         }
 
@@ -235,27 +235,17 @@ public class SolarRecordService {
     }
 
     private String saveAadharImage(MultipartFile file) {
-        if (file == null || file.isEmpty()) {
-            return null;
-        }
+        if (file == null || file.isEmpty()) return null;
         try {
-            String timestamp = String.valueOf(System.currentTimeMillis());
-            String originalFilename = file.getOriginalFilename();
-            String extension = originalFilename != null ?
-                    originalFilename.substring(originalFilename.lastIndexOf(".")) : ".jpg";
-            String fileName = "aadhar_" + timestamp + "_" + UUID.randomUUID().toString().substring(0, 8) + extension;
-
+            String fileName = "aadhar_" + System.currentTimeMillis() + "_" + UUID.randomUUID().toString().substring(0, 8) +
+                    (file.getOriginalFilename() != null ? file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf(".")) : ".jpg");
             Path uploadPath = Paths.get(UPLOAD_DIR);
+            if (!Files.exists(uploadPath)) Files.createDirectories(uploadPath);
             Path filePath = uploadPath.resolve(fileName);
-
-            if (!Files.exists(uploadPath)) {
-                Files.createDirectories(uploadPath);
-            }
             Files.copy(file.getInputStream(), filePath);
-
             return "/uploads/" + fileName;
         } catch (Exception e) {
-            throw new RuntimeException("Failed to upload Aadhar image: " + e.getMessage(), e);
+            throw new RuntimeException("Failed to upload Aadhar image: " + e.getMessage());
         }
     }
 
