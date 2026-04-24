@@ -107,18 +107,24 @@ public class SolarPdfController {
 
         List<String> aadharBase64Images = new ArrayList<>();
         if (record.getAadharImages() != null && !record.getAadharImages().isEmpty()) {
-            // In the PDF controller, when converting images to Base64
-            for (String imagePathStr : record.getAadharImages()) {
+            for (String imageUrl : record.getAadharImages()) {
                 try {
-                    // imagePathStr now = "/uploads/aadharImages/xxx.jpg"
-                    Path imagePath = Paths.get(System.getProperty("user.dir"), imagePathStr);
-                    // This correctly resolves to: /app/uploads/aadharImages/xxx.jpg
-                    if (Files.exists(imagePath)) {
-                        byte[] imageBytes = Files.readAllBytes(imagePath);
+                    // Check if it's a Cloudinary URL (starts with http)
+                    if (imageUrl.startsWith("http")) {
+                        // Download image from Cloudinary URL
+                        java.net.URL url = new java.net.URL(imageUrl);
+                        byte[] imageBytes = url.openStream().readAllBytes();
                         aadharBase64Images.add(PdfGeneratorService.imageToBase64(imageBytes, "image/jpeg"));
+                    } else {
+                        // Fallback to local file (for old records)
+                        Path imagePath = Paths.get(System.getProperty("user.dir"), imageUrl);
+                        if (Files.exists(imagePath)) {
+                            byte[] imageBytes = Files.readAllBytes(imagePath);
+                            aadharBase64Images.add(PdfGeneratorService.imageToBase64(imageBytes, "image/jpeg"));
+                        }
                     }
                 } catch (Exception e) {
-                    // Skip failed images
+                    System.err.println("Failed to load image: " + imageUrl + " - " + e.getMessage());
                 }
             }
         }
