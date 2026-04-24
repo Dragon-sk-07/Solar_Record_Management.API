@@ -107,9 +107,12 @@ public class SolarPdfController {
 
         List<String> aadharBase64Images = new ArrayList<>();
         if (record.getAadharImages() != null && !record.getAadharImages().isEmpty()) {
+            // In the PDF controller, when converting images to Base64
             for (String imagePathStr : record.getAadharImages()) {
                 try {
+                    // imagePathStr now = "/uploads/aadharImages/xxx.jpg"
                     Path imagePath = Paths.get(System.getProperty("user.dir"), imagePathStr);
+                    // This correctly resolves to: /app/uploads/aadharImages/xxx.jpg
                     if (Files.exists(imagePath)) {
                         byte[] imageBytes = Files.readAllBytes(imagePath);
                         aadharBase64Images.add(PdfGeneratorService.imageToBase64(imageBytes, "image/jpeg"));

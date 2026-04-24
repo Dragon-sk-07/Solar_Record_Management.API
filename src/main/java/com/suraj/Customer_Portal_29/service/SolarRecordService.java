@@ -9,13 +9,10 @@ import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -35,6 +32,9 @@ public class SolarRecordService {
 
 
 
+    private static final String BASE_UPLOAD_DIR = System.getProperty("user.dir") + "/uploads/";
+    private static final String AADHAR_UPLOAD_DIR = BASE_UPLOAD_DIR + "aadharImages/";
+    private static final String SITE_PHOTOS_UPLOAD_DIR = BASE_UPLOAD_DIR + "sitePhotos/";
 
     public SolarRecordResponseDto save(SolarRecordRequestDto request) {
         SolarRecord entity = mapToEntity(request);
@@ -251,13 +251,13 @@ public class SolarRecordService {
             String ext = originalExt != null && originalExt.contains(".") ? originalExt.substring(originalExt.lastIndexOf(".")) : ".jpg";
             String fileName = "aadhar_" + System.currentTimeMillis() + "_" + UUID.randomUUID().toString().substring(0, 8) + ext;
 
-            Path uploadPath = Paths.get(UPLOAD_DIR);
+            Path uploadPath = Paths.get(AADHAR_UPLOAD_DIR);
             if (!Files.exists(uploadPath)) Files.createDirectories(uploadPath);
 
             Path filePath = uploadPath.resolve(fileName);
             Files.copy(file.getInputStream(), filePath);
 
-            return "/uploads/" + fileName;
+            return "/uploads/aadharImages/" + fileName;
         } catch (Exception e) {
             System.err.println("Failed to upload Aadhar image: " + e.getMessage());
             return null;
@@ -283,13 +283,13 @@ public class SolarRecordService {
                     originalFilename.substring(originalFilename.lastIndexOf(".")) : ".jpg";
             String fileName = timestamp + "_" + UUID.randomUUID().toString().substring(0, 8) + extension;
 
-            Path uploadPath = Paths.get(UPLOAD_DIR);
-            Path filePath = uploadPath.resolve(fileName);
+            Path uploadPath = Paths.get(SITE_PHOTOS_UPLOAD_DIR);
+            if (!Files.exists(uploadPath)) Files.createDirectories(uploadPath);
 
-            Files.createDirectories(uploadPath);
+            Path filePath = uploadPath.resolve(fileName);
             Files.write(filePath, file.getBytes());
 
-            return "/uploads/" + fileName;
+            return "/uploads/sitePhotos/" + fileName;
 
         } catch (Exception e) {
             throw new RuntimeException("Failed to upload photo: " + e.getMessage(), e);
