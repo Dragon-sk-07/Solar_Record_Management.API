@@ -10,9 +10,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import org.modelmapper.ModelMapper;
 
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -23,18 +20,15 @@ public class SolarRecordService {
     private final SolarRecordRepository repository;
     private final ModelMapper modelMapper;
 
+    private final CloudinaryService cloudinaryService;
+
     public SolarRecordService(SolarRecordRepository repository,
-                              ModelMapper modelMapper) {
+                              ModelMapper modelMapper,
+                              CloudinaryService cloudinaryService) {
         this.repository = repository;
         this.modelMapper = modelMapper;
+        this.cloudinaryService = cloudinaryService;
     }
-    private static final String UPLOAD_DIR = System.getProperty("user.dir") + "/uploads/";
-
-
-
-    private static final String BASE_UPLOAD_DIR = System.getProperty("user.dir") + "/uploads/";
-    private static final String AADHAR_UPLOAD_DIR = BASE_UPLOAD_DIR + "aadharImages/";
-    private static final String SITE_PHOTOS_UPLOAD_DIR = BASE_UPLOAD_DIR + "sitePhotos/";
 
     public SolarRecordResponseDto save(SolarRecordRequestDto request) {
         SolarRecord entity = mapToEntity(request);
@@ -246,22 +240,7 @@ public class SolarRecordService {
                 .collect(Collectors.toList());
     }
     private String saveSingleAadharImage(MultipartFile file) {
-        try {
-            String originalExt = file.getOriginalFilename();
-            String ext = originalExt != null && originalExt.contains(".") ? originalExt.substring(originalExt.lastIndexOf(".")) : ".jpg";
-            String fileName = "aadhar_" + System.currentTimeMillis() + "_" + UUID.randomUUID().toString().substring(0, 8) + ext;
-
-            Path uploadPath = Paths.get(AADHAR_UPLOAD_DIR);
-            if (!Files.exists(uploadPath)) Files.createDirectories(uploadPath);
-
-            Path filePath = uploadPath.resolve(fileName);
-            Files.copy(file.getInputStream(), filePath);
-
-            return "/uploads/aadharImages/" + fileName;
-        } catch (Exception e) {
-            System.err.println("Failed to upload Aadhar image: " + e.getMessage());
-            return null;
-        }
+        return cloudinaryService.uploadFile(file, "aadharImages");
     }
 
     private List<String> savePhotos(List<MultipartFile> files) {
@@ -276,23 +255,6 @@ public class SolarRecordService {
     }
 
     private String saveSinglePhoto(MultipartFile file) {
-        try {
-            String timestamp = String.valueOf(System.currentTimeMillis());
-            String originalFilename = file.getOriginalFilename();
-            String extension = originalFilename != null ?
-                    originalFilename.substring(originalFilename.lastIndexOf(".")) : ".jpg";
-            String fileName = timestamp + "_" + UUID.randomUUID().toString().substring(0, 8) + extension;
-
-            Path uploadPath = Paths.get(SITE_PHOTOS_UPLOAD_DIR);
-            if (!Files.exists(uploadPath)) Files.createDirectories(uploadPath);
-
-            Path filePath = uploadPath.resolve(fileName);
-            Files.write(filePath, file.getBytes());
-
-            return "/uploads/sitePhotos/" + fileName;
-
-        } catch (Exception e) {
-            throw new RuntimeException("Failed to upload photo: " + e.getMessage(), e);
-        }
+        return cloudinaryService.uploadFile(file, "sitePhotos");
     }
 }

@@ -35,6 +35,8 @@ spring:
       max-file-size: 10MB
       max-request-size: 20MB
 
+cloudinary:
+  url: ${CLOUDINARY_URL}
 server:
 #  port: 8080
   port: ${PORT:8080}
