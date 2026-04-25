@@ -1,9 +1,9 @@
 spring:
   datasource:
-    url: ${SPRING_DATASOURCE_URL}
-    username: ${SPRING_DATASOURCE_USERNAME}
-    password: ${SPRING_DATASOURCE_PASSWORD}
-    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://neondb_owner:npg_omyzDB20MCpk@ep-muddy-night-aohjrf7n.c-2.ap-southeast-1.aws.neon.tech:5432/neondb?sslmode=require
+    username: neondb_owner
+    password: npg_omyzDB20MCpk
+#    driver-class-name: org.postgresql.Driver
 
   jpa:
     hibernate:
