@@ -5,222 +5,287 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>WCR Undertaking Guarantee Aadhar</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        body {
-            font-family: Arial, Helvetica, sans-serif;
-            background: #ffffff;
-            color: #000000;
-            font-size: 11px;
-            line-height: 1.25;
-            padding: 12px 15px;
-        }
-        .gov-wrapper {
-            max-width: 1100px;
-            margin: 0 auto;
-            background: white;
-        }
-        h1 {
-            font-size: 14px;
-            font-weight: 700;
-            text-align: center;
-            text-transform: uppercase;
-            margin: 0 0 6px 0;
-        }
-        h2 {
-            font-size: 13px;
-            font-weight: 700;
-            text-align: center;
-            text-transform: uppercase;
-            margin: 0 0 10px 0;
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
         }
 
-        /* ── TABLE (tighter to save vertical space) ── */
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            border: 1px solid #000;
-            font-size: 9.5px;
-            table-layout: fixed;
+        body{
+            font-family:Arial, Helvetica, sans-serif;
+            background:#ffffff;
+            color:#000000;
+            font-size:12px;
+            line-height:1.35;
+            padding:12px 15px;
         }
-        td {
-            border: 1px solid #000;
-            padding: 2px 4px;
-            vertical-align: top;
-        }
-        .col-srno {
-            width: 6%;
-            background-color: #efefef;
-            font-weight: 700;
-            text-align: center;
-        }
-        .col-obs  { width: 38%; font-weight: 700; }
-        .col-value { width: 56%; }
-        .value-field { font-weight: 600; }
-        .bold { font-weight: 700; }
 
-        /* ── UNDERTAKING PARAGRAPHS ── */
+        .gov-wrapper{
+            max-width:1100px;
+            margin:0 auto;
+            background:#fff;
+        }
+
+        h1{
+            font-size:15px;
+            font-weight:700;
+            text-align:center;
+            text-transform:uppercase;
+            margin:0 0 8px 0;
+        }
+
+        h2{
+            font-size:14px;
+            font-weight:700;
+            text-align:center;
+            text-transform:uppercase;
+            margin:0 0 12px 0;
+        }
+
+        /* =======================
+           TABLE
+        ======================= */
+        table{
+            width:100%;
+            border-collapse:collapse;
+            border:1px solid #000;
+            font-size:10.5px;
+            table-layout:fixed;
+        }
+
+        td{
+            border:1px solid #000;
+            padding:3px 4px;
+            vertical-align:top;
+        }
+
+        .col-srno{
+            width:6%;
+            background:#efefef;
+            font-weight:700;
+            text-align:center;
+        }
+
+        .col-obs{
+            width:38%;
+            font-weight:700;
+        }
+
+        .col-value{
+            width:56%;
+        }
+
+        .value-field{
+            font-weight:600;
+        }
+
+        .bold{
+            font-weight:700;
+        }
+
+        /* =======================
+           UNDERTAKING
+        ======================= */
         .undertaking-p1,
-        .undertaking-p2 {
-            margin: 6px 0;
-            text-align: justify;
-            font-size: 9.5px;
-            line-height: 1.3;
+        .undertaking-p2{
+            margin:8px 0;
+            text-align:justify;
+            font-size:10.5px;
+            line-height:1.45;
         }
 
-        /* ── SIGNATURE ROW (shared by both pages) ── */
-        .signature-row {
-            display: table;          /* table layout avoids flex quirks in PDF renderers */
-            width: 100%;
-            margin: 10px 0 8px 0;
+        .undertaking-p2{
+            margin-bottom:18px;
         }
+
+        /* =======================
+           SIGNATURE ROW
+        ======================= */
+        .signature-row{
+            display:table;
+            width:100%;
+            margin:18px 0 10px 0;
+        }
+
         .signature-left,
-        .signature-right {
-            display: table-cell;
-            width: 50%;
-            vertical-align: bottom;
-        }
-        .signature-left  { text-align: left;  padding-right: 10px; }
-        .signature-right { text-align: right; padding-left: 10px; }
-
-        .signature-label {
-            font-weight: 700;
-            display: block;
-            margin-bottom: 4px;
-        }
-        .signature-space {
-            height: 30px;           /* space for actual signature */
-        }
-        .signature-name {
-            display: block;
-            margin-top: 4px;
-            font-weight: normal;
+        .signature-right{
+            display:table-cell;
+            width:50%;
+            vertical-align:bottom;
         }
 
-        /* ── STAMP BOX (right-aligned inside right cell) ── */
-        .stamp-box {
-            border: 1.5px solid #000;
-            height: 70px;
-            width: 200px;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            background: white;
-            margin-top: 4px;
-            font-size: 11px;
-            text-align: center;
+        .signature-left{
+            text-align:left;
+            padding-right:10px;
         }
 
-        /* ── GUARANTEE TEXT ── */
-        .guarantee-text {
-            margin: 10px 0 14px 0;
-            text-align: justify;
-            font-size: 10.5px;
-            line-height: 1.4;
+        .signature-right{
+            text-align:right;
+            padding-left:25px;
         }
 
-        /* ── AADHAR SECTION ── */
-        .aadhar-block {
-            margin-top: 16px;
-            border: 1.5px solid #000;
-            padding: 10px;
-        }
-        .aadhar-number-text {
-            font-weight: bold;
-            margin: 6px 0 10px 0;
+        .signature-label{
+            font-weight:700;
+            display:block;
+            margin-bottom:6px;
         }
 
-        /* Container: column, centered */
-        .aadhar-images-container {
-            display: -webkit-box;
-            display: -ms-flexbox;
-            display: flex;
-            -webkit-box-orient: vertical;
-            -webkit-box-direction: normal;
-            -ms-flex-direction: column;
-            flex-direction: column;
-            -webkit-box-align: center;
-            -ms-flex-align: center;
-            align-items: center;
-            gap: 16px;
-            margin: 10px 0;
+        .signature-space{
+            height:45px;
         }
 
-        /* Each Aadhar card gets its OWN dotted box */
-        .aadhar-image-box {
-            border: 2px dashed #444;
-            background: #f9f9f9;
-            width: 320px;           /* fixed width so all boxes are same size */
-            height: 210px;          /* fixed height for consistent ID-card ratio */
-            display: -webkit-box;
-            display: -ms-flexbox;
-            display: flex;
-            -webkit-box-align: center;
-            -ms-flex-align: center;
-            align-items: center;
-            -webkit-box-pack: center;
-            -ms-flex-pack: center;
-            justify-content: center;
-            padding: 8px;
+        .signature-name{
+            display:block;
+            margin-top:4px;
+            font-weight:normal;
         }
 
-        /* The image itself fills the box proportionally */
-        .aadhar-image {
-            max-width: 100%;
-            max-height: 100%;
-            width: auto;
-            height: auto;
-            object-fit: contain;
-            border: 1px solid #aaa;
-            border-radius: 5px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.15);
-            background: #fff;
-            display: block;
+        /* =======================
+           STAMP
+        ======================= */
+        .stamp-box{
+            border:1.5px solid #000;
+            height:75px;
+            width:220px;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            background:#fff;
+            margin-top:4px;
+            margin-left:auto;
+            font-size:11px;
+            text-align:center;
         }
 
-        /* Placeholder when no image */
-        .aadhar-placeholder {
-            text-align: center;
-            padding: 20px;
-            color: #666;
-            font-size: 10px;
-            line-height: 1.5;
+        /* =======================
+           PAGE 2 TEXT
+        ======================= */
+        .guarantee-text{
+            margin:12px 0 14px 0;
+            text-align:justify;
+            font-size:11.5px;
+            line-height:1.5;
         }
 
-        .text-right { text-align: right; }
-
-        /* ── PAGE BREAK ── */
-        .page-break {
-            page-break-before: always;
-            -webkit-column-break-before: always;
-            break-before: page;
-            margin: 0;
+        /* =======================
+           AADHAR BLOCK
+        ======================= */
+        .aadhar-block{
+            margin-top:16px;
+            border:1.5px solid #000;
+            padding:10px;
         }
 
-        /* ── PRINT OVERRIDES ── */
-        @media print {
-            body { padding: 0; margin: 0; }
+        .aadhar-number-text{
+            font-weight:700;
+            margin:6px 0 10px 0;
+        }
 
-            .page-1-content { page-break-after: always; }
-            .page-break     { page-break-before: always; }
+        .aadhar-images-container{
+            display:flex !important;
+            flex-direction:column !important;
+            align-items:center !important;
+            justify-content:center !important;
+            width:100%;
+            gap:16px;
+            margin:10px 0;
+        }
 
-            .signature-row    { page-break-inside: avoid; }
-            .aadhar-image-box { page-break-inside: avoid; }
-            .aadhar-block     { page-break-inside: avoid; }
+        .aadhar-image-box{
+            border:2px dashed #444;
+            background:#f9f9f9;
+            width:320px;
+            height:210px;
 
-            /* Force flex to work in print (Chromium-based PDF) */
-            .aadhar-images-container {
-                display: flex !important;
-                flex-direction: column !important;
-                align-items: center !important;
+            display:flex !important;
+            align-items:center !important;
+            justify-content:center !important;
+
+            margin:0 auto;
+            padding:8px;
+            overflow:hidden;
+        }
+
+        .aadhar-image{
+            max-width:100%;
+            max-height:100%;
+            width:auto;
+            height:auto;
+            object-fit:contain;
+            border:1px solid #aaa;
+            border-radius:5px;
+            box-shadow:0 2px 5px rgba(0,0,0,0.15);
+            background:#fff;
+            display:block;
+            margin:auto;
+        }
+
+        .aadhar-placeholder{
+            text-align:center;
+            padding:20px;
+            color:#666;
+            font-size:10px;
+            line-height:1.5;
+        }
+
+        .text-right{
+            text-align:right;
+        }
+
+        /* =======================
+           PAGE BREAK
+        ======================= */
+        .page-break{
+            page-break-before:always;
+            break-before:page;
+            margin:0;
+        }
+
+        /* =======================
+           PRINT
+        ======================= */
+        @media print{
+
+            body{
+                padding:0;
+                margin:0;
             }
-            .aadhar-image-box {
-                display: flex !important;
-                align-items: center !important;
-                justify-content: center !important;
+
+            .page-1-content{
+                page-break-after:always;
+            }
+
+            .page-break{
+                page-break-before:always;
+            }
+
+            .signature-row,
+            .aadhar-image-box,
+            .aadhar-block{
+                page-break-inside:avoid;
+            }
+
+            .aadhar-images-container{
+                display:flex !important;
+                flex-direction:column !important;
+                align-items:center !important;
+                justify-content:center !important;
+                width:100% !important;
+            }
+
+            .aadhar-image-box{
+                display:flex !important;
+                align-items:center !important;
+                justify-content:center !important;
+                margin:0 auto 16px auto !important;
+            }
+
+            .aadhar-image{
+                display:block !important;
+                margin:auto !important;
+                max-width:100% !important;
+                max-height:100% !important;
+                object-fit:contain !important;
             }
         }
     </style>
@@ -329,21 +394,27 @@
         <!-- Each image rendered in its OWN dotted box, one below the other, centred -->
         <div class="aadhar-images-container">
 
-            <!-- Thymeleaf: one <div class="aadhar-image-box"> per image -->
-            <div class="aadhar-image-box" th:each="imgBase64 : ${aadharImagesBase64}"
-                 th:if="${aadharImagesBase64 != null and !aadharImagesBase64.isEmpty()}">
-                <img th:src="${imgBase64}"
-                     alt="Aadhar Card"
-                     class="aadhar-image"/>
+            <div th:if="${aadharImagesBase64 != null and !aadharImagesBase64.isEmpty()}">
+
+                <div class="aadhar-image-box"
+                     th:each="imgBase64 : ${aadharImagesBase64}">
+
+                    <img th:src="${imgBase64}"
+                         alt="Aadhar Card"
+                         class="aadhar-image"/>
+
+                </div>
+
             </div>
 
-            <!-- Fallback when no images supplied -->
             <div class="aadhar-image-box"
-                 th:unless="${aadharImagesBase64 != null and !aadharImagesBase64.isEmpty()}">
+                 th:if="${aadharImagesBase64 == null or aadharImagesBase64.isEmpty()}">
+
                 <div class="aadhar-placeholder">
                     Upload Xerox of AADHAR CARD HERE<br/>
                     SHOULD BE SELF ATTESTED BY EXACT CONSUMER
                 </div>
+
             </div>
 
         </div>
