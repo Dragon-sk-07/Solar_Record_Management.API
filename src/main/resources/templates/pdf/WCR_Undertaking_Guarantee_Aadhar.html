@@ -49,7 +49,7 @@
             width:100%;
             border-collapse:collapse;
             border:1px solid #000;
-            font-size:10.5px;
+            font-size:11.5px;
             table-layout:fixed;
         }
 
@@ -90,7 +90,7 @@
         .undertaking-p2{
             margin:8px 0;
             text-align:justify;
-            font-size:10.5px;
+            font-size:11px;
             line-height:1.45;
         }
 
@@ -119,43 +119,49 @@
             padding-right:10px;
         }
 
-        .signature-right{
-            text-align:right;
-            padding-left:25px;
-        }
+       .signature-right{
+    text-align:right;
+    padding-left:25px;
+    vertical-align:top;
+}
+
+.stamp-box{
+    border:1.5px solid #000;
+    height:75px;
+    width:220px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:#fff;
+    margin-top:5px;
+    margin-left:auto;
+    margin-right:0;
+    font-size:11px;
+    text-align:center;
+}
 
         .signature-label{
-            font-weight:700;
-            display:block;
-            margin-bottom:6px;
-        }
+    font-weight:700;
+    display:block;
+    margin-bottom:0px;     /* remove gap below label */
+    font-size:12px;
+}
 
-        .signature-space{
-            height:45px;
-        }
+.signature-space{
+    height:55px;           /* more manual sign space */
+    margin-top:12px;       /* gap ABOVE signature area */
+}
 
-        .signature-name{
-            display:block;
-            margin-top:4px;
-            font-weight:normal;
-        }
+.signature-name{
+    display:block;
+    margin-top:0px;        /* remove gap above name */
+    font-size:12px;
+}
 
         /* =======================
            STAMP
         ======================= */
-        .stamp-box{
-            border:1.5px solid #000;
-            height:75px;
-            width:220px;
-            display:flex;
-            align-items:center;
-            justify-content:center;
-            background:#fff;
-            margin-top:4px;
-            margin-left:auto;
-            font-size:11px;
-            text-align:center;
-        }
+
 
         /* =======================
            PAGE 2 TEXT
@@ -191,34 +197,39 @@
             margin:10px 0;
         }
 
-        .aadhar-image-box{
-            border:2px dashed #444;
-            background:#f9f9f9;
-            width:320px;
-            height:210px;
+    .aadhar-image-box{
+    border:2px dashed #444;
+    background:#f9f9f9;
 
-            display:flex !important;
-            align-items:center !important;
-            justify-content:center !important;
+    width:320px;          /* standard width */
+    min-height:210px;     /* minimum box height */
+    height:auto;          /* auto increase if image taller */
 
-            margin:0 auto;
-            padding:8px;
-            overflow:hidden;
-        }
+    display:block;
 
-        .aadhar-image{
-            max-width:100%;
-            max-height:100%;
-            width:auto;
-            height:auto;
-            object-fit:contain;
-            border:1px solid #aaa;
-            border-radius:5px;
-            box-shadow:0 2px 5px rgba(0,0,0,0.15);
-            background:#fff;
-            display:block;
-            margin:auto;
-        }
+    margin:0 auto;
+    padding:8px;
+    overflow:visible;
+    text-align:center;
+}
+
+.aadhar-image{
+    width:auto;
+    height:auto;
+
+    max-width:100%;       /* fit width */
+    max-height:none;      /* allow natural height */
+
+    object-fit:contain;
+
+    border:1px solid #aaa;
+    border-radius:5px;
+    box-shadow:0 2px 5px rgba(0,0,0,0.15);
+    background:#fff;
+
+    display:block;
+    margin:0 auto;
+}
 
         .aadhar-placeholder{
             text-align:center;
@@ -350,7 +361,9 @@
             <div class="signature-right">
                 <span class="signature-label">Signature [Consumer]</span>
                 <div class="signature-space"></div>
-                <span class="signature-name">(<span class="value-field" th:text="${consumerName}">_________________________</span>)</span>
+                <span class="signature-name">
+        (<span class="value-field" th:text="${consumerName}">________________</span>)
+    </span>
             </div>
         </div>
 
@@ -394,7 +407,8 @@
         <!-- Each image rendered in its OWN dotted box, one below the other, centred -->
         <div class="aadhar-images-container">
 
-            <div th:if="${aadharImagesBase64 != null and !aadharImagesBase64.isEmpty()}">
+            <div style="width:100%; text-align:center;"
+                 th:if="${aadharImagesBase64 != null and !aadharImagesBase64.isEmpty()}">
 
                 <div class="aadhar-image-box"
                      th:each="imgBase64 : ${aadharImagesBase64}">
