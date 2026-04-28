@@ -37,7 +37,7 @@
             font-weight: 700;
             text-align: center;
             text-transform: uppercase;
-            margin: 25px 0 15px 0;
+            margin: 0 0 15px 0;
         }
         table {
             width: 100%;
@@ -75,32 +75,37 @@
             width: 100%;
             margin: 5px 0 3px 0;
         }
-        .signature-flex {
+        /* Signature row - horizontal left/right alignment */
+        .signature-row {
             display: flex;
+            flex-direction: row;
             justify-content: space-between;
             align-items: flex-end;
             margin: 15px 0;
-            gap: 20px;
+            width: 100%;
         }
-        .signature-item {
+        .signature-left {
             flex: 1;
-            max-width: 48%;
+            text-align: left;
+            padding-right: 20px;
         }
-        .signature-item:last-child {
+        .signature-right {
+            flex: 1;
             text-align: right;
+            padding-left: 20px;
         }
+        /* Stamp box - right aligned */
         .stamp-box {
             border: 1.5px solid #000;
             height: 70px;
             width: 200px;
-            display: flex;
+            display: inline-flex;
             align-items: center;
             justify-content: center;
             background: white;
             margin-top: 4px;
             font-size: 11px;
             text-align: center;
-            margin-left: auto;
         }
         .aadhar-block {
             margin-top: 25px;
@@ -111,37 +116,50 @@
             margin: 15px 0;
             border: 2px dashed #444;
             background: #f9f9f9;
-            min-height: 180px;
+            min-height: 240px;
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 10px;
+            padding: 15px;
         }
-        .aadhar-images-wrapper {
+        /* Single image - centered */
+        .aadhar-single {
             display: flex;
-            gap: 20px;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+        }
+        /* Multiple images - row layout centered */
+        .aadhar-multiple {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+            gap: 25px;
             flex-wrap: wrap;
+            width: 100%;
+        }
+        .aadhar-card-item {
+            display: flex;
             justify-content: center;
             align-items: center;
-        }
-        .aadhar-card-item.single {
-            margin: 0 auto;
         }
         .aadhar-image {
-            width: 340px;
+            width: 320px;
             max-width: 100%;
             height: auto;
-            min-height: 200px;
-            max-height: 220px;
+            min-height: 190px;
+            max-height: 210px;
             object-fit: contain;
-            border: 1px solid #ccc;
-            border-radius: 8px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-            background: #f5f5f5;
+            border: 1px solid #aaa;
+            border-radius: 6px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+            background: #ffffff;
         }
-        .aadhar-images-wrapper .aadhar-image {
-            width: 300px;
-            max-height: 200px;
+        /* When 2 images - both same fixed size */
+        .aadhar-multiple .aadhar-image {
+            width: 280px;
+            max-height: 190px;
         }
         .aadhar-number-text {
             font-weight: bold;
@@ -151,11 +169,26 @@
             text-align: right;
         }
         .page-break {
-            margin-top: 40px;
+            page-break-before: always;
+            margin-top: 0;
         }
         .undertaking-p1, .undertaking-p2 {
             margin: 12px 0;
             text-align: justify;
+        }
+        .guarantee-text {
+            margin: 15px 0 20px;
+            text-align: justify;
+        }
+        /* PDF print support */
+        @media print {
+            body {
+                padding: 0;
+                margin: 0;
+            }
+            .page-break {
+                page-break-before: always;
+            }
         }
     </style>
 </head>
@@ -198,37 +231,41 @@
         <p>We <span class="value-field" th:text="${vendorName}">_________________________</span> &amp; <span class="value-field" th:text="${consumerName}">_________________________</span> bearing Consumer Number <span class="value-field" th:text="${consumerNumber}">_________________________</span>. Ensured structural stability of installed solar power plant and obtained requisite permissions from the concerned authority. If in future, by virtue of any means due to collapsing or damage to installed solar power plant, MSEDCL will not be held responsible for any loss to property or human life, if any.</p>
     </div>
     <div class="undertaking-p2">
-        <p>This is to Certified above Installed Solar PV System is working properly with electrical safety &amp; Islanding switch in case of any presence of backup inverter an arrangement should be made in such way the backup inverter supply should never be synchronized with solar inverter to avoid any electrical accident due to back feeding. We will be held responsible for non- working of islanding mechanism and back feed to the de- energized grid.</p>
+        <p>This is to Certified above Installed Solar PV System is working properly with electrical safety &amp; Islanding switch in case of any presence of backup inverter an arrangement should be made in such way the backup inverter supply should never be synchronized with solar inverter to avoid any electrical accident due to back feeding. We will be held responsible for non-working of islanding mechanism and back feed to the de-energized grid.</p>
     </div>
 
-    <div class="signature-flex">
-        <div class="signature-item">
+    <!-- Signature Row 1: Vendor (Left) + Consumer (Right) -->
+    <div class="signature-row">
+        <div class="signature-left">
             <span class="bold">Signature [Vendor]</span>
             <div class="signature-line"></div>
             <span class="value-field" th:text="${vendorName}">_________________________</span>
         </div>
-        <div class="signature-item">
+        <div class="signature-right">
             <span class="bold">Signature [Consumer]</span>
             <div class="signature-line"></div>
             <span class="value-field" th:text="${consumerName}">_________________________</span>
         </div>
     </div>
 
-    <!-- PAGE 2 -->
+    <!-- PAGE BREAK - PAGE 2 STARTS HERE -->
     <div class="page-break"></div>
+
+    <!-- PAGE 2 - GUARANTEE CERTIFICATE -->
     <h2>GUARANTEE CERTIFICATE UNDERTAKING TO BE SUBMITTED BY VENDOR</h2>
 
-    <div style="margin: 15px 0 20px;">
-        <p>The undersigned will provide the services to the consumers for repairs/maintenance of the RTS plant free of cost for 5 years of the comprehensive Maintenance Contract (CMC) period from the date of commissioning of the plant. Non performing/under- performing system component will be replaced/repaired free of cost in the CMC period</p>
+    <div class="guarantee-text">
+        <p>The undersigned will provide the services to the consumers for repairs/maintenance of the RTS plant free of cost for 5 years of the comprehensive Maintenance Contract (CMC) period from the date of commissioning of the plant. Non performing/under-performing system component will be replaced/repaired free of cost in the CMC period.</p>
     </div>
 
-    <div class="signature-flex">
-        <div class="signature-item">
+    <!-- Signature Row 2: Vendor Signature (Left) + Stamp & Seal (Right) -->
+    <div class="signature-row">
+        <div class="signature-left">
             <span class="bold">Signature [Vendor]</span>
             <div class="signature-line"></div>
             <span class="value-field" th:text="${vendorName}">_________________________</span>
         </div>
-        <div class="signature-item">
+        <div class="signature-right">
             <span class="bold">Stamp &amp; Seal</span>
             <div class="stamp-box">
                 <span th:text="${vendorStamp}">_________________________</span>
@@ -236,23 +273,23 @@
         </div>
     </div>
 
-    <!-- AADHAR SECTION WITH IMAGE SUPPORT -->
+    <!-- AADHAR SECTION -->
     <div class="aadhar-block">
         <p style="font-size: 13px; font-weight: 700; margin-bottom: 8px;">Identity Details of Consumer: -</p>
         <div class="aadhar-number-text">
             <span class="bold">Aadhar Number:</span> <span class="value-field" th:text="${aadharNumber}">_________________________</span>
         </div>
 
-        <!-- Aadhar Card Image Display - Perfect Fit -->
+        <!-- Aadhar Card Image Display - Centered, Fixed Size -->
         <div class="aadhar-card-container">
             <div th:if="${aadharImagesBase64 != null and !aadharImagesBase64.isEmpty()}">
-                <div th:class="${aadharImagesBase64.size() == 1 ? 'aadhar-card-item single' : 'aadhar-images-wrapper'}">
+                <div th:class="${aadharImagesBase64.size() == 1 ? 'aadhar-single' : 'aadhar-multiple'}">
                     <div class="aadhar-card-item" th:each="imgBase64 : ${aadharImagesBase64}">
                         <img th:src="${imgBase64}" alt="Aadhar Card" class="aadhar-image"/>
                     </div>
                 </div>
             </div>
-            <div th:unless="${aadharImagesBase64 != null and !aadharImagesBase64.isEmpty()}" class="aadhar-placeholder">
+            <div th:unless="${aadharImagesBase64 != null and !aadharImagesBase64.isEmpty()}" class="aadhar-placeholder" style="text-align:center; padding:30px; color:#666;">
                 Upload Xerox of AADHAR CARD HERE<br/>SHOULD BE SELF ATTESTED BY EXACT CONSUMER
             </div>
         </div>
