@@ -70,18 +70,14 @@
         .bold {
             font-weight: 700;
         }
-        .signature-line {
-            border-bottom: 1.5px solid #000;
-            width: 100%;
-            margin: 5px 0 3px 0;
-        }
-        /* Signature row - horizontal left/right alignment */
+
+        /* Signature styles - NO lines, just space */
         .signature-row {
             display: flex;
             flex-direction: row;
             justify-content: space-between;
             align-items: flex-end;
-            margin: 15px 0;
+            margin: 20px 0 15px 0;
             width: 100%;
         }
         .signature-left {
@@ -94,7 +90,22 @@
             text-align: right;
             padding-left: 20px;
         }
-        /* Stamp box - right aligned */
+        .signature-space {
+            margin-top: 25px;
+            margin-bottom: 5px;
+        }
+        .signature-label {
+            font-weight: 700;
+            display: block;
+            margin-bottom: 8px;
+        }
+        .signature-name {
+            display: block;
+            margin-top: 30px;
+            font-weight: normal;
+        }
+
+        /* Stamp box */
         .stamp-box {
             border: 1.5px solid #000;
             height: 70px;
@@ -107,60 +118,74 @@
             font-size: 11px;
             text-align: center;
         }
+
+        /* Aadhar Section */
         .aadhar-block {
             margin-top: 25px;
             border: 1.5px solid #000;
             padding: 15px;
+            page-break-inside: avoid;
         }
         .aadhar-card-container {
             margin: 15px 0;
             border: 2px dashed #444;
             background: #f9f9f9;
-            min-height: 240px;
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 15px;
+            padding: 20px;
+            min-height: 220px;
         }
-        /* Single image - centered */
+
+        /* Single image - centered, fixed size */
         .aadhar-single {
             display: flex;
             justify-content: center;
             align-items: center;
             width: 100%;
         }
-        /* Multiple images - row layout centered */
+
+        /* Multiple images - vertical column (one below another) centered */
         .aadhar-multiple {
             display: flex;
-            flex-direction: row;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
-            gap: 25px;
-            flex-wrap: wrap;
+            gap: 20px;
             width: 100%;
         }
+
         .aadhar-card-item {
             display: flex;
             justify-content: center;
             align-items: center;
         }
+
+        /* Fixed Aadhar card size - standard ID card proportions */
         .aadhar-image {
-            width: 320px;
+            width: 280px;
             max-width: 100%;
             height: auto;
-            min-height: 190px;
-            max-height: 210px;
+            min-height: 170px;
+            max-height: 190px;
             object-fit: contain;
             border: 1px solid #aaa;
             border-radius: 6px;
             box-shadow: 0 2px 6px rgba(0,0,0,0.15);
             background: #ffffff;
         }
-        /* When 2 images - both same fixed size */
+
+        /* Same fixed size for multiple images */
         .aadhar-multiple .aadhar-image {
             width: 280px;
             max-height: 190px;
         }
+
+        /* Adjust container height for multiple images */
+        .aadhar-multiple-parent {
+            min-height: 400px;
+        }
+
         .aadhar-number-text {
             font-weight: bold;
             margin: 10px 0;
@@ -168,18 +193,24 @@
         .text-right {
             text-align: right;
         }
+
+        /* Page Break Control */
         .page-break {
             page-break-before: always;
             margin-top: 0;
         }
+
         .undertaking-p1, .undertaking-p2 {
             margin: 12px 0;
             text-align: justify;
+            page-break-inside: avoid;
         }
+
         .guarantee-text {
             margin: 15px 0 20px;
             text-align: justify;
         }
+
         /* PDF print support */
         @media print {
             body {
@@ -188,6 +219,9 @@
             }
             .page-break {
                 page-break-before: always;
+            }
+            .signature-row {
+                page-break-inside: avoid;
             }
         }
     </style>
@@ -234,17 +268,17 @@
         <p>This is to Certified above Installed Solar PV System is working properly with electrical safety &amp; Islanding switch in case of any presence of backup inverter an arrangement should be made in such way the backup inverter supply should never be synchronized with solar inverter to avoid any electrical accident due to back feeding. We will be held responsible for non-working of islanding mechanism and back feed to the de-energized grid.</p>
     </div>
 
-    <!-- Signature Row 1: Vendor (Left) + Consumer (Right) -->
+    <!-- Signature Row 1: Vendor (Left) + Consumer (Right) - NO LINES -->
     <div class="signature-row">
         <div class="signature-left">
-            <span class="bold">Signature [Vendor]</span>
-            <div class="signature-line"></div>
-            <span class="value-field" th:text="${vendorName}">_________________________</span>
+            <span class="signature-label">Signature [Vendor]</span>
+            <div class="signature-space"></div>
+            <span class="signature-name">(<span class="value-field" th:text="${vendorName}">_________________________</span>)</span>
         </div>
         <div class="signature-right">
-            <span class="bold">Signature [Consumer]</span>
-            <div class="signature-line"></div>
-            <span class="value-field" th:text="${consumerName}">_________________________</span>
+            <span class="signature-label">Signature [Consumer]</span>
+            <div class="signature-space"></div>
+            <span class="signature-name">(<span class="value-field" th:text="${consumerName}">_________________________</span>)</span>
         </div>
     </div>
 
@@ -258,15 +292,15 @@
         <p>The undersigned will provide the services to the consumers for repairs/maintenance of the RTS plant free of cost for 5 years of the comprehensive Maintenance Contract (CMC) period from the date of commissioning of the plant. Non performing/under-performing system component will be replaced/repaired free of cost in the CMC period.</p>
     </div>
 
-    <!-- Signature Row 2: Vendor Signature (Left) + Stamp & Seal (Right) -->
+    <!-- Signature Row 2: Vendor Signature (Left) + Stamp & Seal (Right) - NO LINES -->
     <div class="signature-row">
         <div class="signature-left">
-            <span class="bold">Signature [Vendor]</span>
-            <div class="signature-line"></div>
-            <span class="value-field" th:text="${vendorName}">_________________________</span>
+            <span class="signature-label">Signature [Vendor]</span>
+            <div class="signature-space"></div>
+            <span class="signature-name">(<span class="value-field" th:text="${vendorName}">_________________________</span>)</span>
         </div>
         <div class="signature-right">
-            <span class="bold">Stamp &amp; Seal</span>
+            <span class="signature-label">Stamp &amp; Seal</span>
             <div class="stamp-box">
                 <span th:text="${vendorStamp}">_________________________</span>
             </div>
@@ -281,7 +315,7 @@
         </div>
 
         <!-- Aadhar Card Image Display - Centered, Fixed Size -->
-        <div class="aadhar-card-container">
+        <div class="aadhar-card-container" th:classappend="${aadharImagesBase64 != null and aadharImagesBase64.size() > 1} ? 'aadhar-multiple-parent' : ''">
             <div th:if="${aadharImagesBase64 != null and !aadharImagesBase64.isEmpty()}">
                 <div th:class="${aadharImagesBase64.size() == 1 ? 'aadhar-single' : 'aadhar-multiple'}">
                     <div class="aadhar-card-item" th:each="imgBase64 : ${aadharImagesBase64}">
