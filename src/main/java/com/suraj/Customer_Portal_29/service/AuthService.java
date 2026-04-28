@@ -22,6 +22,9 @@ public class AuthService {
 
     private final OwnerRepository repo;
     private final JwtTokenProvider jwtProvider;
+    private final java.util.concurrent.ConcurrentHashMap<String, com.suraj.Customer_Portal_29.entity.Owner> userCache = new java.util.concurrent.ConcurrentHashMap<>();
+    private final java.util.concurrent.ConcurrentHashMap<String, Long> cacheTime = new java.util.concurrent.ConcurrentHashMap<>();
+    private static final long CACHE_DURATION = 300000L;
     private final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 
     public AuthService(OwnerRepository repo, JwtTokenProvider jwtProvider) {
@@ -30,16 +33,18 @@ public class AuthService {
     }
 
     public LoginResponseDto login(LoginRequestDto request) {
-        Owner Owner = repo.findByEmail(request.getEmail())
-                .orElseThrow(() -> new RuntimeException("Invalid credentials"));
-
-        if (!encoder.matches(request.getPassword(), Owner.getPassword())) {
+        String email = request.getEmail();
+        com.suraj.Customer_Portal_29.entity.Owner owner = userCache.get(email);
+        if (owner == null || System.currentTimeMillis() - cacheTime.getOrDefault(email, 0L) > CACHE_DURATION) {
+            owner = repo.findByEmail(email).orElseThrow(() -> new RuntimeException("Invalid credentials"));
+            userCache.put(email, owner);
+            cacheTime.put(email, System.currentTimeMillis());
+        }
+        if (!encoder.matches(request.getPassword(), owner.getPassword())) {
             throw new RuntimeException("Invalid credentials");
         }
-
-       String token = jwtProvider.generateToken(Owner.getEmail());
-
-        return new LoginResponseDto(token,Owner.getName());
+        String token = jwtProvider.generateToken(owner.getEmail());
+        return new LoginResponseDto(token, owner.getName());
     }
 
     public void register(RegisterRequestDto request) {
