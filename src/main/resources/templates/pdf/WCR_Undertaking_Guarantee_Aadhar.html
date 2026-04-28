@@ -49,7 +49,7 @@
             width:100%;
             border-collapse:collapse;
             border:1px solid #000;
-            font-size:11.5px;
+            font-size:12px;
             table-layout:fixed;
         }
 
@@ -90,7 +90,7 @@
         .undertaking-p2{
             margin:8px 0;
             text-align:justify;
-            font-size:11px;
+            font-size:12px;
             line-height:1.45;
         }
 
@@ -143,18 +143,19 @@
         .signature-label{
     font-weight:700;
     display:block;
-    margin-bottom:0px;     /* remove gap below label */
+    margin-top:4px;
+    margin-bottom:0;
     font-size:12px;
 }
 
 .signature-space{
-    height:55px;           /* more manual sign space */
-    margin-top:12px;       /* gap ABOVE signature area */
+    height:55px;      /* manual signature area above text */
+    margin-top:0;
 }
 
 .signature-name{
     display:block;
-    margin-top:0px;        /* remove gap above name */
+    margin-top:0;
     font-size:12px;
 }
 
@@ -354,16 +355,14 @@
         <!-- Signature Row 1 — Vendor (Left) + Consumer (Right) — stays on PAGE 1 -->
         <div class="signature-row">
             <div class="signature-left">
-                <span class="signature-label">Signature [Vendor]</span>
                 <div class="signature-space"></div>
-                <span class="signature-name">(<span class="value-field" th:text="${vendorName}">_________________________</span>)</span>
+                <span class="signature-label">Signature [Vendor]</span>
+                <span class="signature-name">(<span class="value-field" th:text="${vendorName}">________________</span>)</span>
             </div>
             <div class="signature-right">
-                <span class="signature-label">Signature [Consumer]</span>
                 <div class="signature-space"></div>
-                <span class="signature-name">
-        (<span class="value-field" th:text="${consumerName}">________________</span>)
-    </span>
+                <span class="signature-label">Signature [Consumer]</span>
+                <span class="signature-name">(<span class="value-field" th:text="${name}">________________</span>)</span>
             </div>
         </div>
 
@@ -384,9 +383,13 @@
     <!-- Signature Row 2 — Vendor (Left) + Stamp & Seal (Right) -->
     <div class="signature-row">
         <div class="signature-left">
-            <span class="signature-label">Signature [Vendor]</span>
             <div class="signature-space"></div>
-            <span class="signature-name">(<span class="value-field" th:text="${vendorName}">_________________________</span>)</span>
+            <span class="signature-label">Signature [Vendor]</span>
+            <span class="signature-name">(
+        <span class="value-field" th:text="${vendorName}">
+            _________________________
+        </span>)
+    </span>
         </div>
         <div class="signature-right">
             <span class="signature-label">Stamp &amp; Seal</span>
