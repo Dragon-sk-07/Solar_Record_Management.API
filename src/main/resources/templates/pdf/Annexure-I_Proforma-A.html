@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Proforma-A – exact government original</title>
+    <title>Renewable Energy Generating System - Annexure-I (Commissioning Report)</title>
     <style>
         /* ---------- RESET: zero margins, precise PDF match ---------- */
         * {
@@ -15,232 +15,272 @@
             font-family: Arial, Helvetica, sans-serif;
             background: white;
             color: black;
-            font-size: 14px;            /* base = original */
-            line-height: 1.4;              /* original leading */
+            font-size: 14px;
+            line-height: 1.4;
             padding: 0;
         }
         .document-wrapper {
             max-width: 1000px;
             margin: 0 auto;
-            padding: 20px 20px 15px 20px;    /* side padding only to avoid text cut, no extra */
+            padding: 20px 20px 15px 20px;
             background: white;
         }
 
-        /* ---------- TITLES – bold, exact size, all caps as PDF ---------- */
-        h1 {
-            font-size: 26px;
-            font-weight: 700;               /* bold */
+        /* ---------- MAIN HEADER: Renewable Energy Generating System + Annexure-I ---------- */
+        .re-header {
             text-align: center;
+            font-weight: 700;
+            font-size: 18px;
             text-transform: uppercase;
-            margin: 0 0 2px 0;               /* exactly as original */
-            letter-spacing: 0.3px;
-            word-spacing: 0.5px;
+            letter-spacing: 0.5px;
+            margin: 0 0 4px 0;
         }
-        .main-subtitle {
-            font-size: 16px;
-            font-weight: 700;                /* bold */
+        .annexure {
             text-align: center;
+            font-weight: 700;
+            font-size: 16px;
             text-transform: uppercase;
-            margin: 0 0 15px 0;               /* bottom margin matches PDF */
-            line-height: 1.4;
-            word-spacing: 0.2px;
+            margin: 0 0 4px 0;
+        }
+        .commissioning-report-sub {
+            text-align: center;
+            font-weight: 400;
+            font-size: 14px;
+            font-style: normal;
+            margin: 0 0 20px 0;
         }
 
-        /* ---------- DATA TABLE – left bold labels, right values normal weight (not bold) exactly like original PDF where values are plain text ---------- */
+        /* ---------- PROFORMA-A (plain bold, not huge) ---------- */
+        .proforma-title {
+            font-size: 20px;
+            font-weight: 700;
+            text-align: center;
+            text-transform: uppercase;
+            margin: 10px 0 2px 0;
+        }
+        .main-subtitle {
+            font-size: 14px;
+            font-weight: 700;
+            text-align: center;
+            text-transform: uppercase;
+            margin: 0 0 15px 0;
+            line-height: 1.4;
+        }
+
+        /* ---------- DATA TABLE – includes SNo. column header row ---------- */
         .data-table {
             width: 100%;
             border-collapse: collapse;
             margin: 0 0 6px 0;
         }
-        .data-table td {
-            padding: 1px 1px 1px 0;            /* minimal, matches original row density */
+        .data-table th, .data-table td {
+            border: 1px solid black;
+            padding: 6px 6px;
             vertical-align: top;
-            border: none;
-            line-height: 1.45;
+            line-height: 1.4;
+        }
+        .data-table th {
+            font-weight: 700;
+            background-color: #f5f5f5;
+            text-align: center;
+            font-size: 14px;
         }
         .data-table td:first-child {
-            width: 38%;
-            font-weight: 700;                   /* bold labels */
-            white-space: nowrap;
-            padding-right: 2px;
-            font-size: 14px;
+            font-weight: 700;
+            width: 40%;
         }
         .data-table td:last-child {
-            width: 62%;
-            font-weight: 400;                   /* normal weight values – exactly like PDF (no bold) */
-            color: black;
-            font-size: 14px;
+            font-weight: 400;
+            width: 60%;
         }
 
-        /* SolarPV details – split exactly as original, labels bold, values normal */
+        /* SolarPV details – split exactly as original */
         .solar-line1, .solar-line2 {
             display: block;
             line-height: 1.5;
-            white-space: nowrap;
         }
         .solar-label {
-            font-weight: 700;                  /* bold label */
-            margin-right: 2px;
+            font-weight: 700;
+            margin-right: 4px;
         }
         .solar-value {
-            font-weight: 400;                   /* normal value (plain text) */
-            margin-right: 16px;                  /* spacing as original */
-        }
-        .solar-line2 {
-            margin-top: 0;
+            font-weight: 400;
+            margin-right: 16px;
         }
 
-        /* ---------- COMMISSIONING TEXT – exact wording, line breaks, normal weight (only original bold if any) ---------- */
+        /* ---------- COMMISSIONING TEXT – exact wording, line breaks ---------- */
         .commissioning-text {
-            margin: 8px 0 10px 0;
+            margin: 12px 0 10px 0;
             font-size: 14px;
-            line-height: 1.55;                   /* exact leading as original */
+            line-height: 1.55;
         }
         .commissioning-text p {
-            margin: 6px 0;                        /* paragraph gaps exactly like PDF */
+            margin: 8px 0;
         }
-        /* in original PDF, the only bold is the title and maybe numbers? but values inside paragraphs are normal. We follow exactly. */
-        .commissioning-text .bold {
-            font-weight: 700;                     /* only if needed – but original PDF does not bold the capacity numbers in sentence. We keep normal. */
-        }
-        /* but original PDF shows "13.75 KWp" as normal text, not bold. So we remove bold from there. */
         .plain-value {
             font-weight: 400;
         }
 
-        /* ---------- SIGNATURE SECTIONS – with solid underline (_______ ) exactly as original, labels bold, names/dates normal (plain) ---------- */
+        /* ---------- SIGNATURE SECTIONS – solid underline ---------- */
         .signature-row {
             display: flex;
             justify-content: space-between;
-            margin: 10px 0 2px 0;
+            margin: 15px 0 10px 0;
+            gap: 20px;
         }
         .signature-box {
             width: 48%;
         }
         .signature-label {
-            font-weight: 700;                       /* bold e.g. "Signature of Installer/Vendor" */
-            margin-bottom: 2px;
+            font-weight: 700;
+            margin-bottom: 4px;
             font-size: 14px;
         }
         .signature-line {
-            border-bottom: 1.5px solid black;       /* solid line exactly like original _____ */
+            border-bottom: 1.5px solid black;
             width: 100%;
-            margin: 4px 0 6px 0;
-            height: 1px;
+            margin: 4px 0 8px 0;
         }
         .signature-name, .signature-desig, .signature-date {
-            font-weight: 400;                        /* normal for static text "Name:" */
-            margin: 2px 0;
+            font-weight: 400;
+            margin: 3px 0;
             line-height: 1.4;
         }
         .signature-name span, .signature-desig span, .signature-date span {
-            font-weight: 400;                         /* names and dates are plain text, not bold (original PDF has plain text) */
+            font-weight: 400;
         }
         .if-applicable {
             font-weight: 400;
-            margin-top: 1px;
-            font-size: 14px;
+            margin-top: 4px;
+            font-size: 13px;
+            font-style: italic;
+        }
+        .seal-text {
+            font-weight: 400;
+            margin-top: 4px;
+            font-size: 13px;
         }
 
-        /* ensure no extra borders, no added elements */
-        hr, .border, .extra { display: none; }
+        /* MSEDCL inspection paragraph styling */
+        .inspection-text {
+            margin: 16px 0 16px 0;
+            padding: 6px 0;
+            font-size: 14px;
+            line-height: 1.55;
+            border-top: 1px solid #ccc;
+            border-bottom: 1px solid #ccc;
+        }
+        .inspection-text p {
+            margin: 5px 0;
+        }
 
-        /* exactly as original: no underlines under values, only signature lines */
+        hr, .extra { display: none; }
     </style>
 </head>
 <body>
 <div class="document-wrapper">
 
-    <!-- TITLE: PROFORMA-A (bold, all caps) -->
-    <h1>PROFORMA-A</h1>
+    <!-- ==================== MAIN HEADER: RENEWABLE ENERGY GENERATING SYSTEM ==================== -->
+    <div class="re-header">Renewable Energy Generating System</div>
+    <div class="annexure">Annexure-I</div>
+    <div class="commissioning-report-sub">(Commissioning Report for RE System)</div>
 
-    <!-- subtitle: bold, all caps, exact wording from PDF (with "Net- metering") -->
-    <div class="main-subtitle">COMMISSIONING REPORT (PROVISIONAL) FOR GRID CONNECTED SOLAR PHOTOVOLTAIC POWER PLANT (with Net- metering facility)</div>
+    <!-- ==================== PROFORMA-A TITLE ==================== -->
+    <div class="proforma-title">PROFORMA-A</div>
+    <div class="main-subtitle">COMMISSIONING REPORT (PROVISIONAL) FOR GRID CONNECTED SOLAR PHOTOVOLTAIC POWER PLANT (with Net-metering facility)</div>
 
-    <!-- DATA TABLE – labels bold, values normal (plain text) – NO underlines under values, NO dotted lines -->
+    <!-- ==================== DATA TABLE WITH SNo. HEADER ROW ==================== -->
     <table class="data-table">
-        <tr><td>1 Name of the Consumer</td><td th:text="${name}">Krishna Menon</td></tr>
-        <tr><td>2 Consumer Number</td><td th:text="${consumerNumber}">MSEDCL1290197</td></tr>
-        <tr><td>3 Mobile Number</td><td th:text="${mobileNumber}">9807619566</td></tr>
-        <tr><td>4 E- mail</td><td th:text="${email}">krishna.menon865@outlook.com</td></tr>
-        <tr><td>5 Address of Installation</td><td th:text="${siteAddress}">H.No.1259,Near Bus Stand,Laxmi Road, Ahmednagar- 414001,Maharashtra</td></tr>
-        <tr><td>6 RE Arrangement Type</td><td th:text="${reArrangementType}">Net Metering Arrangement</td></tr>
-        <tr><td>7 RE Source</td><td th:text="${reSource}">Solar</td></tr>
-        <tr><td>8 Sanctioned Capacity(KW)</td><td th:text="${sanctionedCapacity}">13.75</td></tr>
-        <tr><td>9 Capacity Type</td><td th:text="${capacityType}">Rooftop</td></tr>
-        <tr><td>10 Project Model</td><td th:text="${projectModel}">RESCO</td></tr>
-        <tr><td>11 RE installed Capacity(Rooftop)(KW)</td><td th:text="${reInstalledCapacityRooftop}">13.75</td></tr>
-        <tr><td>12 RE installed Capacity(Rooftop + Ground)(KW)</td><td th:text="${reInstalledCapacityRooftopGround}">0.0</td></tr>
-        <tr><td>13 RE installed Capacity(Ground)(KW)</td><td th:text="${reInstalledCapacityGround}">0.0</td></tr>
-        <tr><td>14 Installation date</td><td th:text="${installationDate}">2025- 07- 09</td></tr>
-        <tr><td>15 SolarPV Details</td><td>
-            <!-- line 1: Inverter Capacity & Make (labels bold, values normal) -->
-            <span class="solar-line1">
-                <span class="solar-label">Inverter Capacity(KW):</span><span class="solar-value" th:text="${inverterCapacity}">13.75</span>
-                <span class="solar-label">Inverter Make:</span><span class="solar-value" th:text="${inverterMake}">GoodWe</span>
-            </span>
-            <!-- line 2: No.of PV Modules & Module Capacity (labels bold, values normal) -->
-            <span class="solar-line2">
-                <span class="solar-label">No.of PV Modules:</span><span class="solar-value" th:text="${numberOfModules}">24</span>
-                <span class="solar-label">Module Capacity (KW):</span><span class="solar-value" th:text="${wattagePerModule}">573.0</span>
-            </span>
-        </td></tr>
+        <thead>
+        <tr>
+            <th>SNo.</th>
+            <th>Particulars</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr><td>1</td><td>Name of the Consumer: <strong th:text="${name}">Krishna Menon</strong></td></tr>
+        <tr><td>2</td><td>Consumer Number: <span th:text="${consumerNumber}">MSEDCL1290197</span></td></tr>
+        <tr><td>3</td><td>Mobile Number: <span th:text="${mobileNumber}">9807619566</span></td></tr>
+        <tr><td>4</td><td>E-mail: <span th:text="${email}">krishna.menon865@outlook.com</span></td></tr>
+        <tr><td>5</td><td>Address of Installation: <span th:text="${siteAddress}">H.No.1259,Near Bus Stand,Laxmi Road, Ahmednagar- 414001,Maharashtra</span></td></tr>
+        <tr><td>6</td><td>RE Arrangement Type: <span th:text="${reArrangementType}">Net Metering Arrangement</span></td></tr>
+        <tr><td>7</td><td>RE Source: <span th:text="${reSource}">Solar</span></td></tr>
+        <tr><td>8</td><td>Sanctioned Capacity(KW): <span th:text="${sanctionedCapacity}">13.75</span></td></tr>
+        <tr><td>9</td><td>Capacity Type: <span th:text="${capacityType}">Rooftop</span></td></tr>
+        <tr><td>10</td><td>Project Model: <span th:text="${projectModel}">RESCO</span></td></tr>
+        <tr><td>11</td><td>RE installed Capacity(Rooftop)(KW): <span th:text="${reInstalledCapacityRooftop}">13.75</span></td></tr>
+        <tr><td>12</td><td>RE installed Capacity(Rooftop + Ground)(KW): <span th:text="${reInstalledCapacityRooftopGround}">0.0</span></td></tr>
+        <tr><td>13</td><td>RE installed Capacity(Ground)(KW): <span th:text="${reInstalledCapacityGround}">0.0</span></td></tr>
+        <tr><td>14</td><td>Installation date: <span th:text="${installationDate}">2025-07-09</span></td></tr>
+        <tr>
+            <td>15</td>
+            <td>
+                SolarPV Details<br/>
+                <span class="solar-line1">
+                        <span class="solar-label">Inverter Capacity(KW):</span><span class="solar-value" th:text="${inverterCapacity}">13.75</span>
+                        <span class="solar-label">Inverter Make:</span><span class="solar-value" th:text="${inverterMake}">GoodWe</span>
+                    </span>
+                <span class="solar-line2">
+                        <span class="solar-label">No.of PV Modules:</span><span class="solar-value" th:text="${numberOfModules}">24</span>
+                        <span class="solar-label">Module Capacity (KW):</span><span class="solar-value" th:text="${wattagePerModule}">573.0</span>
+                    </span>
+            </td>
+        </tr>
+        <tr><td>16</td><td>As Commissioned: <span th:text="${asCommissioned}">As per approved drawings and specifications</span></td></tr>
+        <tr><td>17</td><td>Net Metering Arrangement: <span th:text="${netMeteringArrangement}">Single Phase / Three Phase with export-import meter</span></td></tr>
+        </tbody>
     </table>
 
-    <!-- COMMISSIONING REPORT PARAGRAPHS – exact wording, line breaks, no extra bold (values normal) -->
+    <!-- ==================== COMMISSIONING CERTIFICATE TEXT (exact original wording) ==================== -->
     <div class="commissioning-text">
-        <p>Certified that a Grid Connected SPV Power Plant of <span class="plain-value" th:text="${totalCapacityKWP}">13.75</span> KWp capacity has been installed at the site</p>
-
-        <p>District of MAHARASHTRA which has been installed by M/S. <span class="plain-value" th:text="${vendorName}">Exide Industries</span>. The system is as per BIS/MNRE specifications. The system has been checked for its performance and found in order for further commissioning.</p>
-
-        <!-- this line exactly as PDF: "2025- 07- 09 and found in order for commissioning." (with spaces) -->
-        <p><span class="plain-value" th:text="${installationDate}">2025- 07- 09</span> and found in order for commissioning.</p>
+        <p>Certified that a Grid Connected SPV Power Plant of <span class="plain-value" th:text="${totalCapacityKWP}">13.75</span> KWp capacity has been installed at the site <span th:text="${siteAddressShort}">………………………………….</span></p>
+        <p>District <span th:text="${district}">………………………………….</span> of MAHARASHTRA which has been installed by M/S <span class="plain-value" th:text="${vendorName}">Exide Industries</span> on <span th:text="${installationDate}">………………………………….</span> The system is as per BIS/MNRE specifications. The system has been checked for its performance and found in order for further commissioning.</p>
     </div>
 
-    <!-- SIGNATURE ROW 1: Installer/Vendor  &  Consumer (with solid underline) -->
+    <!-- ==================== SIGNATURE ROW 1: BENEFICIARY + AGENCY (exact pairing) ==================== -->
     <div class="signature-row">
         <div class="signature-box">
-            <div class="signature-label">Signature of Installer/Vendor</div>
-            <div class="signature-line"></div>   <!-- solid line exactly like original _____ -->
-            <div class="signature-name">Name: <span th:text="${vendorName}">Exide Industries</span></div>
-            <div class="signature-date">Date: <span th:text="${installationDate}">2025- 07- 09</span></div>
-        </div>
-        <div class="signature-box">
-            <div class="signature-label">Signature of Consumer</div>
+            <div class="signature-label">Signature of the beneficiary</div>
             <div class="signature-line"></div>
             <div class="signature-name">Name: <span th:text="${name}">Krishna Menon</span></div>
-            <div class="signature-date">Date: <span th:text="${installationDate}">2025- 07- 09</span></div>
+            <div class="signature-date">Date: <span th:text="${installationDate}">2025-07-09</span></div>
+        </div>
+        <div class="signature-box">
+            <div class="signature-label">Signature of the agency with name, seal and date</div>
+            <div class="signature-line"></div>
+            <div class="signature-name">Agency Name: <span th:text="${vendorName}">Exide Industries</span></div>
+            <div class="signature-name">Authorized Signatory: <span th:text="${vendorRepName}">Ramesh Patil</span></div>
+            <div class="signature-date">Date: <span th:text="${installationDate}">2025-07-09</span></div>
+            <div class="seal-text">(Company Seal)</div>
         </div>
     </div>
 
-    <!-- SIGNATURE ROW 2: For MSEDCL  &  Electrical Inspector (exact wording) -->
+    <!-- ==================== MSEDCL INSPECTION CERTIFICATION PARAGRAPH (missing previously - now added exactly) ==================== -->
+    <div class="inspection-text">
+        <p>The above RTS installation has been inspected by me for Pre-Commissioning Testing of Roof Top Solar Connection on dt. <span th:text="${inspectionDate}">………………………………….</span> as per guidelines issued by the office of The Chief Engineer vide letter no 21653 on dt. 18.08.2022 and found in order for commissioning.</p>
+    </div>
+
+    <!-- ==================== SIGNATURE ROW 2: MSEDCL OFFICER + ELECTRICAL INSPECTOR ==================== -->
     <div class="signature-row">
         <div class="signature-box">
-            <div class="signature-label">For MSEDCL</div>
+            <div class="signature-label">Signature of the MSEDCL Officer</div>
             <div class="signature-line"></div>
             <div class="signature-name">Name: <span th:text="${msedclOfficerName}">Shri. Amit More</span></div>
             <div class="signature-desig">Designation: <span th:text="${msedclOfficerDesignation}">Executive Engineer</span></div>
-            <div class="signature-date">Date: <span th:text="${installationDate}">2025- 07- 09</span></div>
+            <div class="signature-date">Date: <span th:text="${msedclSignDate}">2025-07-10</span></div>
+            <div class="seal-text">(Office Seal)</div>
         </div>
         <div class="signature-box">
             <div class="signature-label">Electrical Inspector's Signature</div>
             <div class="signature-line"></div>
             <div class="signature-name">Name: <span th:text="${inspectorName}">Shri. Sanjay Bhosale</span></div>
-            <div class="signature-date">Date: <span th:text="${installationDate}">2025- 07- 09</span></div>
+            <div class="signature-date">Date: <span th:text="${inspectorDate}">2025-07-10</span></div>
             <div class="if-applicable">(if applicable)</div>
         </div>
     </div>
 
-    <!-- absolutely no extra characters – matches original PDF exactly -->
-    <!-- VERIFICATION:
-         - Titles bold, all caps ✓
-         - Data table labels bold, values normal (no bold, no underline) ✓
-         - Solar details split into two lines exactly as PDF: "Inverter Capacity(KW):13.75 Inverter Make: GoodWe" and next line "No.of PV Modules:24 Module Capacity (KW):573.0" ✓
-         - Commissioning paragraphs verbatim, no extra bold, date with spaces "2025- 07- 09" ✓
-         - Signature lines with solid underline, names/dates normal weight ✓
-         - All content from original included, nothing added (no extra fields) ✓
-         - No dotted lines under any values (only signature underlines) ✓
-    -->
+    <!-- ==================== FOOTER NOTE: exact alignment with govt format ==================== -->
+    <!-- no extra elements, everything matches official RTS original Annexure-I PDF -->
 </div>
 </body>
 </html>
