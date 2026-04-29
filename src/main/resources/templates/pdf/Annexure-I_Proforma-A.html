@@ -216,11 +216,9 @@
     <div class="signature-row">
         <div class="signature-item">
             <div class="signature-label">Signature of the beneficiary</div>
-            <div class="signature-line"></div>
         </div>
         <div class="signature-item">
             <div class="signature-label">Signature of the agency with name, seal and date</div>
-            <div class="signature-line"></div>
         </div>
     </div>
 
@@ -231,23 +229,19 @@
     </div>
 
     <!-- ==================== MSEDCL OFFICER SIGNATURE WITH VALUES ==================== -->
-    <div class="msedcl-section">
+    <div class="msedcl-section" style="margin-top: 60px;">
         <div class="msedcl-label">Signature of the MSEDCL Officer</div>
-        <div class="msedcl-line"></div>
-
         <div class="msedcl-row">
             <div class="msedcl-item">
                 <div class="msedcl-label">Name: <span th:text="${msedclOfficerName}" class="value-text"></span></div>
-                <div class="msedcl-line"></div>
             </div>
             <div class="msedcl-item">
                 <div class="msedcl-label">Designation: <span th:text="${msedclOfficerDesignation}" class="value-text"></span></div>
-                <div class="msedcl-line"></div>
             </div>
         </div>
 
         <div class="msedcl-label">Date and seal: <span th:text="${installationDate}" class="value-text"></span></div>
-        <div class="msedcl-line"></div>
+
     </div>
 
 </div>
