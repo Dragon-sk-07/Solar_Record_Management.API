@@ -1,332 +1,60 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>Undertaking for Domestic Content Requirement</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Undertaking</title>
     <style>
-        /* === PERFECTLY BALANCED - FILLS PAGE WITH PROPER ALIGNMENT === */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: Arial, Helvetica, sans-serif;
-        }
-        body {
-            background: #ffffff;
-            padding: 20px 35px;
-            color: #000000;
-            font-size: 13.5px;
-            line-height: 1.6;
-        }
-        .document-container {
-            max-width: 820px;
-            margin: 0 auto;
-            background: #fff;
-        }
-        /* Title - proper size */
-        .main-heading {
-            font-size: 17px;
-            font-weight: bold;
-            text-align: center;
-            text-transform: uppercase;
-            margin: 0 0 12px 0;
-            word-spacing: 2px;
-        }
-        .sub-heading {
-            font-size: 16px;
-            font-weight: bold;
-            text-align: center;
-            text-decoration: underline;
-            margin: 0 0 25px 0;
-            text-transform: uppercase;
-        }
-
-        /* ALL PARAGRAPHS - increased spacing */
-        .paragraph {
-            margin: 18px 0;
-            text-align: left;
-        }
-        .paragraph p {
-            margin: 0;
-            font-size: 13.5px;
-            line-height: 1.6;
-        }
-        .bold {
-            font-weight: 700;
-        }
-
-        /* Module details - PERFECT VERTICAL ALIGNMENT with : fixed */
-        .module-details {
-            margin: 12px 0 15px 25px;
-            padding-left: 15px;
-            border-left: 2px solid #9c9c9c;
-        }
-        .detail-line {
-            margin: 6px 0;
-            font-size: 13.5px;
-            display: flex;
-            align-items: baseline;
-            min-height: 24px;
-        }
-        .detail-label {
-            font-weight: 700;
-            display: inline-block;
-            width: 200px;                   /* Fixed width for ALL labels - increased for long titles */
-            flex-shrink: 0;
-            font-size: 13.5px;
-            white-space: nowrap;
-        }
-        .detail-value {
-            font-weight: 400;               /* NOT BOLD - only titles are bold */
-            display: inline-block;
-            word-break: break-word;
-            font-size: 13.5px;
-            flex: 1;
-            padding-left: 5px;
-        }
-
-        /* Placeholder dots */
-        .placeholder-dots {
-            font-weight: 400;
-            letter-spacing: 1px;
-            border-bottom: 1px dotted #333;
-            padding: 0 5px 2px 5px;
-            margin: 0 3px;
-            display: inline-block;
-            min-width: 150px;
-            white-space: nowrap;
-            color: #000;
-            font-size: 13.5px;
-            line-height: 1.3;
-            vertical-align: middle;
-        }
-        .placeholder-wide {
-            min-width: 280px;
-        }
-        .placeholder-extra-wide {
-            min-width: 400px;
-        }
-        .placeholder-medium {
-            min-width: 180px;
-        }
-        .placeholder-small {
-            min-width: 100px;
-        }
-
-        /* SIGNATURE SECTION - PERFECT VERTICAL ALIGNMENT with : fixed */
-        .signature-section {
-            margin-top: 35px;
-            width: 100%;
-            display: flex;
-            flex-direction: column;
-            align-items: flex-end;
-        }
-
-        /* Space for signature */
-        .signature-space {
-            height: 50px;
-            width: 100%;
-            margin-bottom: 8px;
-        }
-
-        /* Signature with official seal text */
-        .signature-seal-text {
-            font-weight: bold;
-            margin-bottom: 12px;
-            text-align: right;
-            width: 450px;
-        }
-
-        .signature-details {
-            width: 450px;
-            text-align: left;
-        }
-
-        .signature-row {
-            display: flex;
-            align-items: baseline;
-            margin: 5px 0;
-            width: 100%;
-            min-height: 26px;
-        }
-
-        .signature-label {
-            font-weight: 700;
-            display: inline-block;
-            width: 100px;                    /* Fixed width for alignment */
-            flex-shrink: 0;
-            text-align: left;
-            font-size: 13.5px;
-        }
-
-        .signature-value {
-            font-weight: 400;                 /* NOT BOLD - only titles are bold */
-            display: inline-block;
-            word-break: break-word;
-            flex: 1;
-            text-align: left;
-            font-size: 13.5px;
-            padding-left: 5px;
-        }
-
-        /* [Bracketed Text] style */
-        .bracket-text {
-            font-weight: 400;
-            color: #000;
-            font-style: normal;
-            font-size: 13.5px;
-        }
-
-        /* Dynamic values - NOT BOLD */
-        .dynamic-value {
-            font-weight: 400;
-            background: transparent;
-            border: none;
-            padding: 0;
-            margin: 0 3px;
-            display: inline;
-            font-size: 13.5px;
-        }
-
-        /* All text same size except headers */
-        p, span, div {
-            font-size: 13.5px;
-        }
-
-        /* Add some bottom margin to fill page */
-        .paragraph:last-of-type {
-            margin-bottom: 25px;
-        }
+        *{margin:0;padding:0;box-sizing:border-box;font-family:Times New Roman,serif}
+        body{background:#fff;color:#000;padding:40px 48px;font-size:13px;line-height:1.55}
+        .document-container{max-width:800px;margin:0 auto}
+        .main-heading{text-align:center;font-weight:700;font-size:18px;margin-bottom:6px}
+        .sub-heading{text-align:center;font-size:13px;margin-bottom:18px}
+        .paragraph{margin:10px 0}
+        .module-details{margin:8px 0 8px 26px}
+        .detail-line,.signature-row{display:flex;align-items:flex-start;margin:3px 0}
+        .detail-label{width:220px}
+        .detail-label::after,.signature-label::after{content:':' ;display:inline-block;width:14px;text-align:center}
+        .detail-value,.signature-value{flex:1}
+        .signature-section{margin-top:24px;display:flex;flex-direction:column;align-items:flex-end}
+        .signature-space{height:55px;width:320px}
+        .signature-seal-text{width:320px;text-align:left;margin-bottom:6px}
+        .signature-details{width:320px}
+        .signature-label{width:95px}
+        .placeholder{display:inline-block;min-width:120px;border-bottom:1px dotted #000;height:14px;vertical-align:middle}
+        .wide{min-width:260px}.mid{min-width:180px}.small{min-width:80px}
     </style>
 </head>
 <body>
 <div class="document-container">
-    <!-- HEADER -->
-    <div class="main-heading">UNDERTAKING/SELF-DECLARATION FOR DOMESTIC CONTENT REQUIREMENT</div>
-    <div class="sub-heading">(ON A PLAIN PAPER)</div>
+    <div class="main-heading">Undertaking/Self- Declaration for Domestic Content Requirement fulfillment</div>
+    <div class="sub-heading">(On a plain Paper)</div>
 
-    <!-- Paragraph 1 - Sample data: Adani Green Energy, Neha Gupta -->
-    <div class="paragraph">
-        <p>
-            <span class="bold">1.</span> This is to certify that M/S.
-            <span th:if="${vendorName}" class="dynamic-value" th:text="${vendorName}">Adani Green Energy</span>
-            <span th:unless="${vendorName}" class="placeholder-dots">.....................</span>
-            has installed
-            <span th:if="${installedCapacity}" class="dynamic-value" th:text="${installedCapacity}">11.56</span>
-            <span th:unless="${installedCapacity}" class="placeholder-dots placeholder-small">.....</span>
-            KW <span class="bracket-text">[Capacity]</span> Grid Connected Rooftop Solar Plant for
-            <span th:if="${name}" class="dynamic-value" th:text="${name}">Neha Gupta</span>
-            <span th:unless="${name}" class="placeholder-dots placeholder-wide">.....................</span>
-            <span class="bracket-text">[Consumer Name]</span> at
-            <span th:if="${siteAddress}" class="dynamic-value" th:text="${siteAddress}">H. No. 845, Near Market Yard, Kothrud, Kolhapur - 416001, Maharashtra</span>
-            <span th:unless="${siteAddress}" class="placeholder-dots placeholder-extra-wide">.....................</span>
-            <span class="bracket-text">[Address]</span> under application number
-            <span th:if="${applicationNumber}" class="dynamic-value" th:text="${applicationNumber}">APP/SOLAR/2025/31540</span>
-            <span th:unless="${applicationNumber}" class="placeholder-dots placeholder-medium">.....................</span>
-            dated
-            <span th:if="${applicationDate}" class="dynamic-value" th:text="${applicationDate}">2025-06-06</span>
-            <span th:unless="${applicationDate}" class="placeholder-dots placeholder-medium">.....................</span>
-            <span class="bracket-text">[date of application]</span> under
-            <span th:if="${discomName}" class="dynamic-value" th:text="${discomName}">MSEDCL</span>
-            <span th:unless="${discomName}" class="placeholder-dots placeholder-medium">.....................</span>
-            <span class="bracket-text">[DISCOM Name]</span>.
-        </p>
+    <div class="paragraph">1. This is to certify that M/S <span th:text="${vendorName}" class="placeholder wide">Adani Green Energy</span> [Company Name] has installed <span th:text="${installedCapacity}" class="placeholder small">11.56</span> KW [Capacity] Grid Connected Rooftop Solar Plant for <span th:text="${name}" class="placeholder mid">Neha Gupta</span> [Consumer Name] at <span th:text="${siteAddress}" class="placeholder wide">Address</span> [Address] under application number <span th:text="${applicationNumber}" class="placeholder mid">APP123</span> dated <span th:text="${applicationDate}" class="placeholder mid">2025-06-06</span> [date of application] under <span th:text="${discomName}" class="placeholder mid">MSEDCL</span> [DISCOM Name].</div>
+
+    <div class="paragraph">2. It is hereby undertaken that the PV modules installed for the above-mentioned project are domestically manufactured using domestic manufactured solar cells. The details of installed PV Modules are follows:</div>
+    <div class="module-details">
+        <div class="detail-line"><div class="detail-label">1. PV Module Capacity</div><div class="detail-value" th:text="${wattagePerModule}">413.0</div></div>
+        <div class="detail-line"><div class="detail-label">2. Number of PV Modules</div><div class="detail-value" th:text="${numberOfModules}">28</div></div>
+        <div class="detail-line"><div class="detail-label">3. Sr No of PV Module</div><div class="detail-value" th:text="${moduleSerialNumbers}">SN001</div></div>
+        <div class="detail-line"><div class="detail-label">4. PV Module Make</div><div class="detail-value" th:text="${moduleMake}">Adani Solar</div></div>
+        <div class="detail-line"><div class="detail-label">5. Cell manufacturer's name</div><div class="detail-value" th:text="${cellManufacturerName}">Adani Cells</div></div>
+        <div class="detail-line"><div class="detail-label">6. Cell GST invoice No</div><div class="detail-value" th:text="${cellGSTInvoiceNo}">27ABCDE9640F1Z5</div></div>
     </div>
 
-    <!-- Paragraph 2 with module details - PERFECT VERTICAL ALIGNMENT with : fixed -->
-    <div class="paragraph">
-        <p><span class="bold">2.</span> It is hereby undertaken that the PV modules installed for the above-mentioned project are domestically manufactured using domestic manufactured solar cells. The details of installed PV Modules are follows:</p>
+    <div class="paragraph">3. The above undertaking is based on the certificate issued by PV Module manufacturer/supplier while supplying the above mentioned order.</div>
+    <div class="paragraph">4. I, <span th:text="${authorizedPersonName}" class="placeholder mid">Anaya Nair</span> on behalf of M/S <span th:text="${vendorName}" class="placeholder mid">Adani Green Energy</span> [Company Name] further declare that the information given above is true and correct and nothing has been concealed therein. If anything is found incorrect at any stage, then REC/MNRE may take any appropriate action against my company for wrong declaration. Supporting documents and proof of the above information will be provided as and when requested by MNRE.</div>
 
-        <div class="module-details">
-            <!-- ALL LINES with : aligned perfectly - values are NOT BOLD -->
-            <div class="detail-line">
-                <span class="detail-label">1. PV Module Capacity:</span>
-                <span class="detail-value" th:if="${wattagePerModule}" th:text="${wattagePerModule}">413.0</span>
-                <span th:unless="${wattagePerModule}" class="placeholder-dots placeholder-medium">.....................</span>
-            </div>
-            <div class="detail-line">
-                <span class="detail-label">2. Number of PV Modules:</span>
-                <span class="detail-value" th:if="${numberOfModules}" th:text="${numberOfModules}">28</span>
-                <span th:unless="${numberOfModules}" class="placeholder-dots placeholder-medium">.....................</span>
-            </div>
-            <div class="detail-line">
-                <span class="detail-label">3. Sr No of PV Module:</span>
-                <span class="detail-value" th:if="${moduleSerialNumbers}" th:text="${moduleSerialNumbers}">SN:MOD-65086-9918</span>
-                <span th:unless="${moduleSerialNumbers}" class="placeholder-dots placeholder-wide">.....................</span>
-            </div>
-            <div class="detail-line">
-                <span class="detail-label">4. PV Module Make:</span>
-                <span class="detail-value" th:if="${moduleMake}" th:text="${moduleMake}">Adani Solar</span>
-                <span th:unless="${moduleMake}" class="placeholder-dots placeholder-medium">.....................</span>
-            </div>
-            <div class="detail-line">
-                <span class="detail-label">5. Cell manufacturer's name:</span>
-                <span class="detail-value" th:if="${cellManufacturerName}" th:text="${cellManufacturerName}">Adani Cells</span>
-                <span th:unless="${cellManufacturerName}" class="placeholder-dots placeholder-medium">.....................</span>
-            </div>
-            <div class="detail-line">
-                <span class="detail-label">6. Cell GST invoice No:</span>
-                <span class="detail-value" th:if="${cellGSTInvoiceNo}" th:text="${cellGSTInvoiceNo}">27ABCDE9640F1Z5</span>
-                <span th:unless="${cellGSTInvoiceNo}" class="placeholder-dots placeholder-medium">.....................</span>
-            </div>
-        </div>
-    </div>
-
-    <!-- Paragraph 3 -->
-    <div class="paragraph">
-        <p><span class="bold">3.</span> The above undertaking is based on the certificate issued by PV Module manufacturer/supplier while supplying the above mentioned order.</p>
-    </div>
-
-    <!-- Paragraph 4 -->
-    <div class="paragraph">
-        <p>
-            <span class="bold">4.</span> I,
-            <span th:if="${authorizedPersonName}" class="dynamic-value" th:text="${authorizedPersonName}">Anaya Nair</span>
-            <span th:unless="${authorizedPersonName}" class="placeholder-dots placeholder-medium">.....................</span>
-            on behalf of M/S.
-            <span th:if="${vendorName}" class="dynamic-value" th:text="${vendorName}">Adani Green Energy</span>
-            <span th:unless="${vendorName}" class="placeholder-dots placeholder-medium">.....................</span>
-            <span class="bracket-text">[Company Name]</span> further declare that the information given above is true and correct and nothing has been concealed therein. If anything is found incorrect at any stage, then REC/ MNRE may take any appropriate action against my company for wrong declaration. Supporting documents and proof of the above information will be provided as and when requested by MNRE.
-        </p>
-    </div>
-
-    <!-- SIGNATURE SECTION - PERFECT VERTICAL ALIGNMENT with : fixed -->
     <div class="signature-section">
-        <!-- Space for signature -->
         <div class="signature-space"></div>
-
-        <!-- Signature with official seal text (as per original) -->
         <div class="signature-seal-text">(Signature With official Seal)</div>
-
         <div class="signature-details">
-            <div class="signature-row">
-                <span class="signature-label">For M/S.</span>
-                <span class="signature-value" th:if="${vendorName}" th:text="${vendorName}">Adani Green Energy</span>
-                <span th:unless="${vendorName}" class="placeholder-dots placeholder-medium">.....................</span>
-            </div>
-            <div class="signature-row">
-                <span class="signature-label">Name:</span>
-                <span class="signature-value" th:if="${authorizedPersonName}" th:text="${authorizedPersonName}">Anaya Nair</span>
-                <span th:unless="${authorizedPersonName}" class="placeholder-dots placeholder-medium">.....................</span>
-            </div>
-            <div class="signature-row">
-                <span class="signature-label">Designation:</span>
-                <span class="signature-value" th:if="${designation}" th:text="${designation}">CEO</span>
-                <span th:unless="${designation}" class="placeholder-dots placeholder-medium">.....................</span>
-            </div>
-            <div class="signature-row">
-                <span class="signature-label">Phone:</span>
-                <span class="signature-value" th:if="${mobileNumber}" th:text="${mobileNumber}">8466963158</span>
-                <span th:unless="${mobileNumber}" class="placeholder-dots placeholder-medium">.....................</span>
-            </div>
-            <div class="signature-row">
-                <span class="signature-label">Email:</span>
-                <span th:if="${email}" class="signature-value" th:text="${email}">neha.gupta564@yahoo.com</span>
-                <span th:unless="${email}" class="placeholder-dots placeholder-medium">.....................</span>
-            </div>
-        </div>
-    </div>
+            <div class="signature-row"><div class="signature-label">For M/S.</div><div class="signature-value" th:text="${vendorName}">Adani Green Energy</div></div>
+            <div class="signature-row"><div class="signature-label">Name</div><div class="signature-value" th:text="${authorizedPersonName}">Anaya Nair</div></div>
+            <div class="signature-row"><div class="signature-label">Designation</div><div class="signature-value" th:text="${designation}">CEO</div></div>
+            <div class="signature-row"><div class="signature-label">Phone</div><div class="signature-value" th:text="${mobileNumber}">8466963158</div></div>
+            <div class="signature-row"><div class="signature-label">Email</div><div class="signature-value" th:text="${email}">demo@mail.com</div></div>
+        </div></div>
 </div>
 </body>
 </html>
