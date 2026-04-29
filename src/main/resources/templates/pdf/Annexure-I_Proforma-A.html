@@ -1,11 +1,10 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Renewable Energy Generating System - Annexure-I (Commissioning Report)</title>
+    <title>Annexure-I Proforma-A</title>
     <style>
-        /* ---------- RESET: zero margins, precise PDF match ---------- */
         * {
             margin: 0;
             padding: 0;
@@ -15,272 +14,259 @@
             font-family: Arial, Helvetica, sans-serif;
             background: white;
             color: black;
-            font-size: 14px;
+            font-size: 12.5px;
             line-height: 1.4;
-            padding: 0;
+            padding: 20px;
         }
-        .document-wrapper {
-            max-width: 1000px;
+        .document {
+            max-width: 900px;
             margin: 0 auto;
-            padding: 20px 20px 15px 20px;
             background: white;
         }
-
-        /* ---------- MAIN HEADER: Renewable Energy Generating System + Annexure-I ---------- */
-        .re-header {
-            text-align: center;
-            font-weight: 700;
-            font-size: 18px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            margin: 0 0 4px 0;
+        /* Data table style - matches PDF exactly */
+        .data-row {
+            display: flex;
+            flex-wrap: wrap;
+            border-bottom: 1px solid black;
+            padding: 4px 0;
         }
-        .annexure {
-            text-align: center;
-            font-weight: 700;
-            font-size: 16px;
-            text-transform: uppercase;
-            margin: 0 0 4px 0;
+        .sno {
+            width: 30px;
+            font-weight: bold;
+            font-size: 12.5px;
         }
-        .commissioning-report-sub {
-            text-align: center;
-            font-weight: 400;
-            font-size: 14px;
-            font-style: normal;
-            margin: 0 0 20px 0;
+        .particulars {
+            width: 250px;
+            font-weight: bold;
+            font-size: 12.5px;
         }
-
-        /* ---------- PROFORMA-A (plain bold, not huge) ---------- */
+        .value {
+            flex: 1;
+            font-size: 12.5px;
+        }
+        /* Proforma-A title */
         .proforma-title {
-            font-size: 20px;
-            font-weight: 700;
+            font-size: 12.5px;
+            font-weight: bold;
             text-align: center;
-            text-transform: uppercase;
-            margin: 10px 0 2px 0;
+            margin: 20px 0 5px 0;
         }
-        .main-subtitle {
-            font-size: 14px;
-            font-weight: 700;
+        /* Commissioning report subtitle */
+        .subtitle {
+            font-size: 12.5px;
+            font-weight: bold;
             text-align: center;
             text-transform: uppercase;
             margin: 0 0 15px 0;
-            line-height: 1.4;
         }
-
-        /* ---------- DATA TABLE – includes SNo. column header row ---------- */
-        .data-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 0 0 6px 0;
-        }
-        .data-table th, .data-table td {
-            border: 1px solid black;
-            padding: 6px 6px;
-            vertical-align: top;
-            line-height: 1.4;
-        }
-        .data-table th {
-            font-weight: 700;
-            background-color: #f5f5f5;
-            text-align: center;
-            font-size: 14px;
-        }
-        .data-table td:first-child {
-            font-weight: 700;
-            width: 40%;
-        }
-        .data-table td:last-child {
-            font-weight: 400;
-            width: 60%;
-        }
-
-        /* SolarPV details – split exactly as original */
-        .solar-line1, .solar-line2 {
-            display: block;
-            line-height: 1.5;
-        }
-        .solar-label {
-            font-weight: 700;
-            margin-right: 4px;
-        }
-        .solar-value {
-            font-weight: 400;
-            margin-right: 16px;
-        }
-
-        /* ---------- COMMISSIONING TEXT – exact wording, line breaks ---------- */
+        /* Commissioning text paragraphs */
         .commissioning-text {
-            margin: 12px 0 10px 0;
-            font-size: 14px;
-            line-height: 1.55;
+            margin: 15px 0;
+            line-height: 1.6;
         }
         .commissioning-text p {
             margin: 8px 0;
+            font-size: 12.5px;
         }
-        .plain-value {
-            font-weight: 400;
-        }
-
-        /* ---------- SIGNATURE SECTIONS – solid underline ---------- */
+        /* Signature row - two columns side by side */
         .signature-row {
             display: flex;
             justify-content: space-between;
-            margin: 15px 0 10px 0;
-            gap: 20px;
+            margin: 20px 0 10px 0;
+            gap: 40px;
         }
         .signature-box {
-            width: 48%;
+            flex: 1;
         }
         .signature-label {
-            font-weight: 700;
-            margin-bottom: 4px;
-            font-size: 14px;
+            font-weight: bold;
+            margin-bottom: 5px;
+            font-size: 12.5px;
         }
         .signature-line {
-            border-bottom: 1.5px solid black;
+            border-bottom: 1px solid black;
+            margin: 8px 0 8px 0;
             width: 100%;
-            margin: 4px 0 8px 0;
         }
-        .signature-name, .signature-desig, .signature-date {
-            font-weight: 400;
-            margin: 3px 0;
-            line-height: 1.4;
+        .signature-details {
+            margin-top: 5px;
+            line-height: 1.5;
+            font-size: 12.5px;
         }
-        .signature-name span, .signature-desig span, .signature-date span {
-            font-weight: 400;
+        /* MSEDCL row - three items inline */
+        .msedcl-row {
+            display: flex;
+            justify-content: space-between;
+            margin: 15px 0 5px 0;
+            gap: 20px;
         }
-        .if-applicable {
-            font-weight: 400;
-            margin-top: 4px;
-            font-size: 13px;
-            font-style: italic;
+        .msedcl-item {
+            flex: 1;
         }
-        .seal-text {
-            font-weight: 400;
-            margin-top: 4px;
-            font-size: 13px;
+        .msedcl-label {
+            font-weight: bold;
+            font-size: 12.5px;
         }
-
-        /* MSEDCL inspection paragraph styling */
-        .inspection-text {
-            margin: 16px 0 16px 0;
-            padding: 6px 0;
-            font-size: 14px;
-            line-height: 1.55;
-            border-top: 1px solid #ccc;
-            border-bottom: 1px solid #ccc;
+        .msedcl-line {
+            border-bottom: 1px solid black;
+            margin: 5px 0 5px 0;
         }
-        .inspection-text p {
-            margin: 5px 0;
+        .date-seal {
+            margin-top: 8px;
         }
-
-        hr, .extra { display: none; }
+        .date-seal .msedcl-label {
+            margin-bottom: 5px;
+        }
+        .date-seal .msedcl-line {
+            width: 200px;
+        }
+        hr {
+            display: none;
+        }
+        .dot-line {
+            letter-spacing: 2px;
+        }
+        /* All text 12.5px uniform */
+        p, div, span, .small-text {
+            font-size: 12.5px;
+        }
     </style>
 </head>
 <body>
-<div class="document-wrapper">
+<div class="document">
 
-    <!-- ==================== MAIN HEADER: RENEWABLE ENERGY GENERATING SYSTEM ==================== -->
-    <div class="re-header">Renewable Energy Generating System</div>
-    <div class="annexure">Annexure-I</div>
-    <div class="commissioning-report-sub">(Commissioning Report for RE System)</div>
-
-    <!-- ==================== PROFORMA-A TITLE ==================== -->
-    <div class="proforma-title">PROFORMA-A</div>
-    <div class="main-subtitle">COMMISSIONING REPORT (PROVISIONAL) FOR GRID CONNECTED SOLAR PHOTOVOLTAIC POWER PLANT (with Net-metering facility)</div>
-
-    <!-- ==================== DATA TABLE WITH SNo. HEADER ROW ==================== -->
-    <table class="data-table">
-        <thead>
-        <tr>
-            <th>SNo.</th>
-            <th>Particulars</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr><td>1</td><td>Name of the Consumer: <strong th:text="${name}">Krishna Menon</strong></td></tr>
-        <tr><td>2</td><td>Consumer Number: <span th:text="${consumerNumber}">MSEDCL1290197</span></td></tr>
-        <tr><td>3</td><td>Mobile Number: <span th:text="${mobileNumber}">9807619566</span></td></tr>
-        <tr><td>4</td><td>E-mail: <span th:text="${email}">krishna.menon865@outlook.com</span></td></tr>
-        <tr><td>5</td><td>Address of Installation: <span th:text="${siteAddress}">H.No.1259,Near Bus Stand,Laxmi Road, Ahmednagar- 414001,Maharashtra</span></td></tr>
-        <tr><td>6</td><td>RE Arrangement Type: <span th:text="${reArrangementType}">Net Metering Arrangement</span></td></tr>
-        <tr><td>7</td><td>RE Source: <span th:text="${reSource}">Solar</span></td></tr>
-        <tr><td>8</td><td>Sanctioned Capacity(KW): <span th:text="${sanctionedCapacity}">13.75</span></td></tr>
-        <tr><td>9</td><td>Capacity Type: <span th:text="${capacityType}">Rooftop</span></td></tr>
-        <tr><td>10</td><td>Project Model: <span th:text="${projectModel}">RESCO</span></td></tr>
-        <tr><td>11</td><td>RE installed Capacity(Rooftop)(KW): <span th:text="${reInstalledCapacityRooftop}">13.75</span></td></tr>
-        <tr><td>12</td><td>RE installed Capacity(Rooftop + Ground)(KW): <span th:text="${reInstalledCapacityRooftopGround}">0.0</span></td></tr>
-        <tr><td>13</td><td>RE installed Capacity(Ground)(KW): <span th:text="${reInstalledCapacityGround}">0.0</span></td></tr>
-        <tr><td>14</td><td>Installation date: <span th:text="${installationDate}">2025-07-09</span></td></tr>
-        <tr>
-            <td>15</td>
-            <td>
-                SolarPV Details<br/>
-                <span class="solar-line1">
-                        <span class="solar-label">Inverter Capacity(KW):</span><span class="solar-value" th:text="${inverterCapacity}">13.75</span>
-                        <span class="solar-label">Inverter Make:</span><span class="solar-value" th:text="${inverterMake}">GoodWe</span>
-                    </span>
-                <span class="solar-line2">
-                        <span class="solar-label">No.of PV Modules:</span><span class="solar-value" th:text="${numberOfModules}">24</span>
-                        <span class="solar-label">Module Capacity (KW):</span><span class="solar-value" th:text="${wattagePerModule}">573.0</span>
-                    </span>
-            </td>
-        </tr>
-        <tr><td>16</td><td>As Commissioned: <span th:text="${asCommissioned}">As per approved drawings and specifications</span></td></tr>
-        <tr><td>17</td><td>Net Metering Arrangement: <span th:text="${netMeteringArrangement}">Single Phase / Three Phase with export-import meter</span></td></tr>
-        </tbody>
-    </table>
-
-    <!-- ==================== COMMISSIONING CERTIFICATE TEXT (exact original wording) ==================== -->
-    <div class="commissioning-text">
-        <p>Certified that a Grid Connected SPV Power Plant of <span class="plain-value" th:text="${totalCapacityKWP}">13.75</span> KWp capacity has been installed at the site <span th:text="${siteAddressShort}">………………………………….</span></p>
-        <p>District <span th:text="${district}">………………………………….</span> of MAHARASHTRA which has been installed by M/S <span class="plain-value" th:text="${vendorName}">Exide Industries</span> on <span th:text="${installationDate}">………………………………….</span> The system is as per BIS/MNRE specifications. The system has been checked for its performance and found in order for further commissioning.</p>
+    <!-- Data table exactly as PDF: SNo., Particulars, then values -->
+    <div class="data-row">
+        <div class="sno">1</div>
+        <div class="particulars">Name of the Consumer</div>
+        <div class="value"></div>
+    </div>
+    <div class="data-row">
+        <div class="sno">2</div>
+        <div class="particulars">Consumer Number</div>
+        <div class="value"></div>
+    </div>
+    <div class="data-row">
+        <div class="sno">3</div>
+        <div class="particulars">Mobile Number</div>
+        <div class="value"></div>
+    </div>
+    <div class="data-row">
+        <div class="sno">4</div>
+        <div class="particulars">E- mail</div>
+        <div class="value"></div>
+    </div>
+    <div class="data-row">
+        <div class="sno">5</div>
+        <div class="particulars">Address of Installation</div>
+        <div class="value"></div>
+    </div>
+    <div class="data-row">
+        <div class="sno">6</div>
+        <div class="particulars">RE Arrangement Type</div>
+        <div class="value">Net Metering Arrangement</div>
+    </div>
+    <div class="data-row">
+        <div class="sno">7</div>
+        <div class="particulars">RE Source</div>
+        <div class="value"></div>
+    </div>
+    <div class="data-row">
+        <div class="sno">8</div>
+        <div class="particulars">Sanctioned Capacity(KW)</div>
+        <div class="value"></div>
+    </div>
+    <div class="data-row">
+        <div class="sno">9</div>
+        <div class="particulars">Capacity Type</div>
+        <div class="value"></div>
+    </div>
+    <div class="data-row">
+        <div class="sno">10</div>
+        <div class="particulars">Project Model</div>
+        <div class="value"></div>
+    </div>
+    <div class="data-row">
+        <div class="sno">11</div>
+        <div class="particulars">RE installed Capacity(Rooftop)(KW)</div>
+        <div class="value"></div>
+    </div>
+    <div class="data-row">
+        <div class="sno">12</div>
+        <div class="particulars">RE installed Capacity(Rooftop + Ground)(KW)</div>
+        <div class="value"></div>
+    </div>
+    <div class="data-row">
+        <div class="sno">13</div>
+        <div class="particulars">RE installed Capacity(Ground)(KW)</div>
+        <div class="value"></div>
+    </div>
+    <div class="data-row">
+        <div class="sno">14</div>
+        <div class="particulars">Installation date</div>
+        <div class="value"></div>
+    </div>
+    <div class="data-row">
+        <div class="sno">15</div>
+        <div class="particulars">SolarPV Details</div>
+        <div class="value">Inverter Capacity(KW) &nbsp;&nbsp; Inverter Make &nbsp;&nbsp; No.of PV Modules &nbsp;&nbsp; Module Capacity (KW)</div>
     </div>
 
-    <!-- ==================== SIGNATURE ROW 1: BENEFICIARY + AGENCY (exact pairing) ==================== -->
+    <!-- Proforma-A title -->
+    <div class="proforma-title">Proforma-A</div>
+
+    <!-- Commissioning report subtitle -->
+    <div class="subtitle">COMMISSIONING REPORT (PROVISIONAL) FOR GRID CONNECTED SOLAR PHOTOVOLTAIC POWER PLANT (with Net- metering facility)</div>
+
+    <!-- Commissioning text exactly as PDF -->
+    <div class="commissioning-text">
+        <p>Certified that a Grid Connected SPV Power Plant of ................. KWp capacity has been installed at the site …………….</p>
+        <p>District …………………………………. of MAHARASHTRA which has been installed by M/S .................................... on</p>
+        <p>…………………………………. The system is as per BIS/MNRE specifications. The system has been checked for its</p>
+        <p>performance and found in order for further commissioning.</p>
+    </div>
+
+    <!-- Signature row: beneficiary and agency side by side -->
     <div class="signature-row">
         <div class="signature-box">
             <div class="signature-label">Signature of the beneficiary</div>
             <div class="signature-line"></div>
-            <div class="signature-name">Name: <span th:text="${name}">Krishna Menon</span></div>
-            <div class="signature-date">Date: <span th:text="${installationDate}">2025-07-09</span></div>
+            <div class="signature-details"></div>
         </div>
         <div class="signature-box">
             <div class="signature-label">Signature of the agency with name, seal and date</div>
             <div class="signature-line"></div>
-            <div class="signature-name">Agency Name: <span th:text="${vendorName}">Exide Industries</span></div>
-            <div class="signature-name">Authorized Signatory: <span th:text="${vendorRepName}">Ramesh Patil</span></div>
-            <div class="signature-date">Date: <span th:text="${installationDate}">2025-07-09</span></div>
-            <div class="seal-text">(Company Seal)</div>
+            <div class="signature-details"></div>
         </div>
     </div>
 
-    <!-- ==================== MSEDCL INSPECTION CERTIFICATION PARAGRAPH (missing previously - now added exactly) ==================== -->
-    <div class="inspection-text">
-        <p>The above RTS installation has been inspected by me for Pre-Commissioning Testing of Roof Top Solar Connection on dt. <span th:text="${inspectionDate}">………………………………….</span> as per guidelines issued by the office of The Chief Engineer vide letter no 21653 on dt. 18.08.2022 and found in order for commissioning.</p>
+    <!-- MSEDCL inspection text exactly as PDF page 2 -->
+    <div class="commissioning-text">
+        <p>The above RTS installation has been inspected by me for Pre-Commissioning Testing of Roof Top Solar Connection on</p>
+        <p>dt………………………. as per guidelines issued by the office of The Chief Engineer vide letter no 21653 on dt.</p>
+        <p>18.08.2022 and found in order for commissioning.</p>
     </div>
 
-    <!-- ==================== SIGNATURE ROW 2: MSEDCL OFFICER + ELECTRICAL INSPECTOR ==================== -->
-    <div class="signature-row">
-        <div class="signature-box">
-            <div class="signature-label">Signature of the MSEDCL Officer</div>
-            <div class="signature-line"></div>
-            <div class="signature-name">Name: <span th:text="${msedclOfficerName}">Shri. Amit More</span></div>
-            <div class="signature-desig">Designation: <span th:text="${msedclOfficerDesignation}">Executive Engineer</span></div>
-            <div class="signature-date">Date: <span th:text="${msedclSignDate}">2025-07-10</span></div>
-            <div class="seal-text">(Office Seal)</div>
+    <!-- MSEDCL Officer row with Name, Designation, Date and seal -->
+    <div class="msedcl-row">
+        <div class="msedcl-item">
+            <div class="msedcl-label">Signature of the MSEDCL Officer</div>
+            <div class="msedcl-line"></div>
         </div>
-        <div class="signature-box">
-            <div class="signature-label">Electrical Inspector's Signature</div>
-            <div class="signature-line"></div>
-            <div class="signature-name">Name: <span th:text="${inspectorName}">Shri. Sanjay Bhosale</span></div>
-            <div class="signature-date">Date: <span th:text="${inspectorDate}">2025-07-10</span></div>
-            <div class="if-applicable">(if applicable)</div>
+        <div class="msedcl-item">
+            <div class="msedcl-label">Name</div>
+            <div class="msedcl-line"></div>
+        </div>
+        <div class="msedcl-item">
+            <div class="msedcl-label">Designation</div>
+            <div class="msedcl-line"></div>
         </div>
     </div>
+    <div class="date-seal">
+        <div class="msedcl-label">Date and seal</div>
+        <div class="msedcl-line"></div>
+    </div>
 
-    <!-- ==================== FOOTER NOTE: exact alignment with govt format ==================== -->
-    <!-- no extra elements, everything matches official RTS original Annexure-I PDF -->
 </div>
 </body>
 </html>
