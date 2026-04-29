@@ -108,28 +108,29 @@
         /* =======================
            SIGNATURE AREA
         ======================= */
-       .signature-row{
-    display:flex;
-    justify-content:space-between;
-    align-items:flex-start;
-    width:100%;
-    margin:18px 0 10px 0;
-}
+        .signature-row{
+            display:table;
+            width:100%;
+            table-layout:fixed;
+            margin:18px 0 10px 0;
+        }
 
-       .signature-left,
-.signature-right{
-    width:48%;
-}
+        .signature-left,
+        .signature-right{
+            display:table-cell;
+            width:50%;
+            vertical-align:top;
+        }
 
-     .signature-left{
-    text-align:center;
-    padding:0;
-}
+        .signature-left{
+            text-align:center;
+            padding-right:0;
+        }
 
-       .signature-right{
-    text-align:center;
-    padding:0;
-}
+        .signature-right{
+            text-align:center;
+            padding-left:0;
+        }
 
         .signature-label{
             font-weight:700;
