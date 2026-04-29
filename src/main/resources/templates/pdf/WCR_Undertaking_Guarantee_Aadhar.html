@@ -10,6 +10,10 @@
             padding:0;
             box-sizing:border-box;
         }
+        .section-title{
+    font-weight:700;
+    text-align:center;
+}
 
         body{
             font-family:Arial, Helvetica, sans-serif;
@@ -114,13 +118,13 @@
             vertical-align:bottom;
         }
 
-        .signature-left{
-            text-align:left;
-            padding-right:10px;
-        }
+       .signature-left{
+    text-align:center;
+    padding-right:10px;
+}
 
-       .signature-right{
-    text-align:right;
+     .signature-right{
+    text-align:center;
     padding-left:25px;
     vertical-align:top;
 }
@@ -325,21 +329,21 @@
             <tr><td class="col-srno">5</td><td class="col-obs">Sanction number</td><td class="col-value"><span class="value-field" th:text="${sanctionNumber}">_________________________</span></td></tr>
             <tr><td class="col-srno">6</td><td class="col-obs">Sanctioned Capacity of solar PV system (KW) Installed</td><td class="col-value"><span class="value-field" th:text="${sanctionedCapacity}">_________________________</span></td></tr>
             <tr><td class="col-srno"></td><td class="col-obs">Capacity of solar PV system (KW) Installed</td><td class="col-value"><span class="value-field" th:text="${installedCapacity}">_________________________</span></td></tr>
-            <tr><td class="col-srno">7</td><td colspan="2" class="bold">Specification of the Modules</td></tr>
+            <tr><td class="col-srno">7</td><td colspan="2" class="section-title">Specification of the Modules</td></tr>
             <tr><td class="col-srno"></td><td class="col-obs">Make of Module</td><td class="col-value"><span class="value-field" th:text="${moduleMake}">_________________________</span></td></tr>
             <tr><td class="col-srno"></td><td class="col-obs">ALMM Model Number</td><td class="col-value"><span class="value-field" th:text="${almmModelNumber}">_________________________</span></td></tr>
             <tr><td class="col-srno"></td><td class="col-obs">Wattage per module</td><td class="col-value"><span class="value-field" th:text="${wattagePerModule}">_________________________</span></td></tr>
             <tr><td class="col-srno"></td><td class="col-obs">No. of Module</td><td class="col-value"><span class="value-field" th:text="${numberOfModules}">_________________________</span></td></tr>
             <tr><td class="col-srno"></td><td class="col-obs">Total Capacity (KWP)</td><td class="col-value"><span class="value-field" th:text="${totalCapacityKWP}">_________________________</span></td></tr>
             <tr><td class="col-srno"></td><td class="col-obs">Warrantee Details (Product + Performance)</td><td class="col-value"><span class="value-field" th:text="${warrantyDetails}">_________________________</span></td></tr>
-            <tr><td class="col-srno">8</td><td colspan="2" class="bold">PCU</td></tr>
+            <tr><td class="col-srno">8</td><td colspan="2" class="section-title">PCU</td></tr>
             <tr><td class="col-srno"></td><td class="col-obs">Make &amp; Model number of Inverter</td><td class="col-value"><span class="value-field" th:text="${inverterMakeModel}">_________________________</span></td></tr>
             <tr><td class="col-srno"></td><td class="col-obs">Rating</td><td class="col-value"><span class="value-field" th:text="${inverterRating}">_________________________</span></td></tr>
             <tr><td class="col-srno"></td><td class="col-obs">Type of charge controller/ MPPT</td><td class="col-value"><span class="value-field" th:text="${chargeControllerType}">_________________________</span></td></tr>
             <tr><td class="col-srno"></td><td class="col-obs">Capacity of Inverter</td><td class="col-value"><span class="value-field" th:text="${inverterCapacity}">_________________________</span></td></tr>
             <tr><td class="col-srno"></td><td class="col-obs">HPD</td><td class="col-value"><span class="value-field" th:text="${hpd}">_________________________</span></td></tr>
             <tr><td class="col-srno"></td><td class="col-obs">Year of manufacturing</td><td class="col-value"><span class="value-field" th:text="${yearOfManufacturing}">_________________________</span></td></tr>
-            <tr><td class="col-srno">9</td><td colspan="2" class="bold">Earthing and Protections</td></tr>
+            <tr><td class="col-srno">9</td><td colspan="2" class="section-title">Earthing and Protections</td></tr>
             <tr><td class="col-srno"></td><td class="col-obs">No of Separate Earthings with earth Resistance</td><td class="col-value"><span class="value-field" th:text="${numberOfEarthings}">_________________________</span> with <span class="value-field" th:text="${earthResistance}">_________________________</span> Ohms</td></tr>
             <tr><td class="col-srno"></td><td class="col-obs">It is certified that the Earth Resistance measure in presence of Licensed Electrical Contractor/Supervisor and found in order i.e. less than 5 Ohms as per MNRE OM Dtd. 07.06.24 for CFA Component.</td><td class="col-value"><span class="value-field">Certified</span></td></tr>
             <tr><td class="col-srno"></td><td class="col-obs">Lightening Arrester</td><td class="col-value"><span class="value-field" th:text="${lighteningArrester}">_________________________</span></td></tr>
@@ -392,10 +396,10 @@
     </span>
         </div>
         <div class="signature-right">
-            <span class="signature-label">Stamp &amp; Seal</span>
             <div class="stamp-box">
-                <span th:text="${vendorStamp}">_________________________</span>
+                <span th:text="${vendorStamp}">________________</span>
             </div>
+            <span class="signature-label">Stamp &amp; Seal</span>
         </div>
     </div>
 
