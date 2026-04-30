@@ -43,6 +43,8 @@ public class SolarPdfController {
         // ================= BASIC INFORMATION =================
         data.put("name", record.getName() != null ? record.getName() : "_________________________");
         data.put("consumerNumber", record.getConsumerNumber() != null ? record.getConsumerNumber() : "_________________________");
+        data.put("meterNumber", record.getMeterNumber() != null ? record.getMeterNumber() : "_________________________");
+        data.put("netMeterNumber", record.getNetMeterNumber() != null ? record.getNetMeterNumber() : "_________________________");
         data.put("mobileNumber", record.getMobileNumber() != null ? record.getMobileNumber() : "_________________________");
         data.put("email", record.getEmail() != null ? record.getEmail() : "_________________________");
         data.put("siteAddress", record.getSiteAddress() != null ? record.getSiteAddress() : "_________________________________________________________________________________");
