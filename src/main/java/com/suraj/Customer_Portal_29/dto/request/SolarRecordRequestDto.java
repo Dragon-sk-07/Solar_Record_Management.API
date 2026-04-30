@@ -210,4 +210,8 @@ public class SolarRecordRequestDto {
     private List<MultipartFile> aadharImages;
 
     private List<String> existingAadharImages;
+
+    private String meterNumber;
+
+    private String netMeterNumber;
 }

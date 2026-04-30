@@ -129,6 +129,8 @@ public class SolarRecordService {
     private void mapBasicFields(SolarRecord entity, SolarRecordRequestDto req) {
         entity.setName(req.getName());
         entity.setConsumerNumber(req.getConsumerNumber());
+        entity.setMeterNumber(req.getMeterNumber());
+        entity.setNetMeterNumber(req.getNetMeterNumber());
         entity.setMobileNumber(req.getMobileNumber());
         entity.setEmail(req.getEmail());
         entity.setSiteAddress(req.getSiteAddress());

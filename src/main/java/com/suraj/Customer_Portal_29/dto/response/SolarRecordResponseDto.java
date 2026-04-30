@@ -87,4 +87,7 @@ public class SolarRecordResponseDto {
 
     private List<String> sitePhotos;
     private List<String> aadharImages;
+
+    private String meterNumber;
+    private String netMeterNumber;
 }

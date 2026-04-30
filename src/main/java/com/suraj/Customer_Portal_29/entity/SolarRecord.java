@@ -1,6 +1,8 @@
 package com.suraj.Customer_Portal_29.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.DecimalMin;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -27,6 +29,7 @@ public class SolarRecord {
 
     // ==================== BASIC INFORMATION ====================
     private String name;
+    @Column(unique = true, nullable = false)
     private String consumerNumber;
     private String mobileNumber;
     private String email;
@@ -46,7 +49,8 @@ public class SolarRecord {
     @Column(name = "sanctioned_capacity")
     private Double sanctionedCapacity;
 
-    @Column(name = "installed_capacity")
+    @NotNull
+    @DecimalMin("0.1")
     private Double installedCapacity;
 
     // ==================== RE ARRANGEMENT ====================
@@ -222,4 +226,10 @@ public class SolarRecord {
     @CollectionTable(name = "solar_aadhar_images", joinColumns = @JoinColumn(name = "solar_record_id"))
     @Column(name = "aadhar_image", columnDefinition = "TEXT")
     private List<String> aadharImages;
+
+    @Column(name = "meter_number")
+    private String meterNumber;
+
+    @Column(name = "net_meter_number")
+    private String netMeterNumber;
 }
