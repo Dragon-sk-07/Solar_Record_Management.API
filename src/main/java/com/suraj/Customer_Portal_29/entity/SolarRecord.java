@@ -232,4 +232,22 @@ public class SolarRecord {
 
     @Column(name = "net_meter_number")
     private String netMeterNumber;
+
+    @Column(name = "indemnity_day")
+    private String indemnityDay;
+
+    @Column(name = "indemnity_month")
+    private String indemnityMonth;
+
+    @Column(name = "indemnity_year")
+    private String indemnityYear;
+
+    @Column(name = "gr_reference_number")
+    private String grReferenceNumber;
+
+    @Column(name = "gr_reference_date")
+    private String grReferenceDate;
+
+    @Column(name = "pbg_amount")
+    private Double pbgAmount;
 }

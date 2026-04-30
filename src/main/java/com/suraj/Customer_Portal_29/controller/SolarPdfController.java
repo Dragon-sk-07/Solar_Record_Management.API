@@ -156,7 +156,12 @@ public class SolarPdfController {
         data.put("witness1Address", record.getWitness1Address() != null ? record.getWitness1Address() : "_________________________________________________________________________________");
         data.put("witness2Name", record.getWitness2Name() != null ? record.getWitness2Name() : "_________________________");
         data.put("witness2Address", record.getWitness2Address() != null ? record.getWitness2Address() : "_________________________________________________________________________________");
-
+        data.put("indemnityDay", record.getIndemnityDay() != null ? record.getIndemnityDay() : String.valueOf(LocalDate.now().getDayOfMonth()));
+        data.put("indemnityMonth", record.getIndemnityMonth() != null ? record.getIndemnityMonth() : LocalDate.now().getMonth().toString());
+        data.put("indemnityYear", record.getIndemnityYear() != null ? record.getIndemnityYear() : String.valueOf(LocalDate.now().getYear()));
+        data.put("grReferenceNumber", record.getGrReferenceNumber() != null ? record.getGrReferenceNumber() : "202510061736312910");
+        data.put("grReferenceDate", record.getGrReferenceDate() != null ? record.getGrReferenceDate() : "06th Oct 2025");
+        data.put("pbgAmount", record.getPbgAmount() != null ? record.getPbgAmount() : "_________________________");
         // ================= PHOTOS =================
         data.put("sitePhotos", record.getSitePhotos());
 

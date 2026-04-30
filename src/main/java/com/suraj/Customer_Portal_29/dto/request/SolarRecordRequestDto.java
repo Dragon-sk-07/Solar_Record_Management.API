@@ -214,4 +214,11 @@ public class SolarRecordRequestDto {
     private String meterNumber;
 
     private String netMeterNumber;
+
+    private String indemnityDay;
+    private String indemnityMonth;
+    private String indemnityYear;
+    private String grReferenceNumber;
+    private String grReferenceDate;
+    private Double pbgAmount;
 }

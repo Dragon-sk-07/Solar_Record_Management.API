@@ -81,6 +81,7 @@ public class SolarRecordService {
         mapAgreementFields(entity, req);
         mapApplicationFields(entity, req);
         mapWitnessFields(entity, req);
+        mapIndemnityFields(entity, req);
 
         List<String> photoPaths = savePhotos(req.getSitePhotos());
         entity.setSitePhotos(photoPaths);
@@ -104,6 +105,7 @@ public class SolarRecordService {
         mapAgreementFields(entity, req);
         mapApplicationFields(entity, req);
         mapWitnessFields(entity, req);
+        mapIndemnityFields(entity, req);
 
         // Handle Site Photos
         List<String> updatedPhotos = new ArrayList<>();
@@ -223,6 +225,14 @@ public class SolarRecordService {
         entity.setWitness1Address(req.getWitness1Address());
         entity.setWitness2Name(req.getWitness2Name());
         entity.setWitness2Address(req.getWitness2Address());
+    }
+    private void mapIndemnityFields(SolarRecord entity, SolarRecordRequestDto req) {
+        entity.setIndemnityDay(req.getIndemnityDay());
+        entity.setIndemnityMonth(req.getIndemnityMonth());
+        entity.setIndemnityYear(req.getIndemnityYear());
+        entity.setGrReferenceNumber(req.getGrReferenceNumber());
+        entity.setGrReferenceDate(req.getGrReferenceDate());
+        entity.setPbgAmount(req.getPbgAmount());
     }
 
     private SolarRecordResponseDto mapToResponse(SolarRecord entity) {
