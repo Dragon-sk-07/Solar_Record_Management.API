@@ -19,7 +19,7 @@
             background:#fff;
             color:#000;
             padding:18px 28px;
-            font-size:14px;
+            font-size:14.5px;
             line-height:1.5;
         }
 
@@ -56,7 +56,7 @@
 
         .paragraph p{
             margin:0;
-            font-size:14px;
+            font-size:14.5px;
             line-height:1.45;
         }
 
@@ -181,14 +181,14 @@
         /* ===== GLOBAL FONT ===== */
 
         p,span,div{
-            font-size:14px;
+            font-size:14.5px;
         }
 
         /* ===== PAGE FIT ===== */
 
         @page{
             size:A4;
-            margin:14mm;
+            margin:14.5mm;
         }
 
     </style>
@@ -234,32 +234,32 @@
         <div class="module-details">
             <!-- ALL LINES with : aligned perfectly - values are NOT BOLD -->
             <div class="detail-line">
-                <span class="detail-label">1. PV Module Capacity:</span>
+                <span class="detail-label">1. PV Module Capacity </span>
                 <span class="detail-value" th:if="${wattagePerModule}" th:text="${wattagePerModule}">413.0</span>
                 <span th:unless="${wattagePerModule}" class="placeholder-dots placeholder-medium">.....................</span>
             </div>
             <div class="detail-line">
-                <span class="detail-label">2. Number of PV Modules:</span>
+                <span class="detail-label">2. Number of PV Modules </span>
                 <span class="detail-value" th:if="${numberOfModules}" th:text="${numberOfModules}">28</span>
                 <span th:unless="${numberOfModules}" class="placeholder-dots placeholder-medium">.....................</span>
             </div>
             <div class="detail-line">
-                <span class="detail-label">3. Sr No of PV Module:</span>
+                <span class="detail-label">3. Sr No of PV Module </span>
                 <span class="detail-value" th:if="${moduleSerialNumbers}" th:text="${moduleSerialNumbers}">SN:MOD-65086-9918</span>
                 <span th:unless="${moduleSerialNumbers}" class="placeholder-dots placeholder-wide">.....................</span>
             </div>
             <div class="detail-line">
-                <span class="detail-label">4. PV Module Make:</span>
+                <span class="detail-label">4. PV Module Make </span>
                 <span class="detail-value" th:if="${moduleMake}" th:text="${moduleMake}">Adani Solar</span>
                 <span th:unless="${moduleMake}" class="placeholder-dots placeholder-medium">.....................</span>
             </div>
             <div class="detail-line">
-                <span class="detail-label">5. Cell manufacturer's name:</span>
+                <span class="detail-label">5. Cell manufacturer's name </span>
                 <span class="detail-value" th:if="${cellManufacturerName}" th:text="${cellManufacturerName}">Adani Cells</span>
                 <span th:unless="${cellManufacturerName}" class="placeholder-dots placeholder-medium">.....................</span>
             </div>
             <div class="detail-line">
-                <span class="detail-label">6. Cell GST invoice No:</span>
+                <span class="detail-label">6. Cell GST invoice No </span>
                 <span class="detail-value" th:if="${cellGSTInvoiceNo}" th:text="${cellGSTInvoiceNo}">27ABCDE9640F1Z5</span>
                 <span th:unless="${cellGSTInvoiceNo}" class="placeholder-dots placeholder-medium">.....................</span>
             </div>
@@ -299,22 +299,22 @@
                 <span th:unless="${vendorName}" class="placeholder-dots placeholder-medium">.....................</span>
             </div>
             <div class="signature-row">
-                <span class="signature-label">Name:</span>
+                <span class="signature-label">Name </span>
                 <span class="signature-value" th:if="${authorizedPersonName}" th:text="${authorizedPersonName}">Anaya Nair</span>
                 <span th:unless="${authorizedPersonName}" class="placeholder-dots placeholder-medium">.....................</span>
             </div>
             <div class="signature-row">
-                <span class="signature-label">Designation:</span>
+                <span class="signature-label">Designation </span>
                 <span class="signature-value" th:if="${designation}" th:text="${designation}">CEO</span>
                 <span th:unless="${designation}" class="placeholder-dots placeholder-medium">.....................</span>
             </div>
             <div class="signature-row">
-                <span class="signature-label">Phone:</span>
+                <span class="signature-label">Phone </span>
                 <span class="signature-value" th:if="${mobileNumber}" th:text="${mobileNumber}">8466963158</span>
                 <span th:unless="${mobileNumber}" class="placeholder-dots placeholder-medium">.....................</span>
             </div>
             <div class="signature-row">
-                <span class="signature-label">Email:</span>
+                <span class="signature-label">Email </span>
                 <span th:if="${email}" class="signature-value" th:text="${email}">neha.gupta564@yahoo.com</span>
                 <span th:unless="${email}" class="placeholder-dots placeholder-medium">.....................</span>
             </div>
