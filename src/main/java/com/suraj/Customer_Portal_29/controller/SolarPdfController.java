@@ -173,7 +173,8 @@ public class SolarPdfController {
             case "proforma-a": filename = "Annexure-I_Proforma-A.pdf"; break;
             case "dcr": filename = "Declaration_FOR_DCR.pdf"; break;
             case "agreement": filename = "NET_METERING_CONNECTION_AGREEMENT.pdf"; break;
-            case "indemnity": case "INDEMNITY_BOND": filename = "INDEMNITY_BOND.pdf"; type = "indemnity"; break;
+            case "indemnity": filename = "INDEMNITY_BOND.pdf"; break;
+//            case "indemnity": case "INDEMNITY_BOND": filename = "INDEMNITY_BOND.pdf"; type = "indemnity"; break;
             default: filename = "document_" + System.currentTimeMillis() + ".pdf";
         }
 
