@@ -13,9 +13,9 @@
             font-family: 'Times New Roman', Times, serif;
             background: #fff;
             color: #000;
-            font-size: 12pt;
+            font-size: 13.5pt;
             line-height: 1.35;
-            padding: 20px 25px;
+            padding: 12px 20px;
         }
         .bond-wrapper {
             max-width: 1000px;
@@ -29,26 +29,33 @@
             text-align: center;
             text-transform: uppercase;
             text-decoration: underline;
-            margin: 20pt 0 15pt 0;
+            margin: 18pt 0 12pt 0;
             letter-spacing: 1px;
         }
         h2 {
-            font-size: 14pt;
+            font-size: 15pt;
             font-weight: bold;
             text-align: left;
-            margin: 15pt 0 8pt 0;
+            margin: 12pt 0 6pt 0;
+        }
+        .stamp-paper {
+            text-align: center;
+            font-weight: bold;
+            font-size: 13.5pt;
+            margin-bottom: 10px;
         }
         .subhead {
-            font-size: 13pt;
+            font-size: 14pt;
             font-weight: bold;
             text-align: center;
             margin: 10pt 0;
         }
         /* paragraph & legal text */
         p {
-            margin: 8pt 0;
+            margin: 6pt 0;
             text-align: justify;
             line-height: 1.4;
+            font-size: 13.5pt;
         }
         .indent {
             text-indent: 30px;
@@ -63,52 +70,58 @@
         table {
             width: 100%;
             border-collapse: collapse;
-            margin: 12pt 0;
-            font-size: 11pt;
+            margin: 10pt 0;
+            font-size: 12.5pt;
             border: 1px solid #000000;
         }
         th, td {
             border: 1px solid #000;
-            padding: 6px 5px;
+            padding: 5px 6px;
             vertical-align: top;
         }
         th {
-            background-color: #f1f1f1;
+            background-color: #f5f5f5;
             font-weight: 700;
             text-align: center;
         }
-        .table-header-bg {
-            background: #e6e6e6;
-            font-weight: bold;
-        }
         .consumer-table {
             width: 100%;
-            margin-top: 10px;
+            margin-top: 8px;
         }
         .consumer-table td, .consumer-table th {
-            padding: 5px 4px;
+            padding: 5px 6px;
         }
-        /* schedule list */
-        .schedule-list {
-            margin: 8pt 0 8pt 30pt;
+        /* roman numeral lists */
+        .roman-list {
+            margin: 6pt 0 6pt 35pt;
+            list-style-type: upper-roman;
+        }
+        .roman-list li {
+            margin: 3pt 0;
+        }
+        .lower-roman-list {
+            margin: 4pt 0 4pt 40pt;
+            list-style-type: lower-roman;
+        }
+        .lower-roman-list li {
+            margin: 2pt 0;
+        }
+        .decimal-list {
+            margin: 6pt 0 6pt 30pt;
             list-style-type: decimal;
         }
-        .schedule-list li {
-            margin: 4pt 0;
-        }
-        .sub-list {
-            margin-left: 25pt;
-            list-style-type: lower-roman;
+        .decimal-list li {
+            margin: 3pt 0;
         }
         .component-head {
             font-weight: bold;
-            margin-top: 12pt;
+            margin-top: 10pt;
             margin-bottom: 4pt;
-            font-size: 12pt;
+            font-size: 14pt;
         }
-        /* inspection schedule table (16 components) */
+        /* inspection schedule table */
         .inspection-table td, .inspection-table th {
-            font-size: 10.5pt;
+            font-size: 11.5pt;
             padding: 5px 4px;
         }
         /* signature area */
@@ -116,7 +129,7 @@
             display: flex;
             width: 100%;
             justify-content: space-between;
-            margin: 30pt 0 20pt 0;
+            margin: 25pt 0 15pt 0;
             gap: 30px;
             flex-wrap: wrap;
         }
@@ -124,85 +137,86 @@
             flex: 1;
             text-align: center;
         }
-        .signature-line {
-            margin-top: 35pt;
-            border-top: 1px dotted #000;
-            width: 80%;
-            margin-left: auto;
-            margin-right: auto;
-        }
-        .signature-name {
-            font-weight: bold;
-            margin-top: 6px;
-        }
         .witness-area {
             display: flex;
             justify-content: space-between;
-            margin-top: 20pt;
-            gap: 20px;
+            margin-top: 18pt;
+            gap: 25px;
         }
         .witness {
             flex: 1;
         }
         .stamp-placeholder {
             border: 1.5px solid #000;
-            width: 180px;
-            height: 70px;
-            margin: 8px auto;
+            width: 170px;
+            height: 65px;
+            margin: 6px auto;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 10pt;
+            font-size: 11pt;
             text-align: center;
         }
         .note-text {
-            font-size: 10pt;
-            margin-top: 20px;
+            font-size: 10.5pt;
+            margin-top: 18px;
             border-top: 1px solid #aaa;
-            padding-top: 10px;
+            padding-top: 8px;
         }
         .page-break {
             page-break-before: always;
             break-before: page;
         }
+        .value-field {
+            font-weight: normal;
+            display: inline-block;
+        }
+        .signature-line-area {
+            margin-top: 30pt;
+            text-align: left;
+        }
+        .for-on-behalf {
+            margin-top: 15px;
+            text-align: center;
+        }
         @media print {
             body {
-                padding: 0.5in;
+                padding: 0.4in;
                 margin: 0;
             }
-            .signature-row, .witness-area, .stamp-placeholder {
-                page-break-inside: avoid;
-            }
-            table {
+            .signature-row, .witness-area {
                 page-break-inside: avoid;
             }
         }
-        .value-field {
-            font-weight: 600;
-            display: inline-block;
-            min-width: 120px;
+        .list-alpha {
+            margin-left: 35px;
+            list-style-type: lower-alpha;
         }
-        .inline-placeholder {
-            border-bottom: 1px dotted #000;
-            padding: 0 8px;
+        .disc-list {
+            margin-left: 35px;
+            list-style-type: disc;
+        }
+        .guidelines-list {
+            margin-left: 35px;
+            list-style-type: decimal;
         }
     </style>
 </head>
 <body>
 <div class="bond-wrapper">
-    <!-- Header: Stamp paper declaration (non judicial) -->
-    <div style="text-align: right; font-size: 10pt; margin-bottom: 8px;">***(On non-judicial stamp paper of Rs. 500/-)***</div>
+    <!-- Stamp paper line - centered bold -->
+    <div class="stamp-paper">***(On non-judicial stamp paper of Rs. 500/-)***</div>
     <h1>INDEMNITY BOND</h1>
 
-    <!-- Whereas recitals -->
+    <!-- Recitals -->
     <p><strong>This Indemnity Bond</strong> is made this <span th:text="${indemnityDay}">____</span> day of <span th:text="${indemnityMonth}">________</span>, <span th:text="${indemnityYear}">________</span> by <strong>M/s <span th:text="${vendorName}">_________________________</span></strong>, having its registered office at <span th:text="${vendorAddress}">_________________________________________________________________________________</span> (herein after called as <strong>“vendor”</strong> which expression shall include its successors and permitted assigns) in favour of <strong>Maharashtra State Electricity Distribution Company Limited</strong> (hereinafter called <strong>“MSEDCL”</strong> which expression shall include its successor and assigns).</p>
 
     <p><strong>Whereas</strong> Vendor executed the work of the roof top solar installation on the household of the following consumer as per MSEDCL technical sanctions under the SMART solar scheme and by the virtue of clause No 9 of G.R. of GoM with reference number <span th:text="${grReferenceNumber}">202510061736312910</span> on <span th:text="${grReferenceDate}">06th Oct 2025</span>, the Vendor undertakes the responsibility of Operation and maintenance for the period of 5 years from the date of commissioning.</p>
 
-    <!-- Consumer details table (S.No, Name & Address, Consumer No., Capacity) -->
+    <!-- Consumer Details Table -->
     <table class="consumer-table">
         <thead>
-        <tr style="background:#eaeaea;">
+        <tr style="background:#ececec;">
             <th style="width:10%">S. No.</th>
             <th style="width:45%">Name & Address of Consumers</th>
             <th style="width:25%">Consumer No.</th>
@@ -221,16 +235,17 @@
 
     <p>The Vendor will carry out operation and maintenance of the grid connected RTS plant as per the schedule annexed herewith.</p>
 
-    <ol class="schedule-list" style="margin-left:20px;">
+    <!-- Using Roman numerals as per original -->
+    <ol class="roman-list">
         <li>For the optimal operation of a PV plant, maintenance must be carried out on a regular basis.</li>
         <li>All the components should be kept clean. It should be ensured that all the components are fastened well at their due place.</li>
         <li>Maintenance guidelines for various components viz. solar panels, inverter, wiring etc. are discussed below:</li>
     </ol>
 
-    <!-- =============== SOLAR PANELS SECTION =============== -->
+    <!-- SOLAR PANELS section -->
     <div class="component-head">SOLAR PANELS</div>
-    <p>Although the cleaning frequency for the panels will vary from site to site depending on soiling, it is recommended that:</p>
-    <ul class="sub-list" style="margin-left: 40px; list-style: disc;">
+    <p>Although the cleaning frequency for the panels will vary from site to site depending on soiling, it is recommended that</p>
+    <ol class="lower-roman-list">
         <li>The panels are cleaned at least once every fifteen days.</li>
         <li>Any bird droppings or spots should be cleaned immediately.</li>
         <li>Use water and a soft sponge or cloth for cleaning.</li>
@@ -244,39 +259,39 @@
         <li>Ensure that the module terminal connections are not exposed while cleaning; this poses a risk of electric shock.</li>
         <li>Never use panels for any unintended use, e. g. drying clothes, chips etc.</li>
         <li>Ensure that monkeys or other animals do not damage the panels.</li>
-    </ul>
+    </ol>
 
     <!-- CABLES AND CONNECTION BOXES -->
     <div class="component-head">CABLES AND CONNECTION BOXES</div>
-    <ul class="sub-list" style="margin-left:40px; list-style:disc;">
+    <ol class="lower-roman-list">
         <li>Check the connections for corrosion and tightness.</li>
         <li>Check the connection box to make sure that the wires are tight, and the water seals are not damaged.</li>
         <li>There should be no vermin inside the box.</li>
-        <li>Check the cable insulating sheath for cracks, breaks or burns. If the insulation is damaged, replace the wire.</li>
+        <li>Check the cable insulating sheath for cracks, breaks or burns. If the insulation is damaged, replace the wire</li>
         <li>If the wire is outside the building, use wire with weather-resistant insulation.</li>
         <li>Make sure that the wire is clamped properly and that it should not rub against any sharp edges or corners.</li>
         <li>If some wire needs to be changed, make sure it is of proper rating and type.</li>
-    </ul>
+    </ol>
 
     <!-- INVERTER -->
     <div class="component-head">INVERTER</div>
-    <ul class="sub-list" style="margin-left:40px; list-style:disc;">
+    <ol class="lower-roman-list">
         <li>The inverter should be installed in a clean, dry, and ventilated area which is separated from, and not directly above, the battery bank.</li>
         <li>Remove any excess dust in heat sinks and ventilations. This should only be done with a dry cloth or brush.</li>
         <li>Check that vermin have not infested the inverter. Typical signs of this include spider webs on ventilation grills or wasps' nests in heat sinks.</li>
         <li>Check functionality, e.g. automatic disconnection upon loss of grid power supply, at least once a month.</li>
         <li>Verify the state of DC/AC surge arrestors, cable connections, and circuit breakers.</li>
-    </ul>
+    </ol>
 
     <!-- SHUTTING DOWN THE SYSTEM -->
     <div class="component-head">SHUTTING DOWN THE SYSTEM</div>
-    <ul class="sub-list" style="margin-left:40px; list-style:disc;">
+    <ol class="lower-roman-list">
         <li>Disconnect system from all power sources in accordance with instructions for all other components used in the system.</li>
         <li>Completely cover system modules with an opaque material to prevent electricity from being generated while disconnecting conductors.</li>
         <li>To the extent possible, system shutdown will not be done during daytime or peak generation.</li>
-    </ul>
+    </ol>
 
-    <!-- =============== INSPECTION AND MAINTENANCE SCHEDULE (16 components/rows) =============== -->
+    <!-- =============== INSPECTION AND MAINTENANCE SCHEDULE (3rd page starts here) =============== -->
     <h2>INSPECTION AND MAINTENANCE SCHEDULE:</h2>
     <table class="inspection-table">
         <thead>
@@ -289,38 +304,27 @@
         </tr>
         </thead>
         <tbody>
-        <!-- Row 1: PV Module Cleaning bird droppings -->
         <tr><td>PV Module</td><td>Cleaning</td><td>Clean any bird droppings/ dark spots on module</td><td>Immediately</td><td>Beneficiary</td></tr>
         <tr><td>PV Module</td><td>Cleaning</td><td>Clean PV modules with plain water or mild dishwashing detergent. Do not use brushes, any types of solvents, abrasives, or harsh detergents.</td><td>Fortnightly or as per site conditions</td><td>Beneficiary</td></tr>
-        <!-- PV Array inspection row 3-->
         <tr><td>PV Array</td><td>Inspection</td><td>Check the PV modules and rack for any damage. Note down location and serial number of damaged modules.</td><td>Annual</td><td>User/Technician</td></tr>
         <tr><td>PV Array</td><td>Inspection</td><td>Determine if any new objects, such as vegetation growth, are causing shading of the array and move them if possible.</td><td>Annual</td><td>User/Technician</td></tr>
         <tr><td>PV Array</td><td>Vermin Removal</td><td>Remove bird nests or vermin from array and rack area.</td><td>Annual</td><td>User/Technician</td></tr>
-        <!-- Junction Boxes -->
         <tr><td>Junction Boxes</td><td>Inspection</td><td>Inspect electrical boxes for corrosion or intrusion of water or insects. Seal boxes if required. Check position of switches and breakers. Check operation of all protection devices.</td><td>Annual</td><td>Electrician</td></tr>
-        <!-- Wiring -->
         <tr><td>Wiring</td><td>Inspection</td><td>Inspect cabling for signs of cracks, defects, loose connections, overheating, arcing, short or open circuits, and ground faults.</td><td>Annual</td><td>Electrician</td></tr>
-        <!-- Inverter inspection quarterly -->
         <tr><td>Inverter</td><td>Inspection</td><td>Observe instantaneous operational indicators on the faceplate of the inverter to ensure that the amount of power being generated is typical of the conditions. Inspect Inverter housing or shelter for physical maintenance, if required.</td><td>Quarterly</td><td>Electrician</td></tr>
-        <!-- Inverter service as needed -->
         <tr><td>Inverter</td><td>Service</td><td>Clean or replace any air filters.</td><td>As needed</td><td>Electrician</td></tr>
-        <!-- Instruments Validation -->
         <tr><td>Instruments</td><td>Validation</td><td>Spot-check monitoring instruments (pyranometer etc.) with standard instruments to ensure that they are operational and within specifications.</td><td>Annual</td><td>PV Specialist</td></tr>
-        <!-- Tracker if present -->
         <tr><td>Tracker (if present)</td><td>Inspection</td><td>Inspect gears, gear boxes, bearings as required.</td><td>Annual</td><td>Technician</td></tr>
         <tr><td>Tracker (if present)</td><td>Service</td><td>Lubricate tracker mounting bearings, gearbox as required.</td><td>Bi-annual</td><td>Technician</td></tr>
-        <!-- Plant Monitoring -->
         <tr><td>Plant</td><td>Monitoring</td><td>Daily Operation and Performance Monitoring</td><td>Daily</td><td>Beneficiary</td></tr>
-        <!-- Spare Parts Management -->
         <tr><td>Spare Parts</td><td>Management</td><td>Manage inventory of spare parts.</td><td>As needed</td><td>Site in charge</td></tr>
-        <!-- Logbook Documentation -->
         <tr><td>Logbook</td><td>Documentation</td><td>Document all O&M activities in a workbook available to all service personnel</td><td>Continuous</td><td>Site in charge</td></tr>
         </tbody>
     </table>
 
-    <!-- Operation and Maintenance Guidelines (additional bullet points as per original) -->
+    <!-- Operation and Maintenance Guidelines (exact text with decimal points) -->
     <div class="component-head">Operation and Maintenance Guidelines of Grid Connected PV Plants</div>
-    <ol style="margin-left: 25px; margin-top: 5px;">
+    <ol class="guidelines-list">
         <li>Periodic cleaning of solar modules, preferably once every fortnight. As this task has to be done by the beneficiary, the vendors shall apprise the beneficiary on the importance and proper technique for cleaning.</li>
         <li>O&M of Solar Power Plant shall be compliant with grid requirements to achieve committed energy generation.</li>
         <li>Periodic checks of the Modules, PCUs and BoS shall be carried out as a part of routine preventive and breakdown maintenance.</li>
@@ -329,20 +333,31 @@
         <li>All the equipment testing instrument required for Testing, Commissioning and O&M for the healthy operation of the Plant shall be maintained by the Bidder. The testing equipment must be calibrated once every 2 years from NABL accredited labs and the certificate of calibration must be kept for reference as required.</li>
         <li>If negligence/ mal operation on part of the Bidder's operator results in failure of equipment, such equipment should be repaired/ replaced by the Bidder free of cost.</li>
         <li>If any jobs covered in O&M Scope as per RFP are not carried out by the contractor/ Bidders during the O&M period, the Engineer-In-Charge shall take appropriate action as deemed fit.</li>
-        <li>MSEDCL reserves the right to make surprise checks/ inspection visits at its own or through authorized representative to verify the O&M activities being carried out by the Bidder. Failure to adhere to above guidelines will result in penal action including debarring from participation in next tender.</li>
+        <li>MSEDCL reserves the right to make surprise checks/ inspection visits at its own or through authorized representative to verify the O&M activities being carried out by the Bidder. Failure to adhere to above guidelines will result in penal action including debarring from participation in next tender</li>
     </ol>
 
-    <!-- NOW, THEREFORE indemnity clauses -->
+    <!-- Indemnity clauses -->
     <p><strong>Now, therefore, this indemnity bond witnesses this as follows:</strong></p>
-    <ol style="margin-left: 25px;">
+    <ol class="decimal-list">
         <li>The contractor undertakes to keep MSEDCL harmless against any past, future unforeseen loss or damage due to any event/act occurred up to the period of commissioning that may be caused due to non-establishment of Insurance Cover under the contract against which the CFA has been released by MSEDCL on the behalf of GoM.</li>
-        <li>This indemnity bond is irrevocable. The vendor to execute the project and O &amp; M will be carried for 5 Years, failing to which or breach of above condition, the PBG submitted by the vendor will be forfeited by the MSEDCL without further notice. (PBG Amount: <span th:text="${pbgAmount}">_____________</span> INR)</li>
+        <li>This indemnity bond is irrevocable. The vendor to execute the project and O & M will be carried for 5 Years, failing to which or breach of above condition, the PBG submitted by the vendor will be forfeited by the MSEDCL without further notice. (PBG Amount: <span th:text="${pbgAmount}">_____________</span> INR)</li>
         <li>Now, the condition of this bond is that if the vendor shall duly and punctually comply with the terms and conditions of this bond to the satisfaction of MSEDCL, then the above bond shall be void, but otherwise, it shall remain in full force and virtue.</li>
     </ol>
 
     <p>In witness where of the vendor has here-unto set its hand through its authorized representative under the common seal of the company, the day, month and year first above mentioned.</p>
 
-    <!-- Witnesses & execution block (exactly as per original word) -->
+    <!-- FOR AND ON BEHALF OF M/s (Exactly before Witness section as per original) -->
+    <div class="for-on-behalf">
+        <p><strong>For and on behalf of M/s <span th:text="${vendorName}">_________________________</span></strong></p>
+        <p>Authorized Representative</p>
+        <div class="signature-line-area">
+            <p>Signature: ____________________</p>
+            <p>Name: <span th:text="${authorizedPersonName}">_________________________</span></p>
+            <p>Address: <span th:text="${vendorAddress}">_________________________________________________________________________________</span></p>
+        </div>
+    </div>
+
+    <!-- Witness I and Witness II (exact as original word file) -->
     <div class="witness-area">
         <div class="witness">
             <strong>Witness I</strong><br/>
@@ -351,45 +366,32 @@
             Address: <span th:text="${witness1Address}">_________________________________________________________________________________</span>
         </div>
         <div class="witness">
-            <strong>Authorized Representative (Vendor)</strong><br/>
-            <div class="stamp-placeholder" style="width:160px; height:60px;">
-                <span th:text="${vendorStamp}">(Company Stamp)</span>
-            </div>
-            Signature: ____________________<br/>
-            Name: <span th:text="${authorizedPersonName}">_________________________</span><br/>
-            Designation: <span th:text="${designation}">Authorized Signatory</span>
-        </div>
-    </div>
-
-    <div class="witness-area" style="margin-top: 10px;">
-        <div class="witness">
             <strong>Witness II</strong><br/>
             Signature: ____________________<br/>
             Name: <span th:text="${witness2Name}">_________________________</span><br/>
             Address: <span th:text="${witness2Address}">_________________________________________________________________________________</span>
         </div>
-        <div class="witness">
-            <strong>For and on behalf of M/s <span th:text="${vendorName}">________</span></strong><br/>
-            <span>(Authorized Signatory)</span>
-        </div>
     </div>
 
+    <!-- Stamp & Seal block as per original -->
+    <div style="text-align: center; margin-top: 18px;">
+        <div class="stamp-placeholder" style="margin: 0 auto;">
+            <span th:text="${vendorStamp}">(Common Seal / Stamp)</span>
+        </div>
+        <p><strong>(Stamp & Seal of the Company)</strong></p>
+    </div>
+
+    <!-- Notarization line -->
     <div style="margin-top: 20px; text-align: center;">
         <p><strong><u>(Bond should be duly notarized)</u></strong></p>
     </div>
 
-    <!-- Note regarding execution -->
+    <!-- Note exactly from original -->
     <div class="note-text">
         <p><strong>Note:</strong> *Indemnity Bonds are to be executed by the authorized persons and (i) In case of contracting Company under common seal of the Company or (ii) having the power of attorney issued under common seal of the company with authority to execute Indemnity Bonds, (iii) In case, (ii) the original Power of Attorney if it is specifically for our contract or a Photostat copy of the Power of Attorney if it is a General Power of Attorney and such documents should be attached to Indemnity Bond.*</p>
     </div>
 
-    <!-- Optional hidden dynamic fields to preserve all SolarRecord mappings, but they are already placed:
-         vendorName, vendorAddress, name, siteAddress, consumerNumber, installedCapacity, grReferenceNumber, grReferenceDate,
-         indemnityDay, indemnityMonth, indemnityYear, pbgAmount, witness1Name, witness1Address, witness2Name, witness2Address,
-         authorizedPersonName, designation, vendorStamp, etc.
-    -->
-    <!-- Additional fields from solar record that are required but not visible: moduleMake, inverterMake etc. not mandatory, but we keep consistency -->
-    <div style="display: none;">Fields mapping completed as per original indemnity bond format</div>
+    <!-- hidden fields maintain all solar record mapping -->
 </div>
 </body>
 </html>
