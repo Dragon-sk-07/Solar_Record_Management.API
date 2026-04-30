@@ -13,13 +13,12 @@
         }
 
         body{
-            background:#ffffff;
+            background:#fff;
             font-family:Arial, Helvetica, sans-serif;
             font-size:11.8pt;
             line-height:1.42;
-            color:#000000;
+            color:#000;
             margin:0.65in 0.45in;
-            font-weight:400;
         }
 
         .bond-container{
@@ -45,27 +44,27 @@
 
         .section-head{
             font-weight:700;
-            font-size:14.5pt;
+            font-size:14pt;
             text-decoration:underline;
-            margin:28px 0 8px 0;
+            margin:26px 0 8px 0;
         }
 
         .sub-section-head{
             font-weight:700;
-            font-size:13.5pt;
+            font-size:13pt;
             text-decoration:underline;
-            margin:24px 0 8px 0;
+            margin:22px 0 8px 0;
         }
 
         p{
-            margin:0 0 6px 0;
+            margin:0 0 7px 0;
             text-align:justify;
         }
 
         .field-line{
             display:inline-block;
             border-bottom:1px solid #000;
-            min-width:140px;
+            min-width:130px;
             padding:0 2px;
         }
 
@@ -77,7 +76,6 @@
             width:100%;
             border-collapse:collapse;
             margin:12px 0 18px 0;
-            border:1px solid #000;
             font-size:11pt;
         }
 
@@ -85,60 +83,33 @@
             border:1px solid #000;
             padding:6px 5px;
             vertical-align:top;
-            text-align:left;
         }
 
         th{
-            background:#f0f0f0;
+            background:#efefef;
             font-weight:700;
         }
 
-        .list-roman{
-            margin:2px 0 8px 28px;
-        }
-
-        .list-roman li{
-            margin-bottom:2px;
-        }
-
+        .list-roman,
         .list-decimal{
             margin:4px 0 10px 28px;
         }
 
+        .list-roman li,
         .list-decimal li{
-            margin-bottom:2px;
+            margin-bottom:3px;
         }
 
-        .inspect-table{
-            width:100%;
-            border-collapse:collapse;
-            border:1px solid #000;
-            margin:18px 0 20px 0;
-            font-size:9.5pt;
-        }
-
-        .inspect-table td,
-        .inspect-table th{
-            border:1px solid #000;
-            padding:4px 3px;
-        }
-
-        .inspect-table th{
-            background:#eaeaea;
-        }
-
-        /* IMPORTANT FIX: no flex support in openhtmltopdf */
         .signature-table{
             width:100%;
-            border-collapse:collapse;
             border:none;
             margin-top:30px;
         }
 
         .signature-table td{
             width:50%;
-            vertical-align:top;
             border:none;
+            vertical-align:top;
             padding:0 10px 0 0;
         }
 
@@ -158,30 +129,19 @@
             margin-top:10px;
         }
 
-        .bold{
-            font-weight:700;
-        }
-
-        .underline{
-            text-decoration:underline;
-        }
+        .bold{font-weight:700;}
+        .underline{text-decoration:underline;}
 
         .small-note{
             font-size:9.5pt;
-            margin-top:28px;
+            margin-top:25px;
             border-top:1px dotted #aaa;
-            padding-top:9px;
+            padding-top:8px;
             font-style:italic;
         }
 
         @page{
             margin:0.65in 0.45in;
-        }
-
-        @media print{
-            table{
-                page-break-inside:avoid;
-            }
         }
     </style>
 </head>
@@ -194,7 +154,7 @@
     <h1>INDEMNITY BOND</h1>
 
     <p>
-        This Indemnity bond is made this
+        This Indemnity Bond is made this
         <span class="field-line" th:text="${indemnityDay != null and !#strings.isEmpty(indemnityDay)} ? ${indemnityDay} : '____'"></span>
         day of
         <span class="field-line" th:text="${indemnityMonth != null and !#strings.isEmpty(indemnityMonth)} ? ${indemnityMonth} : '________'"></span>
@@ -204,11 +164,11 @@
         <span class="field-line" th:text="${vendorName != null and !#strings.isEmpty(vendorName)} ? ${vendorName} : '________'"></span>
         having its registered office at
         <span class="field-line field-line-long" th:text="${vendorAddress != null and !#strings.isEmpty(vendorAddress)} ? ${vendorAddress} : '________'"></span>
-        (hereinafter called vendor) in favour of Maharashtra State Electricity Distribution Company Limited (MSEDCL).
+        (hereinafter called Vendor) in favour of Maharashtra State Electricity Distribution Company Limited (MSEDCL).
     </p>
 
     <p>
-        Whereas Vendor executed the work of rooftop solar installation for consumer under SMART solar scheme and clause No. 9 of G.R. reference number
+        Whereas Vendor executed rooftop solar installation work for consumer under SMART Solar Scheme and clause No. 9 of G.R. reference number
         <span class="field-line" th:text="${grReferenceNumber != null and !#strings.isEmpty(grReferenceNumber)} ? ${grReferenceNumber} : '________'"></span>
         dated
         <span class="field-line" th:text="${grReferenceDate != null and !#strings.isEmpty(grReferenceDate)} ? ${grReferenceDate} : '________'"></span>,
@@ -224,6 +184,7 @@
             <th>Capacity</th>
         </tr>
         </thead>
+
         <tbody>
         <tr>
             <td>1</td>
@@ -231,9 +192,11 @@
                 <span th:text="${name != null and !#strings.isEmpty(name)} ? ${name} : '________'"></span><br/>
                 <span th:text="${siteAddress != null and !#strings.isEmpty(siteAddress)} ? ${siteAddress} : '________'"></span>
             </td>
+
             <td>
                 <span th:text="${consumerNumber != null and !#strings.isEmpty(consumerNumber)} ? ${consumerNumber} : '________'"></span>
             </td>
+
             <td>
                 <span th:text="${totalCapacityKWP != null} ? ${totalCapacityKWP} : '____'"></span> KW
             </td>
@@ -247,7 +210,7 @@
     <ol class="list-roman">
         <li>Panels should be cleaned at least once every fifteen days.</li>
         <li>Bird droppings should be cleaned immediately.</li>
-        <li>Use water and soft sponge/cloth.</li>
+        <li>Use water and soft sponge / cloth.</li>
         <li>Do not use abrasive material.</li>
     </ol>
 
@@ -274,25 +237,28 @@
 
     <div class="sub-section-head">INSPECTION AND MAINTENANCE SCHEDULE</div>
 
-    <table class="inspect-table">
+    <table>
         <tr>
             <th>Component</th>
             <th>Activity</th>
             <th>Interval</th>
             <th>By</th>
         </tr>
+
         <tr>
             <td>PV Module</td>
             <td>Cleaning</td>
             <td>Fortnightly</td>
             <td>Beneficiary</td>
         </tr>
+
         <tr>
             <td>Inverter</td>
             <td>Inspection</td>
             <td>Quarterly</td>
             <td>Electrician</td>
         </tr>
+
         <tr>
             <td>Plant</td>
             <td>Monitoring</td>
@@ -310,10 +276,9 @@
     </ol>
 
     <p>
-        In witness whereof the vendor has set its hand through authorized representative on the day, month and year first above written.
+        In witness whereof the Vendor has set its hand through authorized representative on the day, month and year first above written.
     </p>
 
-    <!-- FIXED SIGNATURE SECTION -->
     <table class="signature-table">
         <tr>
             <td>
