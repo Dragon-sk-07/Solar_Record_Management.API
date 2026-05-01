@@ -37,12 +37,15 @@ public class SolarPdfController {
 
     @GetMapping("/{id}/{type}/word")
     public ResponseEntity<byte[]> downloadWord(@PathVariable String id, @PathVariable String type) {
-        Map<String, Object> data = buildPdfData(id);  // Reuse existing method
+        Map<String, Object> data = buildPdfData(id);
         byte[] wordDoc = wordService.generateWord(type, data);
+
         String filename = type + ".doc";
+
         return ResponseEntity.ok()
-                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + filename)
-                .contentType(MediaType.APPLICATION_OCTET_STREAM)
+                .header(HttpHeaders.CONTENT_DISPOSITION,
+                        "attachment; filename=" + filename)
+                .contentType(MediaType.TEXT_HTML)
                 .body(wordDoc);
     }
     private Map<String, Object> buildPdfData(String id) {
