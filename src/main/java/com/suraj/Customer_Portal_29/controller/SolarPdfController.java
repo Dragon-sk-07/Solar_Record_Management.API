@@ -7,6 +7,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import com.suraj.Customer_Portal_29.service.WordGeneratorService;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -24,11 +25,37 @@ public class SolarPdfController {
 
     private final SolarRecordService solarService;
     private final PdfGeneratorService pdfService;
+    private final WordGeneratorService wordService;
 
     public SolarPdfController(SolarRecordService solarService,
-                              PdfGeneratorService pdfService) {
+                              PdfGeneratorService pdfService,
+                              WordGeneratorService wordService) {
         this.solarService = solarService;
         this.pdfService = pdfService;
+        this.wordService = wordService;
+    }
+
+    @GetMapping("/{id}/{type}/word")
+    public ResponseEntity<byte[]> downloadWord(@PathVariable String id, @PathVariable String type) {
+        Map<String, Object> data = buildPdfData(id);  // Reuse existing method
+        byte[] wordDoc = wordService.generateWord(type, data);
+        String filename = type + ".doc";
+        return ResponseEntity.ok()
+                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + filename)
+                .contentType(MediaType.APPLICATION_OCTET_STREAM)
+                .body(wordDoc);
+    }
+    private Map<String, Object> buildPdfData(String id) {
+        SolarRecordResponseDto record = solarService.findById(id);
+        Map<String, Object> data = new HashMap<>();
+
+        // Copy ALL data.put() lines from your downloadPdf method (lines 52-254)
+        // Just copy everything between:
+        // Map<String, Object> data = new HashMap<>();
+        // and
+        // byte[] pdf = pdfService.generatePdfAsync(type, data).join();
+
+        return data;
     }
 
     @GetMapping("/{id}/{type}")
