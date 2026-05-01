@@ -52,11 +52,50 @@ public class SolarPdfController {
         SolarRecordResponseDto record = solarService.findById(id);
         Map<String, Object> data = new HashMap<>();
 
-        // Copy ALL data.put() lines from your downloadPdf method (lines 52-254)
-        // Just copy everything between:
-        // Map<String, Object> data = new HashMap<>();
-        // and
-        // byte[] pdf = pdfService.generatePdfAsync(type, data).join();
+        // ================= BASIC INFORMATION =================
+        data.put("name", record.getName() != null ? record.getName() : "_________________________");
+        data.put("consumerNumber", record.getConsumerNumber() != null ? record.getConsumerNumber() : "_________________________");
+        data.put("consumerName", record.getName() != null ? record.getName() : "_________________________");
+        data.put("siteAddress", record.getSiteAddress() != null ? record.getSiteAddress() : "_________________________________________________________________________________");
+        data.put("category", record.getCategory() != null ? record.getCategory() : "_________________________");
+        data.put("sanctionNumber", record.getSanctionNumber() != null ? record.getSanctionNumber() : "_________________________");
+        data.put("sanctionedCapacity", record.getSanctionedCapacity() != null ? record.getSanctionedCapacity() : "_________________________");
+        data.put("installedCapacity", record.getInstalledCapacity() != null ? record.getInstalledCapacity() : "_________________________");
+        data.put("moduleMake", record.getModuleMake() != null ? record.getModuleMake() : "_________________________");
+        data.put("almmModelNumber", record.getAlmmModelNumber() != null ? record.getAlmmModelNumber() : "_________________________");
+        data.put("wattagePerModule", record.getWattagePerModule() != null ? record.getWattagePerModule() : "_________________________");
+        data.put("numberOfModules", record.getNumberOfModules() != null ? record.getNumberOfModules() : "_________________________");
+        data.put("totalCapacityKWP", record.getTotalCapacityKWP() != null ? record.getTotalCapacityKWP() : "_________________________");
+        data.put("warrantyDetails", (record.getProductWarranty() != null ? record.getProductWarranty() : "") + " / " + (record.getPerformanceWarranty() != null ? record.getPerformanceWarranty() : ""));
+        data.put("inverterMakeModel", (record.getInverterMake() != null ? record.getInverterMake() : "") + " " + (record.getInverterModelNumber() != null ? record.getInverterModelNumber() : ""));
+        data.put("inverterRating", record.getInverterRating() != null ? record.getInverterRating() : "_________________________");
+        data.put("chargeControllerType", record.getChargeControllerType() != null ? record.getChargeControllerType() : "_________________________");
+        data.put("inverterCapacity", record.getInverterCapacity() != null ? record.getInverterCapacity() : "_________________________");
+        data.put("hpd", record.getHpd() != null ? record.getHpd() : "_________________________");
+        data.put("yearOfManufacturing", record.getYearOfManufacturing() != null ? record.getYearOfManufacturing() : "_________________________");
+        data.put("numberOfEarthings", record.getNumberOfEarthings() != null ? record.getNumberOfEarthings() : "_________________________");
+        data.put("earthResistance", record.getEarthResistance() != null ? record.getEarthResistance() : "_________________________");
+        data.put("lighteningArrester", record.getLighteningArrester() != null ? record.getLighteningArrester() : "_________________________");
+        data.put("vendorName", record.getVendorName() != null ? record.getVendorName() : "_________________________");
+        data.put("vendorStamp", record.getVendorStamp() != null ? record.getVendorStamp() : "_________________________");
+        data.put("aadharNumber", record.getAadharNumber() != null ? record.getAadharNumber() : "_________________________");
+
+        // Aadhar images
+        List<String> aadharBase64Images = new ArrayList<>();
+        if (record.getAadharImages() != null && !record.getAadharImages().isEmpty()) {
+            for (String imageUrl : record.getAadharImages()) {
+                try {
+                    if (imageUrl.startsWith("http")) {
+                        java.net.URL url = new java.net.URL(imageUrl);
+                        byte[] imageBytes = url.openStream().readAllBytes();
+                        aadharBase64Images.add(PdfGeneratorService.imageToBase64(imageBytes, "image/jpeg"));
+                    }
+                } catch (Exception e) {
+                    System.err.println("Failed to load image: " + e.getMessage());
+                }
+            }
+        }
+        data.put("aadharImagesBase64", aadharBase64Images);
 
         return data;
     }

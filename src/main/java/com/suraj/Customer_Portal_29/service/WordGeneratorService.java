@@ -22,204 +22,164 @@ public class WordGeneratorService {
 
     public byte[] generateWord(String templateName, Map<String, Object> data) {
         try {
-            // Generate HTML from Thymeleaf template (same as PDF)
+            // Generate HTML with Thymeleaf (values get populated here)
             Context context = new Context();
             context.setVariables(data);
             String htmlContent = templateEngine.process("pdf/" + templateName, context);
 
-            // Parse HTML with Jsoup
+            // DEBUG: Print first 500 chars to verify values
+            System.out.println("Generated HTML (first 500 chars): " + htmlContent.substring(0, Math.min(500, htmlContent.length())));
+
+            // Convert all CSS classes to inline styles for Word compatibility
             Document doc = Jsoup.parse(htmlContent);
 
-            // FIX 1: Convert flexbox signature rows to Word-compatible tables
-            Elements signatureRows = doc.select(".signature-row");
-            for (Element row : signatureRows) {
-                Element table = new Element("table");
-                table.attr("style", "width:100%; margin-top:30px; border:none;");
+            // Apply inline styles to all elements
+            applyInlineStyles(doc);
 
-                Element tr = new Element("tr");
-                Element leftTd = new Element("td");
-                Element rightTd = new Element("td");
+            // Convert flexbox layouts to tables
+            convertFlexToTables(doc);
 
-                leftTd.attr("style", "width:50%; text-align:center; border:none; vertical-align:top;");
-                rightTd.attr("style", "width:50%; text-align:center; border:none; vertical-align:top;");
+            // Ensure all th:* attributes are removed (values are already populated)
+            removeThymeleafAttributes(doc);
 
-                Element leftDiv = row.select(".signature-left").first();
-                Element rightDiv = row.select(".signature-right").first();
+            String finalHtml = doc.html();
 
-                if (leftDiv != null) {
-                    leftTd.html(leftDiv.html());
-                }
-                if (rightDiv != null) {
-                    rightTd.html(rightDiv.html());
-                }
-
-                tr.appendChild(leftTd);
-                tr.appendChild(rightTd);
-                table.appendChild(tr);
-                row.replaceWith(table);
-            }
-
-            // FIX 2: Remove all flexbox/modern CSS that Word doesn't support
-            doc.select("[style*='display:flex']").removeAttr("style");
-            doc.select("[style*='display: table']").removeAttr("style");
-            doc.select("[style*='flex-direction']").removeAttr("style");
-            doc.select("[style*='align-items']").removeAttr("style");
-            doc.select("[style*='justify-content']").removeAttr("style");
-            doc.select("[style*='gap']").removeAttr("style");
-
-            // FIX 3: Fix aadhar images container
-            Elements containers = doc.select(".aadhar-images-container");
-            for (Element container : containers) {
-                container.attr("style", "width:100%; text-align:center; margin:10px 0;");
-            }
-
-            // FIX 4: Ensure images display properly
-            Elements images = doc.select("img");
-            for (Element img : images) {
-                img.attr("style", "max-width:100%; height:auto; margin:10px auto; display:block;");
-            }
-
-            // FIX 5: Convert page-break div to Word compatible
-            Elements pageBreaks = doc.select(".page-break");
-            for (Element pb : pageBreaks) {
-                pb.attr("style", "page-break-before: always;");
-            }
-
-            // FIX 6: Ensure all tables have proper borders
-            Elements tables = doc.select("table");
-            for (Element table : tables) {
-                if (!table.hasAttr("style")) {
-                    table.attr("style", "border-collapse: collapse; width: 100%; margin-bottom: 16px;");
-                }
-                Elements tds = table.select("td, th");
-                for (Element td : tds) {
-                    if (!td.hasAttr("style") || !td.attr("style").contains("border")) {
-                        String existingStyle = td.hasAttr("style") ? td.attr("style") : "";
-                        td.attr("style", existingStyle + " border: 1px solid #000000; padding: 6px 8px; vertical-align: top;");
-                    }
-                }
-            }
-
-            // FIX 7: Fix stamp box
-            Elements stampBoxes = doc.select(".stamp-box");
-            for (Element stamp : stampBoxes) {
-                stamp.attr("style", "border: 1px solid #000000; padding: 20px; margin-top: 10px; text-align: center; width: 220px; margin-left: auto; margin-right: auto;");
-            }
-
-            // FIX 8: Fix aadhar block
-            Elements aadharBlocks = doc.select(".aadhar-block");
-            for (Element block : aadharBlocks) {
-                block.attr("style", "margin-top: 20px; border: 1px solid #000000; padding: 15px;");
-            }
-
-            // FIX 9: Fix aadhar image box
-            Elements imageBoxes = doc.select(".aadhar-image-box");
-            for (Element box : imageBoxes) {
-                box.attr("style", "border: 2px dashed #444444; background: #f9f9f9; width: 320px; margin: 10px auto; padding: 8px; text-align: center;");
-            }
-
-            // FIX 10: Remove any remaining Thymeleaf attributes (already processed but safe)
-            doc.select("[th\\:text], [th\\:value], [th\\:field], [th\\:each], [th\\:if], [th\\:src]")
-                    .forEach(el -> {
-                        el.removeAttr("th:text");
-                        el.removeAttr("th:value");
-                        el.removeAttr("th:field");
-                        el.removeAttr("th:each");
-                        el.removeAttr("th:if");
-                        el.removeAttr("th:src");
-                    });
-
-            // Get cleaned HTML
-            String cleanedHtml = doc.html();
-
-            // Build final Word document with proper Word-compatible HTML
-            String wordHtml = buildWordCompatibleHtml(cleanedHtml);
+            // Wrap with Word-compatible HTML
+            String wordHtml = buildWordWrapper(finalHtml);
 
             return wordHtml.getBytes(StandardCharsets.UTF_8);
 
         } catch (Exception e) {
+            e.printStackTrace();
             throw new RuntimeException("Word document generation failed: " + e.getMessage(), e);
         }
     }
 
-    private String buildWordCompatibleHtml(String content) {
+    private void applyInlineStyles(Document doc) {
+        // Tables
+        Elements tables = doc.select("table");
+        for (Element table : tables) {
+            table.attr("style", "border-collapse: collapse; width: 100%; margin-bottom: 16px;");
+        }
+
+        // Table cells
+        Elements cells = doc.select("td, th");
+        for (Element cell : cells) {
+            cell.attr("style", "border: 1px solid #000000; padding: 6px 8px; vertical-align: top;");
+        }
+
+        // Section titles
+        Elements sectionTitles = doc.select(".section-title");
+        for (Element el : sectionTitles) {
+            el.attr("style", "font-weight: bold; text-align: center; background-color: #f0f0f0;");
+        }
+
+        // Value fields
+        Elements valueFields = doc.select(".value-field");
+        for (Element el : valueFields) {
+            el.attr("style", "font-weight: normal;");
+        }
+
+        // Bold text
+        Elements boldText = doc.select(".bold");
+        for (Element el : boldText) {
+            el.attr("style", "font-weight: bold;");
+        }
+
+        // Aadhar block
+        Elements aadharBlocks = doc.select(".aadhar-block");
+        for (Element el : aadharBlocks) {
+            el.attr("style", "margin-top: 20px; border: 1px solid #000000; padding: 15px;");
+        }
+
+        // Aadhar image box
+        Elements imageBoxes = doc.select(".aadhar-image-box");
+        for (Element el : imageBoxes) {
+            el.attr("style", "border: 2px dashed #444444; background: #f9f9f9; width: 320px; margin: 10px auto; padding: 8px; text-align: center;");
+        }
+
+        // Images
+        Elements images = doc.select("img");
+        for (Element img : images) {
+            img.attr("style", "max-width: 100%; height: auto; display: block; margin: 10px auto;");
+        }
+
+        // Headers
+        Elements h1 = doc.select("h1");
+        for (Element el : h1) {
+            el.attr("style", "font-size: 15px; font-weight: bold; text-align: center; text-transform: uppercase; margin: 0 0 8px 0;");
+        }
+
+        Elements h2 = doc.select("h2");
+        for (Element el : h2) {
+            el.attr("style", "font-size: 14px; font-weight: bold; text-align: center; text-transform: uppercase; margin: 0 0 12px 0;");
+        }
+
+        // Paragraphs
+        Elements paragraphs = doc.select(".undertaking-p1, .undertaking-p2, .guarantee-text");
+        for (Element el : paragraphs) {
+            el.attr("style", "margin: 8px 0; text-align: justify; font-size: 12.5px; line-height: 1.45;");
+        }
+
+        // Page break
+        Elements pageBreaks = doc.select(".page-break");
+        for (Element el : pageBreaks) {
+            el.attr("style", "page-break-before: always;");
+        }
+    }
+
+    private void convertFlexToTables(Document doc) {
+        Elements signatureRows = doc.select(".signature-row");
+        for (Element row : signatureRows) {
+            Element leftDiv = row.select(".signature-left").first();
+            Element rightDiv = row.select(".signature-right").first();
+
+            Element table = new Element("table");
+            table.attr("style", "width:100%; margin-top:30px; border:none;");
+
+            Element tr = new Element("tr");
+
+            Element leftTd = new Element("td");
+            leftTd.attr("style", "width:50%; text-align:center; border:none; vertical-align:top;");
+            if (leftDiv != null) {
+                leftTd.html(leftDiv.html());
+            }
+
+            Element rightTd = new Element("td");
+            rightTd.attr("style", "width:50%; text-align:center; border:none; vertical-align:top;");
+            if (rightDiv != null) {
+                rightTd.html(rightDiv.html());
+            }
+
+            tr.appendChild(leftTd);
+            tr.appendChild(rightTd);
+            table.appendChild(tr);
+            row.replaceWith(table);
+        }
+    }
+
+    private void removeThymeleafAttributes(Document doc) {
+        Elements elements = doc.select("[th\\:text], [th\\:value], [th\\:field], [th\\:each], [th\\:if], [th\\:src], [th\\:alt]");
+        for (Element el : elements) {
+            el.removeAttr("th:text");
+            el.removeAttr("th:value");
+            el.removeAttr("th:field");
+            el.removeAttr("th:each");
+            el.removeAttr("th:if");
+            el.removeAttr("th:src");
+            el.removeAttr("th:alt");
+        }
+    }
+
+    private String buildWordWrapper(String content) {
         return "<!DOCTYPE html>\n" +
-                "<html xmlns:o='urn:schemas-microsoft-com:office:office' \n" +
-                "      xmlns:w='urn:schemas-microsoft-com:office:word' \n" +
-                "      xmlns:m='http://schemas.microsoft.com/office/2004/12/omml'\n" +
-                "      xmlns='http://www.w3.org/TR/REC-html40'>\n" +
+                "<html>\n" +
                 "<head>\n" +
                 "    <meta charset='UTF-8'>\n" +
                 "    <title>Solar Installation Document</title>\n" +
-                "    <style>\n" +
-                "        body {\n" +
-                "            font-family: Arial, Helvetica, sans-serif;\n" +
-                "            font-size: 12pt;\n" +
-                "            margin: 2.54cm;\n" +
-                "            line-height: 1.4;\n" +
-                "        }\n" +
-                "        table {\n" +
-                "            border-collapse: collapse;\n" +
-                "            width: 100%;\n" +
-                "            margin-bottom: 16px;\n" +
-                "        }\n" +
-                "        td, th {\n" +
-                "            border: 1px solid #000000;\n" +
-                "            padding: 6px 8px;\n" +
-                "            vertical-align: top;\n" +
-                "        }\n" +
-                "        .section-title {\n" +
-                "            font-weight: bold;\n" +
-                "            text-align: center;\n" +
-                "            background-color: #f0f0f0;\n" +
-                "        }\n" +
-                "        .value-field {\n" +
-                "            font-weight: normal;\n" +
-                "        }\n" +
-                "        .bold {\n" +
-                "            font-weight: bold;\n" +
-                "        }\n" +
-                "        .stamp-box {\n" +
-                "            border: 1px solid #000000;\n" +
-                "            padding: 20px;\n" +
-                "            margin-top: 10px;\n" +
-                "            text-align: center;\n" +
-                "        }\n" +
-                "        .aadhar-block {\n" +
-                "            margin-top: 20px;\n" +
-                "            border: 1px solid #000000;\n" +
-                "            padding: 15px;\n" +
-                "        }\n" +
-                "        .aadhar-image-box {\n" +
-                "            border: 2px dashed #444444;\n" +
-                "            background: #f9f9f9;\n" +
-                "            width: 320px;\n" +
-                "            margin: 10px auto;\n" +
-                "            padding: 8px;\n" +
-                "            text-align: center;\n" +
-                "        }\n" +
-                "        .aadhar-image {\n" +
-                "            max-width: 100%;\n" +
-                "            height: auto;\n" +
-                "            border: 1px solid #aaaaaa;\n" +
-                "            border-radius: 5px;\n" +
-                "        }\n" +
-                "        .page-break {\n" +
-                "            page-break-before: always;\n" +
-                "        }\n" +
-                "        .text-right {\n" +
-                "            text-align: right;\n" +
-                "        }\n" +
-                "        h1, h2 {\n" +
-                "            text-align: center;\n" +
-                "        }\n" +
-                "        .gov-wrapper {\n" +
-                "            max-width: 1100px;\n" +
-                "            margin: 0 auto;\n" +
-                "        }\n" +
-                "    </style>\n" +
                 "</head>\n" +
-                "<body>\n" + content + "\n" +
+                "<body style='font-family: Arial, Helvetica, sans-serif; font-size: 12pt; margin: 2.54cm; line-height: 1.4;'>\n" +
+                content + "\n" +
                 "</body>\n" +
                 "</html>";
     }
