@@ -60,7 +60,7 @@ public class PdfGeneratorService {
 
     private String mapTemplateName(String type) {
         switch(type) {
-            case "wcr": return "WCR_Undertaking_Guarantee";
+            case "wcr": return "WCR_Undertaking_Guarantee_Aadhar";
             case "proforma-a": return "Annexure-I_Proforma-A";
             case "dcr": return "Declaration_FOR_DCR";
             case "agreement": return "NET_METERING_CONNECTION_AGREEMENT";
@@ -150,7 +150,6 @@ public class PdfGeneratorService {
                 }
             }
         } catch (Exception e) {
-            // Fall through
         }
 
         String base64 = Base64.getEncoder().encodeToString(imageBytes);

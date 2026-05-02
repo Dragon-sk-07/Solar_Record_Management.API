@@ -305,7 +305,6 @@ public class SolarPdfController {
                     .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=All_In_One.doc")
                     .contentType(MediaType.APPLICATION_OCTET_STREAM)
                     .body(wordDoc);
-
         } catch (Exception e) {
             e.printStackTrace();
             throw new RuntimeException("All In One Word Failed: " + e.getMessage(), e);
