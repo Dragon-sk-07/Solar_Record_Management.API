@@ -271,13 +271,12 @@ public class SolarPdfController {
         try {
             Map<String, Object> data = buildCompleteData(id);
 
-            List<byte[]> pdfs = Arrays.asList(
-                    pdfService.generatePdf("wcr", data),
-                    pdfService.generatePdf("proforma-a", data),
-                    pdfService.generatePdf("dcr", data),
-                    pdfService.generatePdf("agreement", data),
-                    pdfService.generatePdf("site-photos", data)
-            );
+            List<byte[]> pdfs = new ArrayList<>();
+            pdfs.add(pdfService.generatePdf("wcr", data));
+            pdfs.add(pdfService.generatePdf("proforma-a", data));
+            pdfs.add(pdfService.generatePdf("dcr", data));
+            pdfs.add(pdfService.generatePdf("agreement", data));
+            pdfs.add(pdfService.generatePdf("site-photos", data));
 
             byte[] mergedPdf = pdfMergerService.mergePdfs(pdfs);
 
@@ -287,7 +286,8 @@ public class SolarPdfController {
                     .body(mergedPdf);
 
         } catch (Exception e) {
-            byte[] wordDoc = wordService.generateCombinedWord(buildCompleteData(id));
+            Map<String, Object> data = buildCompleteData(id);
+            byte[] wordDoc = wordService.generateCombinedWord(data);
             return ResponseEntity.ok()
                     .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=All_In_One.doc")
                     .contentType(MediaType.APPLICATION_OCTET_STREAM)

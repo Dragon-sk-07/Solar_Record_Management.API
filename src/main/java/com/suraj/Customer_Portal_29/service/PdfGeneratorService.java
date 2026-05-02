@@ -9,7 +9,11 @@ import org.springframework.stereotype.Service;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
+import java.io.ByteArrayInputStream;
+import java.util.Base64;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 
@@ -23,28 +27,21 @@ public class PdfGeneratorService {
     }
 
     public byte[] generatePdf(String templateName, Map<String, Object> data) {
-
         try {
-
             Context context = new Context();
             context.setVariables(data);
 
-            // Generate HTML from Thymeleaf
             String html = templateEngine.process("pdf/" + templateName, context);
-
-            // Remove BOM if exists
             html = html.replace("\uFEFF", "");
+            html = compressImagesInHtml(html);
 
-            // Convert HTML → valid XHTML using Jsoup
             Document document = Jsoup.parse(html);
-
             document.outputSettings()
                     .syntax(Document.OutputSettings.Syntax.xml)
                     .escapeMode(Entities.EscapeMode.xhtml)
                     .charset("UTF-8");
 
             String xhtml = document.html();
-
             ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
 
             PdfRendererBuilder builder = new PdfRendererBuilder();
@@ -56,13 +53,98 @@ public class PdfGeneratorService {
             return outputStream.toByteArray();
 
         } catch (Exception e) {
-            throw new RuntimeException("PDF generation failed", e);
+            throw new RuntimeException("PDF generation failed: " + e.getMessage(), e);
         }
     }
+
+    private String compressImagesInHtml(String html) {
+        java.util.regex.Pattern pattern = java.util.regex.Pattern.compile("data:image/(\\w+);base64,([^\"]+)");
+        java.util.regex.Matcher matcher = pattern.matcher(html);
+        StringBuffer sb = new StringBuffer();
+
+        while (matcher.find()) {
+            String extension = matcher.group(1);
+            String base64 = matcher.group(2);
+            String compressed = compressBase64Image(base64, extension);
+            matcher.appendReplacement(sb, "data:image/" + extension + ";base64," + compressed);
+        }
+        matcher.appendTail(sb);
+
+        return sb.toString();
+    }
+
+    private String compressBase64Image(String base64, String extension) {
+        try {
+            byte[] imageBytes = Base64.getDecoder().decode(base64);
+
+            if (imageBytes.length < 200 * 1024) {
+                return base64;
+            }
+
+            ByteArrayInputStream bais = new ByteArrayInputStream(imageBytes);
+            BufferedImage image = ImageIO.read(bais);
+
+            if (image == null) {
+                return base64;
+            }
+
+            int width = image.getWidth();
+            int height = image.getHeight();
+            int maxWidth = 800;
+
+            if (width > maxWidth) {
+                float ratio = (float) maxWidth / width;
+                width = maxWidth;
+                height = (int) (height * ratio);
+            }
+
+            java.awt.Image scaledImage = image.getScaledInstance(width, height, java.awt.Image.SCALE_SMOOTH);
+            BufferedImage resized = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
+            resized.getGraphics().drawImage(scaledImage, 0, 0, null);
+
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            String format = extension.equals("png") ? "png" : "jpg";
+            ImageIO.write(resized, format, baos);
+
+            return Base64.getEncoder().encodeToString(baos.toByteArray());
+
+        } catch (Exception e) {
+            return base64;
+        }
+    }
+
     public static String imageToBase64(byte[] imageBytes, String mimeType) {
-        String base64 = java.util.Base64.getEncoder().encodeToString(imageBytes);
+        try {
+            ByteArrayInputStream bais = new ByteArrayInputStream(imageBytes);
+            BufferedImage image = ImageIO.read(bais);
+
+            if (image != null) {
+                int width = image.getWidth();
+                int height = image.getHeight();
+                int maxWidth = 800;
+
+                if (width > maxWidth) {
+                    float ratio = (float) maxWidth / width;
+                    width = maxWidth;
+                    height = (int) (height * ratio);
+
+                    java.awt.Image scaledImage = image.getScaledInstance(width, height, java.awt.Image.SCALE_SMOOTH);
+                    BufferedImage resized = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
+                    resized.getGraphics().drawImage(scaledImage, 0, 0, null);
+
+                    ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                    ImageIO.write(resized, "jpg", baos);
+                    return "data:" + mimeType + ";base64," + Base64.getEncoder().encodeToString(baos.toByteArray());
+                }
+            }
+        } catch (Exception e) {
+            // Fall through to default
+        }
+
+        String base64 = Base64.getEncoder().encodeToString(imageBytes);
         return "data:" + mimeType + ";base64," + base64;
     }
+
     @Async
     public CompletableFuture<byte[]> generatePdfAsync(String type, Map<String, Object> data) {
         return CompletableFuture.completedFuture(generatePdf(type, data));
