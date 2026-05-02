@@ -25,7 +25,6 @@ public class PdfMergerService {
         List<File> tempFiles = new ArrayList<>();
 
         try {
-            // Save each PDF byte array to a temporary file
             for (int i = 0; i < pdfBytesList.size(); i++) {
                 byte[] pdf = pdfBytesList.get(i);
                 if (pdf != null && pdf.length > 0) {
@@ -38,12 +37,11 @@ public class PdfMergerService {
                 }
             }
 
-            // Merge the PDFs - this is the correct method for PDFBox 3.0.0
-            merger.mergeDocuments(null);
+            // For PDFBox 2.0.27 - use mergeDocuments() with no parameters
+            merger.mergeDocuments();
 
             byte[] result = outputStream.toByteArray();
 
-            // Clean up temp files
             for (File tempFile : tempFiles) {
                 tempFile.delete();
             }
@@ -51,7 +49,6 @@ public class PdfMergerService {
             return result;
 
         } catch (Exception e) {
-            // Clean up on error
             for (File tempFile : tempFiles) {
                 tempFile.delete();
             }

@@ -22,18 +22,18 @@
 
 	<dependencies>
 
-		<!-- PDFBox for PDF Merging -->
+		<!-- Change this: -->
 		<dependency>
 			<groupId>org.apache.pdfbox</groupId>
 			<artifactId>pdfbox</artifactId>
 			<version>3.0.0</version>
 		</dependency>
 
-		<!-- OpenHTMLToPDF for HTML to PDF Conversion -->
+		<!-- To this: -->
 		<dependency>
-			<groupId>com.openhtmltopdf</groupId>
-			<artifactId>openhtmltopdf-pdfbox</artifactId>
-			<version>1.0.10</version>
+			<groupId>org.apache.pdfbox</groupId>
+			<artifactId>pdfbox</artifactId>
+			<version>2.0.27</version>
 		</dependency>
 
 		<!-- Apache POI for Word Documents -->
