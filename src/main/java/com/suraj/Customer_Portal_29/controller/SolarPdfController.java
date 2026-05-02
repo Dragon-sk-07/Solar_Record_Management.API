@@ -2,6 +2,7 @@ package com.suraj.Customer_Portal_29.controller;
 
 import com.suraj.Customer_Portal_29.dto.response.SolarRecordResponseDto;
 import com.suraj.Customer_Portal_29.service.PdfGeneratorService;
+import com.suraj.Customer_Portal_29.service.PdfMergerService;
 import com.suraj.Customer_Portal_29.service.SolarRecordService;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -15,6 +16,7 @@ import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -26,13 +28,16 @@ public class SolarPdfController {
     private final SolarRecordService solarService;
     private final PdfGeneratorService pdfService;
     private final WordGeneratorService wordService;
+    private final PdfMergerService pdfMergerService;
 
     public SolarPdfController(SolarRecordService solarService,
                               PdfGeneratorService pdfService,
-                              WordGeneratorService wordService) {
+                              WordGeneratorService wordService,
+                              PdfMergerService pdfMergerService) {
         this.solarService = solarService;
         this.pdfService = pdfService;
         this.wordService = wordService;
+        this.pdfMergerService = pdfMergerService;
     }
 
     @GetMapping("/{id}/{type}/word")
@@ -272,5 +277,69 @@ public class SolarPdfController {
                         "attachment; filename=" + filename)
                 .contentType(MediaType.APPLICATION_PDF)
                 .body(pdf);
+    }
+    @GetMapping("/{id}/all-in-one")
+    public ResponseEntity<byte[]> downloadAllInOnePdf(@PathVariable String id) {
+        try {
+            SolarRecordResponseDto record = solarService.findById(id);
+            Map<String, Object> data = buildPdfData(id);
+
+            // 1. Generate WCR PDF
+            byte[] wcrPdf = pdfService.generatePdf("wcr", data);
+
+            // 2. Generate Annexure-I (Proforma-A) PDF
+            byte[] annexurePdf = pdfService.generatePdf("proforma-a", data);
+
+            // 3. Generate DCR Declaration PDF
+            byte[] dcrPdf = pdfService.generatePdf("dcr", data);
+
+            // 4. Generate Net Metering Agreement PDF
+            byte[] agreementPdf = pdfService.generatePdf("agreement", data);
+
+            // 5. Generate Site Photos PDF
+            Map<String, Object> photoData = new HashMap<>();
+
+            // Convert site photos to base64 for PDF display
+            List<String> sitePhotosBase64 = new ArrayList<>();
+            if (record.getSitePhotos() != null && !record.getSitePhotos().isEmpty()) {
+                for (String imageUrl : record.getSitePhotos()) {
+                    try {
+                        String base64Image = null;
+                        if (imageUrl.startsWith("http")) {
+                            java.net.URL url = new java.net.URL(imageUrl);
+                            byte[] imageBytes = url.openStream().readAllBytes();
+                            base64Image = PdfGeneratorService.imageToBase64(imageBytes, "image/jpeg");
+                        } else {
+                            Path imagePath = Paths.get(System.getProperty("user.dir"), imageUrl);
+                            if (Files.exists(imagePath)) {
+                                byte[] imageBytes = Files.readAllBytes(imagePath);
+                                base64Image = PdfGeneratorService.imageToBase64(imageBytes, "image/jpeg");
+                            }
+                        }
+                        if (base64Image != null) {
+                            sitePhotosBase64.add(base64Image);
+                        }
+                    } catch (Exception e) {
+                        System.err.println("Failed to load site photo: " + imageUrl + " - " + e.getMessage());
+                    }
+                }
+            }
+            photoData.put("sitePhotos", sitePhotosBase64);
+            byte[] photosPdf = pdfService.generatePdf("site-photos", photoData);
+
+            // 6. Merge all PDFs in sequence (WCR → Annexure → DCR → Agreement → Photos)
+            List<byte[]> pdfs = Arrays.asList(wcrPdf, annexurePdf, dcrPdf, agreementPdf, photosPdf);
+            byte[] mergedPdf = pdfMergerService.mergePdfs(pdfs);
+
+            String filename = "Solar_Installation_Complete_Package_" + System.currentTimeMillis() + ".pdf";
+
+            return ResponseEntity.ok()
+                    .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + filename)
+                    .contentType(MediaType.APPLICATION_PDF)
+                    .body(mergedPdf);
+
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to generate all-in-one PDF", e);
+        }
     }
 }
