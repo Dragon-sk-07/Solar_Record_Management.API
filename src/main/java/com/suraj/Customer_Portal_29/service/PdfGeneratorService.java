@@ -7,6 +7,7 @@ import org.thymeleaf.context.Context;
 
 import java.io.ByteArrayOutputStream;
 import java.util.Map;
+import java.util.concurrent.CompletableFuture;
 
 @Service
 public class PdfGeneratorService {
@@ -17,6 +18,7 @@ public class PdfGeneratorService {
         this.templateEngine = templateEngine;
     }
 
+    // Existing generatePdf method
     public byte[] generatePdf(String type, Map<String, Object> data) {
         try {
             Context context = new Context();
@@ -51,6 +53,16 @@ public class PdfGeneratorService {
         } catch (Exception e) {
             throw new RuntimeException("PDF generation failed for type: " + type + " - " + e.getMessage(), e);
         }
+    }
+
+    // ADD THIS - Async version
+    public CompletableFuture<byte[]> generatePdfAsync(String type, Map<String, Object> data) {
+        return CompletableFuture.supplyAsync(() -> generatePdf(type, data));
+    }
+
+    // ADD THIS - Static method for image to base64 conversion
+    public static String imageToBase64(byte[] imageBytes, String mimeType) {
+        return java.util.Base64.getEncoder().encodeToString(imageBytes);
     }
 
     private String mapTemplateName(String type) {
