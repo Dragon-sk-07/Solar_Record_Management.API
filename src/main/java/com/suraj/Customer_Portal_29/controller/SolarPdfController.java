@@ -282,79 +282,181 @@ public class SolarPdfController {
     }
     @GetMapping("/{id}/all-in-one")
     public ResponseEntity<byte[]> downloadAllInOnePdf(@PathVariable String id) {
+
         try {
-            SolarRecordResponseDto record = solarService.findById(id);
-            Map<String, Object> data = buildPdfData(id);
 
-            // 1. Generate WCR PDF
+            Map<String, Object> data = buildCompleteData(id);
+
             byte[] wcrPdf = pdfService.generatePdf("wcr", data);
-
-            // 2. Generate Annexure-I (Proforma-A) PDF
             byte[] annexurePdf = pdfService.generatePdf("proforma-a", data);
-
-            // 3. Generate DCR Declaration PDF
             byte[] dcrPdf = pdfService.generatePdf("dcr", data);
-
-            // 4. Generate Net Metering Agreement PDF
             byte[] agreementPdf = pdfService.generatePdf("agreement", data);
+            byte[] photosPdf = pdfService.generatePdf("site-photos", data);
 
-            // 5. Generate Site Photos PDF
-            Map<String, Object> photoData = new HashMap<>();
+            List<byte[]> pdfs = Arrays.asList(
+                    wcrPdf,
+                    annexurePdf,
+                    dcrPdf,
+                    agreementPdf,
+                    photosPdf
+            );
 
-            // Convert site photos to base64 for PDF display
-            List<String> sitePhotosBase64 = new ArrayList<>();
-            if (record.getSitePhotos() != null && !record.getSitePhotos().isEmpty()) {
-                for (String imageUrl : record.getSitePhotos()) {
-                    try {
-                        String base64Image = null;
-                        if (imageUrl.startsWith("http")) {
-                            java.net.URL url = new java.net.URL(imageUrl);
-                            byte[] imageBytes = url.openStream().readAllBytes();
-                            base64Image = PdfGeneratorService.imageToBase64(imageBytes, "image/jpeg");
-                        } else {
-                            Path imagePath = Paths.get(System.getProperty("user.dir"), imageUrl);
-                            if (Files.exists(imagePath)) {
-                                byte[] imageBytes = Files.readAllBytes(imagePath);
-                                base64Image = PdfGeneratorService.imageToBase64(imageBytes, "image/jpeg");
-                            }
-                        }
-                        if (base64Image != null) {
-                            sitePhotosBase64.add(base64Image);
-                        }
-                    } catch (Exception e) {
-                        System.err.println("Failed to load site photo: " + imageUrl + " - " + e.getMessage());
-                    }
-                }
-            }
-            photoData.put("sitePhotos", sitePhotosBase64);
-            byte[] photosPdf = pdfService.generatePdf("site-photos", photoData);
-
-            // 6. Merge all PDFs in sequence (WCR → Annexure → DCR → Agreement → Photos)
-            List<byte[]> pdfs = Arrays.asList(wcrPdf, annexurePdf, dcrPdf, agreementPdf, photosPdf);
             byte[] mergedPdf = pdfMergerService.mergePdfs(pdfs);
 
-            String filename = "Solar_Installation_Complete_Package_" + System.currentTimeMillis() + ".pdf";
-
             return ResponseEntity.ok()
-                    .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + filename)
+                    .header(HttpHeaders.CONTENT_DISPOSITION,
+                            "attachment; filename=All_In_One.pdf")
                     .contentType(MediaType.APPLICATION_PDF)
                     .body(mergedPdf);
 
         } catch (Exception e) {
-            throw new RuntimeException("Failed to generate all-in-one PDF", e);
+            throw new RuntimeException("All In One PDF Failed", e);
         }
     }
     @GetMapping("/{id}/all-in-one/word")
     public ResponseEntity<byte[]> downloadAllInOneWord(@PathVariable String id) {
 
-        Map<String, Object> data = buildPdfData(id);
+        try {
 
-        byte[] wordDoc = wordService.generateCombinedWord(data);
+            Map<String, Object> data = buildCompleteData(id);
 
-        return ResponseEntity.ok()
-                .header(HttpHeaders.CONTENT_DISPOSITION,
-                        "attachment; filename=All_In_One.doc")
-                .contentType(MediaType.TEXT_HTML)
-                .body(wordDoc);
+            byte[] wordDoc = wordService.generateCombinedWord(data);
+
+            return ResponseEntity.ok()
+                    .header(HttpHeaders.CONTENT_DISPOSITION,
+                            "attachment; filename=All_In_One.doc")
+                    .contentType(MediaType.APPLICATION_OCTET_STREAM)
+                    .body(wordDoc);
+
+        } catch (Exception e) {
+            throw new RuntimeException("All In One Word Failed", e);
+        }
+    }
+
+    private Map<String, Object> buildCompleteData(String id) {
+
+        SolarRecordResponseDto record = solarService.findById(id);
+        Map<String, Object> data = new HashMap<>();
+
+        // BASIC
+        data.put("name", record.getName());
+        data.put("consumerNumber", record.getConsumerNumber());
+        data.put("meterNumber", record.getMeterNumber());
+        data.put("netMeterNumber", record.getNetMeterNumber());
+        data.put("mobileNumber", record.getMobileNumber());
+        data.put("email", record.getEmail());
+        data.put("siteAddress", record.getSiteAddress());
+        data.put("category", record.getCategory());
+
+        // SANCTION
+        data.put("sanctionNumber", record.getSanctionNumber());
+        data.put("sanctionedCapacity", record.getSanctionedCapacity());
+        data.put("installedCapacity", record.getInstalledCapacity());
+
+        // SYSTEM
+        data.put("reArrangementType", record.getReArrangementType());
+        data.put("reSource", record.getReSource());
+        data.put("capacityType", record.getCapacityType());
+        data.put("projectModel", record.getProjectModel());
+
+        data.put("reInstalledCapacityRooftop", record.getReInstalledCapacityRooftop());
+        data.put("reInstalledCapacityRooftopGround", record.getReInstalledCapacityRooftopGround());
+        data.put("reInstalledCapacityGround", record.getReInstalledCapacityGround());
+
+        data.put("installationDate", record.getInstallationDate());
+
+        // MODULE
+        data.put("moduleMake", record.getModuleMake());
+        data.put("almmModelNumber", record.getAlmmModelNumber());
+        data.put("wattagePerModule", record.getWattagePerModule());
+        data.put("numberOfModules", record.getNumberOfModules());
+        data.put("totalCapacityKWP", record.getTotalCapacityKWP());
+        data.put("moduleSerialNumbers", record.getModuleSerialNumbers());
+        data.put("cellManufacturerName", record.getCellManufacturerName());
+        data.put("cellGSTInvoiceNo", record.getCellGSTInvoiceNo());
+
+        // WARRANTY
+        data.put("productWarranty", record.getProductWarranty());
+        data.put("performanceWarranty", record.getPerformanceWarranty());
+
+        // INVERTER
+        data.put("inverterMake", record.getInverterMake());
+        data.put("inverterModelNumber", record.getInverterModelNumber());
+        data.put("inverterRating", record.getInverterRating());
+        data.put("inverterCapacity", record.getInverterCapacity());
+        data.put("chargeControllerType", record.getChargeControllerType());
+        data.put("mpptCapacity", record.getMpptCapacity());
+        data.put("hpd", record.getHpd());
+        data.put("yearOfManufacturing", record.getYearOfManufacturing());
+
+        // EARTHING
+        data.put("numberOfEarthings", record.getNumberOfEarthings());
+        data.put("earthResistance", record.getEarthResistance());
+        data.put("lighteningArrester", record.getLighteningArrester());
+
+        // VENDOR
+        data.put("vendorName", record.getVendorName());
+        data.put("vendorStamp", record.getVendorStamp());
+        data.put("vendorAddress", record.getVendorAddress());
+        data.put("authorizedPersonName", record.getAuthorizedPersonName());
+        data.put("designation", record.getDesignation());
+
+        // LEGAL
+        data.put("location", record.getLocation());
+        data.put("day", record.getDay());
+        data.put("month", record.getMonth());
+        data.put("year", record.getYear());
+
+        data.put("msedclAddress", record.getMsedclAddress());
+        data.put("msedclOfficerName", record.getMsedclOfficerName());
+        data.put("msedclOfficerDesignation", record.getMsedclOfficerDesignation());
+
+        data.put("interconnectionPoint", record.getInterconnectionPoint());
+        data.put("inspectorName", record.getInspectorName());
+
+        data.put("applicationNumber", record.getApplicationNumber());
+        data.put("applicationDate", record.getApplicationDate());
+        data.put("discomName", record.getDiscomName());
+        data.put("place", record.getPlace());
+
+        // WITNESS
+        data.put("witness1Name", record.getWitness1Name());
+        data.put("witness1Address", record.getWitness1Address());
+        data.put("witness2Name", record.getWitness2Name());
+        data.put("witness2Address", record.getWitness2Address());
+
+        data.put("indemnityDay", record.getIndemnityDay());
+        data.put("indemnityMonth", record.getIndemnityMonth());
+        data.put("indemnityYear", record.getIndemnityYear());
+
+        data.put("grReferenceNumber", record.getGrReferenceNumber());
+        data.put("grReferenceDate", record.getGrReferenceDate());
+        data.put("pbgAmount", record.getPbgAmount());
+
+        data.put("aadharNumber", record.getAadharNumber());
+
+        data.put("sitePhotos", record.getSitePhotos());
+        List<String> aadharBase64Images = new ArrayList<>();
+
+        if (record.getAadharImages() != null) {
+            for (String imageUrl : record.getAadharImages()) {
+                try {
+                    if (imageUrl.startsWith("http")) {
+                        java.net.URL url = new java.net.URL(imageUrl);
+                        byte[] imageBytes = url.openStream().readAllBytes();
+
+                        aadharBase64Images.add(
+                                PdfGeneratorService.imageToBase64(imageBytes, "image/jpeg")
+                        );
+                    }
+                } catch (Exception e) {
+                    System.out.println("Image load failed");
+                }
+            }
+        }
+
+        data.put("aadharImagesBase64", aadharBase64Images);
+
+        return data;
     }
 }
