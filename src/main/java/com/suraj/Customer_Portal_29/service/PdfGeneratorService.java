@@ -1,6 +1,6 @@
 package com.suraj.Customer_Portal_29.service;
 
-import com.itextpdf.html2pdf.HtmlConverter;
+import com.openhtmltopdf.pdfboxout.PdfRendererBuilder;
 import org.springframework.stereotype.Service;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
@@ -18,7 +18,6 @@ public class PdfGeneratorService {
         this.templateEngine = templateEngine;
     }
 
-    // Existing generatePdf method
     public byte[] generatePdf(String type, Map<String, Object> data) {
         try {
             Context context = new Context();
@@ -46,21 +45,24 @@ public class PdfGeneratorService {
                     "</html>";
 
             ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-            HtmlConverter.convertToPdf(fullHtml, outputStream);
+
+            PdfRendererBuilder builder = new PdfRendererBuilder();
+            builder.withHtmlContent(fullHtml, null);
+            builder.toStream(outputStream);
+            builder.run();
 
             return outputStream.toByteArray();
 
         } catch (Exception e) {
-            throw new RuntimeException("PDF generation failed for type: " + type + " - " + e.getMessage(), e);
+            e.printStackTrace();
+            throw new RuntimeException("PDF generation failed: " + e.getMessage(), e);
         }
     }
 
-    // ADD THIS - Async version
     public CompletableFuture<byte[]> generatePdfAsync(String type, Map<String, Object> data) {
         return CompletableFuture.supplyAsync(() -> generatePdf(type, data));
     }
 
-    // ADD THIS - Static method for image to base64 conversion
     public static String imageToBase64(byte[] imageBytes, String mimeType) {
         return java.util.Base64.getEncoder().encodeToString(imageBytes);
     }
