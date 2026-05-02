@@ -286,67 +286,21 @@ public class SolarPdfController {
         try {
             Map<String, Object> data = buildCompleteData(id);
 
-            ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-            PDFMergerUtility merger = new PDFMergerUtility();
-            merger.setDestinationStream(outputStream);
-
-            String[] types = {"wcr", "proforma-a", "dcr", "agreement", "site-photos"};
-            boolean hasValidPdf = false;
-
-            for (String type : types) {
-                try {
-                    byte[] pdfData = pdfService.generatePdf(type, data);
-
-                    // Validate PDF has content and starts with %PDF
-                    if (pdfData != null && pdfData.length > 100 &&
-                            pdfData[0] == '%' && pdfData[1] == 'P' && pdfData[2] == 'D' && pdfData[3] == 'F') {
-
-                        merger.addSource(new ByteArrayInputStream(pdfData));
-                        hasValidPdf = true;
-                        System.out.println("Added valid PDF: " + type + " - Size: " + pdfData.length);
-                    } else {
-                        System.err.println("Invalid PDF generated for: " + type);
-                    }
-                } catch (Exception e) {
-                    System.err.println("Failed to generate PDF for: " + type + " - " + e.getMessage());
-                }
-            }
-
-            if (!hasValidPdf) {
-                throw new RuntimeException("No valid PDFs were generated");
-            }
-
-            merger.mergeDocuments(org.apache.pdfbox.io.MemoryUsageSetting.setupTempFileOnly());
-
-            byte[] mergedPdf = outputStream.toByteArray();
-
-            // Validate merged PDF
-            if (mergedPdf.length < 100 || mergedPdf[0] != '%' || mergedPdf[1] != 'P') {
-                throw new RuntimeException("Merged PDF is invalid");
-            }
-
-            System.out.println("Successfully merged PDF. Size: " + mergedPdf.length + " bytes");
+            // Generate just one PDF to test
+            byte[] pdfData = pdfService.generatePdf("wcr", data);
 
             return ResponseEntity.ok()
-                    .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=All_In_One.pdf")
+                    .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=document.pdf")
                     .contentType(MediaType.APPLICATION_PDF)
-                    .header(HttpHeaders.CONTENT_LENGTH, String.valueOf(mergedPdf.length))
-                    .body(mergedPdf);
+                    .body(pdfData);
 
         } catch (Exception e) {
-            e.printStackTrace();
             // Fallback to Word
-            try {
-                Map<String, Object> data = buildCompleteData(id);
-                byte[] wordDoc = wordService.generateCombinedWord(data);
-                return ResponseEntity.ok()
-                        .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=All_In_One.doc")
-                        .contentType(MediaType.APPLICATION_OCTET_STREAM)
-                        .body(wordDoc);
-            } catch (Exception ex) {
-                return ResponseEntity.internalServerError()
-                        .body(("Error: " + e.getMessage()).getBytes());
-            }
+            byte[] wordDoc = wordService.generateCombinedWord(buildCompleteData(id));
+            return ResponseEntity.ok()
+                    .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=document.doc")
+                    .contentType(MediaType.APPLICATION_OCTET_STREAM)
+                    .body(wordDoc);
         }
     }
 
