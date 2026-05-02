@@ -20,6 +20,42 @@ public class WordGeneratorService {
         this.templateEngine = templateEngine;
     }
 
+    // ADD THIS MISSING METHOD
+    public byte[] generateWord(String templateName, Map<String, Object> data) {
+        try {
+            Context context = new Context();
+            context.setVariables(data);
+
+            String actualTemplate = mapTemplateName(templateName);
+            String htmlContent = templateEngine.process("pdf/" + actualTemplate, context);
+
+            Document doc = Jsoup.parse(htmlContent);
+            String finalHtml = doc.body().html();
+            String wordHtml = buildWordWrapper(finalHtml);
+
+            return wordHtml.getBytes(StandardCharsets.UTF_8);
+
+        } catch (Exception e) {
+            throw new RuntimeException("Word generation failed: " + e.getMessage(), e);
+        }
+    }
+
+    private String mapTemplateName(String templateName) {
+        switch(templateName) {
+            case "wcr": return "WCR_Undertaking_Guarantee";
+            case "proforma-a": return "Annexure-I_Proforma-A";
+            case "dcr": return "Declaration_FOR_DCR";
+            case "agreement": return "NET_METERING_CONNECTION_AGREEMENT";
+            case "site-photos": return "Site-photos";
+            default: return templateName;
+        }
+    }
+
+    private String buildWordWrapper(String content) {
+        return "<!DOCTYPE html><html><head><meta charset='UTF-8'></head>" +
+                "<body style='font-family:Arial; margin:1cm;'>" + content + "</body></html>";
+    }
+
     public byte[] generateCombinedWord(Map<String, Object> data) {
         try {
             String wcr = processTemplate("WCR_Undertaking_Guarantee", data);
@@ -71,7 +107,6 @@ public class WordGeneratorService {
             String html = templateEngine.process("pdf/" + templateName, context);
             Document doc = Jsoup.parse(html);
 
-            // Clean up for Word
             Elements scripts = doc.select("script");
             scripts.remove();
 

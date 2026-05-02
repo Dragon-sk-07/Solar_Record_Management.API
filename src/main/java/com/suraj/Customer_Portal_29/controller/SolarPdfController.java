@@ -4,17 +4,18 @@ import com.suraj.Customer_Portal_29.dto.response.SolarRecordResponseDto;
 import com.suraj.Customer_Portal_29.service.PdfGeneratorService;
 import com.suraj.Customer_Portal_29.service.PdfMergerService;
 import com.suraj.Customer_Portal_29.service.SolarRecordService;
+import com.suraj.Customer_Portal_29.service.WordGeneratorService;
+import org.apache.pdfbox.multipdf.PDFMergerUtility;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import com.suraj.Customer_Portal_29.service.WordGeneratorService;
 
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
