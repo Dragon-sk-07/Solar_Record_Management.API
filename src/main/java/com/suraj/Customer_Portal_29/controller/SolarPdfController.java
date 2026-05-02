@@ -282,37 +282,39 @@ public class SolarPdfController {
     }
     @GetMapping("/{id}/all-in-one")
     public ResponseEntity<byte[]> downloadAllInOnePdf(@PathVariable String id) {
-
         try {
-
             Map<String, Object> data = buildCompleteData(id);
 
-            byte[] wcrPdf = pdfService.generatePdf("wcr", data);
-            byte[] annexurePdf = pdfService.generatePdf("proforma-a", data);
-            byte[] dcrPdf = pdfService.generatePdf("dcr", data);
-            byte[] agreementPdf = pdfService.generatePdf("agreement", data);
-            byte[] photosPdf = pdfService.generatePdf("site-photos", data);
+            // Stream PDFs one by one to save memory
+            PDFMergerUtility merger = new PDFMergerUtility();
+            ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+            merger.setDestinationStream(outputStream);
 
-            List<byte[]> pdfs = Arrays.asList(
-                    wcrPdf,
-                    annexurePdf,
-                    dcrPdf,
-                    agreementPdf,
-                    photosPdf
+            String[] types = {"wcr", "proforma-a", "dcr", "agreement", "site-photos"};
+
+            for (String type : types) {
+                byte[] pdf = pdfService.generatePdf(type, data);
+                merger.addSource(new ByteArrayInputStream(pdf));
+                pdf = null; // Help garbage collector
+            }
+
+            merger.mergeDocuments(
+                    org.apache.pdfbox.io.MemoryUsageSetting.setupMainMemoryOnly()
             );
 
-            byte[] mergedPdf = pdfMergerService.mergePdfs(pdfs);
+            byte[] mergedPdf = outputStream.toByteArray();
 
             return ResponseEntity.ok()
-                    .header(HttpHeaders.CONTENT_DISPOSITION,
-                            "attachment; filename=All_In_One.pdf")
+                    .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=All_In_One.pdf")
                     .contentType(MediaType.APPLICATION_PDF)
                     .body(mergedPdf);
 
         } catch (Exception e) {
-            throw new RuntimeException("All In One PDF Failed", e);
+            e.printStackTrace();
+            throw new RuntimeException("All In One PDF Failed: " + e.getMessage(), e);
         }
     }
+
     @GetMapping("/{id}/all-in-one/word")
     public ResponseEntity<byte[]> downloadAllInOneWord(@PathVariable String id) {
         try {
@@ -320,14 +322,13 @@ public class SolarPdfController {
             byte[] wordDoc = wordService.generateCombinedWord(data);
 
             return ResponseEntity.ok()
-                    .header(HttpHeaders.CONTENT_DISPOSITION,
-                            "attachment; filename=All_In_One.doc")
+                    .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=All_In_One.doc")
                     .contentType(MediaType.APPLICATION_OCTET_STREAM)
                     .body(wordDoc);
 
         } catch (Exception e) {
-            e.printStackTrace(); // This will help debug
-            return ResponseEntity.internalServerError().build();
+            e.printStackTrace();
+            throw new RuntimeException("All In One Word Failed: " + e.getMessage(), e);
         }
     }
 
