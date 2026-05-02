@@ -231,6 +231,22 @@ public class WordGeneratorService {
         }
     }
 
+    private String processTemplate(String templateName, Map<String, Object> data) {
+
+        Context context = new Context();
+        context.setVariables(data);
+
+        String html = templateEngine.process("pdf/" + templateName, context);
+
+        Document doc = Jsoup.parse(html);
+
+        applyInlineStyles(doc);
+        convertSignatureRows(doc);
+        removeThymeleafAttributes(doc);
+
+        return doc.body().html();
+    }
+
     private void convertSignatureRows(Document doc) {
 
         Elements rows = doc.select(".signature-row");
@@ -312,5 +328,34 @@ public class WordGeneratorService {
                 content +
                 "</body>" +
                 "</html>";
+    }
+    public byte[] generateCombinedWord(Map<String, Object> data) {
+
+        try {
+
+            String wcr = processTemplate("wcr", data);
+            String annexure = processTemplate("proforma-a", data);
+            String dcr = processTemplate("dcr", data);
+            String agreement = processTemplate("agreement", data);
+            String photos = processTemplate("site-photos", data);
+
+            String finalHtml =
+                    "<html><head><meta charset='UTF-8'></head><body style='font-family:Arial;'>"
+                            + wcr
+                            + "<div style='page-break-before:always'></div>"
+                            + annexure
+                            + "<div style='page-break-before:always'></div>"
+                            + dcr
+                            + "<div style='page-break-before:always'></div>"
+                            + agreement
+                            + "<div style='page-break-before:always'></div>"
+                            + photos
+                            + "</body></html>";
+
+            return finalHtml.getBytes(StandardCharsets.UTF_8);
+
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to generate combined Word file", e);
+        }
     }
 }

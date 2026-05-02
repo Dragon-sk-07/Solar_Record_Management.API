@@ -23,7 +23,9 @@ public class PdfMergerService {
             merger.addSource(new ByteArrayInputStream(pdf));
         }
 
-        merger.mergeDocuments(null);
+        merger.mergeDocuments(
+                org.apache.pdfbox.io.MemoryUsageSetting.setupMainMemoryOnly()
+        );
 
         return outputStream.toByteArray();
     }

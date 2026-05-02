@@ -349,18 +349,12 @@ public class SolarPdfController {
 
         Map<String, Object> data = buildPdfData(id);
 
-        ByteArrayOutputStream output = new ByteArrayOutputStream();
-
-        output.writeBytes(wordService.generateWord("wcr", data));
-        output.writeBytes(wordService.generateWord("proforma-a", data));
-        output.writeBytes(wordService.generateWord("dcr", data));
-        output.writeBytes(wordService.generateWord("agreement", data));
-        output.writeBytes(wordService.generateWord("site-photos", data));
+        byte[] wordDoc = wordService.generateCombinedWord(data);
 
         return ResponseEntity.ok()
                 .header(HttpHeaders.CONTENT_DISPOSITION,
                         "attachment; filename=All_In_One.doc")
                 .contentType(MediaType.TEXT_HTML)
-                .body(output.toByteArray());
+                .body(wordDoc);
     }
 }
