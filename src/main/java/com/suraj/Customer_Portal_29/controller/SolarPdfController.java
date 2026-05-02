@@ -1,28 +1,13 @@
 package com.suraj.Customer_Portal_29.controller;
 
 import com.suraj.Customer_Portal_29.dto.response.SolarRecordResponseDto;
-import com.suraj.Customer_Portal_29.service.PdfGeneratorService;
-import com.suraj.Customer_Portal_29.service.PdfMergerService;
-import com.suraj.Customer_Portal_29.service.SolarRecordService;
-import com.suraj.Customer_Portal_29.service.WordGeneratorService;
-import org.apache.pdfbox.multipdf.PDFMergerUtility;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
+import com.suraj.Customer_Portal_29.service.*;
+import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
-
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.time.LocalDate;
+import java.nio.file.*;
+import java.time.*;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @RestController
 @RequestMapping("/api/solar/pdf")
@@ -286,19 +271,25 @@ public class SolarPdfController {
         try {
             Map<String, Object> data = buildCompleteData(id);
 
-            // Generate just one PDF to test
-            byte[] pdfData = pdfService.generatePdf("wcr", data);
+            List<byte[]> pdfs = Arrays.asList(
+                    pdfService.generatePdf("wcr", data),
+                    pdfService.generatePdf("proforma-a", data),
+                    pdfService.generatePdf("dcr", data),
+                    pdfService.generatePdf("agreement", data),
+                    pdfService.generatePdf("site-photos", data)
+            );
+
+            byte[] mergedPdf = pdfMergerService.mergePdfs(pdfs);
 
             return ResponseEntity.ok()
-                    .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=document.pdf")
+                    .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=All_In_One.pdf")
                     .contentType(MediaType.APPLICATION_PDF)
-                    .body(pdfData);
+                    .body(mergedPdf);
 
         } catch (Exception e) {
-            // Fallback to Word
             byte[] wordDoc = wordService.generateCombinedWord(buildCompleteData(id));
             return ResponseEntity.ok()
-                    .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=document.doc")
+                    .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=All_In_One.doc")
                     .contentType(MediaType.APPLICATION_OCTET_STREAM)
                     .body(wordDoc);
         }
