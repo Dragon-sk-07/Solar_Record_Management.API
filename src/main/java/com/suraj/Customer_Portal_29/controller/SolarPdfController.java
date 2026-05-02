@@ -315,11 +315,8 @@ public class SolarPdfController {
     }
     @GetMapping("/{id}/all-in-one/word")
     public ResponseEntity<byte[]> downloadAllInOneWord(@PathVariable String id) {
-
         try {
-
             Map<String, Object> data = buildCompleteData(id);
-
             byte[] wordDoc = wordService.generateCombinedWord(data);
 
             return ResponseEntity.ok()
@@ -329,7 +326,8 @@ public class SolarPdfController {
                     .body(wordDoc);
 
         } catch (Exception e) {
-            throw new RuntimeException("All In One Word Failed", e);
+            e.printStackTrace(); // This will help debug
+            return ResponseEntity.internalServerError().build();
         }
     }
 
