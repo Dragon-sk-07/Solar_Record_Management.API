@@ -26,11 +26,12 @@ public class PdfGeneratorService {
         this.templateEngine = templateEngine;
     }
 
-    public byte[] generatePdf(String templateName, Map<String, Object> data) {
+    public byte[] generatePdf(String type, Map<String, Object> data) {
         try {
             Context context = new Context();
             context.setVariables(data);
 
+            String templateName = mapTemplateName(type);
             String html = templateEngine.process("pdf/" + templateName, context);
             html = html.replace("\uFEFF", "");
             html = compressImagesInHtml(html);
@@ -54,6 +55,17 @@ public class PdfGeneratorService {
 
         } catch (Exception e) {
             throw new RuntimeException("PDF generation failed: " + e.getMessage(), e);
+        }
+    }
+
+    private String mapTemplateName(String type) {
+        switch(type) {
+            case "wcr": return "WCR_Undertaking_Guarantee";
+            case "proforma-a": return "Annexure-I_Proforma-A";
+            case "dcr": return "Declaration_FOR_DCR";
+            case "agreement": return "NET_METERING_CONNECTION_AGREEMENT";
+            case "site-photos": return "Site-photos";
+            default: return type;
         }
     }
 
@@ -138,7 +150,7 @@ public class PdfGeneratorService {
                 }
             }
         } catch (Exception e) {
-            // Fall through to default
+            // Fall through
         }
 
         String base64 = Base64.getEncoder().encodeToString(imageBytes);
