@@ -408,29 +408,24 @@
         <!-- Each image rendered in its OWN dotted box, one below the other, centred -->
         <div class="aadhar-images-container">
 
-            <div style="width:100%; text-align:center;"
-                 th:if="${aadharImagesBase64 != null and !aadharImagesBase64.isEmpty()}">
-
-                <div class="aadhar-image-box"
-                     th:each="imgBase64 : ${aadharImagesBase64}">
-
-                    <img th:src="${imgBase64}"
-                         alt="Aadhar Card"
-                         class="aadhar-image"/>
-
+            <div th:if="${not #lists.isEmpty(aadharImageUrls)}" class="aadhar-block">
+                <div class="aadhar-number-text">
+                    Aadhar Number: <span th:text="${aadharNumber}">________</span>
                 </div>
-
+                <div th:each="img : ${aadharImageUrls}" class="aadhar-image-box">
+                    <img th:src="${img}" alt="Aadhar Card" style="width:400px; height:auto; border:1px solid #ccc;"/>
+                </div>
             </div>
 
-            <div class="aadhar-image-box"
-                 th:if="${aadharImagesBase64 == null or aadharImagesBase64.isEmpty()}">
+<!--            <div class="aadhar-image-box"-->
+<!--                 th:if="${aadharImagesBase64 == null or aadharImagesBase64.isEmpty()}">-->
 
-                <div class="aadhar-placeholder">
-                    Upload Xerox of AADHAR CARD HERE<br/>
-                    SHOULD BE SELF ATTESTED BY EXACT CONSUMER
-                </div>
+<!--                <div class="aadhar-placeholder">-->
+<!--                    Upload Xerox of AADHAR CARD HERE<br/>-->
+<!--                    SHOULD BE SELF ATTESTED BY EXACT CONSUMER-->
+<!--                </div>-->
 
-            </div>
+<!--            </div>-->
 
         </div>
 

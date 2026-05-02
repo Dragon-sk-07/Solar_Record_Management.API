@@ -74,41 +74,16 @@ public class SolarPdfController {
         data.put("aadharNumber", record.getAadharNumber() != null ? record.getAadharNumber() : "_________________________");
 
         // Aadhar images
-        List<String> aadharBase64Images = new ArrayList<>();
+        List<String> aadharImageUrls = new ArrayList<>();
 
         if (record.getAadharImages() != null && !record.getAadharImages().isEmpty()) {
-
             for (String imageUrl : record.getAadharImages()) {
-                try {
-
-                    if (imageUrl.startsWith("http")) {
-                        java.net.URL url = new java.net.URL(imageUrl);
-                        byte[] imageBytes = url.openStream().readAllBytes();
-
-                        aadharBase64Images.add(
-                                PdfGeneratorService.imageToBase64(imageBytes, "image/jpeg")
-                        );
-
-                    } else {
-
-                        Path imagePath = Paths.get(System.getProperty("user.dir"), imageUrl);
-
-                        if (Files.exists(imagePath)) {
-                            byte[] imageBytes = Files.readAllBytes(imagePath);
-
-                            aadharBase64Images.add(
-                                    PdfGeneratorService.imageToBase64(imageBytes, "image/jpeg")
-                            );
-                        }
-                    }
-
-                } catch (Exception e) {
-                    System.err.println("Failed to load image: " + imageUrl + " - " + e.getMessage());
+                if (imageUrl != null && imageUrl.startsWith("http")) {
+                    aadharImageUrls.add(imageUrl);
                 }
             }
         }
-
-        data.put("aadharImagesBase64", aadharBase64Images);
+        data.put("aadharImageUrls", aadharImageUrls);
 
         return data;
     }
@@ -414,26 +389,17 @@ public class SolarPdfController {
         data.put("aadharNumber", record.getAadharNumber());
 
         data.put("sitePhotos", record.getSitePhotos());
-        List<String> aadharBase64Images = new ArrayList<>();
 
-        if (record.getAadharImages() != null) {
+        List<String> aadharImageUrls = new ArrayList<>();
+
+        if (record.getAadharImages() != null && !record.getAadharImages().isEmpty()) {
             for (String imageUrl : record.getAadharImages()) {
-                try {
-                    if (imageUrl.startsWith("http")) {
-                        java.net.URL url = new java.net.URL(imageUrl);
-                        byte[] imageBytes = url.openStream().readAllBytes();
-
-                        aadharBase64Images.add(
-                                PdfGeneratorService.imageToBase64(imageBytes, "image/jpeg")
-                        );
-                    }
-                } catch (Exception e) {
-                    System.out.println("Image load failed");
+                if (imageUrl != null && imageUrl.startsWith("http")) {
+                    aadharImageUrls.add(imageUrl);
                 }
             }
         }
-
-        data.put("aadharImagesBase64", aadharBase64Images);
+        data.put("aadharImageUrls", aadharImageUrls);
 
         return data;
     }
