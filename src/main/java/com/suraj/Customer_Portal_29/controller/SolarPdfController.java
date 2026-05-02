@@ -9,6 +9,8 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import com.suraj.Customer_Portal_29.service.WordGeneratorService;
+
+import java.io.ByteArrayOutputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -341,5 +343,24 @@ public class SolarPdfController {
         } catch (Exception e) {
             throw new RuntimeException("Failed to generate all-in-one PDF", e);
         }
+    }
+    @GetMapping("/{id}/all-in-one/word")
+    public ResponseEntity<byte[]> downloadAllInOneWord(@PathVariable String id) {
+
+        Map<String, Object> data = buildPdfData(id);
+
+        ByteArrayOutputStream output = new ByteArrayOutputStream();
+
+        output.writeBytes(wordService.generateWord("wcr", data));
+        output.writeBytes(wordService.generateWord("proforma-a", data));
+        output.writeBytes(wordService.generateWord("dcr", data));
+        output.writeBytes(wordService.generateWord("agreement", data));
+        output.writeBytes(wordService.generateWord("site-photos", data));
+
+        return ResponseEntity.ok()
+                .header(HttpHeaders.CONTENT_DISPOSITION,
+                        "attachment; filename=All_In_One.doc")
+                .contentType(MediaType.TEXT_HTML)
+                .body(output.toByteArray());
     }
 }

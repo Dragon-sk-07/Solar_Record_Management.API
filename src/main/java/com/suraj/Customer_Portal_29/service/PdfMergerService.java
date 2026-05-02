@@ -1,8 +1,10 @@
 package com.suraj.Customer_Portal_29.service;
 
+import org.apache.pdfbox.multipdf.PDFMergerUtility;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.springframework.stereotype.Service;
 
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.List;
@@ -11,17 +13,18 @@ import java.util.List;
 public class PdfMergerService {
 
     public byte[] mergePdfs(List<byte[]> pdfBytesList) throws IOException {
-        try (PDDocument mergedDocument = new PDDocument()) {
-            for (byte[] pdfBytes : pdfBytesList) {
-                try (PDDocument doc = PDDocument.load(pdfBytes)) {
-                    for (int i = 0; i < doc.getNumberOfPages(); i++) {
-                        mergedDocument.addPage(doc.getPage(i));
-                    }
-                }
-            }
-            ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-            mergedDocument.save(outputStream);
-            return outputStream.toByteArray();
+
+        PDFMergerUtility merger = new PDFMergerUtility();
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+
+        merger.setDestinationStream(outputStream);
+
+        for (byte[] pdf : pdfBytesList) {
+            merger.addSource(new ByteArrayInputStream(pdf));
         }
+
+        merger.mergeDocuments(null);
+
+        return outputStream.toByteArray();
     }
 }
