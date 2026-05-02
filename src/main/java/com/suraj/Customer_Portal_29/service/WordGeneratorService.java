@@ -38,6 +38,17 @@ public class WordGeneratorService {
             String templateName = mapTemplateName(type);
             String htmlContent = templateEngine.process("pdf/" + templateName, context);
             Document doc = Jsoup.parse(htmlContent);
+
+            /* Force Base64 Images for Word */
+            Elements imgs = doc.select("img");
+            for (Element img : imgs) {
+                String src = img.attr("src");
+
+                if (src != null && src.startsWith("data:image")) {
+                    img.attr("src", src);
+                }
+            }
+
             fixImagesForWord(doc);
             String finalHtml = doc.body().html();
             String wordHtml = buildWordWrapper(finalHtml);
@@ -121,8 +132,20 @@ public class WordGeneratorService {
             context.setVariables(data);
             String html = templateEngine.process("pdf/" + templateName, context);
             Document doc = Jsoup.parse(html);
+
             Elements scripts = doc.select("script");
             scripts.remove();
+
+            /* Force Aadhar Base64 Images for Word */
+            Elements imgs = doc.select("img");
+            for (Element img : imgs) {
+                String src = img.attr("src");
+
+                if (src != null && src.startsWith("data:image")) {
+                    img.attr("src", src);
+                }
+            }
+
             fixImagesForWord(doc);
             return doc.body().html();
         } catch (Exception e) {
