@@ -286,33 +286,75 @@ public class SolarPdfController {
         try {
             Map<String, Object> data = buildCompleteData(id);
 
-            // Stream PDFs one by one to save memory
+            // Create temp directory for processing
+            java.io.File tempDir = new java.io.File(System.getProperty("java.io.tmpdir"), "pdf_merge_" + System.currentTimeMillis());
+            tempDir.mkdirs();
+
             PDFMergerUtility merger = new PDFMergerUtility();
-            ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-            merger.setDestinationStream(outputStream);
+            List<String> tempFiles = new ArrayList<>();
 
-            String[] types = {"wcr", "proforma-a", "dcr", "agreement", "site-photos"};
+            try {
+                String[] types = {"wcr", "proforma-a", "dcr", "agreement"};
 
-            for (String type : types) {
-                byte[] pdf = pdfService.generatePdf(type, data);
-                merger.addSource(new ByteArrayInputStream(pdf));
-                pdf = null; // Help garbage collector
+                // Process text PDFs first (smaller)
+                for (String type : types) {
+                    byte[] pdfData = pdfService.generatePdf(type, data);
+                    java.io.File tempFile = new java.io.File(tempDir, type + ".pdf");
+                    java.nio.file.Files.write(tempFile.toPath(), pdfData);
+                    merger.addSource(tempFile);
+                    tempFiles.add(tempFile.getAbsolutePath());
+                    pdfData = null; // Free memory
+                }
+
+                // Process photos separately with compression
+                byte[] photosData = pdfService.generatePdf("site-photos", data);
+                if (photosData != null && photosData.length > 0) {
+                    java.io.File photosFile = new java.io.File(tempDir, "photos.pdf");
+                    java.nio.file.Files.write(photosFile.toPath(), photosData);
+                    merger.addSource(photosFile);
+                    tempFiles.add(photosFile.getAbsolutePath());
+                    photosData = null;
+                }
+
+                // Merge to memory
+                ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+                merger.setDestinationStream(outputStream);
+                merger.mergeDocuments(org.apache.pdfbox.io.MemoryUsageSetting.setupTempFileOnly());
+
+                byte[] mergedPdf = outputStream.toByteArray();
+
+                // Cleanup temp files
+                for (String tempFile : tempFiles) {
+                    new java.io.File(tempFile).delete();
+                }
+                tempDir.delete();
+
+                return ResponseEntity.ok()
+                        .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=All_In_One.pdf")
+                        .contentType(MediaType.APPLICATION_PDF)
+                        .body(mergedPdf);
+
+            } finally {
+                // Ensure cleanup
+                for (String tempFile : tempFiles) {
+                    new java.io.File(tempFile).delete();
+                }
+                tempDir.delete();
             }
-
-            merger.mergeDocuments(
-                    org.apache.pdfbox.io.MemoryUsageSetting.setupMainMemoryOnly()
-            );
-
-            byte[] mergedPdf = outputStream.toByteArray();
-
-            return ResponseEntity.ok()
-                    .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=All_In_One.pdf")
-                    .contentType(MediaType.APPLICATION_PDF)
-                    .body(mergedPdf);
 
         } catch (Exception e) {
             e.printStackTrace();
-            throw new RuntimeException("All In One PDF Failed: " + e.getMessage(), e);
+            // Fallback to Word if PDF fails
+            try {
+                Map<String, Object> data = buildCompleteData(id);
+                byte[] wordDoc = wordService.generateCombinedWord(data);
+                return ResponseEntity.ok()
+                        .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=All_In_One.doc")
+                        .contentType(MediaType.APPLICATION_OCTET_STREAM)
+                        .body(wordDoc);
+            } catch (Exception ex) {
+                throw new RuntimeException("PDF generation failed: " + e.getMessage(), e);
+            }
         }
     }
 
