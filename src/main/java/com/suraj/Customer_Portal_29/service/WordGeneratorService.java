@@ -49,26 +49,10 @@ public class WordGeneratorService {
 
     private void fixImagesForWord(Document doc) {
         Elements imgs = doc.select("img");
-
         for (Element img : imgs) {
-            String src = img.attr("src");
-
-            if (src != null && src.startsWith("data:image")) {
-                img.attr("width", "500");
-                img.attr("height", "auto");
-                img.attr("border", "0");
-                img.attr("style", "max-width:500px; height:auto; display:block; margin:0 auto;");
-            }
-        }
-
-        Elements aadharBlocks = doc.select(".aadhar-block, .aadhar-image-box");
-        for (Element block : aadharBlocks) {
-            block.attr("style", "margin:15px 0; padding:15px; border:2px solid #000; text-align:center; background:#f9f9f9;");
-        }
-
-        Elements aadharText = doc.select(".aadhar-number-text");
-        for (Element text : aadharText) {
-            text.attr("style", "font-weight:bold; margin:10px 0; font-size:14px;");
+            img.attr("width", "500");
+            img.attr("height", "auto");
+            img.attr("border", "0");
         }
     }
 
@@ -78,21 +62,12 @@ public class WordGeneratorService {
                 "<head>\n" +
                 "    <meta charset='UTF-8'>\n" +
                 "    <style>\n" +
-                "        body { font-family: Arial, sans-serif; margin: 1.5cm; }\n" +
                 "        img { max-width: 100%; height: auto; }\n" +
-                "        table { border-collapse: collapse; width: 100%; margin-bottom: 10px; }\n" +
-                "        td, th { border: 1px solid black; padding: 8px; vertical-align: top; }\n" +
-                "        h1 { font-size: 18px; text-align: center; margin: 10px 0; }\n" +
-                "        h2 { font-size: 16px; text-align: center; margin: 8px 0; }\n" +
-                "        .page-break { page-break-before: always; }\n" +
-                "        .aadhar-block { margin: 20px 0; padding: 15px; border: 2px solid #000; text-align: center; background: #f9f9f9; }\n" +
-                "        .aadhar-image-box { text-align: center; margin: 15px 0; }\n" +
-                "        .aadhar-number-text { font-weight: bold; margin: 10px 0; font-size: 14px; }\n" +
-                "        .signature-row { margin-top: 30px; }\n" +
-                "        .signature-left, .signature-right { width: 50%; float: left; text-align: center; }\n" +
+                "        table { border-collapse: collapse; width: 100%; }\n" +
+                "        td, th { border: 1px solid black; padding: 6px; }\n" +
                 "    </style>\n" +
                 "</head>\n" +
-                "<body>\n" +
+                "<body style='font-family:Arial; margin:1cm;'>\n" +
                 content +
                 "</body>\n" +
                 "</html>";
@@ -111,16 +86,13 @@ public class WordGeneratorService {
                     "<head>\n" +
                     "    <meta charset='UTF-8'>\n" +
                     "    <style>\n" +
-                    "        body { font-family: Arial, sans-serif; margin: 1.5cm; }\n" +
+                    "        body { font-family: Arial, sans-serif; margin: 1cm; }\n" +
                     "        .page-break { page-break-before: always; }\n" +
                     "        table { border-collapse: collapse; width: 100%; margin-bottom: 10px; }\n" +
-                    "        td, th { border: 1px solid black; padding: 8px; vertical-align: top; }\n" +
-                    "        h1 { font-size: 18px; text-align: center; }\n" +
-                    "        h2 { font-size: 16px; text-align: center; }\n" +
+                    "        td, th { border: 1px solid black; padding: 6px; vertical-align: top; }\n" +
+                    "        h1 { font-size: 16px; text-align: center; }\n" +
+                    "        h2 { font-size: 14px; text-align: center; }\n" +
                     "        img { max-width: 100%; height: auto; }\n" +
-                    "        .aadhar-block { margin: 20px 0; padding: 15px; border: 2px solid #000; text-align: center; background: #f9f9f9; }\n" +
-                    "        .aadhar-image-box { text-align: center; margin: 15px 0; }\n" +
-                    "        .aadhar-number-text { font-weight: bold; margin: 10px 0; font-size: 14px; }\n" +
                     "    </style>\n" +
                     "</head>\n" +
                     "<body>\n" +
@@ -149,12 +121,9 @@ public class WordGeneratorService {
             context.setVariables(data);
             String html = templateEngine.process("pdf/" + templateName, context);
             Document doc = Jsoup.parse(html);
-
             Elements scripts = doc.select("script");
             scripts.remove();
-
             fixImagesForWord(doc);
-
             return doc.body().html();
         } catch (Exception e) {
             System.err.println("Error processing: " + templateName + " - " + e.getMessage());
