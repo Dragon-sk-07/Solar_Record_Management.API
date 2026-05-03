@@ -22,8 +22,9 @@ import java.util.Iterator;
 @Service
 public class CloudinaryService {
 
-    private static final int TARGET_WIDTH = 800;
-    private static final long MAX_SIZE_BYTES = 500 * 1024;
+    private static final int MAX_WIDTH = 500;
+    private static final int MAX_HEIGHT = 500;
+    private static final long MAX_TARGET_SIZE = 150 * 1024; // 150KB
 
     private final Cloudinary cloudinary;
 
@@ -33,7 +34,11 @@ public class CloudinaryService {
 
     public String uploadFile(MultipartFile file, String folderName) {
         try {
-            byte[] compressedImage = compressImage(file.getBytes());
+            if (file.getSize() > 2 * 1024 * 1024) {
+                throw new RuntimeException("File too large. Max 2MB allowed.");
+            }
+
+            byte[] compressedImage = compressImageSafely(file.getBytes());
             MultipartFile compressedFile = new CompressedMultipartFile(
                     compressedImage,
                     file.getOriginalFilename(),
@@ -46,46 +51,69 @@ public class CloudinaryService {
             );
             return uploadResult.get("secure_url").toString();
         } catch (Exception e) {
-            throw new RuntimeException("Failed to upload image to Cloudinary: " + e.getMessage(), e);
+            throw new RuntimeException("Failed to upload image: " + e.getMessage(), e);
         }
     }
 
-    private byte[] compressImage(byte[] original) throws IOException {
-        ByteArrayInputStream bais = new ByteArrayInputStream(original);
-        BufferedImage image = ImageIO.read(bais);
+    private byte[] compressImageSafely(byte[] original) throws IOException {
+        ByteArrayInputStream bais = null;
+        BufferedImage image = null;
 
-        if (image == null) {
-            return original;
+        try {
+            bais = new ByteArrayInputStream(original);
+            image = ImageIO.read(bais);
+
+            if (image == null) {
+                return original;
+            }
+
+            int width = image.getWidth();
+            int height = image.getHeight();
+
+            if (width > MAX_WIDTH || height > MAX_HEIGHT) {
+                float widthRatio = (float) MAX_WIDTH / width;
+                float heightRatio = (float) MAX_HEIGHT / height;
+                float ratio = Math.min(widthRatio, heightRatio);
+                width = (int) (width * ratio);
+                height = (int) (height * ratio);
+                if (width < 1) width = 1;
+                if (height < 1) height = 1;
+            }
+
+            BufferedImage resized = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
+            java.awt.Graphics2D g = resized.createGraphics();
+            try {
+                g.drawImage(image, 0, 0, width, height, null);
+            } finally {
+                g.dispose();
+            }
+
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            ImageIO.write(resized, "jpg", baos);
+
+            byte[] result = baos.toByteArray();
+            resized.flush();
+
+            if (result.length > MAX_TARGET_SIZE) {
+                return compressWithHigherQuality(resized);
+            }
+
+            return result;
+
+        } finally {
+            if (bais != null) {
+                bais.close();
+            }
+            if (image != null) {
+                image.flush();
+            }
         }
-
-        int width = image.getWidth();
-        int height = image.getHeight();
-
-        if (width > TARGET_WIDTH) {
-            float ratio = (float) TARGET_WIDTH / width;
-            width = TARGET_WIDTH;
-            height = (int) (height * ratio);
-        }
-
-        java.awt.Image scaled = image.getScaledInstance(width, height, java.awt.Image.SCALE_SMOOTH);
-        BufferedImage resized = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
-        resized.getGraphics().drawImage(scaled, 0, 0, null);
-
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        ImageIO.write(resized, "jpg", baos);
-
-        byte[] result = baos.toByteArray();
-
-        if (result.length > MAX_SIZE_BYTES) {
-            return compressWithQuality(resized);
-        }
-
-        return result;
     }
 
-    private byte[] compressWithQuality(BufferedImage image) throws IOException {
+    private byte[] compressWithHigherQuality(BufferedImage image) throws IOException {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         Iterator<ImageWriter> writers = ImageIO.getImageWritersByFormatName("jpg");
+
         if (!writers.hasNext()) {
             ByteArrayOutputStream fallback = new ByteArrayOutputStream();
             ImageIO.write(image, "jpg", fallback);
@@ -95,13 +123,24 @@ public class CloudinaryService {
         ImageWriter writer = writers.next();
         ImageWriteParam param = writer.getDefaultWriteParam();
         param.setCompressionMode(ImageWriteParam.MODE_EXPLICIT);
-        param.setCompressionQuality(0.7f);
+        param.setCompressionQuality(0.6f);
 
-        writer.setOutput(ImageIO.createImageOutputStream(baos));
-        writer.write(null, new IIOImage(image, null, null), param);
-        writer.dispose();
+        try {
+            writer.setOutput(ImageIO.createImageOutputStream(baos));
+            writer.write(null, new IIOImage(image, null, null), param);
+        } finally {
+            writer.dispose();
+        }
 
-        return baos.toByteArray();
+        byte[] result = baos.toByteArray();
+
+        if (result.length > MAX_TARGET_SIZE) {
+            ByteArrayOutputStream fallback = new ByteArrayOutputStream();
+            ImageIO.write(image, "jpg", fallback);
+            return fallback.toByteArray();
+        }
+
+        return result;
     }
 
     private static class CompressedMultipartFile implements MultipartFile {

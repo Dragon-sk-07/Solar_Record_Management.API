@@ -272,10 +272,16 @@ public class SolarRecordService {
         if (files == null || files.isEmpty()) {
             return Collections.emptyList();
         }
-        return files.stream()
-                .filter(Objects::nonNull)
-                .map(file -> cloudinaryService.uploadFile(file, folder))
-                .collect(Collectors.toList());
+
+        List<String> result = new ArrayList<>();
+        for (MultipartFile file : files) {
+            if (file != null) {
+                String url = cloudinaryService.uploadFile(file, folder);
+                result.add(url);
+                System.gc(); // Hint to free memory after each upload
+            }
+        }
+        return result;
     }
 
     private List<String> mergeImageLists(List<String> existing, List<MultipartFile> newFiles, String folder) {

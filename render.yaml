@@ -4,4 +4,7 @@ services:
     runtime: java
     buildCommand: "./mvnw clean package -DskipTests"
     startCommand: "java -jar target/*.jar"
+envVars:
+    - key: JAVA_OPTS
+      value: -Xmx1024m -Xms512m
 
