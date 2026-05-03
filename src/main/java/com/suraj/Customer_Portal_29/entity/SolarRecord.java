@@ -241,10 +241,29 @@ public class SolarRecord {
     @Column(name = "pbg_amount")
     private Double pbgAmount;
 
+    @ElementCollection
+    @CollectionTable(name = "solar_vendor_signatures", joinColumns = @JoinColumn(name = "solar_record_id"))
+    @Column(name = "signature", columnDefinition = "TEXT")
     private List<String> vendorSignature;
+
+    @ElementCollection
+    @CollectionTable(name = "solar_consumer_signatures", joinColumns = @JoinColumn(name = "solar_record_id"))
+    @Column(name = "signature", columnDefinition = "TEXT")
     private List<String> consumerSignature;
+
+    @ElementCollection
+    @CollectionTable(name = "solar_msedcl_signatures", joinColumns = @JoinColumn(name = "solar_record_id"))
+    @Column(name = "signature", columnDefinition = "TEXT")
     private List<String> msedclSignature;
+
+    @ElementCollection
+    @CollectionTable(name = "solar_vendor_stamps", joinColumns = @JoinColumn(name = "solar_record_id"))
+    @Column(name = "stamp", columnDefinition = "TEXT")
     private List<String> vendorStamp;
+
+    @ElementCollection
+    @CollectionTable(name = "solar_witness_signatures", joinColumns = @JoinColumn(name = "solar_record_id"))
+    @Column(name = "signature", columnDefinition = "TEXT")
     private List<String> witnessSignature;
 
     @ElementCollection
