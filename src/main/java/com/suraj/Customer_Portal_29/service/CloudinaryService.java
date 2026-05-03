@@ -4,7 +4,8 @@ import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
-import java.util.*;
+
+import java.util.Map;
 
 @Service
 public class CloudinaryService {
@@ -21,10 +22,13 @@ public class CloudinaryService {
                     file.getBytes(),
                     ObjectUtils.asMap(
                             "folder", folderName,
-                            "quality", "auto:good",
-                            "fetch_format", "auto",
-                            "width", 800,
-                            "crop", "limit"
+                            "quality", 30,
+                            "fetch_format", "auto:low",
+                            "width", 400,
+                            "height", 400,
+                            "crop", "limit",
+                            "compression", "true",
+                            "flags", "lossy"
                     )
             );
             return uploadResult.get("secure_url").toString();
@@ -32,6 +36,7 @@ public class CloudinaryService {
             throw new RuntimeException("Failed to upload image: " + e.getMessage(), e);
         }
     }
+
     public void deleteFile(String imageUrl) {
         try {
             String publicId = extractPublicIdFromUrl(imageUrl);
@@ -43,7 +48,7 @@ public class CloudinaryService {
         }
     }
 
-    public void deleteFiles(List<String> imageUrls) {
+    public void deleteFiles(java.util.List<String> imageUrls) {
         if (imageUrls == null || imageUrls.isEmpty()) return;
         for (String url : imageUrls) {
             deleteFile(url);
