@@ -151,8 +151,7 @@ public class SolarRecordRequestDto {
     @NotBlank(message = "Vendor name is required")
     private String vendorName;
 
-    @NotBlank(message = "Vendor stamp is required")
-    private String vendorStamp;
+
 
     @Size(max = 1000, message = "Vendor address must not exceed 1000 characters")
     private String vendorAddress;
@@ -202,14 +201,7 @@ public class SolarRecordRequestDto {
     @Size(max = 1000, message = "Witness 2 address must not exceed 1000 characters")
     private String witness2Address;
 
-    // ==================== SITE PHOTOS ====================
-    private List<MultipartFile> sitePhotos;
 
-    private List<String> existingPhotos;
-
-    private List<MultipartFile> aadharImages;
-
-    private List<String> existingAadharImages;
 
     private String meterNumber;
 
@@ -221,4 +213,22 @@ public class SolarRecordRequestDto {
     private String grReferenceNumber;
     private String grReferenceDate;
     private Double pbgAmount;
+
+    private List<MultipartFile> vendorSignature;
+    private List<MultipartFile> consumerSignature;
+    private List<MultipartFile> msedclSignature;
+    private List<MultipartFile> vendorStamp;
+    private List<MultipartFile> witnessSignature;
+    private List<MultipartFile> aadharImages;
+    private List<MultipartFile> sitePhotos;
+
+
+    private List<String> existingVendorSignature;
+    private List<String> existingConsumerSignature;
+    private List<String> existingMsedclSignature;
+    private List<String> existingVendorStamp;
+    private List<String> existingWitnessSignature;
+    private List<String> existingSitePhotos;
+    private List<String> existingPhotos;
+    private List<String> existingAadharImages;
 }

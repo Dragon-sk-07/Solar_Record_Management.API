@@ -286,37 +286,24 @@
 
     <!-- SIGNATURE SECTION - PERFECT VERTICAL ALIGNMENT with : fixed -->
     <div class="signature-section">
-        <!-- Space for signature -->
-        <div class="signature-space"></div>
-
-        <!-- Signature with official seal text (as per original) -->
+        <div class="signature-space">
+            <img th:if="${not #lists.isEmpty(vendorSignature)}"
+                 th:src="${vendorSignature[0]}"
+                 style="max-height:60px; max-width:200px; object-fit:contain;"/>
+        </div>
         <div class="signature-seal-text">(Signature With official Seal)</div>
-
         <div class="signature-details">
             <div class="signature-row">
                 <span class="signature-label">For M/S </span>
                 <span class="signature-value" th:if="${vendorName}" th:text="${vendorName}">Adani Green Energy</span>
-                <span th:unless="${vendorName}" class="placeholder-dots placeholder-medium">.....................</span>
             </div>
             <div class="signature-row">
                 <span class="signature-label">Name </span>
                 <span class="signature-value" th:if="${authorizedPersonName}" th:text="${authorizedPersonName}">Anaya Nair</span>
-                <span th:unless="${authorizedPersonName}" class="placeholder-dots placeholder-medium">.....................</span>
             </div>
             <div class="signature-row">
                 <span class="signature-label">Designation </span>
                 <span class="signature-value" th:if="${designation}" th:text="${designation}">CEO</span>
-                <span th:unless="${designation}" class="placeholder-dots placeholder-medium">.....................</span>
-            </div>
-            <div class="signature-row">
-                <span class="signature-label">Phone </span>
-                <span class="signature-value" th:if="${mobileNumber}" th:text="${mobileNumber}">8466963158</span>
-                <span th:unless="${mobileNumber}" class="placeholder-dots placeholder-medium">.....................</span>
-            </div>
-            <div class="signature-row">
-                <span class="signature-label">Email </span>
-                <span th:if="${email}" class="signature-value" th:text="${email}">neha.gupta564@yahoo.com</span>
-                <span th:unless="${email}" class="placeholder-dots placeholder-medium">.....................</span>
             </div>
         </div>
     </div>

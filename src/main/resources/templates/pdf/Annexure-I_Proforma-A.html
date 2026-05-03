@@ -220,12 +220,25 @@
     </div>
 
     <!-- ==================== SIGNATURES IN ONE ROW (SIDE BY SIDE) ==================== -->
-    <div class="signature-row" style="display:flex; justify-content:space-between; align-items:center; width:100%; gap:20px; white-space:nowrap;">
+    <div class="signature-row" style="display:flex; justify-content:space-between; align-items:center; width:100%; gap:20px;">
         <div class="signature-item">
-            <div class="signature-label" style="width:auto;">Signature of the beneficiary</div>
+            <div class="signature-space">
+                <img th:if="${not #lists.isEmpty(consumerSignature)}"
+                     th:src="${consumerSignature[0]}"
+                     style="max-height:60px; max-width:200px; object-fit:contain;"/>
+            </div>
+            <div class="signature-label">Signature of the beneficiary</div>
         </div>
         <div class="signature-item">
-            <div class="signature-label" style="width:auto;">Signature of the agency with name, seal and date</div>
+            <div class="signature-space">
+                <img th:if="${not #lists.isEmpty(vendorSignature)}"
+                     th:src="${vendorSignature[0]}"
+                     style="max-height:60px; max-width:200px; object-fit:contain;"/>
+                <img th:if="${not #lists.isEmpty(vendorStamp)}"
+                     th:src="${vendorStamp[0]}"
+                     style="max-height:50px; max-width:150px; object-fit:contain; margin-top:5px;"/>
+            </div>
+            <div class="signature-label">Signature of the agency with name, seal and date</div>
         </div>
     </div>
 
@@ -237,6 +250,11 @@
 
     <!-- ==================== MSEDCL OFFICER SIGNATURE WITH VALUES ==================== -->
     <div class="msedcl-section" style="margin-top: 60px;">
+        <div class="signature-space">
+            <img th:if="${not #lists.isEmpty(msedclSignature)}"
+                 th:src="${msedclSignature[0]}"
+                 style="max-height:60px; max-width:200px; object-fit:contain;"/>
+        </div>
         <div class="msedcl-label">Signature of the MSEDCL Officer</div>
         <div class="msedcl-row">
             <div class="msedcl-item">
@@ -246,9 +264,7 @@
                 <div class="msedcl-label">Designation: <span th:text="${msedclOfficerDesignation}" class="value-text"></span></div>
             </div>
         </div>
-
         <div class="msedcl-label">Date and seal: <span th:text="${installationDate}" class="value-text"></span></div>
-
     </div>
 
 </div>

@@ -16,10 +16,8 @@ import java.util.stream.Collectors;
 @Service
 public class SolarRecordService {
 
-
     private final SolarRecordRepository repository;
     private final ModelMapper modelMapper;
-
     private final CloudinaryService cloudinaryService;
 
     public SolarRecordService(SolarRecordRepository repository,
@@ -83,10 +81,25 @@ public class SolarRecordService {
         mapWitnessFields(entity, req);
         mapIndemnityFields(entity, req);
 
-        List<String> photoPaths = savePhotos(req.getSitePhotos());
+        List<String> vendorSignatureList = mergeImageLists(null, req.getVendorSignature(), "vendorSignatures");
+        entity.setVendorSignature(vendorSignatureList);
+
+        List<String> consumerSignatureList = mergeImageLists(null, req.getConsumerSignature(), "consumerSignatures");
+        entity.setConsumerSignature(consumerSignatureList);
+
+        List<String> msedclSignatureList = mergeImageLists(null, req.getMsedclSignature(), "msedclSignatures");
+        entity.setMsedclSignature(msedclSignatureList);
+
+        List<String> vendorStampList = mergeImageLists(null, req.getVendorStamp(), "vendorStamps");
+        entity.setVendorStamp(vendorStampList);
+
+        List<String> witnessSignatureList = mergeImageLists(null, req.getWitnessSignature(), "witnessSignatures");
+        entity.setWitnessSignature(witnessSignatureList);
+
+        List<String> photoPaths = mergeImageLists(null, req.getSitePhotos(), "sitePhotos");
         entity.setSitePhotos(photoPaths);
 
-        List<String> aadharPaths = saveAadharImages(req.getAadharImages());
+        List<String> aadharPaths = mergeImageLists(null, req.getAadharImages(), "aadharImages");
         entity.setAadharImages(aadharPaths);
 
         return entity;
@@ -107,25 +120,26 @@ public class SolarRecordService {
         mapWitnessFields(entity, req);
         mapIndemnityFields(entity, req);
 
-        // Handle Site Photos
-        List<String> updatedPhotos = new ArrayList<>();
-        if (req.getExistingPhotos() != null) {
-            updatedPhotos.addAll(req.getExistingPhotos());
-        }
-        if (req.getSitePhotos() != null && !req.getSitePhotos().isEmpty()) {
-            updatedPhotos.addAll(savePhotos(req.getSitePhotos()));
-        }
-        entity.setSitePhotos(updatedPhotos.stream().distinct().collect(Collectors.toList()));
+        List<String> updatedVendorSignature = mergeImageLists(req.getExistingVendorSignature(), req.getVendorSignature(), "vendorSignatures");
+        entity.setVendorSignature(updatedVendorSignature);
 
-        // Handle Aadhar Images - MERGE existing + new (SAME LOGIC AS SITE PHOTOS)
-        List<String> updatedAadharImages = new ArrayList<>();
-        if (req.getExistingAadharImages() != null && !req.getExistingAadharImages().isEmpty()) {
-            updatedAadharImages.addAll(req.getExistingAadharImages());
-        }
-        if (req.getAadharImages() != null && !req.getAadharImages().isEmpty()) {
-            updatedAadharImages.addAll(saveAadharImages(req.getAadharImages()));
-        }
-        entity.setAadharImages(updatedAadharImages.isEmpty() ? null : updatedAadharImages);
+        List<String> updatedConsumerSignature = mergeImageLists(req.getExistingConsumerSignature(), req.getConsumerSignature(), "consumerSignatures");
+        entity.setConsumerSignature(updatedConsumerSignature);
+
+        List<String> updatedMsedclSignature = mergeImageLists(req.getExistingMsedclSignature(), req.getMsedclSignature(), "msedclSignatures");
+        entity.setMsedclSignature(updatedMsedclSignature);
+
+        List<String> updatedVendorStamp = mergeImageLists(req.getExistingVendorStamp(), req.getVendorStamp(), "vendorStamps");
+        entity.setVendorStamp(updatedVendorStamp);
+
+        List<String> updatedWitnessSignature = mergeImageLists(req.getExistingWitnessSignature(), req.getWitnessSignature(), "witnessSignatures");
+        entity.setWitnessSignature(updatedWitnessSignature);
+
+        List<String> updatedPhotos = mergeImageLists(req.getExistingSitePhotos(), req.getSitePhotos(), "sitePhotos");
+        entity.setSitePhotos(updatedPhotos);
+
+        List<String> updatedAadharImages = mergeImageLists(req.getExistingAadharImages(), req.getAadharImages(), "aadharImages");
+        entity.setAadharImages(updatedAadharImages);
     }
 
     private void mapBasicFields(SolarRecord entity, SolarRecordRequestDto req) {
@@ -192,10 +206,15 @@ public class SolarRecordService {
 
     private void mapVendorFields(SolarRecord entity, SolarRecordRequestDto req) {
         entity.setVendorName(req.getVendorName());
-        entity.setVendorStamp(req.getVendorStamp());
         entity.setVendorAddress(req.getVendorAddress());
         entity.setAuthorizedPersonName(req.getAuthorizedPersonName());
         entity.setDesignation(req.getDesignation());
+
+        List<String> vendorSignatureList = mergeImageLists(null, req.getVendorSignature(), "vendorSignatures");
+        entity.setVendorSignature(vendorSignatureList);
+
+        List<String> vendorStampList = mergeImageLists(null, req.getVendorStamp(), "vendorStamps");
+        entity.setVendorStamp(vendorStampList);
     }
 
     private void mapMsedclFields(SolarRecord entity, SolarRecordRequestDto req) {
@@ -226,6 +245,7 @@ public class SolarRecordService {
         entity.setWitness2Name(req.getWitness2Name());
         entity.setWitness2Address(req.getWitness2Address());
     }
+
     private void mapIndemnityFields(SolarRecord entity, SolarRecordRequestDto req) {
         entity.setIndemnityDay(req.getIndemnityDay());
         entity.setIndemnityMonth(req.getIndemnityMonth());
@@ -239,34 +259,46 @@ public class SolarRecordService {
         SolarRecordResponseDto response = new SolarRecordResponseDto();
         modelMapper.map(entity, response);
         response.setAadharImages(entity.getAadharImages());
+        response.setSitePhotos(entity.getSitePhotos());
+        response.setVendorSignature(entity.getVendorSignature());
+        response.setConsumerSignature(entity.getConsumerSignature());
+        response.setMsedclSignature(entity.getMsedclSignature());
+        response.setVendorStamp(entity.getVendorStamp());
+        response.setWitnessSignature(entity.getWitnessSignature());
         return response;
     }
 
-    private List<String> saveAadharImages(List<MultipartFile> files) {
+    private List<String> uploadImagesWithCompression(List<MultipartFile> files, String folder) {
         if (files == null || files.isEmpty()) {
             return Collections.emptyList();
         }
         return files.stream()
-                .map(this::saveSingleAadharImage)
                 .filter(Objects::nonNull)
+                .map(file -> cloudinaryService.uploadFile(file, folder))
                 .collect(Collectors.toList());
     }
-    private String saveSingleAadharImage(MultipartFile file) {
-        return cloudinaryService.uploadFile(file, "aadharImages");
-    }
 
-    private List<String> savePhotos(List<MultipartFile> files) {
-        if (files == null || files.isEmpty()) {
-            return Collections.emptyList();
+    private List<String> mergeImageLists(List<String> existing, List<MultipartFile> newFiles, String folder) {
+        List<String> result = new ArrayList<>();
+        if (existing != null) {
+            result.addAll(existing);
         }
-
-        return files.stream()
-                .map(this::saveSinglePhoto)
-                .filter(Objects::nonNull)
-                .collect(Collectors.toList());
+        if (newFiles != null && !newFiles.isEmpty()) {
+            result.addAll(uploadImagesWithCompression(newFiles, folder));
+        }
+        return result;
     }
 
-    private String saveSinglePhoto(MultipartFile file) {
-        return cloudinaryService.uploadFile(file, "sitePhotos");
+    private void setImageList(List<String> existing, List<MultipartFile> newFiles,
+                              java.util.function.Consumer<List<String>> setter, String folder) {
+        List<String> result = new ArrayList<>();
+        if (existing != null) {
+            result.addAll(existing);
+        }
+        if (newFiles != null && !newFiles.isEmpty()) {
+            result.addAll(uploadImagesWithCompression(newFiles, folder));
+        }
+        setter.accept(result);
     }
+
 }

@@ -59,7 +59,7 @@ public class SolarRecordResponseDto {
     private String lighteningArrester;
 
     private String vendorName;
-    private String vendorStamp;
+
     private String vendorAddress;
     private String authorizedPersonName;
     private String designation;
@@ -85,8 +85,6 @@ public class SolarRecordResponseDto {
     private String witness2Name;
     private String witness2Address;
 
-    private List<String> sitePhotos;
-    private List<String> aadharImages;
 
     private String meterNumber;
     private String netMeterNumber;
@@ -97,4 +95,12 @@ public class SolarRecordResponseDto {
     private String grReferenceNumber;
     private String grReferenceDate;
     private Double pbgAmount;
+
+    private List<String> vendorStamp;
+    private List<String> vendorSignature;
+    private List<String> consumerSignature;
+    private List<String> msedclSignature;
+    private List<String> witnessSignature;
+    private List<String> sitePhotos;
+    private List<String> aadharImages;
 }

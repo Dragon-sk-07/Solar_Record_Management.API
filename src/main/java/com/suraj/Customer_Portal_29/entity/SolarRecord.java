@@ -149,8 +149,7 @@ public class SolarRecord {
     @Column(name = "vendor_name")
     private String vendorName;
 
-    @Column(name = "vendor_stamp", length = 500)
-    private String vendorStamp;
+
 
     @Column(name = "vendor_address", length = 1000)
     private String vendorAddress;
@@ -216,16 +215,7 @@ public class SolarRecord {
     @Column(name = "witness2_address", length = 1000)
     private String witness2Address;
 
-    // ==================== PHOTOS ====================
-    @ElementCollection
-    @CollectionTable(name = "solar_site_photos", joinColumns = @JoinColumn(name = "solar_record_id"))
-    @Column(name = "photo", columnDefinition = "TEXT")
-    private List<String> sitePhotos;
 
-    @ElementCollection
-    @CollectionTable(name = "solar_aadhar_images", joinColumns = @JoinColumn(name = "solar_record_id"))
-    @Column(name = "aadhar_image", columnDefinition = "TEXT")
-    private List<String> aadharImages;
 
     @Column(name = "meter_number")
     private String meterNumber;
@@ -250,4 +240,20 @@ public class SolarRecord {
 
     @Column(name = "pbg_amount")
     private Double pbgAmount;
+
+    private List<String> vendorSignature;
+    private List<String> consumerSignature;
+    private List<String> msedclSignature;
+    private List<String> vendorStamp;
+    private List<String> witnessSignature;
+
+    @ElementCollection
+    @CollectionTable(name = "solar_site_photos", joinColumns = @JoinColumn(name = "solar_record_id"))
+    @Column(name = "photo", columnDefinition = "TEXT")
+    private List<String> sitePhotos;
+
+    @ElementCollection
+    @CollectionTable(name = "solar_aadhar_images", joinColumns = @JoinColumn(name = "solar_record_id"))
+    @Column(name = "aadhar_image", columnDefinition = "TEXT")
+    private List<String> aadharImages;
 }

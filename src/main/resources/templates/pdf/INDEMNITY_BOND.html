@@ -351,7 +351,13 @@
         <p><strong>For and on behalf of M/s <span th:text="${vendorName}">_________________________</span></strong></p>
         <p>Authorized Representative</p>
         <div class="signature-line-area">
-            <p>Signature: ____________________</p>
+            <p>Signature:</p>
+            <div class="signature-space">
+                <img th:if="${not #lists.isEmpty(vendorSignature)}"
+                     th:src="${vendorSignature[0]}"
+                     style="max-height:60px; max-width:200px; object-fit:contain;"/>
+            </div>
+            <div class="line" th:if="${#lists.isEmpty(vendorSignature)}"></div>
             <p>Name: <span th:text="${authorizedPersonName}">_________________________</span></p>
             <p>Address: <span th:text="${vendorAddress}">_________________________________________________________________________________</span></p>
         </div>
@@ -361,13 +367,25 @@
     <div class="witness-area">
         <div class="witness">
             <strong>Witness I</strong><br/>
-            Signature: ____________________<br/>
+            Signature:<br/>
+            <div class="signature-space">
+                <img th:if="${not #lists.isEmpty(witnessSignature) and #lists.size(witnessSignature) >= 1}"
+                     th:src="${witnessSignature[0]}"
+                     style="max-height:60px; max-width:200px; object-fit:contain;"/>
+            </div>
+            <div class="line" th:if="${#lists.isEmpty(witnessSignature) or #lists.size(witnessSignature) < 1}"></div>
             Name: <span th:text="${witness1Name}">_________________________</span><br/>
             Address: <span th:text="${witness1Address}">_________________________________________________________________________________</span>
         </div>
         <div class="witness">
             <strong>Witness II</strong><br/>
-            Signature: ____________________<br/>
+            Signature:<br/>
+            <div class="signature-space">
+                <img th:if="${not #lists.isEmpty(witnessSignature) and #lists.size(witnessSignature) >= 2}"
+                     th:src="${witnessSignature[1]}"
+                     style="max-height:60px; max-width:200px; object-fit:contain;"/>
+            </div>
+            <div class="line" th:if="${#lists.isEmpty(witnessSignature) or #lists.size(witnessSignature) < 2}"></div>
             Name: <span th:text="${witness2Name}">_________________________</span><br/>
             Address: <span th:text="${witness2Address}">_________________________________________________________________________________</span>
         </div>
@@ -376,7 +394,10 @@
     <!-- Stamp & Seal block as per original -->
     <div style="text-align: center; margin-top: 18px;">
         <div class="stamp-placeholder" style="margin: 0 auto;">
-            <span th:text="${vendorStamp}">(Common Seal / Stamp)</span>
+            <img th:if="${not #lists.isEmpty(vendorStamp)}"
+                 th:src="${vendorStamp[0]}"
+                 style="max-height:65px; max-width:210px; object-fit:contain;"/>
+            <span th:if="${#lists.isEmpty(vendorStamp)}" th:text="${vendorName}">(Common Seal / Stamp)</span>
         </div>
         <p><strong>(Stamp & Seal of the Company)</strong></p>
     </div>

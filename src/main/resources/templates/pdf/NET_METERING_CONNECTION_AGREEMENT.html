@@ -284,62 +284,58 @@
     </p>
 
     <div class="signature-section">
-
         <div class="box">
             <p class="bold">For and on behalf of Eligible Consumer</p>
             <p>Signature:</p>
-            <div class="line"></div>
-            <p class="mt8">Name:
-                <span th:text="${name != null and !#strings.isEmpty(name)} ? ${name} : '....'"></span>
-            </p>
-            <p>Date:
-                <span th:text="${installationDate != null and !#strings.isEmpty(installationDate)} ? ${installationDate} : '....'"></span>
-            </p>
+            <div class="signature-space">
+                <img th:if="${not #lists.isEmpty(consumerSignature)}"
+                     th:src="${consumerSignature[0]}"
+                     style="max-height:60px; max-width:200px; object-fit:contain;"/>
+            </div>
+            <div class="line" th:if="${#lists.isEmpty(consumerSignature)}"></div>
+            <p class="mt8">Name: <span th:text="${name}">....</span></p>
+            <p>Date: <span th:text="${installationDate}">....</span></p>
         </div>
-
         <div class="box">
             <p class="bold">For and on behalf of MSEDCL (Licensee)</p>
             <p>Signature:</p>
-            <div class="line"></div>
-            <p class="mt8">Name:
-                <span th:text="${msedclOfficerName != null and !#strings.isEmpty(msedclOfficerName)} ? ${msedclOfficerName} : '....'"></span>
-            </p>
-            <p>Designation:
-                <span th:text="${msedclOfficerDesignation != null and !#strings.isEmpty(msedclOfficerDesignation)} ? ${msedclOfficerDesignation} : '....'"></span>
-            </p>
-            <p>Date:
-                <span th:text="${installationDate != null and !#strings.isEmpty(installationDate)} ? ${installationDate} : '....'"></span>
-            </p>
+            <div class="signature-space">
+                <img th:if="${not #lists.isEmpty(msedclSignature)}"
+                     th:src="${msedclSignature[0]}"
+                     style="max-height:60px; max-width:200px; object-fit:contain;"/>
+            </div>
+            <div class="line" th:if="${#lists.isEmpty(msedclSignature)}"></div>
+            <p class="mt8">Name: <span th:text="${msedclOfficerName}">....</span></p>
+            <p>Designation: <span th:text="${msedclOfficerDesignation}">....</span></p>
+            <p>Date: <span th:text="${installationDate}">....</span></p>
         </div>
-
     </div>
 
     <div class="witness-section">
-
         <div class="box">
             <p class="bold">Witness 1</p>
-            <p>Name:
-                <span th:text="${witness1Name != null and !#strings.isEmpty(witness1Name)} ? ${witness1Name} : '....'"></span>
-            </p>
-            <p>Address:
-                <span th:text="${witness1Address != null and !#strings.isEmpty(witness1Address)} ? ${witness1Address} : '....'"></span>
-            </p>
+            <p>Name: <span th:text="${witness1Name}">....</span></p>
+            <p>Address: <span th:text="${witness1Address}">....</span></p>
             <p>Signature:</p>
-            <div class="line"></div>
+            <div class="signature-space">
+                <img th:if="${not #lists.isEmpty(witnessSignature) and #lists.size(witnessSignature) >= 1}"
+                     th:src="${witnessSignature[0]}"
+                     style="max-height:60px; max-width:200px; object-fit:contain;"/>
+            </div>
+            <div class="line" th:if="${#lists.isEmpty(witnessSignature) or #lists.size(witnessSignature) < 1}"></div>
         </div>
-
         <div class="box">
             <p class="bold">Witness 2</p>
-            <p>Name:
-                <span th:text="${witness2Name != null and !#strings.isEmpty(witness2Name)} ? ${witness2Name} : '....'"></span>
-            </p>
-            <p>Address:
-                <span th:text="${witness2Address != null and !#strings.isEmpty(witness2Address)} ? ${witness2Address} : '....'"></span>
-            </p>
+            <p>Name: <span th:text="${witness2Name}">....</span></p>
+            <p>Address: <span th:text="${witness2Address}">....</span></p>
             <p>Signature:</p>
-            <div class="line"></div>
+            <div class="signature-space">
+                <img th:if="${not #lists.isEmpty(witnessSignature) and #lists.size(witnessSignature) >= 2}"
+                     th:src="${witnessSignature[1]}"
+                     style="max-height:60px; max-width:200px; object-fit:contain;"/>
+            </div>
+            <div class="line" th:if="${#lists.isEmpty(witnessSignature) or #lists.size(witnessSignature) < 2}"></div>
         </div>
-
     </div>
     <div style="clear:both; height:1px; margin:0; padding:0;"></div>
 </div>

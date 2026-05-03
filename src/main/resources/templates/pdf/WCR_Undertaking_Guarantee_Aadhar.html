@@ -353,12 +353,20 @@
         <!-- Signature Row 1 — Vendor (Left) + Consumer (Right) — stays on PAGE 1 -->
         <div class="signature-row">
             <div class="signature-left">
-                <div class="signature-space"></div>
+                <div class="signature-space">
+                    <img th:if="${not #lists.isEmpty(vendorSignature)}"
+                         th:src="${vendorSignature[0]}"
+                         style="max-height:60px; max-width:200px; object-fit:contain;"/>
+                </div>
                 <span class="signature-label">Signature [Vendor]</span>
                 <span class="signature-name">(<span class="value-field" th:text="${vendorName}">________________</span>)</span>
             </div>
             <div class="signature-right">
-                <div class="signature-space"></div>
+                <div class="signature-space">
+                    <img th:if="${not #lists.isEmpty(consumerSignature)}"
+                         th:src="${consumerSignature[0]}"
+                         style="max-height:60px; max-width:200px; object-fit:contain;"/>
+                </div>
                 <span class="signature-label">Signature [Consumer]</span>
                 <span class="signature-name">(<span class="value-field" th:text="${name}">________________</span>)</span>
             </div>
@@ -381,17 +389,20 @@
     <!-- Signature Row 2 — Vendor (Left) + Stamp & Seal (Right) -->
     <div class="signature-row">
         <div class="signature-left">
-            <div class="signature-space"></div>
+            <div class="signature-space">
+                <img th:if="${not #lists.isEmpty(vendorSignature)}"
+                     th:src="${vendorSignature[0]}"
+                     style="max-height:60px; max-width:200px; object-fit:contain;"/>
+            </div>
             <span class="signature-label">Signature [Vendor]</span>
-            <span class="signature-name">(
-        <span class="value-field" th:text="${vendorName}">
-            _________________________
-        </span>)
-    </span>
+            <span class="signature-name">(<span class="value-field" th:text="${vendorName}">_________________________</span>)</span>
         </div>
         <div class="signature-right">
             <div class="stamp-box">
-                <span th:text="${vendorStamp}">________________</span>
+                <img th:if="${not #lists.isEmpty(vendorStamp)}"
+                     th:src="${vendorStamp[0]}"
+                     style="max-height:70px; max-width:210px; object-fit:contain;"/>
+                <span th:if="${#lists.isEmpty(vendorStamp)}" th:text="${vendorName}">________________</span>
             </div>
             <span class="signature-label">Stamp &amp; Seal</span>
         </div>
