@@ -57,6 +57,29 @@ public class SolarRecordService {
 
     public void delete(String id) {
         SolarRecord entity = findEntityById(id);
+
+        if (entity.getSitePhotos() != null && !entity.getSitePhotos().isEmpty()) {
+            cloudinaryService.deleteFiles(entity.getSitePhotos());
+        }
+        if (entity.getAadharImages() != null && !entity.getAadharImages().isEmpty()) {
+            cloudinaryService.deleteFiles(entity.getAadharImages());
+        }
+        if (entity.getVendorSignature() != null && !entity.getVendorSignature().isEmpty()) {
+            cloudinaryService.deleteFiles(entity.getVendorSignature());
+        }
+        if (entity.getConsumerSignature() != null && !entity.getConsumerSignature().isEmpty()) {
+            cloudinaryService.deleteFiles(entity.getConsumerSignature());
+        }
+        if (entity.getMsedclSignature() != null && !entity.getMsedclSignature().isEmpty()) {
+            cloudinaryService.deleteFiles(entity.getMsedclSignature());
+        }
+        if (entity.getVendorStamp() != null && !entity.getVendorStamp().isEmpty()) {
+            cloudinaryService.deleteFiles(entity.getVendorStamp());
+        }
+        if (entity.getWitnessSignature() != null && !entity.getWitnessSignature().isEmpty()) {
+            cloudinaryService.deleteFiles(entity.getWitnessSignature());
+        }
+
         repository.delete(entity);
     }
 
@@ -306,5 +329,14 @@ public class SolarRecordService {
         }
         setter.accept(result);
     }
-
+    private void deleteRemovedImages(List<String> oldImages, List<String> newImages) {
+        if (oldImages == null || oldImages.isEmpty()) return;
+        if (newImages == null) {
+            cloudinaryService.deleteFiles(oldImages);
+            return;
+        }
+        List<String> toDelete = new ArrayList<>(oldImages);
+        toDelete.removeAll(newImages);
+        cloudinaryService.deleteFiles(toDelete);
+    }
 }

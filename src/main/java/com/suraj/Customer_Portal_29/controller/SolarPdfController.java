@@ -58,7 +58,7 @@ public class SolarPdfController {
             pdfs.add(pdfService.generatePdf("proforma-a", data));
             pdfs.add(pdfService.generatePdf("dcr", data));
             pdfs.add(pdfService.generatePdf("agreement", data));
-            pdfs.add(pdfService.generatePdf("indemnity", data));
+//            pdfs.add(pdfService.generatePdf("indemnity", data));
             pdfs.add(pdfService.generatePdf("site-photos", data));
             byte[] mergedPdf = pdfMergerService.mergePdfs(pdfs);
             return ResponseEntity.ok()
