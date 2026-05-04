@@ -1,104 +1,813 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Front Six - Cover Page</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Solar Installation - Pre-Commissioning Report</title>
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         body {
-            font-family: 'Times New Roman', Times, serif;
-            background: white;
-            padding: 40px;
+            font-family: Arial, Helvetica, sans-serif;
+            background: #ffffff;
+            color: #000000;
+            font-size: 12px;
+            line-height: 1.35;
+            padding: 12px 15px;
         }
-        .cover {
-            max-width: 800px;
+
+        .gov-wrapper {
+            max-width: 1100px;
             margin: 0 auto;
-            text-align: center;
-            border: 2px solid #1a237e;
-            padding: 40px;
-            min-height: 90vh;
+            background: #fff;
         }
-        .company {
-            font-size: 24px;
-            font-weight: bold;
-            color: #1a237e;
-            margin-bottom: 10px;
+
+        /* Header Styles */
+        .header-container {
+            width: 100%;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #000;
+            padding-bottom: 10px;
         }
-        .address {
-            font-size: 11px;
-            color: #555;
-            margin-bottom: 30px;
-        }
-        .title {
-            font-size: 28px;
-            font-weight: bold;
-            margin: 40px 0;
-            color: #1976d2;
-        }
-        .info-box {
-            text-align: left;
-            border-top: 1px solid #ccc;
-            border-bottom: 1px solid #ccc;
-            padding: 20px 0;
-            margin: 30px 0;
-        }
-        .row {
+        .header-top {
             display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 10px;
+            flex-wrap: wrap;
+        }
+        .header-logo {
+            width: 80px;
+            text-align: center;
+        }
+        .header-logo img {
+            max-width: 70px;
+            height: auto;
+        }
+        .header-text {
+            flex: 1;
+            text-align: center;
+        }
+        .msedcl-title {
+            font-size: 14px;
+            font-weight: bold;
+            margin: 0;
+        }
+        .msedcl-subtitle {
+            font-size: 12px;
+            font-weight: bold;
+            margin: 2px 0;
+        }
+        .msedcl-address {
+            font-size: 10px;
+            margin: 2px 0;
+        }
+        .circle-name {
+            font-size: 11px;
+            font-weight: bold;
+            margin-top: 3px;
+        }
+        .header-qr {
+            width: 70px;
+            text-align: center;
+            font-size: 9px;
+        }
+        .header-qr img {
+            max-width: 55px;
+            height: auto;
+        }
+        .form-name {
+            text-align: center;
+            font-size: 13px;
+            font-weight: bold;
+            margin-top: 5px;
+            text-decoration: underline;
+        }
+
+        /* SECTION TITLE */
+        .section-title {
+            font-weight: 700;
+            text-align: center;
+            font-size: 13px;
+        }
+
+        h1 {
+            font-size: 15px;
+            font-weight: 700;
+            text-align: center;
+            text-transform: uppercase;
+            margin: 0 0 8px 0;
+        }
+
+        h2 {
+            font-size: 14px;
+            font-weight: 700;
+            text-align: center;
+            text-transform: uppercase;
+            margin: 0 0 12px 0;
+        }
+
+        /* Tables */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            border: 1px solid #000;
+            font-size: 12px;
+            table-layout: fixed;
+        }
+
+        td, th {
+            border: 1px solid #000;
+            padding: 3px 4px;
+            vertical-align: top;
+        }
+
+        th {
+            background-color: #f5f5f5;
+            font-weight: 700;
+            text-align: center;
+        }
+
+        .col-srno {
+            width: 6%;
+            background: #efefef;
+            font-weight: 700;
+            text-align: center;
+        }
+
+        .col-obs {
+            width: 38%;
+            font-weight: 700;
+        }
+
+        .col-value {
+            width: 56%;
+        }
+
+        .value-field {
+            font-weight: 600;
+        }
+
+        .bold {
+            font-weight: 700;
+        }
+
+        /* Letter format */
+        .letter-date {
+            text-align: right;
+            margin: 10px 0 15px 0;
+        }
+
+        .subject {
+            font-weight: bold;
+            margin: 15px 0 10px 0;
+            text-decoration: underline;
+        }
+
+        .reference {
             margin: 10px 0;
         }
-        .label {
-            width: 35%;
+
+        .reference p {
+            margin: 3px 0;
+        }
+
+        /* Page 2 - Invoice */
+        .invoice-header {
+            text-align: center;
+            font-size: 22px;
+            font-weight: bold;
+            margin: 20px 0;
+        }
+
+        .invoice-details {
+            margin: 15px 0;
+        }
+
+        .invoice-table th, .invoice-table td {
+            border: 1px solid #000;
+            padding: 8px;
+            text-align: left;
+        }
+
+        .invoice-table th {
+            background-color: #e0e0e0;
+        }
+
+        .declaration {
+            margin-top: 20px;
+            font-style: italic;
+        }
+
+        /* Note text */
+        .note-text {
+            font-size: 10pt;
+            margin-top: 15px;
+            color: #333;
+        }
+
+        .note-text ul {
+            margin-left: 25px;
+        }
+
+        /* Inspection grid */
+        .inspection-grid {
+            display: flex;
+            flex-wrap: wrap;
+            margin: 10px 0;
+        }
+
+        .inspection-item {
+            width: 50%;
+            margin: 5px 0;
+        }
+
+        .inspection-label {
             font-weight: bold;
         }
-        .value {
-            width: 65%;
-            border-bottom: 1px dotted #999;
+
+        /* Signature areas */
+        .signature-row {
+            display: table;
+            width: 100%;
+            table-layout: fixed;
+            margin: 18px 0 10px 0;
         }
-        .footer {
-            margin-top: 50px;
-            font-size: 11px;
-            color: #777;
+
+        .signature-left, .signature-right {
+            display: table-cell;
+            width: 50%;
+            vertical-align: top;
         }
-        .badge {
-            background: #4caf50;
-            color: white;
-            padding: 5px 15px;
-            border-radius: 20px;
-            display: inline-block;
+
+        .signature-left {
+            text-align: center;
+            padding-right: 0;
+        }
+
+        .signature-right {
+            text-align: center;
+            padding-left: 0;
+        }
+
+        .signature-label {
+            font-weight: 700;
+            display: block;
             font-size: 12px;
+            margin-top: 4px;
+            margin-bottom: 0;
+            text-align: center;
+        }
+
+        .signature-space {
+            height: 55px;
+            margin-top: 0;
+        }
+
+        .signature-name {
+            display: block;
+            margin-top: 0;
+            font-size: 12px;
+            text-align: center;
+        }
+
+        .signature-area {
+            display: flex;
+            justify-content: space-between;
+            margin: 30px 0 20px 0;
+        }
+
+        .signature-box {
+            text-align: center;
+            width: 45%;
+        }
+
+        /* Stamp box */
+        .stamp-box {
+            border: 1.5px solid #000;
+            height: 75px;
+            width: 220px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #fff;
+            margin: 5px auto 0 auto;
+            font-size: 11px;
+            text-align: center;
+        }
+
+        /* Remarks */
+        .remarks {
+            margin-top: 20px;
+            background-color: #f9f9f9;
+            padding: 10px;
+            border-left: 3px solid #333;
+        }
+
+        /* Aadhar block */
+        .aadhar-block {
+            margin-top: 16px;
+            border: 1.5px solid #000;
+            padding: 10px;
+        }
+
+        .aadhar-number-text {
+            font-weight: 700;
+            margin: 6px 0 10px 0;
+        }
+
+        .aadhar-images-container {
+            display: flex !important;
+            flex-direction: column !important;
+            align-items: center !important;
+            justify-content: center !important;
+            width: 100%;
+            gap: 16px;
+            margin: 10px 0;
+        }
+
+        .aadhar-image-box {
+            border: 2px dashed #444;
+            background: #f9f9f9;
+            width: 320px;
+            min-height: 210px;
+            height: auto;
+            display: block;
+            margin: 0 auto;
+            padding: 8px;
+            overflow: visible;
+            text-align: center;
+        }
+
+        .aadhar-image {
+            width: auto;
+            height: auto;
+            max-width: 100%;
+            max-height: none;
+            object-fit: contain;
+            border: 1px solid #aaa;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.15);
+            background: #fff;
+            display: block;
+            margin: 0 auto;
+        }
+
+        .text-right {
+            text-align: right;
+        }
+
+        /* Page break */
+        .page-break {
+            page-break-before: always;
+            break-before: page;
+            margin: 0;
+        }
+
+        /* Print styles */
+        @media print {
+            body {
+                padding: 0;
+                margin: 0;
+            }
+            .page-1-content {
+                page-break-after: always;
+            }
+            .page-break {
+                page-break-before: always;
+            }
+            .signature-row, .aadhar-image-box, .aadhar-block {
+                page-break-inside: avoid;
+            }
+            .aadhar-images-container {
+                display: flex !important;
+                flex-direction: column !important;
+                align-items: center !important;
+                justify-content: center !important;
+                width: 100% !important;
+            }
+            .aadhar-image-box {
+                display: flex !important;
+                align-items: center !important;
+                justify-content: center !important;
+                margin: 0 auto 16px auto !important;
+            }
         }
     </style>
 </head>
 <body>
-<div class="cover">
-    <div class="company">Arihant Energy Solutions</div>
-    <div class="address">
-        Near Anuje Hospital, Kurundwad, Tal-shirol, Dist. Kolhapur - 416301<br/>
-        Email: arihantsolar@gmail.com | Mob: 9767334454 / 7774855501<br/>
-        Maharashtra State Electricity Distribution Company Limited
+<div class="gov-wrapper">
+
+    <!-- ==================== HEADER (EMBEDDED DIRECTLY) ==================== -->
+    <div class="header-container">
+        <div class="header-top">
+            <div class="header-logo">
+                <img th:if="${not #lists.isEmpty(msedclLogo)}" th:src="${msedclLogo[0]}" alt="MSEDCL Logo" style="max-width:70px;"/>
+                <span th:if="${#lists.isEmpty(msedclLogo)}" style="font-size:10px;">[Logo]</span>
+            </div>
+            <div class="header-text">
+                <div class="msedcl-title">महाराष्ट्र राज्य विद्युत वितरण कंपनी लिमिटेड</div>
+                <div class="msedcl-title">MAHARASHTRA STATE ELECTRICITY DISTRIBUTION COMPANY LIMITED</div>
+                <div class="msedcl-subtitle">(A Government of Maharashtra Undertaking)</div>
+                <div class="msedcl-address">भूमीपुत्र भवन, स्टेशन रोड, औरंगाबाद - 431005</div>
+                <div class="msedcl-address">Bhumiputra Bhavan, Station Road, Aurangabad - 431005</div>
+                <div class="circle-name">Circle: <span th:text="${circleName != null ? circleName : '_________________________'}">_________________________</span></div>
+            </div>
+            <div class="header-qr">
+                <img th:if="${not #lists.isEmpty(qrCode)}" th:src="${qrCode[0]}" alt="QR Code" style="max-width:55px;"/>
+                <span th:if="${#lists.isEmpty(qrCode)}" style="font-size:8px;">[QR]</span>
+                <div>MSEDCL</div>
+                <div>Digital</div>
+            </div>
+        </div>
+        <div class="form-name">PRE-COMMISSIONING INSPECTION REPORT - SOLAR ROOFTOP SYSTEM</div>
     </div>
 
-    <div class="title">SOLAR ROOFTOP INSTALLATION<br/>DOCUMENTATION PACKAGE</div>
+    <!-- ==================== PAGE 1 ==================== -->
+    <div class="page-1-content">
 
-    <div class="info-box">
-        <div class="row"><div class="label">Consumer Name:</div><div class="value" th:text="${name}">_________</div></div>
-        <div class="row"><div class="label">Consumer Number:</div><div class="value" th:text="${consumerNumber}">_________</div></div>
-        <div class="row"><div class="label">Site Address:</div><div class="value" th:text="${siteAddress}">_________</div></div>
-        <div class="row"><div class="label">Sanction Number:</div><div class="value" th:text="${sanctionNumber}">_________</div></div>
-        <div class="row"><div class="label">Sanctioned Capacity:</div><div class="value" th:text="${sanctionedCapacity}">_________ KW</div></div>
-        <div class="row"><div class="label">Installed Capacity:</div><div class="value" th:text="${installedCapacity}">_________ KW</div></div>
-        <div class="row"><div class="label">Installation Date:</div><div class="value" th:text="${installationDate}">_________</div></div>
-        <div class="row"><div class="label">Vendor Name:</div><div class="value" th:text="${vendorName}">_________</div></div>
-        <div class="row"><div class="label">Module Make:</div><div class="value" th:text="${moduleMake}">_________</div></div>
-        <div class="row"><div class="label">Number of Modules:</div><div class="value" th:text="${numberOfModules}">_________</div></div>
-        <div class="row"><div class="label">Total Capacity:</div><div class="value" th:text="${totalCapacityKWP}">_________ KWP</div></div>
+        <!-- Letter Date -->
+        <div class="letter-date">
+            Date: <span th:text="${currentDate != null ? currentDate : #dates.format(#dates.createNow(), 'dd-MMM-yyyy')}">_________________________</span>
+        </div>
+
+        <!-- To Address -->
+        <div style="margin: 15px 0;">
+            To,<br/>
+            Executive Engineer,<br/>
+            M.S.E.D.C.Ltd,<br/>
+            <span th:text="${place != null and place != '_________________________' ? place : 'Sangli'}">_________________________</span>
+        </div>
+
+        <!-- Subject -->
+        <div class="subject">
+            Subject: Regarding Generation meter testing.
+        </div>
+
+        <!-- Reference -->
+        <div class="reference">
+            <p>Ref: 1. Consumer name: <span th:text="${name}">_________________________</span></p>
+            <p>2. Consumer Number: <span th:text="${consumerNumber}">_________________________</span></p>
+            <p>3. Sanction Number: <span th:text="${sanctionNumber}">_________________________</span></p>
+            <p>4. Scheme name: PM Suryghar Muft Bijli Yojana</p>
+        </div>
+
+        <!-- Letter Body -->
+        <div style="margin: 20px 0; text-align: justify;">
+            <p>Dear Sir/Madam,</p>
+            <p style="margin-top: 10px;">With reference to above mentioned subject, the consumer has completed required documents for solar connection. Hence, we request to please proceed with the testing of below mentioned meter.</p>
+        </div>
+
+        <!-- Meter Details Table -->
+        <table style="width: 60%; margin: 20px 0 20px 0;">
+            <tr><td style="border: none; padding: 4px;"><strong>Meter Details:</strong></td><td style="border: none;"></td></tr>
+            <tr><td style="border: none; padding: 4px;">Make:</td><td style="border: none; border-bottom: 1px solid #000;" th:text="${meterMake != null ? meterMake : '_________________________'}">_________________________</td></tr>
+            <tr><td style="border: none; padding: 4px;">Sr. No.:</td><td style="border: none; border-bottom: 1px solid #000;" th:text="${meterNumber}">_________________________</td></tr>
+            <tr><td style="border: none; padding: 4px;">Phase:</td><td style="border: none; border-bottom: 1px solid #000;" th:text="${connectionType != null ? connectionType : '1 Phase'}">1 Phase</td></tr>
+            <tr><td style="border: none; padding: 4px;">Range:</td><td style="border: none; border-bottom: 1px solid #000;">5-30A</td></tr>
+        </table>
+
+        <div style="margin-top: 30px;">
+            Thanking you.
+        </div>
     </div>
 
-    <div><span class="badge">✓ MSEDCL Compliant</span></div>
+    <!-- ==================== PAGE 2 - TAX INVOICE ==================== -->
+    <div class="page-break"></div>
 
-    <div class="footer">
-        Includes: WCR Undertaking | Annexure-I | DCR Declaration | Net Metering Agreement | Site Photos
+    <!-- Header repeat on Page 2 -->
+    <div class="header-container">
+        <div class="header-top">
+            <div class="header-logo">
+                <img th:if="${not #lists.isEmpty(msedclLogo)}" th:src="${msedclLogo[0]}" alt="MSEDCL Logo" style="max-width:70px;"/>
+                <span th:if="${#lists.isEmpty(msedclLogo)}" style="font-size:10px;">[Logo]</span>
+            </div>
+            <div class="header-text">
+                <div class="msedcl-title">महाराष्ट्र राज्य विद्युत वितरण कंपनी लिमिटेड</div>
+                <div class="msedcl-title">MAHARASHTRA STATE ELECTRICITY DISTRIBUTION COMPANY LIMITED</div>
+                <div class="msedcl-subtitle">(A Government of Maharashtra Undertaking)</div>
+                <div class="msedcl-address">भूमीपुत्र भवन, स्टेशन रोड, औरंगाबाद - 431005</div>
+                <div class="msedcl-address">Bhumiputra Bhavan, Station Road, Aurangabad - 431005</div>
+                <div class="circle-name">Circle: <span th:text="${circleName != null ? circleName : '_________________________'}">_________________________</span></div>
+            </div>
+            <div class="header-qr">
+                <img th:if="${not #lists.isEmpty(qrCode)}" th:src="${qrCode[0]}" alt="QR Code" style="max-width:55px;"/>
+                <span th:if="${#lists.isEmpty(qrCode)}" style="font-size:8px;">[QR]</span>
+                <div>MSEDCL</div>
+                <div>Digital</div>
+            </div>
+        </div>
+        <div class="form-name">TAX INVOICE - GENERATION METER</div>
     </div>
+
+    <div class="invoice-header">TAX INVOICE</div>
+
+    <div class="invoice-details">
+        <p><strong>PREPARED FOR</strong> <span th:text="${name}">_________________________</span></p>
+        <p><span th:text="${siteAddress}">_________________________________________________________________________________</span></p>
+        <p><strong>PREPARED DATE</strong> <span th:text="${installationDate}">_________________________</span></p>
+    </div>
+
+    <table class="invoice-table">
+        <thead>
+        <tr><th>ITEM</th><th>QTY</th><th>GST</th><th>PRICE</th><th>TOTAL</th></tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>Generation Meter-1 Phase,5-30A<br/>Sr.No.-<span th:text="${meterNumber}">_________________________</span></td>
+            <td>1</td>
+            <td>18%</td>
+            <td>2100</td>
+            <td>2478</td>
+        </tr>
+        </tbody>
+    </table>
+
+    <div class="declaration">
+        <p>I declare that the above information mentioned is true to the best of my knowledge.</p>
+    </div>
+
+    <div style="margin-top: 50px;">
+        <div style="float: right; text-align: center;">
+            <div class="signature-space">
+                <img th:if="${not #lists.isEmpty(vendorSignature)}" th:src="${vendorSignature[0]}" style="max-height:60px; max-width:200px; object-fit:contain;"/>
+            </div>
+            <div>Authorized Signatory</div>
+        </div>
+    </div>
+    <div style="clear: both;"></div>
+
+    <!-- ==================== PAGE 3 - CHECKING OF ELIGIBILITY CRITERIA ==================== -->
+    <div class="page-break"></div>
+
+    <!-- Header repeat on Page 3 -->
+    <div class="header-container">
+        <div class="header-top">
+            <div class="header-logo">
+                <img th:if="${not #lists.isEmpty(msedclLogo)}" th:src="${msedclLogo[0]}" alt="MSEDCL Logo" style="max-width:70px;"/>
+                <span th:if="${#lists.isEmpty(msedclLogo)}" style="font-size:10px;">[Logo]</span>
+            </div>
+            <div class="header-text">
+                <div class="msedcl-title">महाराष्ट्र राज्य विद्युत वितरण कंपनी लिमिटेड</div>
+                <div class="msedcl-title">MAHARASHTRA STATE ELECTRICITY DISTRIBUTION COMPANY LIMITED</div>
+                <div class="msedcl-subtitle">(A Government of Maharashtra Undertaking)</div>
+                <div class="msedcl-address">भूमीपुत्र भवन, स्टेशन रोड, औरंगाबाद - 431005</div>
+                <div class="msedcl-address">Bhumiputra Bhavan, Station Road, Aurangabad - 431005</div>
+                <div class="circle-name">Circle: <span th:text="${circleName != null ? circleName : '_________________________'}">_________________________</span></div>
+            </div>
+            <div class="header-qr">
+                <img th:if="${not #lists.isEmpty(qrCode)}" th:src="${qrCode[0]}" alt="QR Code" style="max-width:55px;"/>
+                <span th:if="${#lists.isEmpty(qrCode)}" style="font-size:8px;">[QR]</span>
+                <div>MSEDCL</div>
+                <div>Digital</div>
+            </div>
+        </div>
+        <div class="form-name">ELIGIBILITY CHECK - SOLAR ROOFTOP SYSTEM</div>
+    </div>
+
+    <div class="section-title" style="text-align:left; margin:10px 0;">1) Checking of Eligibility Criteria:</div>
+
+    <table class="bordered-table">
+        <thead>
+        <tr><th>Sr.No.</th><th>Points to be checked</th><th>Observation</th></tr>
+        </thead>
+        <tbody>
+        <tr><td>1</td><td>The Consumer sanctioned load shall be at least 1 KW but not exceeding 20 KW</td><td>Yes (Connected/Sanction Load: <span th:text="${sanctionedCapacity}">_________________________</span> kW)</td></tr>
+        <tr><td>2</td><td>Nos of Solar Module Installed & Capacity of each Module</td><td><span th:text="${numberOfModules}">_________________________</span> Nos <span th:text="${wattagePerModule}">_________________________</span> Wp</td></tr>
+        <tr><td>3</td><td>The Solar Roof Top Capacity in DC</td><td><span th:text="${totalCapacityKWP}">_________________________</span> KWp</td></tr>
+        <tr><td>4</td><td>Solar Roof Top Capacity in AC</td><td><span th:text="${totalCapacityKWP}">_________________________</span> KW</td></tr>
+        <tr><td>5</td><td>Whether AC capacity less than equal to Sanctioned load</td><td th:text="${acCapacityLessThanSanctioned != null ? acCapacityLessThanSanctioned : 'YES'}">YES</td></tr>
+        <tr><td>6</td><td>Is consumer is in arrears</td><td th:text="${consumerInArrears != null ? consumerInArrears : 'NO'}">NO</td></tr>
+        <tr><td>7</td><td>Single line schematic diagrams in respect of its system facility</td><td th:text="${singleLineDiagramSubmitted != null ? singleLineDiagramSubmitted : 'NO'}">NO</td></tr>
+        <tr><td>8</td><td>Equipment Layout and Wire Routing Diagram</td><td>Submitted Yes/No</td></tr>
+        <tr><td>9</td><td>Earthing Layout Diagram with Detailed Specification</td><td th:text="${earthingLayoutSubmitted != null ? earthingLayoutSubmitted : 'NO'}">NO</td></tr>
+        <tr><td>10</td><td>List of equipment installed along with detailed specifications duly signed by the licensed electrical contractor/ Solar PV installer</td><td>Submitted Yes/No</td></tr>
+        <tr><td>11</td><td>Certificate/Undertaking towards proper working of islanding system, electrical safety of the system & responsibility in case of back feed to the de-energized grid</td><td>Submitted Yes/No</td></tr>
+        </tbody>
+    </table>
+
+    <div class="note-text">
+        <p><strong>Note:</strong></p>
+        <ul>
+            <li>If consumer fails any of the eligibility criteria, then no further pre-commissioning procedure shall be done till correction of default. (Letter to the consumer mentioning defects shall be intimated to consumer by AE(QC) through SDO).</li>
+            <li>In case, consumer is enhancing its Roof Top Solar capacity, in such case also above points to be checked.</li>
+            <li>** In case, consumer sanctioned load is more than 20 KW, the said case shall be referred to Testing Division of circle.</li>
+            <li>Once above Eligibility criteria is comply by consumer, then pre-commissioning Inspection and Testing shall be done at actual site.</li>
+        </ul>
+    </div>
+
+    <!-- ==================== PAGE 4 - INSPECTION DETAILS (PART 1) ==================== -->
+    <div class="page-break"></div>
+
+    <!-- Header repeat on Page 4 -->
+    <div class="header-container">
+        <div class="header-top">
+            <div class="header-logo">
+                <img th:if="${not #lists.isEmpty(msedclLogo)}" th:src="${msedclLogo[0]}" alt="MSEDCL Logo" style="max-width:70px;"/>
+                <span th:if="${#lists.isEmpty(msedclLogo)}" style="font-size:10px;">[Logo]</span>
+            </div>
+            <div class="header-text">
+                <div class="msedcl-title">महाराष्ट्र राज्य विद्युत वितरण कंपनी लिमिटेड</div>
+                <div class="msedcl-title">MAHARASHTRA STATE ELECTRICITY DISTRIBUTION COMPANY LIMITED</div>
+                <div class="msedcl-subtitle">(A Government of Maharashtra Undertaking)</div>
+                <div class="msedcl-address">भूमीपुत्र भवन, स्टेशन रोड, औरंगाबाद - 431005</div>
+                <div class="msedcl-address">Bhumiputra Bhavan, Station Road, Aurangabad - 431005</div>
+                <div class="circle-name">Circle: <span th:text="${circleName != null ? circleName : '_________________________'}">_________________________</span></div>
+            </div>
+            <div class="header-qr">
+                <img th:if="${not #lists.isEmpty(qrCode)}" th:src="${qrCode[0]}" alt="QR Code" style="max-width:55px;"/>
+                <span th:if="${#lists.isEmpty(qrCode)}" style="font-size:8px;">[QR]</span>
+                <div>MSEDCL</div>
+                <div>Digital</div>
+            </div>
+        </div>
+        <div class="form-name">INSPECTION REPORT - EARTHING & PROTECTION SWITCHGEAR</div>
+    </div>
+
+    <div class="inspection-grid">
+        <div class="inspection-item"><span class="inspection-label">1 Details of Inspecting Office (Name, Designation, Subdivision):</span> <span th:text="${inspectorName}">_________________________</span></div>
+        <div class="inspection-item"><span class="inspection-label">2 Date and Time of Inspection:</span> <span th:text="${installationDate}">_________________________</span></div>
+        <div class="inspection-item"><span class="inspection-label">3 Name of the Consumer:</span> <span th:text="${name}">_________________________</span></div>
+        <div class="inspection-item"><span class="inspection-label">4 Address of Consumer:</span> <span th:text="${siteAddress}">_________________________________________________________________________________</span></div>
+        <div class="inspection-item"><span class="inspection-label">5 Consumer No.:</span> <span th:text="${consumerNumber}">_________________________</span></div>
+        <div class="inspection-item"><span class="inspection-label">5.A Name of Billing Unit:</span> <span th:text="${billingUnit != null ? billingUnit : '1228/Miraj Urban'}">_________________________</span></div>
+        <div class="inspection-item"><span class="inspection-label">6 MSEDCL Existing Sanction & Connected Load(AC in Kw):</span> <span th:text="${sanctionedCapacity}">_________________________</span> kW</div>
+        <div class="inspection-item"><span class="inspection-label">7 Type of connection (1Ph/3Ph):</span> <span th:text="${connectionType != null ? connectionType : '1 Phase'}">1 Phase</span></div>
+        <div class="inspection-item"><span class="inspection-label">8 Consumer Tariff Category:</span> <span th:text="${category != null ? category : 'Residential'}">Residential</span></div>
+        <div class="inspection-item"><span class="inspection-label">9 Installed Solar Roof Top System(AC Cap):</span> <span th:text="${totalCapacityKWP}">_________________________</span> kW</div>
+        <div class="inspection-item"><span class="inspection-label">9.A Whether Point of Supply Drawing submitted:</span> NO</div>
+    </div>
+
+    <div class="section-title" style="text-align:left;">CHECKING OF EARTHING SYSTEM</div>
+    <table>
+        <tr><td>10 Separate Earthing provided for LA Earthing</td><td th:text="${lighteningArresterYesNo != null ? lighteningArresterYesNo : 'Yes'}">Yes</td></tr>
+        <tr><td>11 Separate Earthing provided for Solar Panel Structure</td><td>Yes</td></tr>
+        <tr><td>12 Earthing provided DCBB Earthing</td><td>Yes</td></tr>
+        <tr><td>13 Earthing provided ACBB Earthing</td><td>Yes</td></tr>
+        <tr><td>14 Separate Earthing provided Grid Inverter Built(AC side Earthing)</td><td>Yes</td></tr>
+        <tr><td>15 Earthing provided to Metering cubicle</td><td>Yes/No</td></tr>
+        <tr><td>16 All Metallic body Parts earthed</td><td>Yes</td></tr>
+    </table>
+
+    <div class="section-title" style="text-align:left;">Checking of Protection Switchgear</div>
+    <table>
+        <tr><td>17 DC Fuses provided after Solar Modules</td><td>YES</td></tr>
+        <tr><td>18 AC Junction Box provided with Built in Surge protector device</td><td>YES</td></tr>
+        <tr><td>19 Separate Lightning Arrestor provided before Solar Panel</td><td>YES</td></tr>
+        <tr><td>20 Internal Protection provided after Grid-tie Inverter with MCC/MCB Rating-: Amp</td><td>Yes</td></tr>
+        <tr><td>21 ACDB provided with Built in Surge Protector</td><td>YES</td></tr>
+        <tr><td>22 Manual Operated Isolation switch of rated Capacity provided for protection, If Yes<br/>1. Whether switch has visible verification that separation has been accomplished<br/>2. Whether switch clearly indicate Open/Close Position<br/>3. Whether switch has facility of locking in open Position</td><td>Yes</td></tr>
+        <tr><td>23 MCB Provided before Load side</td><td>YES</td></tr>
+    </table>
+
+    <!-- ==================== PAGE 5 - INSPECTION DETAILS (PART 2) ==================== -->
+    <div class="page-break"></div>
+
+    <!-- Header repeat on Page 5 -->
+    <div class="header-container">
+        <div class="header-top">
+            <div class="header-logo">
+                <img th:if="${not #lists.isEmpty(msedclLogo)}" th:src="${msedclLogo[0]}" alt="MSEDCL Logo" style="max-width:70px;"/>
+                <span th:if="${#lists.isEmpty(msedclLogo)}" style="font-size:10px;">[Logo]</span>
+            </div>
+            <div class="header-text">
+                <div class="msedcl-title">महाराष्ट्र राज्य विद्युत वितरण कंपनी लिमिटेड</div>
+                <div class="msedcl-title">MAHARASHTRA STATE ELECTRICITY DISTRIBUTION COMPANY LIMITED</div>
+                <div class="msedcl-subtitle">(A Government of Maharashtra Undertaking)</div>
+                <div class="msedcl-address">भूमीपुत्र भवन, स्टेशन रोड, औरंगाबाद - 431005</div>
+                <div class="msedcl-address">Bhumiputra Bhavan, Station Road, Aurangabad - 431005</div>
+                <div class="circle-name">Circle: <span th:text="${circleName != null ? circleName : '_________________________'}">_________________________</span></div>
+            </div>
+            <div class="header-qr">
+                <img th:if="${not #lists.isEmpty(qrCode)}" th:src="${qrCode[0]}" alt="QR Code" style="max-width:55px;"/>
+                <span th:if="${#lists.isEmpty(qrCode)}" style="font-size:8px;">[QR]</span>
+                <div>MSEDCL</div>
+                <div>Digital</div>
+            </div>
+        </div>
+        <div class="form-name">INSPECTION REPORT - ISLANDING & METERING DETAILS</div>
+    </div>
+
+    <table>
+        <tr><td>24 Net Metering cabinet with ELCB/RCCB protection of rated capacity with Sealing arrangement for 3ph</td><td>Not Applicable.</td></tr>
+        <tr><td>24A Net Metering with ELCB/RCCB protection for 1ph.<br/>If Yes, Rating- Amp.mA</td><td>Yes</td></tr>
+    </table>
+
+    <div class="section-title" style="text-align:left;">Checking of Islanding Mode of Operation</div>
+    <table>
+        <tr><td>25 Checking of Islanding mode of Solar System by disconnecting from grid supply and also with Single phasing of Grid (in case of 3phase power supply to consumer)</td><td>Checked Yes/No, If Yes working satisfactory Yes/No</td></tr>
+        <tr><td>26 In case of Solar Inverter with Storage Battery or DG as standby source to Solar Inverter, please check whether separate wiring done & change over switch is provided<br/>If Yes, Please check Operation to ensure that no reverse power fed into Grid in case of switching of Operation of Solar Inverter with Reference voltage from Storage battery/DG</td><td>Provided Yes/No</td></tr>
+    </table>
+
+    <div class="section-title" style="text-align:left;">Net Metering System Details</div>
+    <table>
+        <tr><td>27 Net meter Installed in Grid/Network system at the time of Joint Inspection</td><td>Yes/No</td></tr>
+        <tr><td>28 Net meter is Tested at MSEDCL Testing-Division Lab</td><td>Yes/No, If Yes, Testing date & Seal Nos</td></tr>
+        <tr><td>29 Meter make</td><td th:text="${meterMake != null ? meterMake : '_________________________'}">_________________________</td></tr>
+        <tr><td>30 Meter Type</td><td>DLMS, Generation Meter</td></tr>
+        <tr><td>31 Meter Serial No</td><td th:text="${netMeterNumber}">_________________________</td></tr>
+        <tr><td>32 Meter Class of Accuracy</td><td>_________________________</td></tr>
+        <tr><td>33 Meter Capacity</td><td>_________________________</td></tr>
+        <tr><td>34 Meter Constant</td><td>5-30A</td></tr>
+        <tr><td>35 Meter Initial Reading</td><td>_________________________</td></tr>
+        <tr><td>36 Location meter easily assessable for meter reading</td><td>Yes</td></tr>
+    </table>
+
+    <div class="section-title" style="text-align:left;">Generation Meter Details</div>
+    <table>
+        <tr><td>37 Generation meter Installed for recording Solar Generation</td><td>Yes/No</td></tr>
+        <tr><td>38 Meter is Tested at MSEDCL Testing-Division Lab</td><td>Yes/No, If Yes, Testing date & Seal Nos</td></tr>
+        <tr><td>38A Meter make</td><td th:text="${meterMake != null ? meterMake : '_________________________'}">_________________________</td></tr>
+        <tr><td>39 Meter Type</td><td>DLMS, Generation Meter</td></tr>
+        <tr><td>40 Meter Serial No</td><td th:text="${meterNumber}">_________________________</td></tr>
+        <tr><td>41 Meter Class of Accuracy</td><td>_________________________</td></tr>
+        <tr><td>42 Meter Capacity</td><td>_________________________</td></tr>
+        <tr><td>43 Meter Constant</td><td>_________________________</td></tr>
+        <tr><td>44 Meter Initial Reading</td><td>_________________________</td></tr>
+        <tr><td>45 Location meter easily assessable for meter reading</td><td>Yes</td></tr>
+    </table>
+
+    <!-- ==================== PAGE 6 - EQUIPMENT DETAILS & OBSERVATIONS ==================== -->
+    <div class="page-break"></div>
+
+    <!-- Header repeat on Page 6 -->
+    <div class="header-container">
+        <div class="header-top">
+            <div class="header-logo">
+                <img th:if="${not #lists.isEmpty(msedclLogo)}" th:src="${msedclLogo[0]}" alt="MSEDCL Logo" style="max-width:70px;"/>
+                <span th:if="${#lists.isEmpty(msedclLogo)}" style="font-size:10px;">[Logo]</span>
+            </div>
+            <div class="header-text">
+                <div class="msedcl-title">महाराष्ट्र राज्य विद्युत वितरण कंपनी लिमिटेड</div>
+                <div class="msedcl-title">MAHARASHTRA STATE ELECTRICITY DISTRIBUTION COMPANY LIMITED</div>
+                <div class="msedcl-subtitle">(A Government of Maharashtra Undertaking)</div>
+                <div class="msedcl-address">भूमीपुत्र भवन, स्टेशन रोड, औरंगाबाद - 431005</div>
+                <div class="msedcl-address">Bhumiputra Bhavan, Station Road, Aurangabad - 431005</div>
+                <div class="circle-name">Circle: <span th:text="${circleName != null ? circleName : '_________________________'}">_________________________</span></div>
+            </div>
+            <div class="header-qr">
+                <img th:if="${not #lists.isEmpty(qrCode)}" th:src="${qrCode[0]}" alt="QR Code" style="max-width:55px;"/>
+                <span th:if="${#lists.isEmpty(qrCode)}" style="font-size:8px;">[QR]</span>
+                <div>MSEDCL</div>
+                <div>Digital</div>
+            </div>
+        </div>
+        <div class="form-name">EQUIPMENT DETAILS & FINAL OBSERVATION</div>
+    </div>
+
+    <div class="section-title" style="text-align:left;">Solar System Equipment Details</div>
+    <table class="bordered-table">
+        <tr><td>46 Grid Tie Inverter Make:</td><td th:text="${inverterMake}">_________________________</td></tr>
+        <tr><td>47 Inverter Capacity(AC Kw/Kva)</td><td th:text="${inverterCapacity}">_________________________</td></tr>
+        <tr><td>48 PV Module make:</td><td th:text="${moduleMake}">_________________________</td></tr>
+        <tr><td>49 PV Module Nos</td><td th:text="${numberOfModules}">_________________________</td></tr>
+        <tr><td>50 PV Module serial Nos</td><td th:text="${moduleSerialNumbers}">_________________________________________________________________________________</td></tr>
+        <tr><td>51 No. of strings:</td><td th:text="${numberOfStrings != null ? numberOfStrings : '1'}">1</td></tr>
+        <tr><td>52 Rating of Each PV modules & total Capacity</td><td><span th:text="${wattagePerModule}">_________________________</span> watt / <span th:text="${totalCapacityKWP}">_________________________</span> kW</td></tr>
+    </table>
+
+    <div class="section-title" style="text-align:left;">Checking of connection of Meter</div>
+    <table>
+        <tr><td>53 Generation Meter connection</td><td>_________________________</td></tr>
+        <tr><td>54 Net Meter connection</td><td>_________________________</td></tr>
+    </table>
+
+    <div class="section-title" style="text-align:left;">Overall Observation</div>
+    <table class="bordered-table">
+        <tr><td>55 Found that Inverter is working in Healthy condition (Yes/No)</td><td th:text="${inverterHealthy != null ? inverterHealthy : 'Yes'}">Yes</td></tr>
+        <tr><td>56 Islanding of Solar System working Satisfactory</td><td th:text="${islandingWorking != null ? islandingWorking : 'Yes'}">Yes</td></tr>
+        <tr><td>57 The Above inspected Solar Invertors system with associated equipment & Metering system can be taken into system (Yes/No)</td><td th:text="${systemReady != null ? systemReady : 'Yes'}">Yes</td></tr>
+        <tr><td>58 If, No, Discrepancies to be attended by consumer (Please mention Serial Nos of Points to be complied by consumers)</td><td>_________________________</td></tr>
+    </table>
+
+    <div class="signature-area">
+        <div class="signature-box">
+            <div>Consumer Representative</div>
+            <div class="signature-space">
+                <img th:if="${not #lists.isEmpty(consumerSignature)}" th:src="${consumerSignature[0]}" style="max-height:60px; max-width:200px; object-fit:contain;"/>
+            </div>
+            <div>(<span th:text="${name}">_________________________</span>)</div>
+        </div>
+        <div class="signature-box">
+            <div>Contractor Representative</div>
+            <div class="signature-space">
+                <img th:if="${not #lists.isEmpty(vendorSignature)}" th:src="${vendorSignature[0]}" style="max-height:60px; max-width:200px; object-fit:contain;"/>
+            </div>
+            <div>(<span th:text="${vendorName}">_________________________</span>)</div>
+        </div>
+    </div>
+
+    <div class="remarks">
+        <p><strong>Remarks:-</strong></p>
+        <p>In the presence of backup inverter an arrangement should be made in such way that the backup inverter supply should never be synchronised with solar inverter to avoid any electrical accident due to back feeding. If Islanding is not working satisfactory then connection should not be released by AE(QC) and agency should be instructed to solve the islanding issue.</p>
+        <p style="margin-top: 10px;">In case of DG synchronisation, synchronised panel protection, uv and frequency should be verified</p>
+        <p style="margin-top: 10px;">Please refer "Sample detailed specification of typical rooftop photovoltaic system" and MSEDCL commercial circular No- 322 dated 21-01-2019 regarding "connectivity to the Distribution network of MSEDCL for eligible consumers installing Rooftop Renewable Energy Generating Systems in his premises under MERC (Grid Interactive Rooftop Renewable Energy Generating Systems) Regulations, 2019- Procedure for Application, methodology for Metering & Billing, etc."</p>
+    </div>
+
 </div>
 </body>
 </html>
