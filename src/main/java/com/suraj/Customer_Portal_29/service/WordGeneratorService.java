@@ -22,13 +22,22 @@ public class WordGeneratorService {
 
     private String mapTemplateName(String type) {
         switch(type) {
-            case "wcr": return "WCR_Undertaking_Guarantee_Aadhar";
-            case "proforma-a": return "Annexure-I_Proforma-A";
-            case "dcr": return "Declaration_FOR_DCR";
-            case "agreement": return "NET_METERING_CONNECTION_AGREEMENT";
-            case "indemnity": return "INDEMNITY_BOND";
-            case "site-photos": return "Site-photos";
-            default: return type;
+            case "FrontSix":
+                return "FrontSix";
+            case "wcr":
+                return "WCR_Undertaking_Guarantee_Aadhar";
+            case "proforma-a":
+                return "Annexure-I_Proforma-A";
+            case "dcr":
+                return "Declaration_FOR_DCR";
+            case "agreement":
+                return "NET_METERING_CONNECTION_AGREEMENT";
+            case "indemnity":
+                return "INDEMNITY_BOND";
+            case "site-photos":
+                return "Site-photos";
+            default:
+                return type;
         }
     }
 
@@ -141,14 +150,19 @@ public class WordGeneratorService {
 
     public byte[] generateCombinedWord(Map<String, Object> data) {
         try {
+            // Generate all templates including FrontSix
+            String frontSix = processTemplate("FrontSix", data);
             String wcr = processTemplate("WCR_Undertaking_Guarantee_Aadhar", data);
             String annexure = processTemplate("Annexure-I_Proforma-A", data);
             String dcr = processTemplate("Declaration_FOR_DCR", data);
             String agreement = processTemplate("NET_METERING_CONNECTION_AGREEMENT", data);
             String photos = processTemplate("Site-photos", data);
 
+            // Build combined HTML with page breaks
             String finalHtml = buildWordWrapper(
-                    wcr + "\n" +
+                    frontSix + "\n" +
+                            "<div class='page-break'></div>\n" +
+                            wcr + "\n" +
                             "<div class='page-break'></div>\n" +
                             annexure + "\n" +
                             "<div class='page-break'></div>\n" +

@@ -28,11 +28,17 @@ public class PdfGeneratorService {
 
     public byte[] generatePdf(String type, Map<String, Object> data) {
         try {
+            System.out.println("=== PDF Generation Started for: " + type + " ===");
+
             Context context = new Context();
             context.setVariables(data);
 
             String templateName = mapTemplateName(type);
+            System.out.println("Template name: pdf/" + templateName);
+
             String html = templateEngine.process("pdf/" + templateName, context);
+            System.out.println("HTML generated, length: " + html.length() + " characters");
+
             html = html.replace("\uFEFF", "");
             html = compressImagesInHtml(html);
 
@@ -51,22 +57,38 @@ public class PdfGeneratorService {
             builder.toStream(outputStream);
             builder.run();
 
-            return outputStream.toByteArray();
+            byte[] result = outputStream.toByteArray();
+            System.out.println("PDF generated successfully for: " + type + ", size: " + result.length + " bytes");
+            System.out.println("=== PDF Generation Completed for: " + type + " ===");
+
+            return result;
 
         } catch (Exception e) {
-            throw new RuntimeException("PDF generation failed: " + e.getMessage(), e);
+            System.err.println("!!! PDF Generation FAILED for: " + type + " !!!");
+            System.err.println("Error: " + e.getMessage());
+            e.printStackTrace();
+            throw new RuntimeException("PDF generation failed for " + type + ": " + e.getMessage(), e);
         }
     }
 
     private String mapTemplateName(String type) {
         switch(type) {
-//            case "FrontSix": return "FrontSix";
-            case "wcr": return "WCR_Undertaking_Guarantee_Aadhar";
-            case "proforma-a": return "Annexure-I_Proforma-A";
-            case "dcr": return "Declaration_FOR_DCR";
-            case "agreement": return "NET_METERING_CONNECTION_AGREEMENT";
-            case "site-photos": return "Site-photos";
-            default: return type;
+            case "FrontSix":
+                return "FrontSix";
+            case "wcr":
+                return "WCR_Undertaking_Guarantee_Aadhar";
+            case "proforma-a":
+                return "Annexure-I_Proforma-A";
+            case "dcr":
+                return "Declaration_FOR_DCR";
+            case "agreement":
+                return "NET_METERING_CONNECTION_AGREEMENT";
+            case "indemnity":
+                return "INDEMNITY_BOND";
+            case "site-photos":
+                return "Site-photos";
+            default:
+                return type;
         }
     }
 
