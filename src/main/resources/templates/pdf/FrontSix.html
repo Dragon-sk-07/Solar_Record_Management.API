@@ -191,6 +191,7 @@
   </style>
 </head>
 <body>
+<div th:replace="~{pdf/Header.html}"></div>
 <div class="document-container" th:with="currentDate=${#dates.format(#dates.createNow(), 'dd-MMM-yyyy')}">
 
   <!-- ==================== PAGE 1 ==================== -->
