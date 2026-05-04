@@ -22,29 +22,11 @@
         max-width: 1100px;
         margin: 0 auto;
     }
-
-    /* Page break for printing */
     .page-break {
         page-break-before: always;
         break-before: page;
         margin-top: 20px;
     }
-
-    /* Headers */
-    .main-heading {
-        text-align: center;
-        font-size: 16px;
-        font-weight: bold;
-        margin: 10px 0 5px 0;
-    }
-    .sub-heading {
-        text-align: center;
-        font-size: 14px;
-        font-weight: bold;
-        margin-bottom: 20px;
-    }
-
-    /* Letter format */
     .letter-date {
         text-align: right;
         margin: 15px 0 20px 0;
@@ -60,8 +42,6 @@
     .reference p {
         margin: 3px 0;
     }
-
-    /* Tables */
     table {
         width: 100%;
         border-collapse: collapse;
@@ -81,36 +61,6 @@
     .bordered-table td, .bordered-table th {
         border: 1px solid #000;
     }
-
-    /* Page 2 - Invoice */
-    .invoice-header {
-        text-align: center;
-        font-size: 22px;
-        font-weight: bold;
-        margin: 20px 0;
-    }
-    .invoice-details {
-        margin: 15px 0;
-    }
-    .invoice-table {
-        width: 100%;
-        border-collapse: collapse;
-        margin: 15px 0;
-    }
-    .invoice-table th, .invoice-table td {
-        border: 1px solid #000;
-        padding: 8px;
-        text-align: left;
-    }
-    .invoice-table th {
-        background-color: #e0e0e0;
-    }
-    .declaration {
-        margin-top: 20px;
-        font-style: italic;
-    }
-
-    /* Page 3 - Eligibility */
     .section-title {
         font-weight: bold;
         font-size: 14px;
@@ -122,8 +72,6 @@
         margin-top: 15px;
         color: #333;
     }
-
-    /* Page 4-5 - Inspection Details */
     .inspection-grid {
         display: flex;
         flex-wrap: wrap;
@@ -136,8 +84,6 @@
     .inspection-label {
         font-weight: bold;
     }
-
-    /* Page 6 - Equipment Details */
     .signature-area {
         display: flex;
         justify-content: space-between;
@@ -153,7 +99,6 @@
         padding: 10px;
         border-left: 3px solid #333;
     }
-
     @media print {
         body {
             padding: 0;
@@ -163,7 +108,6 @@
             page-break-before: always;
         }
     }
-
     .signature-space {
         min-height: 60px;
         margin: 5px 0;
@@ -173,24 +117,24 @@
         max-width: 200px;
         object-fit: contain;
     }
+    .value-field {
+        font-weight: normal;
+    }
   </style>
 </head>
 <body>
 
-<!-- ONLY ONE HEADER - AT THE TOP -->
+<!-- ONLY ONE HEADER -->
 <div th:replace="~{pdf/Header.html}"></div>
 
 <div class="document-container" th:with="currentDate=${#dates.format(#dates.createNow(), 'dd-MMM-yyyy')}">
 
   <!-- ==================== PAGE 1 ==================== -->
   <div class="page-1">
-
-    <!-- Letter Date -->
     <div class="letter-date">
       Date: <span th:text="${currentDate}">________</span>
     </div>
 
-    <!-- To Address -->
     <div style="margin: 15px 0;">
       To,<br/>
       Executive Engineer,<br/>
@@ -198,12 +142,10 @@
       <span th:text="${place != null and place != '_________________________' ? place : 'Sangli'}">________</span>
     </div>
 
-    <!-- Subject -->
     <div class="subject">
       Subject: Regarding Generation meter testing.
     </div>
 
-    <!-- Reference -->
     <div class="reference">
       <p>Ref: 1. Consumer name: <span th:text="${name}">_________________________</span></p>
       <p>2. Consumer Number: <span th:text="${consumerNumber}">_________________________</span></p>
@@ -211,13 +153,11 @@
       <p>4. Scheme name: PM Suryghar Muft Bijli Yojana</p>
     </div>
 
-    <!-- Letter Body -->
     <div style="margin: 20px 0; text-align: justify;">
       <p>Dear Sir/Madam,</p>
       <p style="margin-top: 10px;">With reference to above mentioned subject, the consumer has completed required documents for solar connection. Hence, we request to please proceed with the testing of below mentioned meter.</p>
     </div>
 
-    <!-- Meter Details Table -->
     <table style="width: 60%; margin: 20px 0;">
       <tr><td style="border: none; padding: 4px;"><strong>Meter Details:</strong></td><td style="border: none;"></td></tr>
       <tr><td style="border: none; padding: 4px;">Make:</td><td style="border: none; border-bottom: 1px solid #000;" th:text="${meterMake != null ? meterMake : '_________________________'}">________</td></tr>
@@ -231,54 +171,9 @@
     </div>
   </div>
 
-  <!-- ==================== PAGE 2 - TAX INVOICE ==================== -->
+  <!-- ==================== PAGE 2 ==================== -->
   <div class="page-break"></div>
   <div class="page-2">
-
-    <div class="invoice-header">TAX INVOICE</div>
-
-    <div class="invoice-details">
-      <p><strong>PREPARED FOR</strong> <span th:text="${name}">_________________________</span></p>
-      <p><span th:text="${siteAddress}">_________________________________________________________________________________</span></p>
-      <p><strong>PREPARED DATE</strong> <span th:text="${installationDate}">________</span></p>
-    </div>
-
-    <table class="invoice-table">
-      <thead>
-      <tr><th>ITEM</th><th>QTY</th><th>GST</th><th>PRICE</th><th>TOTAL</th></tr>
-      </thead>
-      <tbody>
-      <tr>
-        <td>Generation Meter-1 Phase,5-30A<br/>Sr.No.-<span th:text="${meterNumber}">________</span></td>
-        <td>1</td>
-        <td>18%</td>
-        <td>2100</td>
-        <td>2478</td>
-      </tr>
-      </tbody>
-    </table>
-
-    <div class="declaration">
-      <p>I declare that the above information mentioned is true to the best of my knowledge.</p>
-    </div>
-
-    <div style="margin-top: 50px;">
-      <div style="float: right; text-align: center;">
-        <div class="signature-space">
-          <img th:if="${not #lists.isEmpty(vendorSignature)}"
-               th:src="${vendorSignature[0]}"
-               style="max-height:60px; max-width:200px; object-fit:contain;"/>
-        </div>
-        <div>Authorized Signatory</div>
-      </div>
-    </div>
-    <div style="clear: both;"></div>
-  </div>
-
-  <!-- ==================== PAGE 3 - CHECKING OF ELIGIBILITY CRITERIA ==================== -->
-  <div class="page-break"></div>
-  <div class="page-3">
-
     <div class="section-title">1) Checking of Eligibility Criteria:</div>
 
     <table class="bordered-table">
@@ -290,12 +185,12 @@
       <tr><td>2</td><td>Nos of Solar Module Installed & Capacity of each Module</td><td><span th:text="${numberOfModules}">________</span> Nos <span th:text="${wattagePerModule}">________</span> Wp</td></tr>
       <tr><td>3</td><td>The Solar Roof Top Capacity in DC</td><td><span th:text="${totalCapacityKWP}">________</span> KWp</td></tr>
       <tr><td>4</td><td>Solar Roof Top Capacity in AC</td><td><span th:text="${totalCapacityKWP}">________</span> KW</td></tr>
-      <tr><td>5</td><td>Whether AC capacity less than equal to Sanctioned load</td><td th:text="${acCapacityLessThanSanctioned != null ? acCapacityLessThanSanctioned : 'YES'}">YES</td></tr>
-      <tr><td>6</td><td>Is consumer is in arrears</td><td th:text="${consumerInArrears != null ? consumerInArrears : 'NO'}">NO</td></tr>
-      <tr><td>7</td><td>Single line schematic diagrams in respect of its system facility</td><td th:text="${singleLineDiagramSubmitted != null ? singleLineDiagramSubmitted : 'NO'}">NO</td></tr>
+      <tr><td>5</td><td>Whether AC capacity less than equal to Sanctioned load</td><td>YES</td></tr>
+      <tr><td>6</td><td>Is consumer is in arrears</td><td>NO</td></tr>
+      <tr><td>7</td><td>Single line schematic diagrams in respect of its system facility</td><td>Submitted Yes/No</td></tr>
       <tr><td>8</td><td>Equipment Layout and Wire Routing Diagram</td><td>Submitted Yes/No</td></tr>
-      <tr><td>9</td><td>Earthing Layout Diagram with Detailed Specification</td><td th:text="${earthingLayoutSubmitted != null ? earthingLayoutSubmitted : 'NO'}">NO</td></tr>
-      <tr><td>10</td><td>List of equipment installed along with detailed specifications duly signed by the licensed electrical contractor/ Solar PV installer</td><td>Submitted Yes/No</td></tr>
+      <tr><td>9</td><td>Earthing Layout Diagram with Detailed Specification</td><td>Submitted Yes/No</td></tr>
+      <tr><td>10</td><td>List of equipment installed along with detailed specifications duly signed by the licensed electrical contractor/ Solar PV installer Inventor, Battery, Isolation Transformer, Module Mounting structure, AC Distribution Box with Components DC Cable(s) AC Cable(s) Lightning Arrestor etc</td><td>Submitted Yes/No</td></tr>
       <tr><td>11</td><td>Certificate/Undertaking towards proper working of islanding system, electrical safety of the system & responsibility in case of back feed to the de-energized grid</td><td>Submitted Yes/No</td></tr>
       </tbody>
     </table>
@@ -303,7 +198,7 @@
     <div class="note-text">
       <p><strong>Note:</strong></p>
       <ul style="margin-left: 25px;">
-        <li>If consumer fails any of the eligibility criteria, then no further pre-commissioning procedure shall be done till correction of default.</li>
+        <li>If consumer fails any of the eligibility criteria, then no further pre-commissioning procedure shall be done till correction of default. (Letter to the consumer mentioning defects shall be intimated to consumer by AE(QC) through SDO).</li>
         <li>In case, consumer is enhancing its Roof Top Solar capacity, in such case also above points to be checked.</li>
         <li>** In case, consumer sanctioned load is more than 20 KW, the said case shall be referred to Testing Division of circle.</li>
         <li>Once above Eligibility criteria is comply by consumer, then pre-commissioning Inspection and Testing shall be done at actual site.</li>
@@ -311,30 +206,30 @@
     </div>
   </div>
 
-  <!-- ==================== PAGE 4 - INSPECTION DETAILS (PART 1) ==================== -->
+  <!-- ==================== PAGE 3 ==================== -->
   <div class="page-break"></div>
-  <div class="page-4">
-
+  <div class="page-3">
     <div class="inspection-grid">
-      <div class="inspection-item"><span class="inspection-label">1 Details of Inspecting Office:</span> <span th:text="${inspectorName}">_________________________</span></div>
+      <div class="inspection-item"><span class="inspection-label">1 Details of Inspecting Office (Name, Designation, Subdivision):</span> <span th:text="${inspectorName}">_________________________</span></div>
       <div class="inspection-item"><span class="inspection-label">2 Date and Time of Inspection:</span> <span th:text="${installationDate}">________</span></div>
       <div class="inspection-item"><span class="inspection-label">3 Name of the Consumer:</span> <span th:text="${name}">_________________________</span></div>
       <div class="inspection-item"><span class="inspection-label">4 Address of Consumer:</span> <span th:text="${siteAddress}">_________________________________________________________________________________</span></div>
       <div class="inspection-item"><span class="inspection-label">5 Consumer No.:</span> <span th:text="${consumerNumber}">_________________________</span></div>
       <div class="inspection-item"><span class="inspection-label">5.A Name of Billing Unit:</span> <span th:text="${billingUnit != null ? billingUnit : '1228/Miraj Urban'}">________</span></div>
-      <div class="inspection-item"><span class="inspection-label">6 MSEDCL Sanctioned Load:</span> <span th:text="${sanctionedCapacity}">________</span> kW</div>
-      <div class="inspection-item"><span class="inspection-label">7 Type of connection:</span> <span th:text="${connectionType != null ? connectionType : '1 Phase'}">1 Phase</span></div>
+      <div class="inspection-item"><span class="inspection-label">6 MSEDCL Existing Sanction & Connected Load(AC in Kw):</span> <span th:text="${sanctionedCapacity}">________</span> kW</div>
+      <div class="inspection-item"><span class="inspection-label">7 Type of connection (1Ph/3Ph):</span> <span th:text="${connectionType != null ? connectionType : '1 Phase'}">1 Phase</span></div>
       <div class="inspection-item"><span class="inspection-label">8 Consumer Tariff Category:</span> <span th:text="${category != null ? category : 'Residential'}">Residential</span></div>
-      <div class="inspection-item"><span class="inspection-label">9 Installed Solar System:</span> <span th:text="${totalCapacityKWP}">________</span> kW</div>
+      <div class="inspection-item"><span class="inspection-label">9 Installed Solar Roof Top System(AC Cap):</span> <span th:text="${totalCapacityKWP}">________</span> kW</div>
+      <div class="inspection-item"><span class="inspection-label">9.A Whether Point of Supply Drawing submitted:</span> NO</div>
     </div>
 
     <div class="section-title">CHECKING OF EARTHING SYSTEM</div>
     <table class="bordered-table">
-      <tr><td>10 Separate Earthing provided for LA Earthing</td><td th:text="${lighteningArresterYesNo != null ? lighteningArresterYesNo : 'Yes'}">Yes</td></tr>
+      <tr><td>10 Separate Earthing provided for LA Earthing</td><td>Yes</td></tr>
       <tr><td>11 Separate Earthing provided for Solar Panel Structure</td><td>Yes</td></tr>
       <tr><td>12 Earthing provided DCBB Earthing</td><td>Yes</td></tr>
       <tr><td>13 Earthing provided ACBB Earthing</td><td>Yes</td></tr>
-      <tr><td>14 Separate Earthing provided Grid Inverter Built</td><td>Yes</td></tr>
+      <tr><td>14 Separate Earthing provided Grid Inverter Built(AC side Earthing)</td><td>Yes</td></tr>
       <tr><td>15 Earthing provided to Metering cubicle</td><td>Yes/No</td></tr>
       <tr><td>16 All Metallic body Parts earthed</td><td>Yes</td></tr>
     </table>
@@ -342,72 +237,102 @@
     <div class="section-title">Checking of Protection Switchgear</div>
     <table class="bordered-table">
       <tr><td>17 DC Fuses provided after Solar Modules</td><td>YES</td></tr>
-      <tr><td>18 AC Junction Box with Surge protector</td><td>YES</td></tr>
-      <tr><td>19 Lightning Arrestor provided</td><td>YES</td></tr>
-      <tr><td>20 Internal Protection after Grid-tie Inverter</td><td>Yes</td></tr>
-      <tr><td>21 ACDB with Surge Protector</td><td>YES</td></tr>
-      <tr><td>22 Manual Isolation switch provided</td><td>Yes</td></tr>
+      <tr><td>18 AC Junction Box provided with Built in Surge protector device</td><td>YES</td></tr>
+      <tr><td>19 Separate Lightning Arrestor provided before Solar Panel</td><td>YES</td></tr>
+      <tr><td>20 Internal Protection provided after Grid-tie Inverter with MCC/MCB Rating-: Amp</td><td>Yes</td></tr>
+      <tr><td>21 ACDB provided with Built in Surge Protector</td><td>YES</td></tr>
+      <tr><td>22 Manual Operated Isolation switch of rated Capacity provided for protection, If Yes<br/>1. Whether switch has visible verification that separation has been accomplished<br/>2. Whether switch clearly indicate Open/Close Position<br/>3. Whether switch has facility of locking in open Position</td><td>Yes</td></tr>
       <tr><td>23 MCB Provided before Load side</td><td>YES</td></tr>
     </table>
   </div>
 
-  <!-- ==================== PAGE 5 - INSPECTION DETAILS (PART 2) ==================== -->
+  <!-- ==================== PAGE 4 ==================== -->
   <div class="page-break"></div>
-  <div class="page-5">
+  <div class="page-4">
+    <table class="bordered-table">
+      <tr><td>24 Net Metering cabinet with ELCB/RCCB protection of rated capacity with Sealing arrangement for 3ph</td><td>Not Applicable.</td></tr>
+      <tr><td>24A Net Metering with ELCB/RCCB protection for 1ph.<br/>If Yes, Rating- Amp.mA</td><td>Yes</td></tr>
+    </table>
+
+    <div class="section-title">Checking of Islanding Mode of Operation</div>
+    <table class="bordered-table">
+      <tr><td>25 Checking of Islanding mode of Solar System by disconnecting from grid supply and also with Single phasing of Grid (in case of 3phase power supply to consumer)</td><td>Checked Yes/No, If Yes working satisfactory Yes/No</td></tr>
+      <tr><td>26 In case of Solar Inverter with Storage Battery or DG as standby source to Solar Inverter, please check whether separate wiring done & change over switch is provided<br/>If Yes, Please check Operation to ensure that no reverse power fed into Grid in case of switching of Operation of Solar Inverter with Reference voltage from Storage battery/DG</td><td>Provided Yes/No</td></tr>
+    </table>
 
     <div class="section-title">Net Metering System Details</div>
     <table class="bordered-table">
-      <tr><td>27 Net meter Installed</td><td>Yes/No</td></tr>
+      <tr><td>27 Net meter Installed in Grid/Network system at the time of Joint Inspection</td><td>Yes/No</td></tr>
+      <tr><td>28 Net meter is Tested at MSEDCL Testing-Division Lab</td><td>Yes/No, If Yes, Testing date & Seal Nos</td></tr>
       <tr><td>29 Meter make</td><td th:text="${meterMake != null ? meterMake : '________'}">________</td></tr>
+      <tr><td>30 Meter Type</td><td>DLMS, Generation Meter</td></tr>
       <tr><td>31 Meter Serial No</td><td th:text="${netMeterNumber}">_________________________</td></tr>
-      <tr><td>36 Location meter easily assessable</td><td>Yes</td></tr>
+      <tr><td>32 Meter Class of Accuracy</td><td>________</td></tr>
+      <tr><td>33 Meter Capacity</td><td>________</td></tr>
+      <tr><td>34 Meter Constant</td><td>5-30A</td></tr>
+      <tr><td>35 Meter Initial Reading</td><td>________</td></tr>
+      <tr><td>36 Location meter easily assessable for meter reading</td><td>Yes</td></tr>
     </table>
 
     <div class="section-title">Generation Meter Details</div>
     <table class="bordered-table">
-      <tr><td>37 Generation meter Installed</td><td>Yes/No</td></tr>
+      <tr><td>37 Generation meter Installed for recording Solar Generation</td><td>Yes/No</td></tr>
+      <tr><td>38 Meter is Tested at MSEDCL Testing-Division Lab</td><td>Yes/No, If Yes, Testing date & Seal Nos</td></tr>
+      <tr><td>38A Meter make</td><td th:text="${meterMake != null ? meterMake : '________'}">________</td></tr>
+      <tr><td>39 Meter Type</td><td>DLMS, Generation Meter</td></tr>
       <tr><td>40 Meter Serial No</td><td th:text="${meterNumber}">_________________________</td></tr>
-      <tr><td>45 Location meter easily assessable</td><td>Yes</td></tr>
-    </table>
-
-    <div class="section-title">Solar System Equipment Details</div>
-    <table class="bordered-table">
-      <tr><td>46 Grid Tie Inverter Make</td><td th:text="${inverterMake}">_________________________</td></tr>
-      <tr><td>47 Inverter Capacity</td><td th:text="${inverterCapacity}">_________________________</td></tr>
-      <tr><td>48 PV Module make</td><td th:text="${moduleMake}">_________________________</td></tr>
-      <tr><td>49 PV Module Nos</td><td th:text="${numberOfModules}">________</td></tr>
-      <tr><td>50 PV Module serial Nos</td><td th:text="${moduleSerialNumbers}">_________________________________________________________________________________</td></tr>
-      <tr><td>52 Rating of Each PV modules & total Capacity</td><td><span th:text="${wattagePerModule}">________</span> watt / <span th:text="${totalCapacityKWP}">________</span> kW</td></tr>
+      <tr><td>41 Meter Class of Accuracy</td><td>________</td></tr>
+      <tr><td>42 Meter Capacity</td><td>________</td></tr>
+      <tr><td>43 Meter Constant</td><td>________</td></tr>
+      <tr><td>44 Meter Initial Reading</td><td>________</td></tr>
+      <tr><td>45 Location meter easily assessable for meter reading</td><td>Yes</td></tr>
     </table>
   </div>
 
-  <!-- ==================== PAGE 6 - FINAL OBSERVATIONS ==================== -->
+  <!-- ==================== PAGE 5 ==================== -->
   <div class="page-break"></div>
-  <div class="page-6">
+  <div class="page-5">
+    <div class="section-title">Solar System Equipment Details</div>
+    <table class="bordered-table">
+      <tr><td>46 Grid Tie Inverter Make:-</td><td th:text="${inverterMake}">_________________________</td></tr>
+      <tr><td>47 Inverter Capacity(AC Kw/Kva):-</td><td th:text="${inverterCapacity}">_________________________</td></tr>
+      <tr><td>48 PV Module make:-</td><td th:text="${moduleMake}">Tata Power LTD</td></tr>
+      <tr><td>49 PV Module Nos</td><td th:text="${numberOfModules}">________</td></tr>
+      <tr><td>50 PV Module serial Nos</td><td th:text="${moduleSerialNumbers}">_________________________________________________________________________________</td></tr>
+      <tr><td>51 No. of strings:-</td><td>1</td></tr>
+      <tr><td>52 Rating of Each PV modules & total Capacity</td><td><span th:text="${wattagePerModule}">________</span> watt / <span th:text="${totalCapacityKWP}">________</span> kW</td></tr>
+    </table>
+
+    <div class="section-title">Checking of connection of Meter</div>
+    <table class="bordered-table">
+      <tr><td>53 Generation Meter connection</td><td>________</td></tr>
+      <tr><td>54 Net Meter connection</td><td>________</td></tr>
+    </table>
 
     <div class="section-title">Overall Observation</div>
     <table class="bordered-table">
-      <tr><td>55 Inverter working in Healthy condition</td><td th:text="${inverterHealthy != null ? inverterHealthy : 'Yes'}">Yes</td></tr>
-      <tr><td>56 Islanding working Satisfactory</td><td th:text="${islandingWorking != null ? islandingWorking : 'Yes'}">Yes</td></tr>
-      <tr><td>57 System can be taken into system</td><td th:text="${systemReady != null ? systemReady : 'Yes'}">Yes</td></tr>
+      <tr><td>55 Found that Inverter is working in Healthy condition (Yes/No)</td><td>Yes</td></tr>
+      <tr><td>56 Islanding of Solar System working Satisfactory</td><td>Yes</td></tr>
+      <tr><td>57 The Above inspected Solar Invertors system with associated equipment & Metering system can be taken into system (Yes/No)</td><td>Yes</td></tr>
+      <tr><td>58 If, No, Discrepancies to be attended by consumer (Please mention Serial Nos of Points to be complied by consumers)</td><td>________</td></tr>
     </table>
+  </div>
 
+  <!-- ==================== PAGE 6 ==================== -->
+  <div class="page-break"></div>
+  <div class="page-6">
     <div class="signature-area">
       <div class="signature-box">
         <div>Consumer Representative</div>
         <div class="signature-space">
-          <img th:if="${not #lists.isEmpty(consumerSignature)}"
-               th:src="${consumerSignature[0]}"
-               style="max-height:60px; max-width:200px; object-fit:contain;"/>
+          <img th:if="${not #lists.isEmpty(consumerSignature)}" th:src="${consumerSignature[0]}" style="max-height:60px; max-width:200px; object-fit:contain;"/>
         </div>
         <div>(<span th:text="${name}">_________________________</span>)</div>
       </div>
       <div class="signature-box">
         <div>Contractor Representative</div>
         <div class="signature-space">
-          <img th:if="${not #lists.isEmpty(vendorSignature)}"
-               th:src="${vendorSignature[0]}"
-               style="max-height:60px; max-width:200px; object-fit:contain;"/>
+          <img th:if="${not #lists.isEmpty(vendorSignature)}" th:src="${vendorSignature[0]}" style="max-height:60px; max-width:200px; object-fit:contain;"/>
         </div>
         <div>(<span th:text="${vendorName}">_________________________</span>)</div>
       </div>
@@ -415,7 +340,9 @@
 
     <div class="remarks">
       <p><strong>Remarks:-</strong></p>
-      <p>In the presence of backup inverter an arrangement should be made in such way that the backup inverter supply should never be synchronised with solar inverter to avoid any electrical accident due to back feeding.</p>
+      <p>In the presence of backup inverter an arrangement should be made in such way that the backup inverter supply should never be synchronised with solar inverter to avoid any electrical accident due to back feeding. If Islanding is not working satisfactory then connection should not be released by AE(QC) and agency should be instructed to solve the islanding issue.</p>
+      <p style="margin-top: 10px;">In case of DG synchronisation, synchronised panel protection, uv and frequency should be verified</p>
+      <p style="margin-top: 10px;">Please refer "Sample detailed specification of typical rooftop photovoltaic system" and MSEDCL commercial circular No- 322 dated 21-01-2019 regarding "connectivity to the Distribution network of MSEDCL for eligible consumers installing Rooftop Renewable Energy Generating Systems in his premises under MERC (Grid Interactive Rooftop Renewable Energy Generating Systems) Regulations, 2019- Procedure for Application, methodology for Metering & Billing, etc."</p>
     </div>
   </div>
 
