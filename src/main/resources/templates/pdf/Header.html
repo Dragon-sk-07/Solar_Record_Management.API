@@ -3,56 +3,59 @@
 <head>
   <meta charset="UTF-8"/>
   <style>
-    /* SIMPLE PDF-FRIENDLY HEADER - No flex, no complex CSS */
     .pdf-header {
         text-align: center;
-        margin-bottom: 12px;
+        margin-bottom: 10px;
         width: 100%;
         font-family: 'Times New Roman', Times, serif;
     }
-    .pdf-header .company-name {
-        font-size: 18px;
+    .company-name {
+        font-size: 16px;
         font-weight: bold;
-        color: #1a5f7a;
+        text-align: center;
         margin: 0;
         padding: 0;
     }
-    .pdf-header .address {
+    .address {
         font-size: 10px;
-        color: #444;
-        margin: 3px 0 0 0;
+        text-align: center;
+        margin: 3px 0;
         padding: 0;
+        color: #444;
     }
-    .pdf-header .contact {
+    .contact-row {
         font-size: 10px;
-        color: #333;
+        text-align: center;
         margin: 2px 0;
         padding: 0;
     }
-    .pdf-header .msedcl {
+    .msedcl-row {
         font-size: 11px;
         font-weight: bold;
-        margin: 5px 0 0 0;
+        text-align: center;
+        margin-top: 5px;
         padding: 0;
     }
-    .pdf-header .msedcl-sub {
-        font-size: 9px;
-        margin: 0;
-        padding: 0;
-    }
-    .pdf-header .divider {
-        border-bottom: 2px solid #1a5f7a;
+    .divider {
+        border-bottom: 1px solid #000;
         margin-top: 6px;
     }
   </style>
 </head>
 <body>
 <div class="pdf-header">
-  <div class="company-name">🌞 Arihant Energy Solutions</div>
+  <!-- Line 1: Company Name -->
+  <div class="company-name">Arihant Energy Solutions</div>
+
+  <!-- Line 2: Address - Centered below title -->
   <div class="address">Near Anuje Hospital, Kurundwad, Tal-shirol, Dist. Kolhapur - 416301</div>
-  <div class="contact">✉️ Email: arihantsolar@gmail.com | 📞 Mob: 9767334454 / 7774855501</div>
-  <div class="msedcl">Maharashtra State Electricity Distribution Company Limited</div>
-  <div class="msedcl-sub">(A Government of Maharashtra Undertaking)</div>
+
+  <!-- Line 3: Email and Mobile - Same row, centered -->
+  <div class="contact-row">Email: arihantsolar@gmail.com | Mob: 9767334454 / 7774855501</div>
+
+  <!-- Line 4: MSEDCL -->
+  <div class="msedcl-row">Maharashtra State Electricity Distribution Company Limited</div>
+
   <div class="divider"></div>
 </div>
 </body>
