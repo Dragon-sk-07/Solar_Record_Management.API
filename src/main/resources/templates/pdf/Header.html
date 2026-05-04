@@ -1,62 +1,40 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8"/>
   <style>
-    .pdf-header {
+    .min-header {
         text-align: center;
-        margin-bottom: 10px;
-        width: 100%;
+        margin-bottom: 8px;
         font-family: 'Times New Roman', Times, serif;
     }
-    .company-name {
+    .title {
         font-size: 16px;
         font-weight: bold;
-        text-align: center;
         margin: 0;
         padding: 0;
     }
-    .address {
+    .contact-line {
         font-size: 10px;
-        text-align: center;
-        margin: 3px 0;
-        padding: 0;
-        color: #444;
-    }
-    .contact-row {
-        font-size: 10px;
-        text-align: center;
         margin: 2px 0;
         padding: 0;
     }
-    .msedcl-row {
-        font-size: 11px;
+    .msedcl-line {
+        font-size: 10px;
         font-weight: bold;
-        text-align: center;
-        margin-top: 5px;
+        margin: 2px 0 0 0;
         padding: 0;
     }
     .divider {
         border-bottom: 1px solid #000;
-        margin-top: 6px;
+        margin-top: 5px;
     }
   </style>
 </head>
-<body>
-<div class="pdf-header">
-  <!-- Line 1: Company Name -->
-  <div class="company-name">Arihant Energy Solutions</div>
-
-  <!-- Line 2: Address - Centered below title -->
-  <div class="address">Near Anuje Hospital, Kurundwad, Tal-shirol, Dist. Kolhapur - 416301</div>
-
-  <!-- Line 3: Email and Mobile - Same row, centered -->
-  <div class="contact-row">Email: arihantsolar@gmail.com | Mob: 9767334454 / 7774855501</div>
-
-  <!-- Line 4: MSEDCL -->
-  <div class="msedcl-row">Maharashtra State Electricity Distribution Company Limited</div>
-
+<div class="min-header">
+  <div class="title">Arihant Energy Solutions</div>
+  <div class="contact-line">Near Anuje Hospital, Kurundwad, Kolhapur - 416301 | Email: arihantsolar@gmail.com | Mob: 9767334454 / 7774855501</div>
+  <div class="msedcl-line">Maharashtra State Electricity Distribution Company Limited</div>
   <div class="divider"></div>
 </div>
-</body>
 </html>

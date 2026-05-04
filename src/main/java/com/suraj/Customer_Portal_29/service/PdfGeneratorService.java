@@ -60,7 +60,7 @@ public class PdfGeneratorService {
 
     private String mapTemplateName(String type) {
         switch(type) {
-//            case "front-six": return "FrontSix";
+            case "front-six": return "FrontSix";
             case "wcr": return "WCR_Undertaking_Guarantee_Aadhar";
             case "proforma-a": return "Annexure-I_Proforma-A";
             case "dcr": return "Declaration_FOR_DCR";

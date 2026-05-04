@@ -54,7 +54,7 @@ public class SolarPdfController {
         try {
             Map<String, Object> data = buildCompleteData(id);
             List<byte[]> pdfs = new ArrayList<>();
-//            pdfs.add(pdfService.generatePdf("front-six", data));
+            pdfs.add(pdfService.generatePdf("front-six", data));
             pdfs.add(pdfService.generatePdf("wcr", data));
             pdfs.add(pdfService.generatePdf("proforma-a", data));
             pdfs.add(pdfService.generatePdf("dcr", data));
