@@ -161,7 +161,4 @@ public class PdfGeneratorService {
     public CompletableFuture<byte[]> generatePdfAsync(String type, Map<String, Object> data) {
         return CompletableFuture.completedFuture(generatePdf(type, data));
     }
-    public TemplateEngine getTemplateEngine() {
-        return templateEngine;
-    }
 }

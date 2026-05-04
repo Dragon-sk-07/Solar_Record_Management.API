@@ -267,28 +267,4 @@ public class SolarPdfController {
     private String getValueOrDefault(Object value, String defaultValue) {
         return value != null ? String.valueOf(value) : defaultValue;
     }
-    @GetMapping("/{id}/{type}/html")
-    public ResponseEntity<String> previewHtml(@PathVariable String id,
-                                              @PathVariable String type) {
-
-        Map<String, Object> data = buildCompleteData(id);
-
-        String templateName = switch (type) {
-            case "front-six" -> "FrontSix";
-            case "wcr" -> "WCR_Undertaking_Guarantee_Aadhar";
-            case "proforma-a" -> "Annexure-I_Proforma-A";
-            case "dcr" -> "Declaration_FOR_DCR";
-            case "agreement" -> "NET_METERING_CONNECTION_AGREEMENT";
-            case "site-photos" -> "Site-photos";
-            default -> type;
-        };
-
-        String html = pdfService.getTemplateEngine()
-                .process("pdf/" + templateName, new org.thymeleaf.context.Context(Locale.getDefault(), data));
-
-        return ResponseEntity.ok()
-                .contentType(MediaType.TEXT_HTML)
-                .body(html);
-    }
-
 }
