@@ -13,15 +13,15 @@
         }
 
         @page {
-            margin: 5mm 10mm;
+            margin: 6mm 10mm;
         }
 
         body {
             font-family: "Times New Roman", serif;
-            font-size: 13.5pt;
-            line-height: 1.45;
+            font-size: 11pt;
+            line-height: 1.35;
             color: #000;
-            padding: 24px 22px;
+            padding: 10px 15px;
         }
 
         .document {
@@ -29,7 +29,7 @@
         }
 
         p {
-            margin: 0 0 4px 0;
+            margin: 0 0 3px 0;
             text-align: justify;
         }
 
@@ -43,44 +43,44 @@
 
         h1 {
             text-align: center;
-            font-size: 22px;
+            font-size: 18px;
             font-weight: bold;
-            margin: 6px 0 12px 0;
+            margin: 4px 0 8px 0;
             text-transform: uppercase;
         }
 
         h2 {
-            font-size: 18px;
+            font-size: 14px;
             font-weight: bold;
-            margin: 18px 0 6px 0;
+            margin: 10px 0 4px 0;
         }
 
         .mt8 {
-            margin-top: 8px;
+            margin-top: 5px;
         }
 
         .mt12 {
-            margin-top: 12px;
+            margin-top: 8px;
         }
 
         .mt18 {
-            margin-top: 18px;
+            margin-top: 10px;
         }
 
         .mt25 {
-            margin-top: 25px;
+            margin-top: 12px;
         }
 
         .field {
             font-weight: normal;
         }
 
-        /* NEW SIGNATURE ROW STYLES - HORIZONTAL LIKE WCR */
+        /* SIGNATURE ROW STYLES - HORIZONTAL */
         .signature-row {
             display: table;
             width: 100%;
             table-layout: fixed;
-            margin: 18px 0 10px 0;
+            margin: 12px 0 8px 0;
         }
 
         .signature-left,
@@ -91,21 +91,21 @@
         }
 
         .signature-left {
-            text-align: center;
-            padding-right: 10px;
+            text-align: left;
+            padding-right: 15px;
         }
 
         .signature-right {
-            text-align: center;
-            padding-left: 10px;
+            text-align: left;
+            padding-left: 15px;
         }
 
-        /* NEW WITNESS ROW STYLES - HORIZONTAL LIKE WCR */
+        /* WITNESS ROW STYLES - HORIZONTAL */
         .witness-row {
             display: table;
             width: 100%;
             table-layout: fixed;
-            margin: 18px 0 10px 0;
+            margin: 12px 0 8px 0;
         }
 
         .witness-left,
@@ -116,41 +116,46 @@
         }
 
         .witness-left {
-            text-align: center;
-            padding-right: 10px;
+            text-align: left;
+            padding-right: 15px;
         }
 
         .witness-right {
-            text-align: center;
-            padding-left: 10px;
+            text-align: left;
+            padding-left: 15px;
         }
 
         .signature-space {
-            height: 55px;
-            margin-top: 5px;
-            margin-bottom: 5px;
+            height: 50px;
+            margin: 3px 0;
         }
 
         .signature-label {
             font-weight: 700;
             display: block;
-            font-size: 12px;
-            margin-top: 0;
-            margin-bottom: 4px;
-            text-align: center;
+            font-size: 10px;
+            margin-top: 2px;
+            margin-bottom: 2px;
+            text-align: left;
         }
 
         .line {
-            margin-top: 5px;
+            margin-top: 3px;
             border-bottom: 1px solid #000;
-            height: 18px;
-            width: 80%;
-            margin-left: auto;
-            margin-right: auto;
+            height: 15px;
+            width: 100%;
+            margin-left: 0;
+            margin-right: 0;
         }
 
         .page-break {
             page-break-before: always;
+        }
+
+        /* FORCE CONTENT TO STAY TOGETHER */
+        .signature-row, .witness-row {
+            page-break-inside: avoid;
+            break-inside: avoid;
         }
     </style>
 </head>
