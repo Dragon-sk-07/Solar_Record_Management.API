@@ -34,7 +34,6 @@
             page-break-after: avoid;
         }
 
-        /* Arihant Header */
         .arihant-header {
             text-align: center;
             margin-bottom: 12px;
@@ -79,7 +78,6 @@
             margin: 3px 0;
         }
 
-        /* Meter details table style as per image */
         .meter-table-simple {
             width: 60%;
             margin: 15px 0;
@@ -98,7 +96,6 @@
             border-bottom: 1px solid #000;
         }
 
-        /* WCR style table - consistent column widths for all tables */
         .wcr-table {
             width: 100%;
             border-collapse: collapse;
@@ -117,7 +114,6 @@
             text-align: center;
             font-size: 10.5pt;
         }
-        /* Fixed column widths for all tables - 3rd column (Observation/Value) consistent width */
         .wcr-table th:first-child, .wcr-table td:first-child {
             width: 8%;
         }
@@ -128,7 +124,6 @@
             width: 40%;
         }
 
-        /* Tax Invoice Table */
         .invoice-table {
             width: 100%;
             border-collapse: collapse;
@@ -160,7 +155,6 @@
             letter-spacing: 0.5px;
         }
 
-        /* signature side by side */
         .signature-row {
             width: 100%;
             margin: 30px 0 20px;
@@ -231,14 +225,14 @@
     </div>
 
     <div class="letter-date">
-        Date: <span th:text="${currentDate != null ? currentDate : '________'}">6-Apr-2026</span>
+        Date: <span th:text="${currentDate != null ? currentDate : 'Value Missing'}">Value Missing</span>
     </div>
 
     <div>
         To,<br/>
         Executive Engineer,<br/>
         M.S.E.D.C.Ltd,<br/>
-        <span th:text="${place != null ? place : 'Sangli'}">Sangli</span>
+        <span th:text="${place != null ? place : 'Value Missing'}">Value Missing</span>
     </div>
 
     <div class="subject">
@@ -246,33 +240,31 @@
     </div>
 
     <div class="ref-block">
-        <div class="ref-line"><strong>Ref:</strong> 1. Consumer name: <span th:text="${name != null ? name : '________'}">SHRI SANDEEP MANOHAR MHETRE</span></div>
-        <div class="ref-line">2. Consumer Number: <span th:text="${consumerNumber != null ? consumerNumber : '________'}">279010420461</span></div>
-        <div class="ref-line">3. Sanction Number: <span th:text="${sanctionNumber != null ? sanctionNumber : '________'}">1228/Miraj Urban/73343865</span></div>
+        <div class="ref-line"><strong>Ref:</strong> 1. Consumer name: <span th:text="${name != null ? name : 'Value Missing'}">Value Missing</span></div>
+        <div class="ref-line">2. Consumer Number: <span th:text="${consumerNumber != null ? consumerNumber : 'Value Missing'}">Value Missing</span></div>
+        <div class="ref-line">3. Sanction Number: <span th:text="${sanctionNumber != null ? sanctionNumber : 'Value Missing'}">Value Missing</span></div>
         <div class="ref-line">4. Scheme name: PM Suryghar Muft Bijli Yojana</div>
     </div>
 
     <p>Dear Sir/Madam,</p>
     <p>With reference to above mentioned subject, the consumer has completed required documents for solar connection. Hence, we request to please proceed with the testing of below mentioned meter.</p>
 
-    <!-- Meter Details table style as per image -->
     <table class="meter-table-simple">
         <tr><td>Meter Details:</td><td></td></tr>
-        <tr><td>Make:</td><td><span th:text="${meterMake != null ? meterMake : '________'}">________</span></td></tr>
-        <tr><td>Sr. No.:</td><td><span th:text="${meterNumber != null ? meterNumber : '________'}">________</span></td></tr>
+        <tr><td>Make:</td><td><span th:text="${meterMake != null ? meterMake : 'Value Missing'}">Value Missing</span></td></tr>
+        <tr><td>Sr. No.:</td><td><span th:text="${meterNumber != null ? meterNumber : 'Value Missing'}">Value Missing</span></td></tr>
         <tr><td>Phase:</td><td>1 Phase</td></tr>
         <tr><td>Range:</td><td>5-30A.</td></tr>
     </table>
 
     <p>Thanking you.</p>
 
-    <!-- TAX INVOICE TABLE -->
     <div style="margin-top: 25px;">
         <div class="section-title" style="font-size: 14pt; background: #f1f1f1;">TAX INVOICE</div>
         <div style="margin-bottom: 8px;">
-            <strong>PREPARED FOR:</strong> <span th:text="${name != null ? name : '________'}">SHRI SANDEEP MANOHAR MHETRE</span><br/>
-            <span th:text="${siteAddress != null ? siteAddress : '________'}">VETALB NAGAR VAKHARBHAG MIRAJ 461410</span><br/>
-            <strong>PREPARE DATE:</strong> <span th:text="${currentDate != null ? currentDate : '________'}">Apr 06, 2026</span>
+            <strong>PREPARED FOR:</strong> <span th:text="${name != null ? name : 'Value Missing'}">Value Missing</span><br/>
+            <span th:text="${siteAddress != null ? siteAddress : 'Value Missing'}">Value Missing</span><br/>
+            <strong>PREPARE DATE:</strong> <span th:text="${currentDate != null ? currentDate : 'Value Missing'}">Value Missing</span>
         </div>
         <table class="invoice-table">
             <thead>
@@ -280,7 +272,7 @@
             </thead>
             <tbody>
             <tr>
-                <td class="invoice-left">Generation Meter - 1 Phase, 5-30A (Sr.No. <span th:text="${meterNumber != null ? meterNumber : '________'}">________</span>)</td>
+                <td class="invoice-left">Generation Meter - 1 Phase, 5-30A (Sr.No. <span th:text="${meterNumber != null ? meterNumber : 'Value Missing'}">Value Missing</span>)</td>
                 <td>1</td>
                 <td>18%</td>
                 <td>2100</td>
@@ -301,7 +293,7 @@
     </div>
 </div>
 
-<!-- PAGE 2 : Eligibility + Earthing (Sr No 1 to 18) -->
+<!-- PAGE 2 -->
 <div class="page">
     <div class="arihant-header">
         <div class="company-name">Arihant Energy Solutions</div>
@@ -316,17 +308,17 @@
         <tr><th>Sr.No.</th><th>Points to be checked</th><th>Observation</th></tr>
         </thead>
         <tbody>
-        <tr><td>1</td><td>The Consumer sanctioned load shall be at least 1 KW but not exceeding 20 KW</td><td><span th:text="${sanctionedCapacity != null ? sanctionedCapacity : '________'}">________</span> kW (Connected/Sanction Load)</td></tr>
-        <tr><td>2</td><td>Nos of Solar Module Installed &amp; Capacity of each Module</td><td><span th:text="${numberOfModules != null ? numberOfModules : '________'}">________</span> Nos / <span th:text="${wattagePerModule != null ? wattagePerModule : '________'}">________</span> Wp</td></tr>
-        <tr><td>3</td><td>The Solar Roof Top Capacity in DC</td><td><span th:text="${totalCapacityKWP != null ? totalCapacityKWP : '________'}">________</span> KWp</td></tr>
-        <tr><td>4</td><td>Solar Roof Top Capacity in AC</td><td><span th:text="${totalCapacityKWP != null ? totalCapacityKWP : '________'}">________</span> KW</td></tr>
-        <tr><td>5</td><td>Whether AC capacity less than equal to Sanctioned load</td><td><span th:text="${acCapacityCheck != null ? acCapacityCheck : '________'}">________</span></td></tr>
-        <tr><td>6</td><td>Is consumer is in arrears</td><td><span th:text="${arrearsStatus != null ? arrearsStatus : '________'}">________</span></td></tr>
-        <tr><td>7</td><td>Single line schematic diagrams in respect of its system facility</td><td><span th:text="${sldStatus != null ? sldStatus : '________'}">________</span></td></tr>
-        <tr><td>8</td><td>Equipment Layout and Wire Routing Diagram</td><td>Submitted <span th:text="${layoutStatus != null ? layoutStatus : '________'}">________</span></td></tr>
-        <tr><td>9</td><td>Earthing Layout Diagram with Detailed Specification</td><td><span th:text="${earthingDiagram != null ? earthingDiagram : '________'}">________</span></td></tr>
-        <tr><td>10</td><td>List of equipment installed along with detailed specifications duly signed by licensed electrical contractor/Solar PV installer</td><td><span th:text="${equipmentList != null ? equipmentList : '________'}">________</span></td></tr>
-        <tr><td>11</td><td>Certificate/Undertaking towards proper working of islanding system, electrical safety &amp; responsibility in case of back feed</td><td><span th:text="${islandingCertificate != null ? islandingCertificate : '________'}">________</span></td></tr>
+        <tr><td>1</td><td>The Consumer sanctioned load shall be at least 1 KW but not exceeding 20 KW</td><td><span th:text="${sanctionedCapacity != null ? sanctionedCapacity : 'Value Missing'}">Value Missing</span> kW (Connected/Sanction Load)</td></tr>
+        <tr><td>2</td><td>Nos of Solar Module Installed &amp; Capacity of each Module</td><td><span th:text="${numberOfModules != null ? numberOfModules : 'Value Missing'}">Value Missing</span> Nos / <span th:text="${wattagePerModule != null ? wattagePerModule : 'Value Missing'}">Value Missing</span> Wp</td></tr>
+        <tr><td>3</td><td>The Solar Roof Top Capacity in DC</td><td><span th:text="${totalCapacityKWP != null ? totalCapacityKWP : 'Value Missing'}">Value Missing</span> KWp</td></tr>
+        <tr><td>4</td><td>Solar Roof Top Capacity in AC</td><td><span th:text="${totalCapacityKWP != null ? totalCapacityKWP : 'Value Missing'}">Value Missing</span> KW</td></tr>
+        <tr><td>5</td><td>Whether AC capacity less than equal to Sanctioned load</td><td><span th:text="${acCapacityCheck != null ? acCapacityCheck : 'Value Missing'}">Value Missing</span></td></tr>
+        <tr><td>6</td><td>Is consumer is in arrears</td><td><span th:text="${arrearsStatus != null ? arrearsStatus : 'Value Missing'}">Value Missing</span></td></tr>
+        <tr><td>7</td><td>Single line schematic diagrams in respect of its system facility</td><td><span th:text="${sldStatus != null ? sldStatus : 'Value Missing'}">Value Missing</span></td></tr>
+        <tr><td>8</td><td>Equipment Layout and Wire Routing Diagram</td><td>Submitted <span th:text="${layoutStatus != null ? layoutStatus : 'Value Missing'}">Value Missing</span></td></tr>
+        <tr><td>9</td><td>Earthing Layout Diagram with Detailed Specification</td><td><span th:text="${earthingDiagram != null ? earthingDiagram : 'Value Missing'}">Value Missing</span></td></tr>
+        <tr><td>10</td><td>List of equipment installed along with detailed specifications duly signed by licensed electrical contractor/Solar PV installer</td><td><span th:text="${equipmentList != null ? equipmentList : 'Value Missing'}">Value Missing</span></td></tr>
+        <tr><td>11</td><td>Certificate/Undertaking towards proper working of islanding system, electrical safety &amp; responsibility in case of back feed</td><td><span th:text="${islandingCertificate != null ? islandingCertificate : 'Value Missing'}">Value Missing</span></td></tr>
         </tbody>
     </table>
 
@@ -342,17 +334,17 @@
 
     <div class="section-title">CHECKING OF EARTHING SYSTEM</div>
     <table class="wcr-table">
-        <tr><td>12</td><td>Separate Earthing provided for LA Earthing</td><td><span th:text="${earthingLA != null ? earthingLA : '________'}">________</span></td></tr>
-        <tr><td>13</td><td>Separate Earthing provided for Solar Panel Structure</td><td><span th:text="${earthingPanel != null ? earthingPanel : '________'}">________</span></td></tr>
-        <tr><td>14</td><td>Earthing provided DCBB Earthing</td><td><span th:text="${earthingDCBB != null ? earthingDCBB : '________'}">________</span></td></tr>
-        <tr><td>15</td><td>Earthing provided ACBB Earthing</td><td><span th:text="${earthingACBB != null ? earthingACBB : '________'}">________</span></td></tr>
-        <tr><td>16</td><td>Separate Earthing provided Grid Inverter Built(AC side Earthing)</td><td><span th:text="${earthingInverter != null ? earthingInverter : '________'}">________</span></td></tr>
-        <tr><td>17</td><td>Earthing provided to Metering cubicle</td><td><span th:text="${earthingMetering != null ? earthingMetering : '________'}">________</span></td></tr>
-        <tr><td>18</td><td>All Metallic body Parts earthed</td><td><span th:text="${metallicEarthed != null ? metallicEarthed : '________'}">________</span></td></tr>
+        <tr><td>12</td><td>Separate Earthing provided for LA Earthing</td><td><span th:text="${earthingLA != null ? earthingLA : 'Value Missing'}">Value Missing</span></td></tr>
+        <tr><td>13</td><td>Separate Earthing provided for Solar Panel Structure</td><td><span th:text="${earthingPanel != null ? earthingPanel : 'Value Missing'}">Value Missing</span></td></tr>
+        <tr><td>14</td><td>Earthing provided DCBB Earthing</td><td><span th:text="${earthingDCBB != null ? earthingDCBB : 'Value Missing'}">Value Missing</span></td></tr>
+        <tr><td>15</td><td>Earthing provided ACBB Earthing</td><td><span th:text="${earthingACBB != null ? earthingACBB : 'Value Missing'}">Value Missing</span></td></tr>
+        <tr><td>16</td><td>Separate Earthing provided Grid Inverter Built(AC side Earthing)</td><td><span th:text="${earthingInverter != null ? earthingInverter : 'Value Missing'}">Value Missing</span></td></tr>
+        <tr><td>17</td><td>Earthing provided to Metering cubicle</td><td><span th:text="${earthingMetering != null ? earthingMetering : 'Value Missing'}">Value Missing</span></td></tr>
+        <tr><td>18</td><td>All Metallic body Parts earthed</td><td><span th:text="${metallicEarthed != null ? metallicEarthed : 'Value Missing'}">Value Missing</span></td></tr>
     </table>
 </div>
 
-<!-- PAGE 3 : Protection Switchgear (19-29) + Net Metering Details (30-39) -->
+<!-- PAGE 3 -->
 <div class="page">
     <div class="arihant-header">
         <div class="company-name">Arihant Energy Solutions</div>
@@ -362,31 +354,34 @@
 
     <div class="section-title">Checking of Protection Switchgear</div>
     <table class="wcr-table">
-        <tr><td>19</td><td>DC Fuses provided after Solar Modules</td><td><span th:text="${dcFuses != null ? dcFuses : '________'}">________</span></td></tr>
-        <tr><td>20</td><td>AC Junction Box provided with Built in Surge protector device</td><td><span th:text="${acSurge != null ? acSurge : '________'}">________</span></td></tr>
-        <tr><td>21</td><td>Separate Lightning Arrestor provided before Solar Panel</td><td><span th:text="${lightningArrestor != null ? lightningArrestor : '________'}">________</span></td></tr>
-        <tr><td>22</td><td>Internal Protection provided after Grid-tie Inverter with MCC/MCB Rating-</td><td><span th:text="${mccbRating != null ? mccbRating : '________'}">________</span> Amp</td></tr>
-        <tr><td>23</td><td>ACDB provided with Built in Surge Protector</td><td><span th:text="${acdbSurge != null ? acdbSurge : '________'}">________</span></td></tr>
-        <tr><td>24</td><td>Manual Operated Isolation switch of rated Capacity provided for protection, If Yes:<br/>- Visible verification separation accomplished: <span th:text="${isoVerification != null ? isoVerification : '________'}">________</span><br/>- Clearly indicate Open/Close: <span th:text="${isoPosition != null ? isoPosition : '________'}">________</span><br/>- Locking in open Position: <span th:text="${isoLocking != null ? isoLocking : '________'}">________</span></td>
-            <td><span th:text="${isoOverall != null ? isoOverall : '________'}">________</span></td></tr>
-        <tr><td>25</td><td>MCB Provided before Load side</td><td><span th:text="${mcbLoad != null ? mcbLoad : '________'}">________</span></td></tr>
+        <tr><td>19</td><td>DC Fuses provided after Solar Modules</td><td><span th:text="${dcFuses != null ? dcFuses : 'Value Missing'}">Value Missing</span></td></tr>
+        <tr><td>20</td><td>AC Junction Box provided with Built in Surge protector device</td><td><span th:text="${acSurge != null ? acSurge : 'Value Missing'}">Value Missing</span></td></tr>
+        <tr><td>21</td><td>Separate Lightning Arrestor provided before Solar Panel</td><td><span th:text="${lightningArrestor != null ? lightningArrestor : 'Value Missing'}">Value Missing</span></td></tr>
+        <tr><td>22</td><td>Internal Protection provided after Grid-tie Inverter with MCC/MCB Rating-</td><td><span th:text="${mccbRating != null ? mccbRating : 'Value Missing'}">Value Missing</span> Amp</td></tr>
+        <tr><td>23</td><td>ACDB provided with Built in Surge Protector</td><td><span th:text="${acdbSurge != null ? acdbSurge : 'Value Missing'}">Value Missing</span></td></tr>
+        <tr>
+            <td>24</td>
+            <td>Manual Operated Isolation switch of rated Capacity provided for protection, If Yes:<br/>- Visible verification separation accomplished: <span th:text="${isoVerification != null ? isoVerification : 'Value Missing'}">Value Missing</span><br/>- Clearly indicate Open/Close: <span th:text="${isoPosition != null ? isoPosition : 'Value Missing'}">Value Missing</span><br/>- Locking in open Position: <span th:text="${isoLocking != null ? isoLocking : 'Value Missing'}">Value Missing</span></td>
+            <td><span th:text="${isoOverall != null ? isoOverall : 'Value Missing'}">Value Missing</span></td>
+        </tr>
+        <tr><td>25</td><td>MCB Provided before Load side</td><td><span th:text="${mcbLoad != null ? mcbLoad : 'Value Missing'}">Value Missing</span></td></tr>
     </table>
 
     <div class="section-title">Net Metering &amp; Islanding Details</div>
     <table class="wcr-table">
         <tr><td>26</td><td>Net Metering cabinet with ELCB/RCCB protection of rated capacity with Sealing arrangement for 3ph</td><td>Not Applicable</td></tr>
-        <tr><td>27</td><td>Net Metering with ELCB/RCCB protection for 1ph. If Yes, Rating-</td><td><span th:text="${meteringRCCB != null ? meteringRCCB : '________'}">________</span></td></tr>
-        <tr><td>28</td><td>Checking of Islanding mode of Solar System by disconnecting from grid supply and also with Single phasing of Grid</td><td>Checked <span th:text="${islandingCheck != null ? islandingCheck : '________'}">________</span></td></tr>
+        <tr><td>27</td><td>Net Metering with ELCB/RCCB protection for 1ph. If Yes, Rating-</td><td><span th:text="${meteringRCCB != null ? meteringRCCB : 'Value Missing'}">Value Missing</span></td></tr>
+        <tr><td>28</td><td>Checking of Islanding mode of Solar System by disconnecting from grid supply and also with Single phasing of Grid</td><td>Checked <span th:text="${islandingCheck != null ? islandingCheck : 'Value Missing'}">Value Missing</span></td></tr>
         <tr><td>29</td><td>In case of Solar Inverter with Storage Battery or DG as standby source (separate wiring &amp; change over switch)</td><td>Not Applicable</td></tr>
     </table>
 
     <div class="section-title">Net Metering System Details</div>
     <table class="wcr-table">
-        <tr><td>30</td><td>Net meter Installed in Grid/Network system at the time of Joint Inspection</td><td><span th:text="${netInstalled != null ? netInstalled : '________'}">________</span></td></tr>
-        <tr><td>31</td><td>Net meter is Tested at MSEDCL Testing-Division Lab (If Yes, Testing date &amp; Seal Nos)</td><td><span th:text="${netTesting != null ? netTesting : '________'}">________</span></td></tr>
-        <tr><td>32</td><td>Meter make</td><td><span th:text="${meterMake != null ? meterMake : '________'}">________</span></td></tr>
+        <tr><td>30</td><td>Net meter Installed in Grid/Network system at the time of Joint Inspection</td><td><span th:text="${netInstalled != null ? netInstalled : 'Value Missing'}">Value Missing</span></td></tr>
+        <tr><td>31</td><td>Net meter is Tested at MSEDCL Testing-Division Lab (If Yes, Testing date &amp; Seal Nos)</td><td><span th:text="${netTesting != null ? netTesting : 'Value Missing'}">Value Missing</span></td></tr>
+        <tr><td>32</td><td>Meter make</td><td><span th:text="${meterMake != null ? meterMake : 'Value Missing'}">Value Missing</span></td></tr>
         <tr><td>33</td><td>Meter Type</td><td>DLMS, Net Meter</td></tr>
-        <tr><td>34</td><td>Meter Serial No</td><td><span th:text="${netMeterNumber != null ? netMeterNumber : '________'}">________</span></td></tr>
+        <tr><td>34</td><td>Meter Serial No</td><td><span th:text="${netMeterNumber != null ? netMeterNumber : 'Value Missing'}">Value Missing</span></td></tr>
         <tr><td>35</td><td>Meter Class of Accuracy</td><td>Class 1.0</td></tr>
         <tr><td>36</td><td>Meter Capacity</td><td>5-30A</td></tr>
         <tr><td>37</td><td>Meter Constant</td><td>1600 imp/kWh</td></tr>
@@ -395,7 +390,7 @@
     </table>
 </div>
 
-<!-- PAGE 4 : Generation Meter Details (40-49) + Solar Equipment (50-57) -->
+<!-- PAGE 4 -->
 <div class="page">
     <div class="arihant-header">
         <div class="company-name">Arihant Energy Solutions</div>
@@ -405,11 +400,11 @@
 
     <div class="section-title">Generation Meter Details</div>
     <table class="wcr-table">
-        <tr><td>40</td><td>Generation meter Installed for recording Solar Generation</td><td><span th:text="${genInstalled != null ? genInstalled : '________'}">________</span></td></tr>
-        <tr><td>41</td><td>Meter is Tested at MSEDCL Testing-Division Lab (If Yes, Testing date &amp; Seal Nos)</td><td><span th:text="${genTesting != null ? genTesting : '________'}">________</span></td></tr>
-        <tr><td>42</td><td>Meter make</td><td><span th:text="${meterMake != null ? meterMake : '________'}">________</span></td></tr>
+        <tr><td>40</td><td>Generation meter Installed for recording Solar Generation</td><td><span th:text="${genInstalled != null ? genInstalled : 'Value Missing'}">Value Missing</span></td></tr>
+        <tr><td>41</td><td>Meter is Tested at MSEDCL Testing-Division Lab (If Yes, Testing date &amp; Seal Nos)</td><td><span th:text="${genTesting != null ? genTesting : 'Value Missing'}">Value Missing</span></td></tr>
+        <tr><td>42</td><td>Meter make</td><td><span th:text="${meterMake != null ? meterMake : 'Value Missing'}">Value Missing</span></td></tr>
         <tr><td>43</td><td>Meter Type</td><td>DLMS, Generation Meter</td></tr>
-        <tr><td>44</td><td>Meter Serial No</td><td><span th:text="${meterNumber != null ? meterNumber : '________'}">________</span></td></tr>
+        <tr><td>44</td><td>Meter Serial No</td><td><span th:text="${meterNumber != null ? meterNumber : 'Value Missing'}">Value Missing</span></td></tr>
         <tr><td>45</td><td>Meter Class of Accuracy</td><td>Class 1.0</td></tr>
         <tr><td>46</td><td>Meter Capacity</td><td>5-30A</td></tr>
         <tr><td>47</td><td>Meter Constant</td><td>1600 imp/kWh</td></tr>
@@ -419,18 +414,18 @@
 
     <div class="section-title">Solar System Equipment Details</div>
     <table class="wcr-table">
-        <tr><td>50</td><td>Grid Tie Inverter Make:-</td><td><span th:text="${inverterMake != null ? inverterMake : '________'}">________</span></td></tr>
-        <tr><td>51</td><td>Inverter Capacity(AC Kw/Kva)</td><td><span th:text="${inverterCapacity != null ? inverterCapacity : '________'}">________</span></td></tr>
-        <tr><td>52</td><td>PV Module make:-</td><td><span th:text="${moduleMake != null ? moduleMake : '________'}">________</span></td></tr>
-        <tr><td>53</td><td>PV Module serial Nos</td><td><span th:text="${moduleSerialNumbers != null ? moduleSerialNumbers : '________'}">________</span></td></tr>
+        <tr><td>50</td><td>Grid Tie Inverter Make:-</td><td><span th:text="${inverterMake != null ? inverterMake : 'Value Missing'}">Value Missing</span></td></tr>
+        <tr><td>51</td><td>Inverter Capacity(AC Kw/Kva)</td><td><span th:text="${inverterCapacity != null ? inverterCapacity : 'Value Missing'}">Value Missing</span></td></tr>
+        <tr><td>52</td><td>PV Module make:-</td><td><span th:text="${moduleMake != null ? moduleMake : 'Value Missing'}">Value Missing</span></td></tr>
+        <tr><td>53</td><td>PV Module serial Nos</td><td><span th:text="${moduleSerialNumbers != null ? moduleSerialNumbers : 'Value Missing'}">Value Missing</span></td></tr>
         <tr><td>54</td><td>No. of strings:-</td><td>1</td></tr>
-        <tr><td>55</td><td>Rating of Each PV modules &amp; total Capacity</td><td><span th:text="${wattagePerModule != null ? wattagePerModule : '________'}">________</span> watt / <span th:text="${totalCapacityKWP != null ? totalCapacityKWP : '________'}">________</span> kW</td></tr>
-        <tr><td>56</td><td>Generation Meter connection</td><td><span th:text="${genMeterConn != null ? genMeterConn : '________'}">________</span></td></tr>
-        <tr><td>57</td><td>Net Meter connection</td><td><span th:text="${netMeterConn != null ? netMeterConn : '________'}">________</span></td></tr>
+        <tr><td>55</td><td>Rating of Each PV modules &amp; total Capacity</td><td><span th:text="${wattagePerModule != null ? wattagePerModule : 'Value Missing'}">Value Missing</span> watt / <span th:text="${totalCapacityKWP != null ? totalCapacityKWP : 'Value Missing'}">Value Missing</span> kW</td></tr>
+        <tr><td>56</td><td>Generation Meter connection</td><td><span th:text="${genMeterConn != null ? genMeterConn : 'Value Missing'}">Value Missing</span></td></tr>
+        <tr><td>57</td><td>Net Meter connection</td><td><span th:text="${netMeterConn != null ? netMeterConn : 'Value Missing'}">Value Missing</span></td></tr>
     </table>
 </div>
 
-<!-- PAGE 5 : Overall Observation (58-61) + Signature Row + Remarks -->
+<!-- PAGE 5 -->
 <div class="page">
     <div class="arihant-header">
         <div class="company-name">Arihant Energy Solutions</div>
@@ -440,13 +435,12 @@
 
     <div class="section-title">Overall Observation</div>
     <table class="wcr-table">
-        <tr><td>58</td><td>Found that Inverter is working in Healthy condition</td><td><span th:text="${inverterHealthy != null ? inverterHealthy : '________'}">________</span></td></tr>
-        <tr><td>59</td><td>Islanding of Solar System working Satisfactory</td><td><span th:text="${islandingSatisfactory != null ? islandingSatisfactory : '________'}">________</span></td></tr>
-        <tr><td>60</td><td>The Above inspected Solar Invertors system with associated equipment &amp; Metering system can be taken into system</td><td><span th:text="${systemTakeover != null ? systemTakeover : '________'}">________</span></td></tr>
+        <tr><td>58</td><td>Found that Inverter is working in Healthy condition</td><td><span th:text="${inverterHealthy != null ? inverterHealthy : 'Value Missing'}">Value Missing</span></td></tr>
+        <tr><td>59</td><td>Islanding of Solar System working Satisfactory</td><td><span th:text="${islandingSatisfactory != null ? islandingSatisfactory : 'Value Missing'}">Value Missing</span></td></tr>
+        <tr><td>60</td><td>The Above inspected Solar Invertors system with associated equipment &amp; Metering system can be taken into system</td><td><span th:text="${systemTakeover != null ? systemTakeover : 'Value Missing'}">Value Missing</span></td></tr>
         <tr><td>61</td><td>If, No, Discrepancies to be attended by consumer (Please mention Serial Nos of Points to be complied by consumers)</td><td>None</td></tr>
     </table>
 
-    <!-- Signature section side by side -->
     <div class="signature-row">
         <table class="signature-table">
             <tr>
@@ -456,7 +450,7 @@
                         <div th:if="${consumerSignature == null or #lists.isEmpty(consumerSignature)}" class="sign-line"></div>
                     </div>
                     <div><strong>Signature [Consumer]</strong></div>
-                    <div>(<span th:text="${name != null ? name : '________'}">________</span>)</div>
+                    <div>(<span th:text="${name != null ? name : 'Value Missing'}">Value Missing</span>)</div>
                 </td>
                 <td>
                     <div>
@@ -464,13 +458,12 @@
                         <div th:if="${vendorSignature == null or #lists.isEmpty(vendorSignature)}" class="sign-line"></div>
                     </div>
                     <div><strong>Signature [Vendor]</strong></div>
-                    <div>(<span th:text="${vendorName != null ? vendorName : 'Arihant Energy Solutions'}">Arihant Energy Solutions</span>)</div>
+                    <div>(<span th:text="${vendorName != null ? vendorName : 'Value Missing'}">Value Missing</span>)</div>
                 </td>
             </tr>
         </table>
     </div>
 
-    <!-- Remarks -->
     <div class="remarks-box">
         <p><strong>Remarks:-</strong></p>
         <p>In the presence of backup inverter an arrangement should be made in such way that the backup inverter supply should never be synchronised with solar inverter to avoid any electrical accident due to back feeding. If Islanding is not working satisfactory then connection should not be released by AE(QC) and agency should be instructed to solve the islanding issue.</p>
