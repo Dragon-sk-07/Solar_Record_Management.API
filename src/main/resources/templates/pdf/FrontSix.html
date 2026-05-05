@@ -34,25 +34,26 @@
             page-break-after: avoid;
         }
 
-        /* Header style like WCR */
-        .header {
+        /* Arihant Header */
+        .arihant-header {
             text-align: center;
-            margin-bottom: 15px;
-            border-bottom: 2px solid #000;
-            padding-bottom: 8px;
-        }
-
-        .company-name {
-            font-size: 18pt;
-            font-weight: bold;
-            letter-spacing: 1px;
+            margin-bottom: 12px;
             font-family: 'Times New Roman', Times, serif;
         }
-
-        .company-address {
-            font-size: 8.5pt;
+        .arihant-header .company-name {
+            font-size: 16px;
+            font-weight: bold;
+            margin: 0;
+            padding: 0;
+        }
+        .arihant-header .contact-line {
+            font-size: 10px;
+            margin: 2px 0;
+            padding: 0;
+        }
+        .arihant-header .border-line {
+            border-bottom: 1px solid #000;
             margin-top: 5px;
-            color: #222;
         }
 
         .letter-date {
@@ -74,7 +75,6 @@
             font-size: 10.5pt;
             line-height: 1.5;
         }
-
         .ref-line {
             margin: 3px 0;
         }
@@ -87,7 +87,6 @@
             background: #f9f9f9;
             border-radius: 4px;
         }
-
         .meter-title {
             font-weight: bold;
             font-size: 11pt;
@@ -95,24 +94,21 @@
             border-bottom: 1px solid #ccc;
             padding-bottom: 4px;
         }
-
         .meter-detail-row {
             display: flex;
             flex-wrap: wrap;
             gap: 25px;
             margin-top: 6px;
         }
-
         .meter-item {
             font-size: 10.5pt;
         }
-
         .meter-item strong {
             width: 65px;
             display: inline-block;
         }
 
-        /* WCR style table - clean borders, proper spacing */
+        /* WCR style table */
         .wcr-table {
             width: 100%;
             border-collapse: collapse;
@@ -120,18 +116,37 @@
             font-size: 9.5pt;
             border: 1px solid #000;
         }
-
         .wcr-table th, .wcr-table td {
             border: 1px solid #000;
             padding: 7px 6px;
             vertical-align: top;
         }
-
         .wcr-table th {
             background-color: #e3e3e3;
             font-weight: 700;
             text-align: center;
             font-size: 10.5pt;
+        }
+
+        /* Tax Invoice Table (clean & professional) */
+        .invoice-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+            font-size: 10pt;
+            border: 1px solid #000;
+        }
+        .invoice-table th, .invoice-table td {
+            border: 1px solid #000;
+            padding: 8px 6px;
+            text-align: center;
+        }
+        .invoice-table th {
+            background-color: #e3e3e3;
+            font-weight: 700;
+        }
+        .invoice-left {
+            text-align: left;
         }
 
         .section-title {
@@ -145,29 +160,23 @@
             letter-spacing: 0.5px;
         }
 
-        .sub-section-title {
-            font-weight: bold;
-            font-size: 11.5pt;
-            margin: 12px 0 5px 0;
-            background: #f1f3f5;
-            padding: 4px 10px;
-            border-left: 3px solid #4a6fa5;
-        }
-
-        /* signature row like WCR */
-        .signature-wrapper {
+        /* signature row - side by side using table cell logic from WCR */
+        .signature-row {
+            width: 100%;
             margin: 30px 0 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-end;
-            flex-wrap: wrap;
         }
-
-        .sign-box {
+        .signature-table {
+            width: 100%;
+            border-collapse: collapse;
+            border: none;
+        }
+        .signature-table td {
+            border: none;
+            width: 50%;
+            vertical-align: top;
             text-align: center;
-            width: 45%;
+            padding: 0 15px;
         }
-
         .sign-line {
             margin-top: 35px;
             border-top: 1px solid #000;
@@ -175,7 +184,6 @@
             margin-left: auto;
             margin-right: auto;
         }
-
         .sign-img {
             max-height: 55px;
             max-width: 160px;
@@ -191,36 +199,20 @@
             border-bottom: 1px solid #e0d6b5;
             font-size: 9.5pt;
         }
-
         .note-text {
             font-size: 9pt;
             margin-top: 8px;
             color: #2c3e50;
         }
-
         .note-text ul {
             margin-left: 22px;
             padding-left: 5px;
         }
-
-        .page-footer-space {
-            height: 20px;
-        }
-
         .text-center {
             text-align: center;
         }
-
         .bold {
             font-weight: 700;
-        }
-
-        .inline-value {
-            font-weight: normal;
-        }
-
-        hr {
-            margin: 8px 0;
         }
     </style>
 </head>
@@ -228,9 +220,11 @@
 
 <!-- ======================= PAGE 1 ======================= -->
 <div class="page">
-    <div class="header">
-        <div class="company-name">Primestar Energy Solutions</div>
-        <div class="company-address">Kapad Peth, Ashta, Tal-Miraj, Dist. Sangli - 416301 | Email: primestarsolar@gmail.com | Mob: 9850385899</div>
+    <!-- Arihant Header -->
+    <div class="arihant-header">
+        <div class="company-name">Arihant Energy Solutions</div>
+        <div class="contact-line">Email: arihantele@gmail.com | Near Anuje Hospital, Kurundwad, Tal-shirol, Dist. Kolhapur - 416301 | Mob: 7774855501</div>
+        <div class="border-line"></div>
     </div>
 
     <div class="letter-date">
@@ -270,32 +264,51 @@
 
     <p>Thanking you.</p>
 
-    <div style="margin-top: 80px;">
+    <!-- TAX INVOICE TABLE (Important) -->
+    <div style="margin-top: 25px;">
+        <div class="section-title" style="font-size: 14pt; background: #f1f1f1;">TAX INVOICE</div>
+        <div style="margin-bottom: 8px;">
+            <strong>PREPARED FOR:</strong> <span th:text="${name}">SHRI SANDEEP MANOHAR MHETRE</span><br/>
+            <span th:text="${siteAddress}">VETALB NAGAR VAKHARBHAG MIRAJ 461410</span><br/>
+            <strong>PREPARE DATE:</strong> <span th:text="${currentDate}">Apr 06, 2026</span>
+        </div>
+        <table class="invoice-table">
+            <thead>
+            <tr><th>ITEM</th><th style="width:10%">QTY</th><th style="width:12%">GST</th><th style="width:15%">PRICE (₹)</th><th style="width:15%">TOTAL (₹)</th></tr>
+            </thead>
+            <tbody>
+            <tr><td class="invoice-left">Generation Meter - 1 Phase, 5-30A (Sr.No. <span th:text="${meterNumber}">________</span>)</td>
+                <td>1</td><td>18%</td><td>2100</td><td>2478</td>
+            </tr>
+            <tr><td colspan="4" style="text-align:right; font-weight:bold;">Grand Total</td><td>₹ 2478</td></tr>
+            </tbody>
+        </table>
+        <div style="margin-top: 8px; font-style:italic;">I declare that the above information mentioned is true to the best of my knowledge.</div>
+    </div>
+
+    <div style="margin-top: 40px;">
         <div style="float: right; width: 250px; text-align: center;">
             <div style="border-top: 1px solid #000; padding-top: 5px;">Yours Faithfully,</div>
             <div style="margin-top: 5px;">Authorised Signatory</div>
         </div>
         <div style="clear: both;"></div>
     </div>
-    <div class="page-footer-space"></div>
+    <div style="height: 20px;"></div>
 </div>
 
-<!-- ======================= PAGE 2 : Eligibility + Earthing (Sr No 1 to 16) ======================= -->
+<!-- ======================= PAGE 2 : Eligibility + Earthing (Sr No 1 to 18) ======================= -->
 <div class="page">
-    <div class="header">
-        <div class="company-name">Primestar Energy Solutions</div>
-        <div class="company-address">Kapad Peth, Ashta, Tal-Miraj, Dist. Sangli - 416301</div>
+    <div class="arihant-header">
+        <div class="company-name">Arihant Energy Solutions</div>
+        <div class="contact-line">Email: arihantele@gmail.com | Near Anuje Hospital, Kurundwad, Tal-shirol, Dist. Kolhapur - 416301</div>
+        <div class="border-line"></div>
     </div>
 
     <div class="section-title">✅ 1) Checking of Eligibility Criteria</div>
 
     <table class="wcr-table">
         <thead>
-        <tr>
-            <th style="width:8%">Sr.No.</th>
-            <th style="width:58%">Points to be checked</th>
-            <th style="width:34%">Observation</th>
-        </tr>
+        <tr><th style="width:8%">Sr.No.</th><th style="width:58%">Points to be checked</th><th style="width:34%">Observation</th></tr>
         </thead>
         <tbody>
         <tr><td>1</td><td>The Consumer sanctioned load shall be at least 1 KW but not exceeding 20 KW</td><td>Yes (Connected/Sanction Load: <span th:text="${sanctionedCapacity}">3.5</span> kW)</td></tr>
@@ -308,14 +321,14 @@
         <tr><td>8</td><td>Equipment Layout and Wire Routing Diagram</td><td>Submitted <span th:text="${layoutStatus}">Yes</span></td></tr>
         <tr><td>9</td><td>Earthing Layout Diagram with Detailed Specification</td><td><span th:text="${earthingDiagram}">YES</span></td></tr>
         <tr><td>10</td><td>List of equipment installed along with detailed specifications duly signed by licensed electrical contractor</td><td><span th:text="${equipmentList}">Submitted Yes</span></td></tr>
-        <tr><td>11</td><td>Certificate/Undertaking towards proper working of islanding system, electrical safety & responsibility in case of back feed</td><td><span th:text="${islandingCertificate}">Submitted Yes</span></td></tr>
+        <tr><td>11</td><td>Certificate/Undertaking towards proper working of islanding system, electrical safety & responsibility</td><td><span th:text="${islandingCertificate}">Submitted Yes</span></td></tr>
         </tbody>
     </table>
 
     <div class="note-text">
         <strong>Note:</strong>
         <ul>
-            <li>If consumer fails any of the eligibility criteria, then no further pre-commissioning procedure shall be done till correction of default. (Letter to the consumer mentioning defects shall be intimated to consumer by AE(QC) through SDO).</li>
+            <li>If consumer fails any of the eligibility criteria, then no further pre-commissioning procedure shall be done till correction of default.</li>
             <li>In case, consumer is enhancing its Roof Top Solar capacity, in such case also above points to be checked.</li>
             <li>** In case, consumer sanctioned load is more than 20 KW, the said case shall be referred to Testing Division of circle.</li>
             <li>Once above Eligibility criteria is comply by consumer, then pre-commissioning Inspection and Testing shall be done at actual site.</li>
@@ -334,11 +347,12 @@
     </table>
 </div>
 
-<!-- ======================= PAGE 3 : Protection Switchgear (19-30) + Net metering details ======================= -->
+<!-- ======================= PAGE 3 : Protection Switchgear (19-29) + Net metering details (30-39) ======================= -->
 <div class="page">
-    <div class="header">
-        <div class="company-name">Primestar Energy Solutions</div>
-        <div class="company-address">Kapad Peth, Ashta, Tal-Miraj, Dist. Sangli - 416301</div>
+    <div class="arihant-header">
+        <div class="company-name">Arihant Energy Solutions</div>
+        <div class="contact-line">Email: arihantele@gmail.com | Near Anuje Hospital, Kurundwad, Tal-shirol, Dist. Kolhapur - 416301</div>
+        <div class="border-line"></div>
     </div>
 
     <div class="section-title">🛡️ Checking of Protection Switchgear</div>
@@ -348,7 +362,7 @@
         <tr><td>21</td><td>Separate Lightning Arrestor provided before Solar Panel</td><td><span th:text="${lightningArrestor}">YES</span></td></tr>
         <tr><td>22</td><td>Internal Protection provided after Grid-tie Inverter with MCC/MCB Rating-</td><td><span th:text="${mccbRating}">32</span> Amp</td></tr>
         <tr><td>23</td><td>ACDB provided with Built in Surge Protector</td><td><span th:text="${acdbSurge}">YES</span></td></tr>
-        <tr><td>24</td><td>Manual Operated Isolation switch of rated Capacity provided for protection, If Yes: <br/>- Visible verification separation accomplished: <span th:text="${isoVerification}">YES</span><br/>- Clearly indicate Open/Close: <span th:text="${isoPosition}">YES</span><br/>- Locking in open Position: <span th:text="${isoLocking}">YES</span></td><td><span th:text="${isoOverall}">YES</span></td></tr>
+        <tr><td>24</td><td>Manual Operated Isolation switch of rated Capacity provided for protection, If Yes:<br/>- Visible verification separation accomplished: <span th:text="${isoVerification}">YES</span><br/>- Clearly indicate Open/Close: <span th:text="${isoPosition}">YES</span><br/>- Locking in open Position: <span th:text="${isoLocking}">YES</span></td><td><span th:text="${isoOverall}">YES</span></td></tr>
         <tr><td>25</td><td>MCB Provided before Load side</td><td><span th:text="${mcbLoad}">YES</span></td></tr>
     </table>
 
@@ -375,11 +389,12 @@
     </table>
 </div>
 
-<!-- ======================= PAGE 4 : Generation Meter Details + Solar Equipment 40-53 ======================= -->
+<!-- ======================= PAGE 4 : Generation Meter Details (40-49) + Solar Equipment (50-57) ======================= -->
 <div class="page">
-    <div class="header">
-        <div class="company-name">Primestar Energy Solutions</div>
-        <div class="company-address">Kapad Peth, Ashta, Tal-Miraj, Dist. Sangli - 416301</div>
+    <div class="arihant-header">
+        <div class="company-name">Arihant Energy Solutions</div>
+        <div class="contact-line">Email: arihantele@gmail.com | Near Anuje Hospital, Kurundwad, Tal-shirol, Dist. Kolhapur - 416301</div>
+        <div class="border-line"></div>
     </div>
 
     <div class="section-title">📈 Generation Meter Details</div>
@@ -398,7 +413,7 @@
 
     <div class="section-title">☀️ Solar System Equipment Details</div>
     <table class="wcr-table">
-        <tr><td>50</td><td>Grid Tie Inverter Make:- </td><td><span th:text="${inverterMake}">Growatt</span></td></tr>
+        <tr><td>50</td><td>Grid Tie Inverter Make:-</td><td><span th:text="${inverterMake}">Growatt</span></td></tr>
         <tr><td>51</td><td>Inverter Capacity(AC Kw/Kva)</td><td><span th:text="${inverterCapacity}">3.54</span></td></tr>
         <tr><td>52</td><td>PV Module make:-</td><td><span th:text="${moduleMake}">Tata Power LTD</span></td></tr>
         <tr><td>53</td><td>PV Module serial Nos</td><td><span th:text="${moduleSerialNumbers}">T-0E10A87, T-0E10DD8, T-0E10DAD, T-0E10AB7, T-0E10DE2, T-0E10AB1</span></td></tr>
@@ -409,11 +424,12 @@
     </table>
 </div>
 
-<!-- ======================= PAGE 5 : Overall Observation + Signature + Remarks ======================= -->
+<!-- ======================= PAGE 5 : Overall Observation (58-61) + Signature Row + Remarks ======================= -->
 <div class="page">
-    <div class="header">
-        <div class="company-name">Primestar Energy Solutions</div>
-        <div class="company-address">Kapad Peth, Ashta, Tal-Miraj, Dist. Sangli - 416301</div>
+    <div class="arihant-header">
+        <div class="company-name">Arihant Energy Solutions</div>
+        <div class="contact-line">Email: arihantele@gmail.com | Near Anuje Hospital, Kurundwad, Tal-shirol, Dist. Kolhapur - 416301</div>
+        <div class="border-line"></div>
     </div>
 
     <div class="section-title">📌 Overall Observation</div>
@@ -424,27 +440,31 @@
         <tr><td>61</td><td>If, No, Discrepancies to be attended by consumer (Please mention Serial Nos of Points to be complied by consumers)</td><td><span th:text="${discrepancies}">None</span></td></tr>
     </table>
 
-    <!-- Signature section exactly like WCR style -->
-    <div class="signature-wrapper">
-        <div class="sign-box">
-            <div>
-                <img th:if="${consumerSignature != null and !#lists.isEmpty(consumerSignature)}" th:src="${consumerSignature[0]}" class="sign-img" alt="Consumer Signature"/>
-                <div th:if="${consumerSignature == null or #lists.isEmpty(consumerSignature)}" class="sign-line"></div>
-            </div>
-            <div><strong>Signature [Consumer]</strong></div>
-            <div>(<span th:text="${name}">SHRI SANDEEP MANOHAR MHETRE</span>)</div>
-        </div>
-        <div class="sign-box">
-            <div>
-                <img th:if="${vendorSignature != null and !#lists.isEmpty(vendorSignature)}" th:src="${vendorSignature[0]}" class="sign-img" alt="Vendor Signature"/>
-                <div th:if="${vendorSignature == null or #lists.isEmpty(vendorSignature)}" class="sign-line"></div>
-            </div>
-            <div><strong>Signature [Vendor]</strong></div>
-            <div>(<span th:text="${vendorName}">Primestar Energy Solutions</span>)</div>
-        </div>
+    <!-- Signature section side by side using WCR cell logic (two column table) -->
+    <div class="signature-row">
+        <table class="signature-table">
+            <tr>
+                <td>
+                    <div>
+                        <img th:if="${consumerSignature != null and !#lists.isEmpty(consumerSignature)}" th:src="${consumerSignature[0]}" class="sign-img" alt="Consumer Signature"/>
+                        <div th:if="${consumerSignature == null or #lists.isEmpty(consumerSignature)}" class="sign-line"></div>
+                    </div>
+                    <div><strong>Signature [Consumer]</strong></div>
+                    <div>(<span th:text="${name}">SHRI SANDEEP MANOHAR MHETRE</span>)</div>
+                </td>
+                <td>
+                    <div>
+                        <img th:if="${vendorSignature != null and !#lists.isEmpty(vendorSignature)}" th:src="${vendorSignature[0]}" class="sign-img" alt="Vendor Signature"/>
+                        <div th:if="${vendorSignature == null or #lists.isEmpty(vendorSignature)}" class="sign-line"></div>
+                    </div>
+                    <div><strong>Signature [Vendor]</strong></div>
+                    <div>(<span th:text="${vendorName}">Arihant Energy Solutions</span>)</div>
+                </td>
+            </tr>
+        </table>
     </div>
 
-    <!-- Remarks -->
+    <!-- Remarks - final notes -->
     <div class="remarks-box">
         <p><strong>Remarks:-</strong></p>
         <p>In the presence of backup inverter an arrangement should be made in such way that the backup inverter supply should never be synchronised with solar inverter to avoid any electrical accident due to back feeding. If Islanding is not working satisfactory then connection should not be released by AE(QC) and agency should be instructed to solve the islanding issue.</p>
@@ -452,6 +472,9 @@
         <p style="margin-top: 8px;">Please refer "Sample detailed specification of typical rooftop photovoltaic system" and MSEDCL commercial circular No- 322 dated 21-01-2019 regarding "connectivity to the Distribution network of MSEDCL for eligible consumers installing Rooftop Renewable Energy Generating Systems in his premises under MERC (Grid Interactive Rooftop Renewable Energy Generating Systems) Regulations, 2019 - Procedure for Application, methodology for Metering & Billing, etc."</p>
     </div>
 
+    <div class="text-center" style="margin-top: 20px; font-size: 8.5pt; color: #444;">
+        *** This is a system generated Pre-Commissioning Report (Front Six) ***
+    </div>
 </div>
 
 </body>
