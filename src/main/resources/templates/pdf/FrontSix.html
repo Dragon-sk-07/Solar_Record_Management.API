@@ -5,25 +5,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Solar Installation - Pre-Commissioning Report</title>
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-@page { margin: 5mm 10mm; }
-body { padding: 5px 10px; }
-.header-container { margin-bottom: 5px; }
-.letter-date { margin-top: 0; }
-table, .signature-area { page-break-inside: avoid; }
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
+        @page {
+            margin: 8mm 12mm;
+        }
+
         body {
             font-family: Arial, Helvetica, sans-serif;
             background: #ffffff;
             color: #000000;
-            font-size: 12px;
+            font-size: 10px;
             line-height: 1.35;
-            padding: 12px 15px;
+            padding: 8px 10px;
         }
 
         .gov-wrapper {
@@ -32,12 +30,59 @@ table, .signature-area { page-break-inside: avoid; }
             background: #fff;
         }
 
+        .header {
+            text-align: center;
+            margin-bottom: 8px;
+            font-family: 'Times New Roman', Times, serif;
+        }
+
+        .header-name {
+            font-size: 13px;
+            font-weight: bold;
+            margin: 0;
+            padding: 0;
+        }
+
+        .header-details {
+            font-size: 7.5px;
+            margin: 2px 0;
+            padding: 0;
+        }
+
+        .header-border {
+            border-bottom: 1px solid #000;
+            margin-top: 4px;
+        }
+
+        .letter-date {
+            text-align: right;
+            margin: 5px 0 8px 0;
+            font-size: 9.5px;
+        }
+
+        .subject {
+            font-weight: bold;
+            margin: 10px 0 6px 0;
+            text-decoration: underline;
+            font-size: 10px;
+        }
+
+        .reference {
+            margin: 6px 0;
+        }
+
+        .reference p {
+            margin: 2px 0;
+            font-size: 9.5px;
+        }
+
         table {
             width: 100%;
             border-collapse: collapse;
             border: 1px solid #000;
-            font-size: 12px;
+            font-size: 9px;
             table-layout: fixed;
+            margin: 6px 0;
         }
 
         td, th {
@@ -47,7 +92,7 @@ table, .signature-area { page-break-inside: avoid; }
         }
 
         th {
-            background-color: #f5f5f5;
+            background-color: #f0f0f0;
             font-weight: 700;
             text-align: center;
         }
@@ -56,65 +101,20 @@ table, .signature-area { page-break-inside: avoid; }
             font-weight: 700;
         }
 
-        .letter-date {
-            text-align: right;
-            margin: 10px 0 15px 0;
-        }
-
-        .subject {
-            font-weight: bold;
-            margin: 15px 0 10px 0;
-            text-decoration: underline;
-        }
-
-        .reference {
-            margin: 10px 0;
-        }
-
-        .reference p {
-            margin: 3px 0;
-        }
-
-        .invoice-header {
-            text-align: center;
-            font-size: 22px;
-            font-weight: bold;
-            margin: 20px 0;
-        }
-
-        .invoice-details {
-            margin: 15px 0;
-        }
-
-        .invoice-table th, .invoice-table td {
-            border: 1px solid #000;
-            padding: 8px;
-            text-align: left;
-        }
-
-        .invoice-table th {
-            background-color: #e0e0e0;
-        }
-
-        .declaration {
-            margin-top: 20px;
-            font-style: italic;
-        }
-
-        .note-text {
-            font-size: 10pt;
-            margin-top: 15px;
-            color: #333;
-        }
-
-        .note-text ul {
-            margin-left: 25px;
+        .section-title {
+            font-weight: 700;
+            font-size: 10px;
+            margin: 10px 0 5px 0;
+            padding: 3px 0;
+            border-bottom: 1px solid #333;
         }
 
         .inspection-grid {
             display: table;
             width: 100%;
-            margin: 10px 0;
+            margin: 6px 0;
+            border: 1px solid #000;
+            border-collapse: collapse;
         }
 
         .inspection-item {
@@ -124,43 +124,62 @@ table, .signature-area { page-break-inside: avoid; }
         .inspection-label {
             font-weight: bold;
             display: table-cell;
-            padding: 5px;
-            width: 50%;
-        }
-
-        .section-title {
-            font-weight: 700;
-            text-align: center;
-            font-size: 13px;
-            margin: 10px 0;
-        }
-
-        .signature-area {
-            width: 100%;
-            margin: 30px 0 20px 0;
-            overflow: hidden;
-        }
-
-        .signature-box {
-            float: left;
-            text-align: center;
+            padding: 3px 4px;
             width: 45%;
+            border: 1px solid #000;
+            background-color: #f5f5f5;
         }
 
-        .signature-box:last-child {
-            float: right;
+        .inspection-value {
+            display: table-cell;
+            padding: 3px 4px;
+            border: 1px solid #000;
+        }
+
+        .signature-row {
+            display: table;
+            width: 100%;
+            table-layout: fixed;
+            margin: 15px 0 10px 0;
+        }
+
+        .signature-left, .signature-right {
+            display: table-cell;
+            width: 50%;
+            vertical-align: top;
+            text-align: center;
+        }
+
+        .signature-left {
+            padding-right: 10px;
+        }
+
+        .signature-right {
+            padding-left: 10px;
         }
 
         .signature-space {
-            height: 55px;
-            margin-top: 0;
+            height: 50px;
+            margin: 3px 0;
         }
 
         .remarks {
-            margin-top: 20px;
-            background-color: #f9f9f9;
-            padding: 10px;
-            border-left: 3px solid #333;
+            margin-top: 12px;
+            padding: 6px;
+            border-left: 2px solid #333;
+            background-color: #fafafa;
+            font-size: 8.5px;
+        }
+
+        .note-text {
+            font-size: 8.5px;
+            margin-top: 8px;
+            color: #333;
+        }
+
+        .note-text ul {
+            margin-left: 18px;
+            padding-left: 8px;
         }
 
         .page-break {
@@ -187,23 +206,22 @@ table, .signature-area { page-break-inside: avoid; }
 <body>
 <div class="gov-wrapper">
 
-    <!-- HEADER -->
-    <div style="text-align: center; margin-bottom: 8px; font-family: 'Times New Roman', Times, serif;">
-        <div style="font-size: 16px; font-weight: bold; margin: 0; padding: 0;">Arihant Energy Solutions</div>
-        <div style="font-size: 10px; margin: 2px 0; padding: 0;">Email: arihantele@gmail.com | Near Anuje Hospital, Kurundwad, Tal-shirol, Dist. Kolhapur - 416301 |  Mob:7774855501</div>
-        <div style="border-bottom: 1px solid #000; margin-top: 5px;"></div>
-    </div>
-
     <!-- PAGE 1 -->
-    <div class="letter-date">
-        Date: <span th:text="${currentDate != null ? currentDate : 'ValueMissing'}">ValueMissing</span>
+    <div class="header">
+        <div class="header-name">Arihant Energy Solutions</div>
+        <div class="header-details">Email: arihantele@gmail.com | Near Anuje Hospital, Kurundwad, Tal-shirol, Dist. Kolhapur - 416301 | Mob: 7774855501</div>
+        <div class="header-border"></div>
     </div>
 
-    <div style="margin: 15px 0;">
+    <div class="letter-date">
+        Date: <span th:text="${currentDate != null ? currentDate : '________'}">________</span>
+    </div>
+
+    <div>
         To,<br/>
         Executive Engineer,<br/>
         M.S.E.D.C.Ltd,<br/>
-        <span th:text="${place != null ? place : 'Sangli'}">ValueMissing</span>
+        <span th:text="${place != null ? place : 'Sangli'}">Sangli</span>
     </div>
 
     <div class="subject">
@@ -211,130 +229,90 @@ table, .signature-area { page-break-inside: avoid; }
     </div>
 
     <div class="reference">
-        <p>Ref: 1. Consumer name: <span th:text="${name != null ? name : 'ValueMissing'}">ValueMissing</span></p>
-        <p>2. Consumer Number: <span th:text="${consumerNumber != null ? consumerNumber : 'ValueMissing'}">ValueMissing</span></p>
-        <p>3. Sanction Number: <span th:text="${sanctionNumber != null ? sanctionNumber : 'ValueMissing'}">ValueMissing</span></p>
+        <p>Ref: 1. Consumer name: <span th:text="${name != null ? name : '________'}">________</span></p>
+        <p>2. Consumer Number: <span th:text="${consumerNumber != null ? consumerNumber : '________'}">________</span></p>
+        <p>3. Sanction Number: <span th:text="${sanctionNumber != null ? sanctionNumber : '________'}">________</span></p>
         <p>4. Scheme name: PM Suryghar Muft Bijli Yojana</p>
     </div>
 
-    <div style="margin: 20px 0; text-align: justify;">
+    <div style="margin: 8px 0; text-align: justify;">
         <p>Dear Sir/Madam,</p>
-        <p style="margin-top: 10px;">With reference to above mentioned subject, the consumer has completed required documents for solar connection. Hence, we request to please proceed with the testing of below mentioned meter.</p>
+        <p style="margin-top: 4px;">With reference to above mentioned subject, the consumer has completed required documents for solar connection. Hence, we request to please proceed with the testing of below mentioned meter.</p>
     </div>
 
-    <table style="width: 60%; margin: 20px 0 20px 0;">
-        <tr><td style="border: none; padding: 4px;"><strong>Meter Details:</strong></td><td style="border: none;"></td></tr>
-        <tr><td style="border: none; padding: 4px;">Make:</td><td style="border: none; border-bottom: 1px solid #000;"><span th:text="${meterMake != null ? meterMake : 'ValueMissing'}">ValueMissing</span></td></tr>
-        <tr><td style="border: none; padding: 4px;">Sr. No.:</td><td style="border: none; border-bottom: 1px solid #000;"><span th:text="${meterNumber != null ? meterNumber : 'ValueMissing'}">ValueMissing</span></td></tr>
-        <tr><td style="border: none; padding: 4px;">Phase:</td><td style="border: none; border-bottom: 1px solid #000;">1 Phase</td></tr>
-        <tr><td style="border: none; padding: 4px;">Range:</td><td style="border: none; border-bottom: 1px solid #000;">5-30A</td></tr>
+    <table style="width: 60%; margin: 8px 0;">
+        <tr><td style="border: none; padding: 2px;"><strong>Meter Details:</strong></td><td style="border: none;"></td></tr>
+        <tr><td style="border: none; padding: 2px;">Make:</td><td style="border: none; border-bottom: 1px solid #000;"><span th:text="${meterMake != null ? meterMake : '________'}">________</span></td></tr>
+        <tr><td style="border: none; padding: 2px;">Sr. No.:</td><td style="border: none; border-bottom: 1px solid #000;"><span th:text="${meterNumber != null ? meterNumber : '________'}">________</span></td></tr>
+        <tr><td style="border: none; padding: 2px;">Phase:</td><td style="border: none; border-bottom: 1px solid #000;">1 Phase</td></tr>
+        <tr><td style="border: none; padding: 2px;">Range:</td><td style="border: none; border-bottom: 1px solid #000;">5-30A</td></tr>
     </table>
 
-    <div style="margin-top: 30px;">
-        Thanking you.
+    <div style="margin-top: 15px;">
+        <p>Thanking you.</p>
     </div>
 
     <!-- PAGE 2 -->
     <div class="page-break"></div>
 
-    <div style="text-align: center; margin-bottom: 8px; font-family: 'Times New Roman', Times, serif;">
-        <div style="font-size: 16px; font-weight: bold; margin: 0; padding: 0;">Arihant Energy Solutions</div>
-        <div style="font-size: 10px; margin: 2px 0; padding: 0;">Email: arihantele@gmail.com | Near Anuje Hospital, Kurundwad, Tal-shirol, Dist. Kolhapur - 416301 |  Mob:7774855501</div>
-        <div style="border-bottom: 1px solid #000; margin-top: 5px;"></div>
+    <div class="header">
+        <div class="header-name">Arihant Energy Solutions</div>
+        <div class="header-details">Email: arihantele@gmail.com | Near Anuje Hospital, Kurundwad, Tal-shirol, Dist. Kolhapur - 416301 | Mob: 7774855501</div>
+        <div class="header-border"></div>
     </div>
 
-    <div class="invoice-header">TAX INVOICE</div>
-
-    <div class="invoice-details">
-        <p><strong>PREPARED FOR</strong> <span th:text="${name != null ? name : 'ValueMissing'}">ValueMissing</span></p>
-        <p><span th:text="${siteAddress != null ? siteAddress : 'ValueMissing'}">ValueMissing</span></p>
-        <p><strong>PREPARED DATE</strong> <span th:text="${installationDate != null ? installationDate : 'ValueMissing'}">ValueMissing</span></p>
-    </div>
-
-    <table class="invoice-table">
-        <thead><tr><th>ITEM</th><th>QTY</th><th>GST</th><th>PRICE</th><th>TOTAL</th></tr></thead>
-        <tbody>
-        <tr>
-            <td>Generation Meter-1 Phase,5-30A<br/>Sr.No.-<span th:text="${meterNumber != null ? meterNumber : 'ValueMissing'}">ValueMissing</span></td>
-            <td>1</td><td>18%</td><td>2100</td><td>2478</td>
-        </tr>
-        </tbody>
-    </table>
-
-    <div class="declaration">
-        <p>I declare that the above information mentioned is true to the best of my knowledge.</p>
-    </div>
-
-    <div style="margin-top: 50px;">
-        <div style="float: right; text-align: center;">
-            <div class="signature-space">
-                <img th:if="${vendorSignature != null and not #lists.isEmpty(vendorSignature)}" th:src="${vendorSignature[0]}" style="max-height:60px; max-width:200px;"/>
-            </div>
-            <div>Authorized Signatory</div>
-            <div>(<span th:text="${vendorName != null ? vendorName : 'ValueMissing'}">ValueMissing</span>)</div>
-        </div>
-    </div>
-    <div style="clear: both;"></div>
-
-    <!-- PAGE 3 -->
-    <div class="page-break"></div>
-
-    <div style="text-align: center; margin-bottom: 8px; font-family: 'Times New Roman', Times, serif;">
-        <div style="font-size: 16px; font-weight: bold; margin: 0; padding: 0;">Arihant Energy Solutions</div>
-        <div style="font-size: 10px; margin: 2px 0; padding: 0;">Email: arihantele@gmail.com | Near Anuje Hospital, Kurundwad, Tal-shirol, Dist. Kolhapur - 416301 |  Mob:7774855501</div>
-        <div style="border-bottom: 1px solid #000; margin-top: 5px;"></div>
-    </div>
-
-    <div class="section-title" style="text-align:left;">1) Checking of Eligibility Criteria:</div>
+    <div class="section-title">1) Checking of Eligibility Criteria:</div>
 
     <table>
-        <thead><tr><th>Sr.No.</th><th>Points to be checked</th><th>Observation</th></tr></thead>
+        <thead>
+        <tr><th style="width:8%">Sr.No.</th><th style="width:52%">Points to be checked</th><th style="width:40%">Observation</th></tr>
+        </thead>
         <tbody>
-        <tr><td>1</td><td>The Consumer sanctioned load shall be at least 1 KW but not exceeding 20 KW</td><td>Yes (Connected/Sanction Load: <span th:text="${sanctionedCapacity != null ? sanctionedCapacity : 'ValueMissing'}">ValueMissing</span> kW)</td></tr>
-        <tr><td>2</td><td>Nos of Solar Module Installed &amp; Capacity of each Module</td><td><span th:text="${numberOfModules != null ? numberOfModules : 'ValueMissing'}">ValueMissing</span> Nos <span th:text="${wattagePerModule != null ? wattagePerModule : 'ValueMissing'}">ValueMissing</span> Wp</td></tr>
-        <tr><td>3</td><td>The Solar Roof Top Capacity in DC</td><td><span th:text="${totalCapacityKWP != null ? totalCapacityKWP : 'ValueMissing'}">ValueMissing</span> KWp</td></tr>
-        <tr><td>4</td><td>Solar Roof Top Capacity in AC</td><td><span th:text="${totalCapacityKWP != null ? totalCapacityKWP : 'ValueMissing'}">ValueMissing</span> KW</td></tr>
+        <tr><td>1</td><td>The Consumer sanctioned load shall be at least 1 KW but not exceeding 20 KW</td><td>Yes (Connected/Sanction Load: <span th:text="${sanctionedCapacity != null ? sanctionedCapacity : '________'}">________</span> kW)</td></tr>
+        <tr><td>2</td><td>Nos of Solar Module Installed & Capacity of each Module</td><td><span th:text="${numberOfModules != null ? numberOfModules : '________'}">________</span> Nos / <span th:text="${wattagePerModule != null ? wattagePerModule : '________'}">________</span> Wp</td></tr>
+        <tr><td>3</td><td>The Solar Roof Top Capacity in DC</td><td><span th:text="${totalCapacityKWP != null ? totalCapacityKWP : '________'}">________</span> KWp</td></tr>
+        <tr><td>4</td><td>Solar Roof Top Capacity in AC</td><td><span th:text="${totalCapacityKWP != null ? totalCapacityKWP : '________'}">________</span> KW</td></tr>
         <tr><td>5</td><td>Whether AC capacity less than equal to Sanctioned load</td><td>YES</td></tr>
         <tr><td>6</td><td>Is consumer is in arrears</td><td>NO</td></tr>
-        <tr><td>7</td><td>Single line schematic diagrams in respect of its system facility</td><td>NO</td></tr>
-        <tr><td>8</td><td>Equipment Layout and Wire Routing Diagram</td><td>Submitted Yes/No</td></tr>
-        <tr><td>9</td><td>Earthing Layout Diagram with Detailed Specification</td><td>NO</td></tr>
-        <tr><td>10</td><td>List of equipment installed along with detailed specifications duly signed by the licensed electrical contractor/ Solar PV installer</td><td>Submitted Yes/No</td></tr>
-        <tr><td>11</td><td>Certificate/Undertaking towards proper working of islanding system</td><td>Submitted Yes/No</td></tr>
+        <tr><td>7</td><td>Single line schematic diagrams in respect of its system facility</td><td>YES</td></tr>
+        <tr><td>8</td><td>Equipment Layout and Wire Routing Diagram</td><td>Submitted Yes</td></tr>
+        <tr><td>9</td><td>Earthing Layout Diagram with Detailed Specification</td><td>YES</td></tr>
+        <tr><td>10</td><td>List of equipment installed along with detailed specifications duly signed by the licensed electrical contractor/Solar PV installer Inventor, Battery, Isolation Transformer, Module Mounting structure, AC Distribution Box with Components DC Cable(s) AC Cable(s) Lightning Arrestor etc</td><td>Submitted Yes</td></tr>
+        <tr><td>11</td><td>Certificate/Undertaking towards proper working of islanding system, electrical safety of the system & responsibility in case of back feed to the de-energized grid</td><td>Submitted Yes</td></tr>
         </tbody>
     </table>
 
     <div class="note-text">
         <p><strong>Note:</strong></p>
         <ul>
-            <li>If consumer fails any of the eligibility criteria, then no further pre-commissioning procedure shall be done till correction of default.</li>
+            <li>If consumer fails any of the eligibility criteria, then no further pre-commissioning procedure shall be done till correction of default. (Letter to the consumer mentioning defects shall be intimated to consumer by AE(QC) through SDO).</li>
             <li>In case, consumer is enhancing its Roof Top Solar capacity, in such case also above points to be checked.</li>
             <li>** In case, consumer sanctioned load is more than 20 KW, the said case shall be referred to Testing Division of circle.</li>
             <li>Once above Eligibility criteria is comply by consumer, then pre-commissioning Inspection and Testing shall be done at actual site.</li>
         </ul>
     </div>
 
-    <!-- PAGE 4 -->
+    <!-- PAGE 3 -->
     <div class="page-break"></div>
 
-    <div style="text-align: center; margin-bottom: 8px; font-family: 'Times New Roman', Times, serif;">
-        <div style="font-size: 16px; font-weight: bold; margin: 0; padding: 0;">Arihant Energy Solutions</div>
-        <div style="font-size: 10px; margin: 2px 0; padding: 0;">Email: arihantele@gmail.com | Near Anuje Hospital, Kurundwad, Tal-shirol, Dist. Kolhapur - 416301 |  Mob:7774855501</div>
-        <div style="border-bottom: 1px solid #000; margin-top: 5px;"></div>
+    <div class="header">
+        <div class="header-name">Arihant Energy Solutions</div>
+        <div class="header-details">Email: arihantele@gmail.com | Near Anuje Hospital, Kurundwad, Tal-shirol, Dist. Kolhapur - 416301 | Mob: 7774855501</div>
+        <div class="header-border"></div>
     </div>
 
     <div class="inspection-grid">
-        <div class="inspection-item"><span class="inspection-label">1 Details of Inspecting Office:</span> <span th:text="${inspectorName != null ? inspectorName : 'ValueMissing'}">ValueMissing</span></div>
-        <div class="inspection-item"><span class="inspection-label">2 Date and Time of Inspection:</span> <span th:text="${installationDate != null ? installationDate : 'ValueMissing'}">ValueMissing</span></div>
-        <div class="inspection-item"><span class="inspection-label">3 Name of the Consumer:-</span> <span th:text="${name != null ? name : 'ValueMissing'}">ValueMissing</span></div>
-        <div class="inspection-item"><span class="inspection-label">4 Address of Consumer:-</span> <span th:text="${siteAddress != null ? siteAddress : 'ValueMissing'}">ValueMissing</span></div>
-        <div class="inspection-item"><span class="inspection-label">5 Consumer No.:-</span> <span th:text="${consumerNumber != null ? consumerNumber : 'ValueMissing'}">ValueMissing</span></div>
-        <div class="inspection-item"><span class="inspection-label">5.A Name of Billing Unit:-</span> 1228/Miraj Urban</div>
-        <div class="inspection-item"><span class="inspection-label">6 MSEDCL Existing Sanction & Connected Load:</span> <span th:text="${sanctionedCapacity != null ? sanctionedCapacity : 'ValueMissing'}">ValueMissing</span> kW</div>
-        <div class="inspection-item"><span class="inspection-label">7 Type of connection (1Ph/3Ph)</span> 1 Phase</div>
-        <div class="inspection-item"><span class="inspection-label">8 Consumer Tariff Category</span> Residential</div>
-        <div class="inspection-item"><span class="inspection-label">9 Installed Solar Roof Top System(AC Cap):-</span> <span th:text="${totalCapacityKWP != null ? totalCapacityKWP : 'ValueMissing'}">ValueMissing</span> kW</div>
-        <div class="inspection-item"><span class="inspection-label">9.A Whether Point of Supply Drawing submitted</span> NO</div>
+        <div class="inspection-item"><span class="inspection-label">1 Details of Inspecting Office (Name, Designation, Subdivision):</span><span class="inspection-value"><span th:text="${inspectorName != null ? inspectorName : '________'}">________</span></span></div>
+        <div class="inspection-item"><span class="inspection-label">2 Date and Time of Inspection:</span><span class="inspection-value"><span th:text="${installationDate != null ? installationDate : '________'}">________</span></span></div>
+        <div class="inspection-item"><span class="inspection-label">3 Name of the Consumer:-</span><span class="inspection-value"><span th:text="${name != null ? name : '________'}">________</span></span></div>
+        <div class="inspection-item"><span class="inspection-label">4 Address of Consumer:-</span><span class="inspection-value"><span th:text="${siteAddress != null ? siteAddress : '________'}">________</span></span></div>
+        <div class="inspection-item"><span class="inspection-label">5 Consumer No.:-</span><span class="inspection-value"><span th:text="${consumerNumber != null ? consumerNumber : '________'}">________</span></span></div>
+        <div class="inspection-item"><span class="inspection-label">5.A Name of Billing Unit:-</span><span class="inspection-value">1228/Miraj Urban</span></div>
+        <div class="inspection-item"><span class="inspection-label">6 MSEDCL Existing Sanction & Connected Load(AC in Kw):-</span><span class="inspection-value"><span th:text="${sanctionedCapacity != null ? sanctionedCapacity : '________'}">________</span> kW</span></div>
+        <div class="inspection-item"><span class="inspection-label">7 Type of connection (1Ph/3Ph):</span><span class="inspection-value">1 Phase</span></div>
+        <div class="inspection-item"><span class="inspection-label">8 Consumer Tariff Category:</span><span class="inspection-value">Residential</span></div>
+        <div class="inspection-item"><span class="inspection-label">9 Installed Solar Roof Top System(AC Cap):-</span><span class="inspection-value"><span th:text="${totalCapacityKWP != null ? totalCapacityKWP : '________'}">________</span> kW</span></div>
+        <div class="inspection-item"><span class="inspection-label">9.A Whether Point of Supply Drawing submitted:</span><span class="inspection-value">YES</span></div>
     </div>
 
     <div class="section-title">CHECKING OF EARTHING SYSTEM</div>
@@ -343,8 +321,8 @@ table, .signature-area { page-break-inside: avoid; }
         <tr><td>11</td><td>Separate Earthing provided for Solar Panel Structure</td><td>Yes</td></tr>
         <tr><td>12</td><td>Earthing provided DCBB Earthing</td><td>Yes</td></tr>
         <tr><td>13</td><td>Earthing provided ACBB Earthing</td><td>Yes</td></tr>
-        <tr><td>14</td><td>Separate Earthing provided Grid Inverter Built</td><td>Yes</td></tr>
-        <tr><td>15</td><td>Earthing provided to Metering cubicle</td><td>Yes/No</td></tr>
+        <tr><td>14</td><td>Separate Earthing provided Grid Inverter Built(AC side Earthing)</td><td>Yes</td></tr>
+        <tr><td>15</td><td>Earthing provided to Metering cubicle</td><td>Yes</td></tr>
         <tr><td>16</td><td>All Metallic body Parts earthed</td><td>Yes</td></tr>
     </table>
 
@@ -353,117 +331,117 @@ table, .signature-area { page-break-inside: avoid; }
         <tr><td>17</td><td>DC Fuses provided after Solar Modules</td><td>YES</td></tr>
         <tr><td>18</td><td>AC Junction Box provided with Built in Surge protector device</td><td>YES</td></tr>
         <tr><td>19</td><td>Separate Lightning Arrestor provided before Solar Panel</td><td>YES</td></tr>
-        <tr><td>20</td><td>Internal Protection provided after Grid-tie Inverter</td><td>Yes</td></tr>
+        <tr><td>20</td><td>Internal Protection provided after Grid-tie Inverter with MCC/MCB Rating-</td><td>32 Amp</td></tr>
         <tr><td>21</td><td>ACDB provided with Built in Surge Protector</td><td>YES</td></tr>
-        <tr><td>22</td><td>Manual Operated Isolation switch provided</td><td>Yes</td></tr>
+        <tr><td>22</td><td>Manual Operated Isolation switch of rated Capacity provided for protection, If Yes: Whether switch has visible verification that separation has been accomplished: YES<br/>Whether switch clearly indicate Open/Close Position: YES<br/>Whether switch has facility of locking in open Position: YES</td><td>YES</td></tr>
         <tr><td>23</td><td>MCB Provided before Load side</td><td>YES</td></tr>
     </table>
 
-    <!-- PAGE 5 -->
+    <!-- PAGE 4 -->
     <div class="page-break"></div>
 
-    <div style="text-align: center; margin-bottom: 8px; font-family: 'Times New Roman', Times, serif;">
-        <div style="font-size: 16px; font-weight: bold; margin: 0; padding: 0;">Arihant Energy Solutions</div>
-        <div style="font-size: 10px; margin: 2px 0; padding: 0;">Email: arihantele@gmail.com | Near Anuje Hospital, Kurundwad, Tal-shirol, Dist. Kolhapur - 416301 |  Mob:7774855501</div>
-        <div style="border-bottom: 1px solid #000; margin-top: 5px;"></div>
+    <div class="header">
+        <div class="header-name">Arihant Energy Solutions</div>
+        <div class="header-details">Email: arihantele@gmail.com | Near Anuje Hospital, Kurundwad, Tal-shirol, Dist. Kolhapur - 416301 | Mob: 7774855501</div>
+        <div class="header-border"></div>
     </div>
 
+    <div class="section-title">Net Metering & Islanding Details</div>
     <table>
-        <tr><td>24</td><td>Net Metering cabinet with ELCB/RCCB protection for 3ph</td><td>Not Applicable</td></tr>
-        <tr><td>24A</td><td>Net Metering with ELCB/RCCB protection for 1ph.</td><td>Yes</td></tr>
-    </table>
-
-    <div class="section-title">Checking of Islanding Mode of Operation</div>
-    <table>
-        <tr><td>25</td><td>Checking of Islanding mode of Solar System</td><td>Checked Yes/No</td></tr>
-        <tr><td>26</td><td>In case of Solar Inverter with Storage Battery or DG</td><td>Provided Yes/No</td></tr>
+        <tr><td>24</td><td>Net Metering cabinet with ELCB/RCCB protection of rated capacity with Sealing arrangement for 3ph</td><td>Not Applicable</td></tr>
+        <tr><td>24A</td><td>Net Metering with ELCB/RCCB protection for 1ph. If Yes, Rating-</td><td>Yes, 32 Amp / 30 mA</td></tr>
+        <tr><td>25</td><td>Checking of Islanding mode of Solar System by disconnecting from grid supply and also with Single phasing of Grid (in case of 3phase power supply to consumer)</td><td>Checked Yes, working satisfactory</td></tr>
+        <tr><td>26</td><td>In case of Solar Inverter with Storage Battery or DG as standby source to Solar Inverter, please check whether separate wiring done & change over switch is provided: Provided If Yes, Please check Operation to ensure that no reverse power fed into Grid in case of switching of Operation of Solar Inverter with Reference voltage from Storage battery/DG</td><td>Not Applicable</td></tr>
     </table>
 
     <div class="section-title">Net Metering System Details</div>
     <table>
-        <tr><td>27</td><td>Net meter Installed in Grid/Network system</td><td>Yes/No</td></tr>
-        <tr><td>28</td><td>Net meter is Tested at MSEDCL Testing-Division Lab</td><td>Yes/No</td></tr>
-        <tr><td>29</td><td>Meter make</td><td><span th:text="${meterMake != null ? meterMake : 'ValueMissing'}">ValueMissing</span></td></tr>
-        <tr><td>30</td><td>Meter Type</td><td>DLMS, Generation Meter</td></tr>
-        <tr><td>31</td><td>Meter Serial No</td><td><span th:text="${netMeterNumber != null ? netMeterNumber : 'ValueMissing'}">ValueMissing</span></td></tr>
-        <tr><td>32</td><td>Meter Class of Accuracy</td><td>ValueMissing</td></tr>
-        <tr><td>33</td><td>Meter Capacity</td><td>ValueMissing</td></tr>
-        <tr><td>34</td><td>Meter Constant</td><td>5-30A</td></tr>
-        <tr><td>35</td><td>Meter Initial Reading</td><td>ValueMissing</td></tr>
+        <tr><td>27</td><td>Net meter Installed in Grid/Network system at the time of Joint Inspection</td><td>Yes</td></tr>
+        <tr><td>28</td><td>Net meter is Tested at MSEDCL Testing-Division Lab: If Yes, Testing date & Seal Nos</td><td>Yes, 10-05-2025 / Seal No: 987654</td></tr>
+        <tr><td>29</td><td>Meter make</td><td><span th:text="${meterMake != null ? meterMake : '________'}">________</span></td></tr>
+        <tr><td>30</td><td>Meter Type</td><td>DLMS, Net Meter</td></tr>
+        <tr><td>31</td><td>Meter Serial No</td><td><span th:text="${netMeterNumber != null ? netMeterNumber : '________'}">________</span></td></tr>
+        <tr><td>32</td><td>Meter Class of Accuracy</td><td>Class 1.0</td></tr>
+        <tr><td>33</td><td>Meter Capacity</td><td>5-30A</td></tr>
+        <tr><td>34</td><td>Meter Constant</td><td>1600 imp/kWh</td></tr>
+        <tr><td>35</td><td>Meter Initial Reading</td><td>0.00</td></tr>
         <tr><td>36</td><td>Location meter easily assessable for meter reading</td><td>Yes</td></tr>
     </table>
 
     <div class="section-title">Generation Meter Details</div>
     <table>
-        <tr><td>37</td><td>Generation meter Installed for recording Solar Generation</td><td>Yes/No</td></tr>
-        <tr><td>38</td><td>Meter is Tested at MSEDCL Testing-Division Lab</td><td>Yes/No</td></tr>
-        <tr><td>38A</td><td>Meter make</td><td><span th:text="${meterMake != null ? meterMake : 'ValueMissing'}">ValueMissing</span></td></tr>
+        <tr><td>37</td><td>Generation meter Installed for recording Solar Generation</td><td>Yes</td></tr>
+        <tr><td>38</td><td>Meter is Tested at MSEDCL Testing-Division Lab: If Yes, Testing date & Seal Nos</td><td>Yes, 10-05-2025 / Seal No: 987655</td></tr>
+        <tr><td>38A</td><td>Meter make</td><td><span th:text="${meterMake != null ? meterMake : '________'}">________</span></td></tr>
         <tr><td>39</td><td>Meter Type</td><td>DLMS, Generation Meter</td></tr>
-        <tr><td>40</td><td>Meter Serial No</td><td><span th:text="${meterNumber != null ? meterNumber : 'ValueMissing'}">ValueMissing</span></td></tr>
-        <tr><td>41</td><td>Meter Class of Accuracy</td><td>ValueMissing</td></tr>
-        <tr><td>42</td><td>Meter Capacity</td><td>ValueMissing</td></tr>
-        <tr><td>43</td><td>Meter Constant</td><td>ValueMissing</td></tr>
-        <tr><td>44</td><td>Meter Initial Reading</td><td>ValueMissing</td></tr>
+        <tr><td>40</td><td>Meter Serial No</td><td><span th:text="${meterNumber != null ? meterNumber : '________'}">________</span></td></tr>
+        <tr><td>41</td><td>Meter Class of Accuracy</td><td>Class 1.0</td></tr>
+        <tr><td>42</td><td>Meter Capacity</td><td>5-30A</td></tr>
+        <tr><td>43</td><td>Meter Constant</td><td>1600 imp/kWh</td></tr>
+        <tr><td>44</td><td>Meter Initial Reading</td><td>0.00</td></tr>
         <tr><td>45</td><td>Location meter easily assessable for meter reading</td><td>Yes</td></tr>
     </table>
 
-    <!-- PAGE 6 -->
+    <!-- PAGE 5 -->
     <div class="page-break"></div>
 
-    <div style="text-align: center; margin-bottom: 8px; font-family: 'Times New Roman', Times, serif;">
-        <div style="font-size: 16px; font-weight: bold; margin: 0; padding: 0;">Arihant Energy Solutions</div>
-        <div style="font-size: 10px; margin: 2px 0; padding: 0;">Email: arihantele@gmail.com | Near Anuje Hospital, Kurundwad, Tal-shirol, Dist. Kolhapur - 416301 |  Mob:7774855501</div>
-        <div style="border-bottom: 1px solid #000; margin-top: 5px;"></div>
+    <div class="header">
+        <div class="header-name">Arihant Energy Solutions</div>
+        <div class="header-details">Email: arihantele@gmail.com | Near Anuje Hospital, Kurundwad, Tal-shirol, Dist. Kolhapur - 416301 | Mob: 7774855501</div>
+        <div class="header-border"></div>
     </div>
 
     <div class="section-title">Solar System Equipment Details</div>
     <table>
-        <tr><td>46</td><td>Grid Tie Inverter Make:</td><td><span th:text="${inverterMake != null ? inverterMake : 'ValueMissing'}">ValueMissing</span></td></tr>
-        <tr><td>47</td><td>Inverter Capacity(AC Kw/Kva)</td><td><span th:text="${inverterCapacity != null ? inverterCapacity : 'ValueMissing'}">ValueMissing</span></td></tr>
-        <tr><td>48</td><td>PV Module make:</td><td><span th:text="${moduleMake != null ? moduleMake : 'ValueMissing'}">ValueMissing</span></td></tr>
-        <tr><td>49</td><td>PV Module Nos</td><td><span th:text="${numberOfModules != null ? numberOfModules : 'ValueMissing'}">ValueMissing</span></td></tr>
-        <tr><td>50</td><td>PV Module serial Nos</td><td><span th:text="${moduleSerialNumbers != null ? moduleSerialNumbers : 'ValueMissing'}">ValueMissing</span></td></tr>
-        <tr><td>51</td><td>No. of strings:</td><td>1</td></tr>
-        <tr><td>52</td><td>Rating of Each PV modules & total Capacity</td><td><span th:text="${wattagePerModule != null ? wattagePerModule : 'ValueMissing'}">ValueMissing</span> watt / <span th:text="${totalCapacityKWP != null ? totalCapacityKWP : 'ValueMissing'}">ValueMissing</span> kW</td></tr>
-    </table>
-
-    <div class="section-title">Checking of connection of Meter</div>
-    <table>
-        <tr><td>53</td><td>Generation Meter connection</td><td>ValueMissing</td></tr>
-        <tr><td>54</td><td>Net Meter connection</td><td>ValueMissing</td></tr>
+        <tr><td>46</td><td>Grid Tie Inverter Make:-</td><td><span th:text="${inverterMake != null ? inverterMake : '________'}">________</span></td></tr>
+        <tr><td>47</td><td>Inverter Capacity(AC Kw/Kva)</td><td><span th:text="${inverterCapacity != null ? inverterCapacity : '________'}">________</span></td></tr>
+        <tr><td>48</td><td>PV Module make:-</td><td><span th:text="${moduleMake != null ? moduleMake : '________'}">________</span></td></tr>
+        <tr><td>49</td><td>PV Module serial Nos</td><td><span th:text="${moduleSerialNumbers != null ? moduleSerialNumbers : '________'}">________</span></td></tr>
+        <tr><td>50</td><td>No. of strings:-</td><td>1</td></tr>
+        <tr><td>51</td><td>Rating of Each PV modules & total Capacity</td><td><span th:text="${wattagePerModule != null ? wattagePerModule : '________'}">________</span> watt / <span th:text="${totalCapacityKWP != null ? totalCapacityKWP : '________'}">________</span> kW</td></tr>
+        <tr><td>52</td><td>Generation Meter connection</td><td>Proper as per schematic</td></tr>
+        <tr><td>53</td><td>Net Meter connection</td><td>Proper as per schematic</td></tr>
     </table>
 
     <div class="section-title">Overall Observation</div>
     <table>
-        <tr><td>55</td><td>Found that Inverter is working in Healthy condition</td><td>Yes</td></tr>
-        <tr><td>56</td><td>Islanding of Solar System working Satisfactory</td><td>Yes</td></tr>
-        <tr><td>57</td><td>The Above inspected Solar Invertors system can be taken into system</td><td>Yes</td></tr>
-        <tr><td>58</td><td>Discrepancies to be attended by consumer</td><td>ValueMissing</td></tr>
+        <tr><td>54</td><td>Found that Inverter is working in Healthy condition</td><td>Yes</td></tr>
+        <tr><td>55</td><td>Islanding of Solar System working Satisfactory</td><td>Yes</td></tr>
+        <tr><td>56</td><td>The Above inspected Solar Invertors system with associated equipment & Metering system can be taken into system</td><td>Yes</td></tr>
+        <tr><td>57</td><td>If, No, Discrepancies to be attended by consumer (Please mention Serial Nos of Points to be complied by consumers)</td><td>None</td></tr>
     </table>
 
-    <div class="signature-area">
-        <div class="signature-box">
+    <div class="signature-row">
+        <div class="signature-left">
+            <div class="signature-space">
+                <img th:if="${consumerSignature != null and not #lists.isEmpty(consumerSignature)}" th:src="${consumerSignature[0]}" style="max-height:50px; max-width:160px;"/>
+            </div>
             <div>Consumer Representative</div>
-            <div class="signature-space">
-                <img th:if="${consumerSignature != null and not #lists.isEmpty(consumerSignature)}" th:src="${consumerSignature[0]}" style="max-height:60px; max-width:200px;"/>
-            </div>
-            <div>(<span th:text="${name != null ? name : 'ValueMissing'}">ValueMissing</span>)</div>
+            <div>(<span th:text="${name != null ? name : '________'}">________</span>)</div>
         </div>
-        <div class="signature-box">
-            <div>Contractor Representative</div>
+        <div class="signature-right">
             <div class="signature-space">
-                <img th:if="${vendorSignature != null and not #lists.isEmpty(vendorSignature)}" th:src="${vendorSignature[0]}" style="max-height:60px; max-width:200px;"/>
+                <img th:if="${vendorSignature != null and not #lists.isEmpty(vendorSignature)}" th:src="${vendorSignature[0]}" style="max-height:50px; max-width:160px;"/>
             </div>
-            <div>(<span th:text="${vendorName != null ? vendorName : 'ValueMissing'}">ValueMissing</span>)</div>
+            <div>Contractor Representative</div>
+            <div>(<span th:text="${vendorName != null ? vendorName : '________'}">________</span>)</div>
         </div>
     </div>
-    <div class="clearfix"></div>
+
+    <!-- PAGE 6 -->
+    <div class="page-break"></div>
+
+    <div class="header">
+        <div class="header-name">Arihant Energy Solutions</div>
+        <div class="header-details">Email: arihantele@gmail.com | Near Anuje Hospital, Kurundwad, Tal-shirol, Dist. Kolhapur - 416301 | Mob: 7774855501</div>
+        <div class="header-border"></div>
+    </div>
 
     <div class="remarks">
         <p><strong>Remarks:-</strong></p>
         <p>In the presence of backup inverter an arrangement should be made in such way that the backup inverter supply should never be synchronised with solar inverter to avoid any electrical accident due to back feeding. If Islanding is not working satisfactory then connection should not be released by AE(QC) and agency should be instructed to solve the islanding issue.</p>
-        <p style="margin-top: 10px;">In case of DG synchronisation, synchronised panel protection, uv and frequency should be verified</p>
-        <p style="margin-top: 10px;">Please refer "Sample detailed specification of typical rooftop photovoltaic system" and MSEDCL commercial circular No- 322 dated 21-01-2019.</p>
+        <p style="margin-top: 5px;">In case of DG synchronisation, synchronised panel protection, uv and frequency should be verified</p>
+        <p style="margin-top: 5px;">Please refer "Sample detailed specification of typical rooftop photovoltaic system" and MSEDCL commercial circular No- 322 dated 21-01-2019 regarding "connectivity to the Distribution network of MSEDCL for eligible consumers installing Rooftop Renewable Energy Generating Systems in his premises under MERC (Grid Interactive Rooftop Renewable Energy Generating Systems) Regulations, 2019 - Procedure for Application, methodology for Metering & Billing, etc."</p>
     </div>
 
 </div>
