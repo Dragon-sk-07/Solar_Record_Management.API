@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Solar Installation - Pre-Commissioning Report</title>
     <style>
+        /* RESET & GLOBAL - print/PDF friendly, no flex/gap/object-fit/box-shadow/text-overflow */
         * {
             margin: 0;
             padding: 0;
@@ -30,6 +31,7 @@
             background: #fff;
         }
 
+        /* HEADER */
         .header {
             text-align: center;
             margin-bottom: 8px;
@@ -54,6 +56,7 @@
             margin-top: 4px;
         }
 
+        /* LETTER */
         .letter-date {
             text-align: right;
             margin: 5px 0 8px 0;
@@ -76,6 +79,7 @@
             font-size: 9.5px;
         }
 
+        /* TABLES - core layout */
         table {
             width: 100%;
             border-collapse: collapse;
@@ -109,60 +113,60 @@
             border-bottom: 1px solid #333;
         }
 
-        .inspection-grid {
-            display: table;
+        /* REPLACEMENT for .inspection-grid (removed display:table/table-row/table-cell to avoid any obscure parsing) */
+        .inspection-table {
             width: 100%;
-            margin: 6px 0;
-            border: 1px solid #000;
             border-collapse: collapse;
+            border: 1px solid #000;
+            margin: 6px 0;
         }
 
-        .inspection-item {
-            display: table-row;
-        }
-
-        .inspection-label {
+        .inspection-table tr td:first-child {
             font-weight: bold;
-            display: table-cell;
-            padding: 3px 4px;
+            background-color: #f5f5f5;
             width: 45%;
             border: 1px solid #000;
-            background-color: #f5f5f5;
-        }
-
-        .inspection-value {
-            display: table-cell;
             padding: 3px 4px;
-            border: 1px solid #000;
         }
 
+        .inspection-table tr td:last-child {
+            border: 1px solid #000;
+            padding: 3px 4px;
+        }
+
+        /* SIGNATURE area with classic table */
         .signature-row {
-            display: table;
             width: 100%;
-            table-layout: fixed;
             margin: 15px 0 10px 0;
         }
 
-        .signature-left, .signature-right {
-            display: table-cell;
+        .signature-table {
+            width: 100%;
+            border-collapse: collapse;
+            border: none;
+        }
+
+        .signature-table td {
+            border: none;
             width: 50%;
             vertical-align: top;
             text-align: center;
-        }
-
-        .signature-left {
-            padding-right: 10px;
-        }
-
-        .signature-right {
-            padding-left: 10px;
+            padding: 0 10px;
         }
 
         .signature-space {
             height: 50px;
             margin: 3px 0;
+            display: block;
         }
 
+        .signature-space img {
+            max-height: 50px;
+            max-width: 160px;
+            border: none;
+        }
+
+        /* REMARKS */
         .remarks {
             margin-top: 12px;
             padding: 6px;
@@ -182,6 +186,7 @@
             padding-left: 8px;
         }
 
+        /* PAGE BREAK */
         .page-break {
             page-break-before: always;
             break-before: page;
@@ -192,6 +197,13 @@
             clear: both;
         }
 
+        /* INVOICE style helper */
+        .inline-value {
+            border-bottom: 1px solid #000;
+            min-width: 120px;
+            display: inline-block;
+        }
+
         @media print {
             body {
                 padding: 0;
@@ -199,6 +211,9 @@
             }
             .page-break {
                 page-break-before: always;
+            }
+            .signature-space img {
+                max-height: 45px;
             }
         }
     </style>
@@ -240,6 +255,7 @@
         <p style="margin-top: 4px;">With reference to above mentioned subject, the consumer has completed required documents for solar connection. Hence, we request to please proceed with the testing of below mentioned meter.</p>
     </div>
 
+    <!-- meter details table -->
     <table style="width: 60%; margin: 8px 0;">
         <tr><td style="border: none; padding: 2px;"><strong>Meter Details:</strong></td><td style="border: none;"></td></tr>
         <tr><td style="border: none; padding: 2px;">Make:</td><td style="border: none; border-bottom: 1px solid #000;"><span th:text="${meterMake != null ? meterMake : '________'}">________</span></td></tr>
@@ -301,19 +317,20 @@
         <div class="header-border"></div>
     </div>
 
-    <div class="inspection-grid">
-        <div class="inspection-item"><span class="inspection-label">1 Details of Inspecting Office (Name, Designation, Subdivision):</span><span class="inspection-value"><span th:text="${inspectorName != null ? inspectorName : '________'}">________</span></span></div>
-        <div class="inspection-item"><span class="inspection-label">2 Date and Time of Inspection:</span><span class="inspection-value"><span th:text="${installationDate != null ? installationDate : '________'}">________</span></span></div>
-        <div class="inspection-item"><span class="inspection-label">3 Name of the Consumer:-</span><span class="inspection-value"><span th:text="${name != null ? name : '________'}">________</span></span></div>
-        <div class="inspection-item"><span class="inspection-label">4 Address of Consumer:-</span><span class="inspection-value"><span th:text="${siteAddress != null ? siteAddress : '________'}">________</span></span></div>
-        <div class="inspection-item"><span class="inspection-label">5 Consumer No.:-</span><span class="inspection-value"><span th:text="${consumerNumber != null ? consumerNumber : '________'}">________</span></span></div>
-        <div class="inspection-item"><span class="inspection-label">5.A Name of Billing Unit:-</span><span class="inspection-value">1228/Miraj Urban</span></div>
-        <div class="inspection-item"><span class="inspection-label">6 MSEDCL Existing Sanction & Connected Load(AC in Kw):-</span><span class="inspection-value"><span th:text="${sanctionedCapacity != null ? sanctionedCapacity : '________'}">________</span> kW</span></div>
-        <div class="inspection-item"><span class="inspection-label">7 Type of connection (1Ph/3Ph):</span><span class="inspection-value">1 Phase</span></div>
-        <div class="inspection-item"><span class="inspection-label">8 Consumer Tariff Category:</span><span class="inspection-value">Residential</span></div>
-        <div class="inspection-item"><span class="inspection-label">9 Installed Solar Roof Top System(AC Cap):-</span><span class="inspection-value"><span th:text="${totalCapacityKWP != null ? totalCapacityKWP : '________'}">________</span> kW</span></div>
-        <div class="inspection-item"><span class="inspection-label">9.A Whether Point of Supply Drawing submitted:</span><span class="inspection-value">YES</span></div>
-    </div>
+    <!-- inspection details as table (replaces .inspection-grid) -->
+    <table class="inspection-table">
+        <tr><td>1 Details of Inspecting Office (Name, Designation, Subdivision):</td><td><span th:text="${inspectorName != null ? inspectorName : '________'}">________</span></td></tr>
+        <tr><td>2 Date and Time of Inspection:</td><td><span th:text="${installationDate != null ? installationDate : '________'}">________</span></td></tr>
+        <tr><td>3 Name of the Consumer:-</td><td><span th:text="${name != null ? name : '________'}">________</span></td></tr>
+        <tr><td>4 Address of Consumer:-</td><td><span th:text="${siteAddress != null ? siteAddress : '________'}">________</span></td></tr>
+        <tr><td>5 Consumer No.:-</td><td><span th:text="${consumerNumber != null ? consumerNumber : '________'}">________</span></td></tr>
+        <tr><td>5.A Name of Billing Unit:-</td><td>1228/Miraj Urban</td></tr>
+        <tr><td>6 MSEDCL Existing Sanction & Connected Load(AC in Kw):-</td><td><span th:text="${sanctionedCapacity != null ? sanctionedCapacity : '________'}">________</span> kW</td></tr>
+        <tr><td>7 Type of connection (1Ph/3Ph):</td><td>1 Phase</td></tr>
+        <tr><td>8 Consumer Tariff Category:</td><td>Residential</td></tr>
+        <tr><td>9 Installed Solar Roof Top System(AC Cap):-</td><td><span th:text="${totalCapacityKWP != null ? totalCapacityKWP : '________'}">________</span> kW</td></tr>
+        <tr><td>9.A Whether Point of Supply Drawing submitted:</td><td>YES</td></tr>
+    </table>
 
     <div class="section-title">CHECKING OF EARTHING SYSTEM</div>
     <table>
@@ -411,21 +428,26 @@
         <tr><td>57</td><td>If, No, Discrepancies to be attended by consumer (Please mention Serial Nos of Points to be complied by consumers)</td><td>None</td></tr>
     </table>
 
+    <!-- signature section using table for clear layout without flex -->
     <div class="signature-row">
-        <div class="signature-left">
-            <div class="signature-space">
-                <img th:if="${consumerSignature != null and not #lists.isEmpty(consumerSignature)}" th:src="${consumerSignature[0]}" style="max-height:50px; max-width:160px;"/>
-            </div>
-            <div>Consumer Representative</div>
-            <div>(<span th:text="${name != null ? name : '________'}">________</span>)</div>
-        </div>
-        <div class="signature-right">
-            <div class="signature-space">
-                <img th:if="${vendorSignature != null and not #lists.isEmpty(vendorSignature)}" th:src="${vendorSignature[0]}" style="max-height:50px; max-width:160px;"/>
-            </div>
-            <div>Contractor Representative</div>
-            <div>(<span th:text="${vendorName != null ? vendorName : '________'}">________</span>)</div>
-        </div>
+        <table class="signature-table">
+            <tr>
+                <td>
+                    <div class="signature-space">
+                        <img th:if="${consumerSignature != null and not #lists.isEmpty(consumerSignature)}" th:src="${consumerSignature[0]}" style="max-height:50px; max-width:160px;" alt="Consumer Signature"/>
+                    </div>
+                    <div>Consumer Representative</div>
+                    <div>(<span th:text="${name != null ? name : '________'}">________</span>)</div>
+                </td>
+                <td>
+                    <div class="signature-space">
+                        <img th:if="${vendorSignature != null and not #lists.isEmpty(vendorSignature)}" th:src="${vendorSignature[0]}" style="max-height:50px; max-width:160px;" alt="Vendor Signature"/>
+                    </div>
+                    <div>Contractor Representative</div>
+                    <div>(<span th:text="${vendorName != null ? vendorName : '________'}">________</span>)</div>
+                </td>
+            </tr>
+        </table>
     </div>
 
     <!-- PAGE 6 -->
