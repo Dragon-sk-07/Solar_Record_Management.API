@@ -1,6 +1,8 @@
 package com.suraj.Customer_Portal_29.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.DecimalMin;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -25,11 +27,10 @@ public class SolarRecord {
         this.createdAt = LocalDateTime.now();
     }
 
+    // ==================== BASIC INFORMATION ====================
     private String name;
-
     @Column(unique = true, nullable = false)
     private String consumerNumber;
-
     private String mobileNumber;
     private String email;
 
@@ -41,14 +42,18 @@ public class SolarRecord {
     @Column(name = "aadhar_number")
     private String aadharNumber;
 
+    // ==================== SANCTION DETAILS ====================
     @Column(name = "sanction_number")
     private String sanctionNumber;
 
     @Column(name = "sanctioned_capacity")
     private Double sanctionedCapacity;
 
+    @NotNull
+    @DecimalMin("0.1")
     private Double installedCapacity;
 
+    // ==================== RE ARRANGEMENT ====================
     @Column(name = "re_arrangement_type")
     private String reArrangementType;
 
@@ -73,6 +78,7 @@ public class SolarRecord {
     @Column(name = "installation_date")
     private LocalDate installationDate;
 
+    // ==================== MODULE SPECIFICATIONS ====================
     @Column(name = "module_make")
     private String moduleMake;
 
@@ -97,12 +103,14 @@ public class SolarRecord {
     @Column(name = "cell_gst_invoice_no")
     private String cellGSTInvoiceNo;
 
+    // ==================== WARRANTY DETAILS ====================
     @Column(name = "product_warranty", length = 1000)
     private String productWarranty;
 
     @Column(name = "performance_warranty", length = 1000)
     private String performanceWarranty;
 
+    // ==================== INVERTER DETAILS ====================
     @Column(name = "inverter_make")
     private String inverterMake;
 
@@ -127,6 +135,7 @@ public class SolarRecord {
     @Column(name = "year_of_manufacturing")
     private Integer yearOfManufacturing;
 
+    // ==================== EARTHING AND PROTECTIONS ====================
     @Column(name = "number_of_earthings")
     private Integer numberOfEarthings;
 
@@ -136,6 +145,7 @@ public class SolarRecord {
     @Column(name = "lightening_arrester")
     private String lighteningArrester;
 
+    // ==================== VENDOR DETAILS ====================
     @Column(name = "vendor_name")
     private String vendorName;
 
@@ -148,6 +158,7 @@ public class SolarRecord {
     @Column(name = "designation")
     private String designation;
 
+    // ==================== MSEDCL & INSPECTOR DETAILS ====================
     @Column(name = "msedcl_address", length = 1000)
     private String msedclAddress;
 
@@ -160,6 +171,7 @@ public class SolarRecord {
     @Column(name = "inspector_name")
     private String inspectorName;
 
+    // ==================== AGREEMENT DETAILS ====================
     @Column(name = "location")
     private String location;
 
@@ -175,6 +187,7 @@ public class SolarRecord {
     @Column(name = "interconnection_point")
     private String interconnectionPoint;
 
+    // ==================== APPLICATION DETAILS ====================
     @Column(name = "application_number")
     private String applicationNumber;
 
@@ -187,6 +200,7 @@ public class SolarRecord {
     @Column(name = "place")
     private String place;
 
+    // ==================== WITNESS DETAILS ====================
     @Column(name = "witness1_name")
     private String witness1Name;
 
@@ -199,12 +213,23 @@ public class SolarRecord {
     @Column(name = "witness2_address", length = 1000)
     private String witness2Address;
 
+    // ==================== METER DETAILS ====================
     @Column(name = "meter_number")
     private String meterNumber;
 
     @Column(name = "net_meter_number")
     private String netMeterNumber;
 
+    @Column(name = "meter_make")
+    private String meterMake;
+
+    @Column(name = "mccb_rating")
+    private String mccbRating;
+
+    @Column(name = "metering_rccb")
+    private String meteringRCCB;
+
+    // ==================== INDEMNITY DETAILS ====================
     @Column(name = "indemnity_day")
     private String indemnityDay;
 
@@ -214,15 +239,117 @@ public class SolarRecord {
     @Column(name = "indemnity_year")
     private String indemnityYear;
 
+    // ==================== GR REFERENCE DETAILS ====================
     @Column(name = "gr_reference_number")
     private String grReferenceNumber;
 
     @Column(name = "gr_reference_date")
     private String grReferenceDate;
 
+    // ==================== PBG AMOUNT ====================
     @Column(name = "pbg_amount")
     private Double pbgAmount;
 
+    // ==================== AC CAPACITY & ARREARS ====================
+    @Column(name = "ac_capacity_check")
+    private String acCapacityCheck;
+
+    @Column(name = "arrears_status")
+    private String arrearsStatus;
+
+    // ==================== DOCUMENT STATUS ====================
+    @Column(name = "sld_status")
+    private String sldStatus;
+
+    @Column(name = "layout_status")
+    private String layoutStatus;
+
+    @Column(name = "earthing_diagram")
+    private String earthingDiagram;
+
+    @Column(name = "equipment_list")
+    private String equipmentList;
+
+    @Column(name = "islanding_certificate")
+    private String islandingCertificate;
+
+    // ==================== EARTHING DETAILS ====================
+    @Column(name = "earthing_la")
+    private String earthingLA;
+
+    @Column(name = "earthing_panel")
+    private String earthingPanel;
+
+    @Column(name = "earthing_dcbb")
+    private String earthingDCBB;
+
+    @Column(name = "earthing_acbb")
+    private String earthingACBB;
+
+    @Column(name = "earthing_inverter")
+    private String earthingInverter;
+
+    @Column(name = "earthing_metering")
+    private String earthingMetering;
+
+    @Column(name = "metallic_earthed")
+    private String metallicEarthed;
+
+    // ==================== FUSES & SURGE DETAILS ====================
+    @Column(name = "dc_fuses")
+    private String dcFuses;
+
+    @Column(name = "ac_surge")
+    private String acSurge;
+
+    @Column(name = "acdb_surge")
+    private String acdbSurge;
+
+    // ==================== ISOLATION & LOAD DETAILS ====================
+    @Column(name = "isolation_switch_status")
+    private String isolationSwitchStatus;
+
+    @Column(name = "mcb_load")
+    private String mcbLoad;
+
+    // ==================== ISLANDING CHECKS ====================
+    @Column(name = "islanding_check")
+    private String islandingCheck;
+
+    @Column(name = "islanding_satisfactory")
+    private String islandingSatisfactory;
+
+    @Column(name = "backup_check")
+    private String backupCheck;
+
+    // ==================== METER CONNECTION DETAILS ====================
+    @Column(name = "gen_meter_conn")
+    private String genMeterConn;
+
+    @Column(name = "net_meter_conn")
+    private String netMeterConn;
+
+    // ==================== INVERTER HEALTH ====================
+    @Column(name = "inverter_healthy")
+    private String inverterHealthy;
+
+    @Column(name = "system_takeover")
+    private String systemTakeover;
+
+    // ==================== INSTALLATION & TESTING STATUS ====================
+    @Column(name = "net_installed")
+    private String netInstalled;
+
+    @Column(name = "net_testing")
+    private String netTesting;
+
+    @Column(name = "gen_installed")
+    private String genInstalled;
+
+    @Column(name = "gen_testing")
+    private String genTesting;
+
+    // ==================== FILE UPLOADS ====================
     @ElementCollection
     @CollectionTable(name = "solar_vendor_signatures", joinColumns = @JoinColumn(name = "solar_record_id"))
     @Column(name = "signature", columnDefinition = "TEXT")
@@ -257,40 +384,6 @@ public class SolarRecord {
     @CollectionTable(name = "solar_aadhar_images", joinColumns = @JoinColumn(name = "solar_record_id"))
     @Column(name = "aadhar_image", columnDefinition = "TEXT")
     private List<String> aadharImages;
-
-    private String meterMake;
-    private String acCapacityCheck;
-    private String arrearsStatus;
-    private String sldStatus;
-    private String layoutStatus;
-    private String earthingDiagram;
-    private String equipmentList;
-    private String islandingCertificate;
-    private String earthingLA;
-    private String earthingPanel;
-    private String earthingDCBB;
-    private String earthingACBB;
-    private String earthingInverter;
-    private String earthingMetering;
-    private String metallicEarthed;
-    private String dcFuses;
-    private String acSurge;
-    private String acdbSurge;
-    private String isolationSwitchStatus;
-    private String mcbLoad;
-    private String islandingCheck;
-    private String islandingSatisfactory;
-    private String backupCheck;
-    private String genMeterConn;
-    private String netMeterConn;
-    private String inverterHealthy;
-    private String systemTakeover;
-    private String mccbRating;
-    private String meteringRCCB;
-    private String netInstalled;
-    private String netTesting;
-    private String genInstalled;
-    private String genTesting;
 
     @Transient
     private String currentDate;
