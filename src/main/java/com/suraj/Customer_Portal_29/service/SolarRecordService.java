@@ -103,6 +103,7 @@ public class SolarRecordService {
         mapApplicationFields(entity, req);
         mapWitnessFields(entity, req);
         mapIndemnityFields(entity, req);
+        mapInspectionFields(entity, req);
 
         List<String> vendorSignatureList = mergeImageLists(null, req.getVendorSignature(), "vendorSignatures");
         entity.setVendorSignature(vendorSignatureList);
@@ -142,6 +143,7 @@ public class SolarRecordService {
         mapApplicationFields(entity, req);
         mapWitnessFields(entity, req);
         mapIndemnityFields(entity, req);
+        mapInspectionFields(entity, req);
 
         List<String> updatedVendorSignature = mergeImageLists(req.getExistingVendorSignature(), req.getVendorSignature(), "vendorSignatures");
         entity.setVendorSignature(updatedVendorSignature);
@@ -276,6 +278,42 @@ public class SolarRecordService {
         entity.setGrReferenceNumber(req.getGrReferenceNumber());
         entity.setGrReferenceDate(req.getGrReferenceDate());
         entity.setPbgAmount(req.getPbgAmount());
+    }
+
+    private void mapInspectionFields(SolarRecord entity, SolarRecordRequestDto req) {
+        entity.setMeterMake(req.getMeterMake());
+        entity.setAcCapacityCheck(req.getAcCapacityCheck());
+        entity.setArrearsStatus(req.getArrearsStatus());
+        entity.setSldStatus(req.getSldStatus());
+        entity.setLayoutStatus(req.getLayoutStatus());
+        entity.setEarthingDiagram(req.getEarthingDiagram());
+        entity.setEquipmentList(req.getEquipmentList());
+        entity.setIslandingCertificate(req.getIslandingCertificate());
+        entity.setEarthingLA(req.getEarthingLA());
+        entity.setEarthingPanel(req.getEarthingPanel());
+        entity.setEarthingDCBB(req.getEarthingDCBB());
+        entity.setEarthingACBB(req.getEarthingACBB());
+        entity.setEarthingInverter(req.getEarthingInverter());
+        entity.setEarthingMetering(req.getEarthingMetering());
+        entity.setMetallicEarthed(req.getMetallicEarthed());
+        entity.setDcFuses(req.getDcFuses());
+        entity.setAcSurge(req.getAcSurge());
+        entity.setAcdbSurge(req.getAcdbSurge());
+        entity.setIsolationSwitchStatus(req.getIsolationSwitchStatus());
+        entity.setMcbLoad(req.getMcbLoad());
+        entity.setIslandingCheck(req.getIslandingCheck());
+        entity.setIslandingSatisfactory(req.getIslandingSatisfactory());
+        entity.setBackupCheck(req.getBackupCheck());
+        entity.setGenMeterConn(req.getGenMeterConn());
+        entity.setNetMeterConn(req.getNetMeterConn());
+        entity.setInverterHealthy(req.getInverterHealthy());
+        entity.setSystemTakeover(req.getSystemTakeover());
+        entity.setMccbRating(req.getMccbRating());
+        entity.setMeteringRCCB(req.getMeteringRCCB());
+        entity.setNetInstalled(req.getNetInstalled());
+        entity.setNetTesting(req.getNetTesting());
+        entity.setGenInstalled(req.getGenInstalled());
+        entity.setGenTesting(req.getGenTesting());
     }
 
     private SolarRecordResponseDto mapToResponse(SolarRecord entity) {

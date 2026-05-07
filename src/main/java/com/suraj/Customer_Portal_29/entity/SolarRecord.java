@@ -275,4 +275,40 @@ public class SolarRecord {
     @CollectionTable(name = "solar_aadhar_images", joinColumns = @JoinColumn(name = "solar_record_id"))
     @Column(name = "aadhar_image", columnDefinition = "TEXT")
     private List<String> aadharImages;
+
+    private String meterMake;
+    private String acCapacityCheck;
+    private String arrearsStatus;
+    private String sldStatus;
+    private String layoutStatus;
+    private String earthingDiagram;
+    private String equipmentList;
+    private String islandingCertificate;
+    private String earthingLA;
+    private String earthingPanel;
+    private String earthingDCBB;
+    private String earthingACBB;
+    private String earthingInverter;
+    private String earthingMetering;
+    private String metallicEarthed;
+    private String dcFuses;
+    private String acSurge;
+    private String acdbSurge;
+    private String isolationSwitchStatus;
+    private String mcbLoad;
+    private String islandingCheck;
+    private String islandingSatisfactory;
+    private String backupCheck;
+    private String genMeterConn;
+    private String netMeterConn;
+    private String inverterHealthy;
+    private String systemTakeover;
+    private String mccbRating;
+    private String meteringRCCB;
+    private String netInstalled;
+    private String netTesting;
+    private String genInstalled;
+    private String genTesting;
+    @Transient
+    private String currentDate;
 }
