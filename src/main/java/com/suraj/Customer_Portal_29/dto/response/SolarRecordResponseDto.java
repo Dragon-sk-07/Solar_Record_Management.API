@@ -2,7 +2,6 @@ package com.suraj.Customer_Portal_29.dto.response;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;
-
 import java.util.List;
 
 @Data
@@ -11,7 +10,6 @@ public class SolarRecordResponseDto {
 
     private String id;
     private String createdAt;
-
     private String name;
     private String consumerNumber;
     private String mobileNumber;
@@ -19,11 +17,9 @@ public class SolarRecordResponseDto {
     private String siteAddress;
     private String category;
     private String aadharNumber;
-
     private String sanctionNumber;
     private Double sanctionedCapacity;
     private Double installedCapacity;
-
     private String reArrangementType;
     private String reSource;
     private String capacityType;
@@ -32,7 +28,6 @@ public class SolarRecordResponseDto {
     private Double reInstalledCapacityRooftopGround;
     private Double reInstalledCapacityGround;
     private String installationDate;
-
     private String moduleMake;
     private String almmModelNumber;
     private Double wattagePerModule;
@@ -41,10 +36,8 @@ public class SolarRecordResponseDto {
     private String moduleSerialNumbers;
     private String cellManufacturerName;
     private String cellGSTInvoiceNo;
-
     private String productWarranty;
     private String performanceWarranty;
-
     private String inverterMake;
     private String inverterModelNumber;
     private Double inverterRating;
@@ -53,49 +46,38 @@ public class SolarRecordResponseDto {
     private Double mpptCapacity;
     private String hpd;
     private Integer yearOfManufacturing;
-
     private Integer numberOfEarthings;
     private Double earthResistance;
     private String lighteningArrester;
-
     private String vendorName;
-
     private String vendorAddress;
     private String authorizedPersonName;
     private String designation;
-
     private String msedclAddress;
     private String msedclOfficerName;
     private String msedclOfficerDesignation;
     private String inspectorName;
-
     private String location;
     private String day;
     private String month;
     private String year;
     private String interconnectionPoint;
-
     private String applicationNumber;
     private String applicationDate;
     private String discomName;
     private String place;
-
     private String witness1Name;
     private String witness1Address;
     private String witness2Name;
     private String witness2Address;
-
-
     private String meterNumber;
     private String netMeterNumber;
-
     private String indemnityDay;
     private String indemnityMonth;
     private String indemnityYear;
     private String grReferenceNumber;
     private String grReferenceDate;
     private Double pbgAmount;
-
     private List<String> vendorStamp;
     private List<String> vendorSignature;
     private List<String> consumerSignature;
@@ -103,7 +85,6 @@ public class SolarRecordResponseDto {
     private List<String> witnessSignature;
     private List<String> sitePhotos;
     private List<String> aadharImages;
-
     private String meterMake;
     private String acCapacityCheck;
     private String arrearsStatus;
@@ -137,5 +118,4 @@ public class SolarRecordResponseDto {
     private String netTesting;
     private String genInstalled;
     private String genTesting;
-
 }

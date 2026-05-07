@@ -1,8 +1,6 @@
 package com.suraj.Customer_Portal_29.entity;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.DecimalMin;
-import jakarta.validation.constraints.NotNull;
 import lombok.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -27,10 +25,11 @@ public class SolarRecord {
         this.createdAt = LocalDateTime.now();
     }
 
-    // ==================== BASIC INFORMATION ====================
     private String name;
+
     @Column(unique = true, nullable = false)
     private String consumerNumber;
+
     private String mobileNumber;
     private String email;
 
@@ -42,18 +41,14 @@ public class SolarRecord {
     @Column(name = "aadhar_number")
     private String aadharNumber;
 
-    // ==================== SANCTION DETAILS ====================
     @Column(name = "sanction_number")
     private String sanctionNumber;
 
     @Column(name = "sanctioned_capacity")
     private Double sanctionedCapacity;
 
-    @NotNull
-    @DecimalMin("0.1")
     private Double installedCapacity;
 
-    // ==================== RE ARRANGEMENT ====================
     @Column(name = "re_arrangement_type")
     private String reArrangementType;
 
@@ -78,7 +73,6 @@ public class SolarRecord {
     @Column(name = "installation_date")
     private LocalDate installationDate;
 
-    // ==================== MODULE SPECIFICATIONS ====================
     @Column(name = "module_make")
     private String moduleMake;
 
@@ -103,14 +97,12 @@ public class SolarRecord {
     @Column(name = "cell_gst_invoice_no")
     private String cellGSTInvoiceNo;
 
-    // ==================== WARRANTY DETAILS ====================
     @Column(name = "product_warranty", length = 1000)
     private String productWarranty;
 
     @Column(name = "performance_warranty", length = 1000)
     private String performanceWarranty;
 
-    // ==================== INVERTER DETAILS ====================
     @Column(name = "inverter_make")
     private String inverterMake;
 
@@ -135,7 +127,6 @@ public class SolarRecord {
     @Column(name = "year_of_manufacturing")
     private Integer yearOfManufacturing;
 
-    // ==================== EARTHING AND PROTECTIONS ====================
     @Column(name = "number_of_earthings")
     private Integer numberOfEarthings;
 
@@ -145,11 +136,8 @@ public class SolarRecord {
     @Column(name = "lightening_arrester")
     private String lighteningArrester;
 
-    // ==================== VENDOR DETAILS ====================
     @Column(name = "vendor_name")
     private String vendorName;
-
-
 
     @Column(name = "vendor_address", length = 1000)
     private String vendorAddress;
@@ -160,7 +148,6 @@ public class SolarRecord {
     @Column(name = "designation")
     private String designation;
 
-    // ==================== MSEDCL & INSPECTOR DETAILS ====================
     @Column(name = "msedcl_address", length = 1000)
     private String msedclAddress;
 
@@ -173,7 +160,6 @@ public class SolarRecord {
     @Column(name = "inspector_name")
     private String inspectorName;
 
-    // ==================== AGREEMENT DETAILS ====================
     @Column(name = "location")
     private String location;
 
@@ -189,7 +175,6 @@ public class SolarRecord {
     @Column(name = "interconnection_point")
     private String interconnectionPoint;
 
-    // ==================== APPLICATION DETAILS ====================
     @Column(name = "application_number")
     private String applicationNumber;
 
@@ -202,7 +187,6 @@ public class SolarRecord {
     @Column(name = "place")
     private String place;
 
-    // ==================== WITNESS DETAILS ====================
     @Column(name = "witness1_name")
     private String witness1Name;
 
@@ -214,8 +198,6 @@ public class SolarRecord {
 
     @Column(name = "witness2_address", length = 1000)
     private String witness2Address;
-
-
 
     @Column(name = "meter_number")
     private String meterNumber;
@@ -309,6 +291,7 @@ public class SolarRecord {
     private String netTesting;
     private String genInstalled;
     private String genTesting;
+
     @Transient
     private String currentDate;
 }
