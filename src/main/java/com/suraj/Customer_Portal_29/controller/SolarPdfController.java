@@ -148,7 +148,7 @@ public class SolarPdfController {
         data.put("numberOfEarthings", getValueOrDefault(record.getNumberOfEarthings(), "_________________________"));
         data.put("cellManufacturerName", getValueOrDefault(record.getCellManufacturerName(), "_________________________"));
         data.put("cellGSTInvoiceNo", getValueOrDefault(record.getCellGSTInvoiceNo(), "_________________________"));
-        data.put("lighteningArrester", getValueOrDefault(record.getLighteningArrester(), "Provided"));
+        data.put("lightningArrestor", getValueOrDefault(record.getLighteningArrester(), "Provided"));
         data.put("witness1Name", getValueOrDefault(record.getWitness1Name(), "_________________________"));
         data.put("witness1Address", getValueOrDefault(record.getWitness1Address(), "_________________________________________________________________________________"));
         data.put("witness2Name", getValueOrDefault(record.getWitness2Name(), "_________________________"));
