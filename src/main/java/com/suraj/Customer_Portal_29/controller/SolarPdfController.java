@@ -110,14 +110,24 @@ public class SolarPdfController {
         SolarRecordResponseDto record = solarService.findById(id);
         Map<String, Object> data = new HashMap<>();
         LocalDate now = LocalDate.now();
-        String installationDate = getValueOrDefault(record.getInstallationDate(),
-                LocalDate.now().format(DateTimeFormatter.ofPattern("dd.MM.yyyy")));
+        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        DateTimeFormatter monthFormatter = DateTimeFormatter.ofPattern("MMMM");
 
+        String installationDate = getValueOrDefault(record.getInstallationDate(),
+                now.format(DateTimeFormatter.ofPattern("dd.MM.yyyy")));
+
+        // ==================== USER INPUT FIELDS (From Form) ====================
         data.put("name", getValueOrDefault(record.getName(), "_________________________"));
         data.put("consumerNumber", getValueOrDefault(record.getConsumerNumber(), "_________________________"));
         data.put("consumerName", getValueOrDefault(record.getName(), "_________________________"));
+        data.put("mobileNumber", getValueOrDefault(record.getMobileNumber(), "_________________________"));
+        data.put("email", getValueOrDefault(record.getEmail(), "_________________________"));
         data.put("siteAddress", getValueOrDefault(record.getSiteAddress(), "_________________________________________________________________________________"));
+        data.put("aadharNumber", getValueOrDefault(record.getAadharNumber(), "_________________________"));
+        data.put("place", getValueOrDefault(record.getPlace(), "_________________________"));
         data.put("category", getValueOrDefault(record.getCategory(), "Private Sector"));
+        data.put("meterNumber", getValueOrDefault(record.getMeterNumber(), "_________________________"));
+        data.put("netMeterNumber", getValueOrDefault(record.getNetMeterNumber(), "_________________________"));
         data.put("sanctionNumber", getValueOrDefault(record.getSanctionNumber(), "_________________________"));
         data.put("sanctionedCapacity", getValueOrDefault(record.getSanctionedCapacity(), "_________________________"));
         data.put("installedCapacity", getValueOrDefault(record.getInstalledCapacity(), "_________________________"));
@@ -127,39 +137,25 @@ public class SolarPdfController {
         data.put("wattagePerModule", getValueOrDefault(record.getWattagePerModule(), "_________________________"));
         data.put("numberOfModules", getValueOrDefault(record.getNumberOfModules(), "_________________________"));
         data.put("totalCapacityKWP", getValueOrDefault(record.getTotalCapacityKWP(), "_________________________"));
-        data.put("inverterRating", getValueOrDefault(record.getInverterRating(), "_________________________"));
-        data.put("chargeControllerType", getValueOrDefault(record.getChargeControllerType(), "MPPT"));
+        data.put("moduleSerialNumbers", getValueOrDefault(record.getModuleSerialNumbers(), "_________________________________________________________________________________"));
+        data.put("inverterMake", getValueOrDefault(record.getInverterMake(), "_________________________"));
+        data.put("inverterModelNumber", getValueOrDefault(record.getInverterModelNumber(), "_________________________"));
         data.put("inverterCapacity", getValueOrDefault(record.getInverterCapacity(), "_________________________"));
-        data.put("hpd", getValueOrDefault(record.getHpd(), "Yes"));
-        data.put("yearOfManufacturing", getValueOrDefault(record.getYearOfManufacturing(), "_________________________"));
-        data.put("numberOfEarthings", getValueOrDefault(record.getNumberOfEarthings(), "_________________________"));
-        data.put("earthResistance", getValueOrDefault(record.getEarthResistance(), "_________________________"));
-        data.put("lighteningArrester", getValueOrDefault(record.getLighteningArrester(), "Provided"));
         data.put("vendorName", getValueOrDefault(record.getVendorName(), "_________________________"));
-        data.put("vendorSignature", record.getVendorSignature());
-        data.put("consumerSignature", record.getConsumerSignature());
-        data.put("msedclSignature", record.getMsedclSignature());
-        data.put("vendorStamp", record.getVendorStamp());
-        data.put("witnessSignature", record.getWitnessSignature());
-        data.put("aadharNumber", getValueOrDefault(record.getAadharNumber(), "_________________________"));
+        data.put("vendorAddress", getValueOrDefault(record.getVendorAddress(), "_________________________________________________________________________________"));
+        data.put("authorizedPersonName", getValueOrDefault(record.getAuthorizedPersonName(), "_________________________"));
+        data.put("designation", getValueOrDefault(record.getDesignation(), "Authorized Signatory"));
+        data.put("earthResistance", getValueOrDefault(record.getEarthResistance(), "_________________________"));
+        data.put("numberOfEarthings", getValueOrDefault(record.getNumberOfEarthings(), "_________________________"));
 
-        String warrantyDetails = "";
-        if (record.getProductWarranty() != null && !record.getProductWarranty().isEmpty()) {
-            warrantyDetails = record.getProductWarranty();
-        }
-        if (record.getPerformanceWarranty() != null && !record.getPerformanceWarranty().isEmpty()) {
-            warrantyDetails = warrantyDetails.isEmpty() ? record.getPerformanceWarranty() : warrantyDetails + " / " + record.getPerformanceWarranty();
-        }
-        data.put("warrantyDetails", warrantyDetails.isEmpty() ? "Standard Warranty" : warrantyDetails);
-
-        String inverterMakeModel = "";
-        if (record.getInverterMake() != null && !record.getInverterMake().isEmpty()) {
-            inverterMakeModel = record.getInverterMake();
-        }
-        if (record.getInverterModelNumber() != null && !record.getInverterModelNumber().isEmpty()) {
-            inverterMakeModel = inverterMakeModel.isEmpty() ? record.getInverterModelNumber() : inverterMakeModel + " " + record.getInverterModelNumber();
-        }
-        data.put("inverterMakeModel", inverterMakeModel.isEmpty() ? record.getInverterMake() : inverterMakeModel);
+        // ==================== AUTO-DEFAULT FIELDS (34 fields - No UI needed) ====================
+        data.put("currentDate", now.format(dateFormatter));
+        data.put("day", getValueOrDefault(record.getDay(), String.valueOf(now.getDayOfMonth())));
+        data.put("month", getValueOrDefault(record.getMonth(), now.format(monthFormatter)));
+        data.put("year", getValueOrDefault(record.getYear(), String.valueOf(now.getYear())));
+        data.put("indemnityDay", getValueOrDefault(record.getIndemnityDay(), String.valueOf(now.getDayOfMonth())));
+        data.put("indemnityMonth", getValueOrDefault(record.getIndemnityMonth(), now.format(monthFormatter)));
+        data.put("indemnityYear", getValueOrDefault(record.getIndemnityYear(), String.valueOf(now.getYear())));
 
         data.put("meterMake", getValueOrDefault(record.getMeterMake(), "L&T"));
         data.put("acCapacityCheck", getValueOrDefault(record.getAcCapacityCheck(), "Yes"));
@@ -194,8 +190,84 @@ public class SolarPdfController {
         data.put("netMeterConn", getValueOrDefault(record.getNetMeterConn(), "Correct"));
         data.put("inverterHealthy", getValueOrDefault(record.getInverterHealthy(), "Yes"));
         data.put("systemTakeover", getValueOrDefault(record.getSystemTakeover(), "Yes"));
-        data.put("currentDate", LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
 
+        // ==================== DERIVED FIELDS ====================
+        data.put("reArrangementType", "Net Metering Arrangement");
+        data.put("reSource", "Solar");
+        data.put("capacityType", "Rooftop");
+        data.put("projectModel", getValueOrDefault(record.getProjectModel(), "CAPEX"));
+        data.put("discomName", getValueOrDefault(record.getDiscomName(), "MSEDCL"));
+        data.put("chargeControllerType", getValueOrDefault(record.getChargeControllerType(), "MPPT"));
+        data.put("hpd", getValueOrDefault(record.getHpd(), "Yes"));
+        data.put("lighteningArrester", getValueOrDefault(record.getLighteningArrester(), "Provided"));
+
+        Double installedCap = record.getInstalledCapacity();
+        data.put("reInstalledCapacityRooftop", installedCap != null ? installedCap : "_________________________");
+        data.put("reInstalledCapacityRooftopGround", installedCap != null ? installedCap : "_________________________");
+        data.put("reInstalledCapacityGround", 0);
+
+        data.put("inspectorName", getValueOrDefault(record.getInspectorName(), record.getVendorName() + " (Inspector)"));
+        data.put("applicationNumber", getValueOrDefault(record.getApplicationNumber(), record.getSanctionNumber()));
+        data.put("applicationDate", getValueOrDefault(record.getApplicationDate(), installationDate));
+        data.put("interconnectionPoint", getValueOrDefault(record.getInterconnectionPoint(), "At Main Metering Panel"));
+        data.put("location", getValueOrDefault(record.getLocation(), record.getPlace()));
+
+        // ==================== COMPUTED FIELDS ====================
+        String warrantyDetails = "";
+        if (record.getProductWarranty() != null && !record.getProductWarranty().isEmpty()) {
+            warrantyDetails = record.getProductWarranty();
+        }
+        if (record.getPerformanceWarranty() != null && !record.getPerformanceWarranty().isEmpty()) {
+            warrantyDetails = warrantyDetails.isEmpty() ? record.getPerformanceWarranty() : warrantyDetails + " / " + record.getPerformanceWarranty();
+        }
+        data.put("warrantyDetails", warrantyDetails.isEmpty() ? "25 Years Product / 25 Years Performance Warranty" : warrantyDetails);
+
+        String inverterMakeModel = "";
+        if (record.getInverterMake() != null && !record.getInverterMake().isEmpty()) {
+            inverterMakeModel = record.getInverterMake();
+        }
+        if (record.getInverterModelNumber() != null && !record.getInverterModelNumber().isEmpty()) {
+            inverterMakeModel = inverterMakeModel.isEmpty() ? record.getInverterModelNumber() : inverterMakeModel + " " + record.getInverterModelNumber();
+        }
+        data.put("inverterMakeModel", inverterMakeModel.isEmpty() ? record.getInverterMake() : inverterMakeModel);
+
+        data.put("inverterRating", getValueOrDefault(record.getInverterRating(), "_________________________"));
+        data.put("inverterCapacity", getValueOrDefault(record.getInverterCapacity(), "_________________________"));
+        data.put("mpptCapacity", getValueOrDefault(record.getMpptCapacity(), "_________________________"));
+        data.put("yearOfManufacturing", getValueOrDefault(record.getYearOfManufacturing(), String.valueOf(now.getYear())));
+
+        // ==================== OPTIONAL WITNESS FIELDS ====================
+        data.put("witness1Name", getValueOrDefault(record.getWitness1Name(), "_________________________"));
+        data.put("witness1Address", getValueOrDefault(record.getWitness1Address(), "_________________________________________________________________________________"));
+        data.put("witness2Name", getValueOrDefault(record.getWitness2Name(), "_________________________"));
+        data.put("witness2Address", getValueOrDefault(record.getWitness2Address(), "_________________________________________________________________________________"));
+
+        // ==================== OPTIONAL MSEDCL FIELDS ====================
+        data.put("msedclAddress", getValueOrDefault(record.getMsedclAddress(), "Maharashtra State Electricity Distribution Company Limited"));
+        data.put("msedclOfficerName", getValueOrDefault(record.getMsedclOfficerName(), "_________________________"));
+        data.put("msedclOfficerDesignation", getValueOrDefault(record.getMsedclOfficerDesignation(), "Executive Engineer"));
+
+        // ==================== INDEMNITY FIELDS ====================
+        data.put("grReferenceNumber", getValueOrDefault(record.getGrReferenceNumber(), "202510061736312910"));
+        data.put("grReferenceDate", getValueOrDefault(record.getGrReferenceDate(), "06th Oct 2025"));
+        data.put("pbgAmount", getValueOrDefault(record.getPbgAmount(), "_________________________"));
+
+        // ==================== CELL MANUFACTURER FIELDS ====================
+        data.put("cellManufacturerName", getValueOrDefault(record.getCellManufacturerName(), "_________________________"));
+        data.put("cellGSTInvoiceNo", getValueOrDefault(record.getCellGSTInvoiceNo(), "_________________________"));
+
+        // ==================== WARRANTY FIELDS ====================
+        data.put("productWarranty", getValueOrDefault(record.getProductWarranty(), "25 Years Product Warranty"));
+        data.put("performanceWarranty", getValueOrDefault(record.getPerformanceWarranty(), "25 Years Performance Warranty"));
+
+        // ==================== FILE UPLOADS ====================
+        data.put("vendorSignature", record.getVendorSignature());
+        data.put("consumerSignature", record.getConsumerSignature());
+        data.put("msedclSignature", record.getMsedclSignature());
+        data.put("vendorStamp", record.getVendorStamp());
+        data.put("witnessSignature", record.getWitnessSignature());
+
+        // ==================== AADHAR IMAGES ====================
         List<String> aadharImageUrls = new ArrayList<>();
         if (record.getAadharImages() != null && !record.getAadharImages().isEmpty()) {
             for (String imageUrl : record.getAadharImages()) {
@@ -206,91 +278,37 @@ public class SolarPdfController {
         }
         data.put("aadharImageUrls", aadharImageUrls);
 
-        if (includeCompleteData) {
-            data.put("meterNumber", getValueOrDefault(record.getMeterNumber(), "_________________________"));
-            data.put("netMeterNumber", getValueOrDefault(record.getNetMeterNumber(), "_________________________"));
-            data.put("mobileNumber", getValueOrDefault(record.getMobileNumber(), "_________________________"));
-            data.put("email", getValueOrDefault(record.getEmail(), "_________________________"));
-            data.put("reArrangementType", getValueOrDefault(record.getReArrangementType(), "Net Metering Arrangement"));
-            data.put("reSource", getValueOrDefault(record.getReSource(), "Solar"));
-            data.put("capacityType", getValueOrDefault(record.getCapacityType(), "Rooftop"));
-            data.put("projectModel", getValueOrDefault(record.getProjectModel(), "CAPEX"));
-            data.put("reInstalledCapacityRooftop", getValueOrDefault(record.getReInstalledCapacityRooftop(), "_________________________"));
-            data.put("reInstalledCapacityRooftopGround", getValueOrDefault(record.getReInstalledCapacityRooftopGround(), "_________________________"));
-            data.put("reInstalledCapacityGround", getValueOrDefault(record.getReInstalledCapacityGround(), "_________________________"));
-            data.put("moduleSerialNumbers", getValueOrDefault(record.getModuleSerialNumbers(), "_________________________________________________________________________________"));
-            data.put("cellManufacturerName", getValueOrDefault(record.getCellManufacturerName(), "_________________________"));
-            data.put("cellGSTInvoiceNo", getValueOrDefault(record.getCellGSTInvoiceNo(), "_________________________"));
-            data.put("productWarranty", getValueOrDefault(record.getProductWarranty(), "_________________________"));
-            data.put("performanceWarranty", getValueOrDefault(record.getPerformanceWarranty(), "_________________________"));
-            data.put("inverterMake", getValueOrDefault(record.getInverterMake(), "_________________________"));
-            data.put("inverterModelNumber", getValueOrDefault(record.getInverterModelNumber(), "_________________________"));
-            data.put("mpptCapacity", getValueOrDefault(record.getMpptCapacity(), "_________________________"));
-            data.put("vendorAddress", getValueOrDefault(record.getVendorAddress(), "_________________________________________________________________________________"));
-            data.put("authorizedPersonName", getValueOrDefault(record.getAuthorizedPersonName(), "_________________________"));
-            data.put("designation", getValueOrDefault(record.getDesignation(), "Authorized Signatory"));
-
-            List<String> aadharBase64Images = new ArrayList<>();
-            if (record.getAadharImages() != null && !record.getAadharImages().isEmpty()) {
-                for (String imageUrl : record.getAadharImages()) {
-                    try {
-                        if (imageUrl != null && imageUrl.startsWith("http")) {
-                            java.net.URL url = new java.net.URL(imageUrl);
-                            byte[] imageBytes = url.openStream().readAllBytes();
-                            aadharBase64Images.add(PdfGeneratorService.imageToBase64(imageBytes, "image/jpeg"));
-                        }
-                    } catch (Exception e) {
-                        System.err.println("Failed to load image: " + imageUrl + " - " + e.getMessage());
+        List<String> aadharBase64Images = new ArrayList<>();
+        if (record.getAadharImages() != null && !record.getAadharImages().isEmpty()) {
+            for (String imageUrl : record.getAadharImages()) {
+                try {
+                    if (imageUrl != null && imageUrl.startsWith("http")) {
+                        java.net.URL url = new java.net.URL(imageUrl);
+                        byte[] imageBytes = url.openStream().readAllBytes();
+                        aadharBase64Images.add(PdfGeneratorService.imageToBase64(imageBytes, "image/jpeg"));
                     }
+                } catch (Exception e) {
+                    System.err.println("Failed to load image: " + imageUrl + " - " + e.getMessage());
                 }
             }
-            data.put("aadharImagesBase64", aadharBase64Images);
-
-            data.put("location", getValueOrDefault(record.getLocation(), "_________________________"));
-            data.put("day", getValueOrDefault(record.getDay(), String.valueOf(now.getDayOfMonth())));
-            data.put("month", getValueOrDefault(record.getMonth(), now.getMonth().toString()));
-            data.put("year", getValueOrDefault(record.getYear(), String.valueOf(now.getYear())));
-            data.put("msedclAddress", getValueOrDefault(record.getMsedclAddress(), "_________________________"));
-            data.put("msedclOfficerName", getValueOrDefault(record.getMsedclOfficerName(), "_________________________"));
-            data.put("msedclOfficerDesignation", getValueOrDefault(record.getMsedclOfficerDesignation(), "_________________________"));
-            data.put("interconnectionPoint", getValueOrDefault(record.getInterconnectionPoint(), "_________________________"));
-
-            String inspectorName = getValueOrDefault(record.getInspectorName(), "");
-            if (inspectorName.isEmpty() || inspectorName.equals("_________________________")) {
-                inspectorName = record.getVendorName() + " (Inspector)";
-            }
-            data.put("inspectorName", inspectorName);
-
-            data.put("applicationNumber", getValueOrDefault(record.getApplicationNumber(), record.getSanctionNumber()));
-            data.put("applicationDate", getValueOrDefault(record.getApplicationDate(), installationDate));
-            data.put("discomName", getValueOrDefault(record.getDiscomName(), "MSEDCL"));
-            data.put("place", getValueOrDefault(record.getPlace(), "_________________________"));
-            data.put("witness1Name", getValueOrDefault(record.getWitness1Name(), "_________________________"));
-            data.put("witness1Address", getValueOrDefault(record.getWitness1Address(), "_________________________________________________________________________________"));
-            data.put("witness2Name", getValueOrDefault(record.getWitness2Name(), "_________________________"));
-            data.put("witness2Address", getValueOrDefault(record.getWitness2Address(), "_________________________________________________________________________________"));
-            data.put("indemnityDay", getValueOrDefault(record.getIndemnityDay(), String.valueOf(now.getDayOfMonth())));
-            data.put("indemnityMonth", getValueOrDefault(record.getIndemnityMonth(), now.getMonth().toString()));
-            data.put("indemnityYear", getValueOrDefault(record.getIndemnityYear(), String.valueOf(now.getYear())));
-            data.put("grReferenceNumber", getValueOrDefault(record.getGrReferenceNumber(), "202510061736312910"));
-            data.put("grReferenceDate", getValueOrDefault(record.getGrReferenceDate(), "06th Oct 2025"));
-            data.put("pbgAmount", getValueOrDefault(record.getPbgAmount(), "_________________________"));
-
-            List<String> processedSitePhotos = new ArrayList<>();
-            if (record.getSitePhotos() != null) {
-                for (String photo : record.getSitePhotos()) {
-                    if (photo != null) {
-                        if (photo.startsWith("http")) {
-                            processedSitePhotos.add(photo);
-                        } else {
-                            processedSitePhotos.add("/api/uploads/" + photo);
-                        }
-                    }
-                }
-            }
-            data.put("sitePhotos", processedSitePhotos);
-            data.put("aadharImages", record.getAadharImages());
         }
+        data.put("aadharImagesBase64", aadharBase64Images);
+
+        // ==================== SITE PHOTOS ====================
+        List<String> processedSitePhotos = new ArrayList<>();
+        if (record.getSitePhotos() != null) {
+            for (String photo : record.getSitePhotos()) {
+                if (photo != null) {
+                    if (photo.startsWith("http")) {
+                        processedSitePhotos.add(photo);
+                    } else {
+                        processedSitePhotos.add("/api/uploads/" + photo);
+                    }
+                }
+            }
+        }
+        data.put("sitePhotos", processedSitePhotos);
+        data.put("aadharImages", record.getAadharImages());
 
         return data;
     }
