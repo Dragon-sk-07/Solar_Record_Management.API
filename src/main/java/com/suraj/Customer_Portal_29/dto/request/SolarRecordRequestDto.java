@@ -34,7 +34,6 @@ public class SolarRecordRequestDto {
     @NotBlank(message = "Category is required")
     private String category;
 
-    @Pattern(regexp = "^\\d{4}\\s\\d{4}\\s\\d{4}$", message = "Aadhar number must be in format XXXX XXXX XXXX")
     private String aadharNumber;
 
     // ==================== SANCTION DETAILS ====================
