@@ -6,6 +6,7 @@ import jakarta.validation.constraints.NotNull;
 import lombok.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -27,10 +28,11 @@ public class SolarRecord {
         this.createdAt = LocalDateTime.now();
     }
 
-    // ==================== BASIC INFORMATION ====================
     private String name;
+
     @Column(unique = true, nullable = false)
     private String consumerNumber;
+
     private String mobileNumber;
     private String email;
 
@@ -100,14 +102,12 @@ public class SolarRecord {
     @Column(name = "cell_gst_invoice_no")
     private String cellGSTInvoiceNo;
 
-    // ==================== WARRANTY DETAILS ====================
     @Column(name = "product_warranty", length = 1000)
     private String productWarranty;
 
     @Column(name = "performance_warranty", length = 1000)
     private String performanceWarranty;
 
-    // ==================== INVERTER DETAILS ====================
     @Column(name = "inverter_make")
     private String inverterMake;
 
@@ -141,7 +141,6 @@ public class SolarRecord {
     @Column(name = "lightening_arrester")
     private String lighteningArrester;
 
-    // ==================== VENDOR DETAILS ====================
     @Column(name = "vendor_name")
     private String vendorName;
 
@@ -181,7 +180,6 @@ public class SolarRecord {
     @Column(name = "interconnection_point")
     private String interconnectionPoint;
 
-    // ==================== APPLICATION DETAILS ====================
     @Column(name = "application_number")
     private String applicationNumber;
 
@@ -194,7 +192,6 @@ public class SolarRecord {
     @Column(name = "place")
     private String place;
 
-    // ==================== WITNESS DETAILS ====================
     @Column(name = "witness1_name")
     private String witness1Name;
 
@@ -222,7 +219,6 @@ public class SolarRecord {
     @Column(name = "metering_rccb")
     private String meteringRCCB;
 
-    // ==================== INDEMNITY DETAILS ====================
     @Column(name = "indemnity_day")
     private String indemnityDay;
 
@@ -232,25 +228,21 @@ public class SolarRecord {
     @Column(name = "indemnity_year")
     private String indemnityYear;
 
-    // ==================== GR REFERENCE DETAILS ====================
     @Column(name = "gr_reference_number")
     private String grReferenceNumber;
 
     @Column(name = "gr_reference_date")
     private String grReferenceDate;
 
-    // ==================== PBG AMOUNT ====================
     @Column(name = "pbg_amount")
     private Double pbgAmount;
 
-    // ==================== AC CAPACITY & ARREARS ====================
     @Column(name = "ac_capacity_check")
     private String acCapacityCheck;
 
     @Column(name = "arrears_status")
     private String arrearsStatus;
 
-    // ==================== DOCUMENT STATUS ====================
     @Column(name = "sld_status")
     private String sldStatus;
 
@@ -296,7 +288,6 @@ public class SolarRecord {
     @Column(name = "acdb_surge")
     private String acdbSurge;
 
-    // ==================== ISOLATION & LOAD DETAILS ====================
     @Column(name = "isolation_switch_status")
     private String isolationSwitchStatus;
 
@@ -324,7 +315,6 @@ public class SolarRecord {
     @Column(name = "system_takeover")
     private String systemTakeover;
 
-    // ==================== INSTALLATION & TESTING STATUS ====================
     @Column(name = "net_installed")
     private String netInstalled;
 
@@ -340,37 +330,37 @@ public class SolarRecord {
     @ElementCollection
     @CollectionTable(name = "solar_vendor_signatures", joinColumns = @JoinColumn(name = "solar_record_id"))
     @Column(name = "signature", columnDefinition = "TEXT")
-    private List<String> vendorSignature;
+    private List<String> vendorSignature = new ArrayList<>();
 
     @ElementCollection
     @CollectionTable(name = "solar_consumer_signatures", joinColumns = @JoinColumn(name = "solar_record_id"))
     @Column(name = "signature", columnDefinition = "TEXT")
-    private List<String> consumerSignature;
+    private List<String> consumerSignature = new ArrayList<>();
 
     @ElementCollection
     @CollectionTable(name = "solar_msedcl_signatures", joinColumns = @JoinColumn(name = "solar_record_id"))
     @Column(name = "signature", columnDefinition = "TEXT")
-    private List<String> msedclSignature;
+    private List<String> msedclSignature = new ArrayList<>();
 
     @ElementCollection
     @CollectionTable(name = "solar_vendor_stamps", joinColumns = @JoinColumn(name = "solar_record_id"))
     @Column(name = "stamp", columnDefinition = "TEXT")
-    private List<String> vendorStamp;
+    private List<String> vendorStamp = new ArrayList<>();
 
     @ElementCollection
     @CollectionTable(name = "solar_witness_signatures", joinColumns = @JoinColumn(name = "solar_record_id"))
     @Column(name = "signature", columnDefinition = "TEXT")
-    private List<String> witnessSignature;
+    private List<String> witnessSignature = new ArrayList<>();
 
     @ElementCollection
     @CollectionTable(name = "solar_site_photos", joinColumns = @JoinColumn(name = "solar_record_id"))
     @Column(name = "photo", columnDefinition = "TEXT")
-    private List<String> sitePhotos;
+    private List<String> sitePhotos = new ArrayList<>();
 
     @ElementCollection
     @CollectionTable(name = "solar_aadhar_images", joinColumns = @JoinColumn(name = "solar_record_id"))
     @Column(name = "aadhar_image", columnDefinition = "TEXT")
-    private List<String> aadharImages;
+    private List<String> aadharImages = new ArrayList<>();
 
     @Transient
     private String currentDate;
