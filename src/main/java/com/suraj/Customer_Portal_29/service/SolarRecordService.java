@@ -347,12 +347,15 @@ public class SolarRecordService {
 
     private List<String> mergeImageLists(List<String> existing, List<MultipartFile> newFiles, String folder) {
         List<String> result = new ArrayList<>();
-        if (existing != null) {
+
+        if (existing != null && !existing.isEmpty()) {
             result.addAll(existing);
         }
+
         if (newFiles != null && !newFiles.isEmpty()) {
             result.addAll(uploadImagesWithCompression(newFiles, folder));
         }
+
         return result;
     }
 

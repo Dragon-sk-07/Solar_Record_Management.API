@@ -42,7 +42,6 @@ public class SolarRecord {
     @Column(name = "aadhar_number")
     private String aadharNumber;
 
-    // ==================== SANCTION DETAILS ====================
     @Column(name = "sanction_number")
     private String sanctionNumber;
 
@@ -53,7 +52,6 @@ public class SolarRecord {
     @DecimalMin("0.1")
     private Double installedCapacity;
 
-    // ==================== RE ARRANGEMENT ====================
     @Column(name = "re_arrangement_type")
     private String reArrangementType;
 
@@ -78,7 +76,6 @@ public class SolarRecord {
     @Column(name = "installation_date")
     private LocalDate installationDate;
 
-    // ==================== MODULE SPECIFICATIONS ====================
     @Column(name = "module_make")
     private String moduleMake;
 
@@ -135,7 +132,6 @@ public class SolarRecord {
     @Column(name = "year_of_manufacturing")
     private Integer yearOfManufacturing;
 
-    // ==================== EARTHING AND PROTECTIONS ====================
     @Column(name = "number_of_earthings")
     private Integer numberOfEarthings;
 
@@ -158,7 +154,6 @@ public class SolarRecord {
     @Column(name = "designation")
     private String designation;
 
-    // ==================== MSEDCL & INSPECTOR DETAILS ====================
     @Column(name = "msedcl_address", length = 1000)
     private String msedclAddress;
 
@@ -171,7 +166,6 @@ public class SolarRecord {
     @Column(name = "inspector_name")
     private String inspectorName;
 
-    // ==================== AGREEMENT DETAILS ====================
     @Column(name = "location")
     private String location;
 
@@ -213,7 +207,6 @@ public class SolarRecord {
     @Column(name = "witness2_address", length = 1000)
     private String witness2Address;
 
-    // ==================== METER DETAILS ====================
     @Column(name = "meter_number")
     private String meterNumber;
 
@@ -273,7 +266,6 @@ public class SolarRecord {
     @Column(name = "islanding_certificate")
     private String islandingCertificate;
 
-    // ==================== EARTHING DETAILS ====================
     @Column(name = "earthing_la")
     private String earthingLA;
 
@@ -295,7 +287,6 @@ public class SolarRecord {
     @Column(name = "metallic_earthed")
     private String metallicEarthed;
 
-    // ==================== FUSES & SURGE DETAILS ====================
     @Column(name = "dc_fuses")
     private String dcFuses;
 
@@ -312,7 +303,6 @@ public class SolarRecord {
     @Column(name = "mcb_load")
     private String mcbLoad;
 
-    // ==================== ISLANDING CHECKS ====================
     @Column(name = "islanding_check")
     private String islandingCheck;
 
@@ -322,14 +312,12 @@ public class SolarRecord {
     @Column(name = "backup_check")
     private String backupCheck;
 
-    // ==================== METER CONNECTION DETAILS ====================
     @Column(name = "gen_meter_conn")
     private String genMeterConn;
 
     @Column(name = "net_meter_conn")
     private String netMeterConn;
 
-    // ==================== INVERTER HEALTH ====================
     @Column(name = "inverter_healthy")
     private String inverterHealthy;
 
@@ -349,7 +337,6 @@ public class SolarRecord {
     @Column(name = "gen_testing")
     private String genTesting;
 
-    // ==================== FILE UPLOADS ====================
     @ElementCollection
     @CollectionTable(name = "solar_vendor_signatures", joinColumns = @JoinColumn(name = "solar_record_id"))
     @Column(name = "signature", columnDefinition = "TEXT")
