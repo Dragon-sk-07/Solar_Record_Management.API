@@ -5,230 +5,244 @@
     <title>Pre-Commissioning Report - Front Six</title>
     <style>
         * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-  }
+     margin: 0;
+     padding: 0;
+     box-sizing: border-box;
+ }
 
-  @page {
-      size: A4;
-      margin: 8mm 10mm;
-  }
+ @page {
+     size: A4;
+     margin: 8mm 10mm;
+ }
 
-  body {
-      font-family: 'Times New Roman', Times, serif;
-      background: white;
-      color: black;
-      font-size: 9.5pt;
-      line-height: 1.25;
-      padding: 0;
-      margin: 0;
-  }
+ body {
+     font-family: 'Times New Roman', Times, serif;
+     background: white;
+     color: black;
+     font-size: 11pt;
+     line-height: 1.35;
+     padding: 0;
+     margin: 0;
+ }
 
-  .page {
-      page-break-after: always;
-      margin-bottom: 8px;
-  }
+ .page {
+     page-break-after: always;
+     margin-bottom: 8px;
+ }
 
-  .page:last-child {
-      page-break-after: avoid;
-  }
+ .page:last-child {
+     page-break-after: avoid;
+ }
 
-  .arihant-header {
-      text-align: center;
-      margin-bottom: 8px;
-  }
-  .arihant-header .company-name {
-      font-size: 13pt;
-      font-weight: bold;
-  }
-  .arihant-header .contact-line {
-      font-size: 7.5pt;
-      margin: 2px 0;
-  }
-  .border-line {
-      border-bottom: 1px solid #000;
-      margin-top: 4px;
-  }
+ .arihant-header {
+     text-align: center;
+     margin-bottom: 10px;
+ }
+ .arihant-header .company-name {
+     font-size: 14pt;
+     font-weight: bold;
+ }
+ .arihant-header .contact-line {
+     font-size: 8pt;
+     margin: 2px 0;
+ }
+ .border-line {
+     border-bottom: 1px solid #000;
+     margin-top: 5px;
+ }
 
-  .letter-date {
-      text-align: right;
-      margin: 8px 0 10px 0;
-  }
+ .letter-date {
+     text-align: right;
+     margin: 10px 0 12px 0;
+     font-weight: normal;
+ }
 
-  .to-address {
-      margin: 5px 0;
-  }
+ .to-address {
+     margin: 8px 0;
+     line-height: 1.4;
+ }
 
-  .subject {
-      font-weight: bold;
-      margin: 8px 0 4px 0;
-      text-decoration: underline;
-  }
+ .subject {
+     font-weight: bold;
+     margin: 10px 0 8px 0;
+     text-decoration: underline;
+ }
 
-  .ref-line {
-      margin: 1px 0;
-  }
-  .ref-line span {
-      font-weight: 700;
-  }
+ .ref-line {
+     margin: 2px 0;
+ }
+ .ref-line span {
+     font-weight: 700;
+ }
 
-  /* ===== REDESIGNED METER BOX (replaces meter-table) ===== */
-  .meter-box {
-      width: 60%;
-      margin: 12px 0;
-      border-collapse: collapse;
-  }
-  .meter-box td {
-      border: 1px solid #000;
-      padding: 6px 8px;
-      vertical-align: top;
-  }
-  .meter-box td:first-child {
-      font-weight: 700;
-      width: 100px;
-      background-color: #f5f5f5;
-  }
-  .meter-box td:last-child {
-      font-weight: 700;
-  }
-  .meter-title {
-      background-color: #e3e3e3;
-      text-align: center;
-      font-weight: 700;
-      padding: 6px;
-      border: 1px solid #000;
-  }
+ /* ===== SIMPLE METER DETAILS - NO TABLE, NO BORDERS ===== */
+ .meter-details {
+     margin: 12px 0 10px 0;
+     line-height: 1.8;
+ }
+ .meter-details div {
+     margin: 4px 0;
+ }
+ .meter-label {
+     font-weight: 700;
+     display: inline-block;
+     width: 100px;
+ }
+ .meter-value {
+     font-weight: 700;
+ }
 
-  /* ===== WCR TABLES (pages 2-4) ===== */
-  .wcr-table {
-      width: 100%;
-      border-collapse: collapse;
-      margin: 5px 0;
-      font-size: 8.5pt;
-      border: 1px solid #000;
-  }
-  .wcr-table th, .wcr-table td {
-      border: 1px solid #000;
-      padding: 4px 5px;
-      vertical-align: top;
-  }
-  .wcr-table td:nth-child(3) {
-      font-weight: 700;
-  }
-  .wcr-table th {
-      background-color: #e3e3e3;
-      font-weight: 700;
-      text-align: center;
-      font-size: 9pt;
-  }
-  .wcr-table th:first-child, .wcr-table td:first-child {
-      width: 7%;
-      text-align: center;
-  }
-  .wcr-table th:nth-child(2), .wcr-table td:nth-child(2) {
-      width: 53%;
-  }
-  .wcr-table th:nth-child(3), .wcr-table td:nth-child(3) {
-      width: 40%;
-  }
+ /* ===== WCR TABLES (pages 2-4) - KEEP AS IS ===== */
+ .wcr-table {
+     width: 100%;
+     border-collapse: collapse;
+     margin: 8px 0;
+     font-size: 9pt;
+     border: 1px solid #000;
+ }
+ .wcr-table th, .wcr-table td {
+     border: 1px solid #000;
+     padding: 5px 6px;
+     vertical-align: top;
+ }
+ .wcr-table td:nth-child(3) {
+     font-weight: 700;
+ }
+ .wcr-table th {
+     background-color: #e3e3e3;
+     font-weight: 700;
+     text-align: center;
+     font-size: 9.5pt;
+ }
+ .wcr-table th:first-child, .wcr-table td:first-child {
+     width: 7%;
+     text-align: center;
+ }
+ .wcr-table th:nth-child(2), .wcr-table td:nth-child(2) {
+     width: 53%;
+ }
+ .wcr-table th:nth-child(3), .wcr-table td:nth-child(3) {
+     width: 40%;
+ }
 
-  /* ===== REDESIGNED INVOICE TABLE ===== */
-  .invoice-table {
-      width: 100%;
-      border-collapse: collapse;
-      margin: 12px 0;
-      font-size: 9pt;
-      border: 1px solid #000;
-  }
-  .invoice-table th, .invoice-table td {
-      border: 1px solid #000;
-      padding: 5px 3px;
-      text-align: center;
-  }
-  .invoice-table td {
-      font-weight: 700;
-  }
-  .invoice-table th {
-      background-color: #e3e3e3;
-      font-weight: 700;
-  }
-  .invoice-left {
-      text-align: left;
-  }
-  .invoice-declaration {
-      margin-top: 12px;
-      padding: 8px;
-      border-top: 1px dashed #ccc;
-      font-style: italic;
-      font-size: 8pt;
-  }
+ /* ===== TAX INVOICE SECTION ===== */
+ .invoice-section {
+     margin-top: 15px;
+     border: 1px solid #000;
+ }
+ .invoice-title {
+     font-weight: bold;
+     font-size: 12pt;
+     margin: 0;
+     background: #e3e3e3;
+     padding: 6px;
+     text-align: center;
+     border-bottom: 1px solid #000;
+ }
+ .invoice-prepared {
+     padding: 10px;
+     line-height: 1.5;
+ }
+ .invoice-prepared strong {
+     font-weight: 700;
+ }
+ .invoice-prepared span {
+     font-weight: 700;
+ }
+ .invoice-table {
+     width: 100%;
+     border-collapse: collapse;
+     font-size: 9.5pt;
+     border-top: 1px solid #000;
+     border-bottom: 1px solid #000;
+ }
+ .invoice-table th, .invoice-table td {
+     border: 1px solid #000;
+     padding: 6px 4px;
+     text-align: center;
+ }
+ .invoice-table th {
+     background-color: #e3e3e3;
+     font-weight: 700;
+ }
+ .invoice-table td {
+     font-weight: 700;
+ }
+ .invoice-left {
+     text-align: left;
+ }
+ .invoice-declaration {
+     padding: 8px 10px;
+     font-style: italic;
+     font-size: 9pt;
+ }
 
-  /* ===== SECTION TITLES ===== */
-  .section-title {
-      font-weight: bold;
-      font-size: 10pt;
-      margin: 8px 0 4px 0;
-      background: #e9ecef;
-      padding: 3px 6px;
-      text-align: center;
-  }
+ /* ===== SECTION TITLES ===== */
+ .section-title {
+     font-weight: bold;
+     font-size: 10pt;
+     margin: 10px 0 5px 0;
+     background: #e9ecef;
+     padding: 4px 8px;
+     text-align: center;
+ }
 
-  /* ===== SIGNATURES ===== */
-  .signature-row {
-      margin: 15px 0 10px;
-  }
-  .signature-table {
-      width: 100%;
-      border-collapse: collapse;
-  }
-  .signature-table td {
-      border: none;
-      width: 50%;
-      text-align: center;
-      padding: 0 10px;
-  }
-  .sign-line {
-      margin-top: 25px;
-      border-top: 1px solid #000;
-      width: 70%;
-      margin-left: auto;
-      margin-right: auto;
-  }
-  .sign-img {
-      max-height: 45px;
-      max-width: 140px;
-  }
+ /* ===== SIGNATURES ===== */
+ .signature-row {
+     margin: 18px 0 12px;
+ }
+ .signature-table {
+     width: 100%;
+     border-collapse: collapse;
+ }
+ .signature-table td {
+     border: none;
+     width: 50%;
+     text-align: center;
+     padding: 0 12px;
+     vertical-align: top;
+ }
+ .sign-line {
+     margin-top: 25px;
+     border-top: 1px solid #000;
+     width: 70%;
+     margin-left: auto;
+     margin-right: auto;
+ }
+ .sign-img {
+     max-height: 50px;
+     max-width: 150px;
+ }
 
-  /* ===== REMARKS ===== */
-  .remarks-box {
-      margin-top: 12px;
-      padding: 6px 8px;
-      background: #fef9e6;
-      border-left: 3px solid #b8860b;
-      font-size: 8pt;
-  }
+ /* ===== REMARKS ===== */
+ .remarks-box {
+     margin-top: 15px;
+     padding: 8px 10px;
+     background: #fef9e6;
+     border-left: 3px solid #b8860b;
+     font-size: 8.5pt;
+ }
 
-  /* ===== NOTES ===== */
-  .note-text {
-      font-size: 7.5pt;
-      margin-top: 4px;
-      color: #2c3e50;
-  }
-  .note-text ul {
-      margin-left: 18px;
-      padding-left: 5px;
-  }
+ /* ===== NOTES ===== */
+ .note-text {
+     font-size: 8pt;
+     margin-top: 6px;
+     color: #2c3e50;
+ }
+ .note-text ul {
+     margin-left: 20px;
+     padding-left: 5px;
+ }
 
-  /* ===== TWO COLUMN LAYOUT ===== */
-  .two-col-table {
-      display: flex;
-      gap: 15px;
-      width: 100%;
-  }
-  .col {
-      flex: 1;
-  }
+ /* ===== TWO COLUMN LAYOUT ===== */
+ .two-col-table {
+     display: flex;
+     gap: 15px;
+     width: 100%;
+ }
+ .col {
+     flex: 1;
+ }
     </style>
 </head>
 <body>
@@ -263,13 +277,13 @@
     <p>Dear Sir/Madam,</p>
     <p>With reference to above mentioned subject, the consumer has completed required documents for solar connection. Hence, we request to please proceed with the testing of below mentioned meter.</p>
 
-    <table class="meter-table">
-        <tr><td>Meter Details:</td><td></td></tr>
-        <tr><td>Make:</td><td><span th:text="${meterMake != null ? meterMake : 'Value Missing'}">Value Missing</span></td></tr>
-        <tr><td>Sr. No.:</td><td><span th:text="${meterNumber != null ? meterNumber : 'Value Missing'}">Value Missing</span></td></tr>
-        <tr><td>Phase:</td><td>1 Phase</td></tr>
-        <tr><td>Range:</td><td>5-30A.</td></tr>
-    </table>
+    <div class="meter-details">
+        <div><span class="meter-label">Meter Details:</span></div>
+        <div><span class="meter-label">Make:</span> <span class="meter-value" th:text="${meterMake != null ? meterMake : ''}"></span></div>
+        <div><span class="meter-label">Sr. No.:</span> <span class="meter-value" th:text="${meterNumber != null ? meterNumber : ''}"></span></div>
+        <div><span class="meter-label">Phase:</span> <span class="meter-value">1 Phase</span></div>
+        <div><span class="meter-label">Range:</span> <span class="meter-value">5-30A.</span></div>
+    </div>
 
     <p>Thanking you.</p>
 
