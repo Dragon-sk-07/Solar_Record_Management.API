@@ -94,10 +94,10 @@ public class SolarRecordRequestDto {
     @Size(max = 2000, message = "Module serial numbers must not exceed 2000 characters")
     private String moduleSerialNumbers;
 
-    @NotBlank(message = "Cell manufacturer name is required")
+//    @NotBlank(message = "Cell manufacturer name is required")
     private String cellManufacturerName;
 
-    @NotBlank(message = "Cell GST invoice number is required")
+//    @NotBlank(message = "Cell GST invoice number is required")
     private String cellGSTInvoiceNo;
 
     // ==================== WARRANTY DETAILS ====================
