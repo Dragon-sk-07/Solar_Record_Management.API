@@ -364,4 +364,11 @@ public class SolarRecord {
 
     @Transient
     private String currentDate;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "created_by_user_id")
+    private Owner createdBy;
+
+    @Column(name = "created_by_user_email")
+    private String createdByUserEmail;
 }

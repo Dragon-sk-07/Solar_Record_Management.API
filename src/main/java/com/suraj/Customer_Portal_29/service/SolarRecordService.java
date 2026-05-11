@@ -3,9 +3,13 @@ package com.suraj.Customer_Portal_29.service;
 import com.suraj.Customer_Portal_29.dto.request.SolarRecordRequestDto;
 import com.suraj.Customer_Portal_29.dto.response.SolarRecordResponseDto;
 import com.suraj.Customer_Portal_29.entity.SolarRecord;
+import com.suraj.Customer_Portal_29.entity.Owner;
+import com.suraj.Customer_Portal_29.entity.UserRole;
 import com.suraj.Customer_Portal_29.repository.SolarRecordRepository;
-import org.springframework.cache.annotation.Cacheable;
+import com.suraj.Customer_Portal_29.repository.OwnerRepository;
 import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import org.modelmapper.ModelMapper;
@@ -19,68 +23,89 @@ public class SolarRecordService {
     private final SolarRecordRepository repository;
     private final ModelMapper modelMapper;
     private final CloudinaryService cloudinaryService;
+    private final OwnerRepository ownerRepository;
 
     public SolarRecordService(SolarRecordRepository repository,
                               ModelMapper modelMapper,
-                              CloudinaryService cloudinaryService) {
+                              CloudinaryService cloudinaryService,
+                              OwnerRepository ownerRepository) {
         this.repository = repository;
         this.modelMapper = modelMapper;
         this.cloudinaryService = cloudinaryService;
+        this.ownerRepository = ownerRepository;
+    }
+
+    private Owner getCurrentUser() {
+        String email = SecurityContextHolder.getContext().getAuthentication().getName();
+        return ownerRepository.findByEmail(email)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+    }
+
+    private boolean isSuperAdmin(Owner user) {
+        return user.getRole() == UserRole.SUPER_ADMIN;
+    }
+
+    private boolean canModifyRecord(Owner user, SolarRecord record) {
+        return isSuperAdmin(user) || record.getCreatedByUserEmail().equals(user.getEmail());
     }
 
     public SolarRecordResponseDto save(SolarRecordRequestDto request) {
+        Owner currentUser = getCurrentUser();
         SolarRecord entity = mapToEntity(request);
-        SolarRecord saved = repository.save(entity);
-        return mapToResponse(saved);
+        entity.setCreatedBy(currentUser);
+        entity.setCreatedByUserEmail(currentUser.getEmail());
+        return mapToResponse(repository.save(entity));
     }
 
     public List<SolarRecordResponseDto> findAll() {
-        return repository.findAll()
-                .stream()
-                .map(this::mapToResponse)
-                .collect(Collectors.toList());
+        Owner currentUser = getCurrentUser();
+        List<SolarRecord> records = isSuperAdmin(currentUser)
+                ? repository.findAll()
+                : repository.findByCreatedByUserEmail(currentUser.getEmail());
+        return records.stream().map(this::mapToResponse).collect(Collectors.toList());
     }
 
     @Cacheable(value = "solarRecords", key = "#id")
     public SolarRecordResponseDto findById(String id) {
-        SolarRecord entity = findEntityById(id);
-        return mapToResponse(entity);
+        return mapToResponse(findEntityById(id));
     }
 
     @CacheEvict(value = "solarRecords", key = "#id")
     public SolarRecordResponseDto update(String id, SolarRecordRequestDto request) {
+        Owner currentUser = getCurrentUser();
         SolarRecord existing = findEntityById(id);
+
+        if (!canModifyRecord(currentUser, existing)) {
+            throw new RuntimeException("No permission to update this record");
+        }
+
         updateEntity(existing, request);
-        SolarRecord updated = repository.save(existing);
-        return mapToResponse(updated);
+        return mapToResponse(repository.save(existing));
     }
 
     public void delete(String id) {
+        Owner currentUser = getCurrentUser();
         SolarRecord entity = findEntityById(id);
 
-        if (entity.getSitePhotos() != null && !entity.getSitePhotos().isEmpty()) {
-            cloudinaryService.deleteFiles(entity.getSitePhotos());
-        }
-        if (entity.getAadharImages() != null && !entity.getAadharImages().isEmpty()) {
-            cloudinaryService.deleteFiles(entity.getAadharImages());
-        }
-        if (entity.getVendorSignature() != null && !entity.getVendorSignature().isEmpty()) {
-            cloudinaryService.deleteFiles(entity.getVendorSignature());
-        }
-        if (entity.getConsumerSignature() != null && !entity.getConsumerSignature().isEmpty()) {
-            cloudinaryService.deleteFiles(entity.getConsumerSignature());
-        }
-        if (entity.getMsedclSignature() != null && !entity.getMsedclSignature().isEmpty()) {
-            cloudinaryService.deleteFiles(entity.getMsedclSignature());
-        }
-        if (entity.getVendorStamp() != null && !entity.getVendorStamp().isEmpty()) {
-            cloudinaryService.deleteFiles(entity.getVendorStamp());
-        }
-        if (entity.getWitnessSignature() != null && !entity.getWitnessSignature().isEmpty()) {
-            cloudinaryService.deleteFiles(entity.getWitnessSignature());
+        if (!canModifyRecord(currentUser, entity)) {
+            throw new RuntimeException("No permission to delete this record");
         }
 
+        deleteCloudinaryFiles(entity);
         repository.delete(entity);
+    }
+
+    private void deleteCloudinaryFiles(SolarRecord entity) {
+        List<List<String>> fileLists = Arrays.asList(
+                entity.getSitePhotos(), entity.getAadharImages(),
+                entity.getVendorSignature(), entity.getConsumerSignature(),
+                entity.getMsedclSignature(), entity.getVendorStamp(),
+                entity.getWitnessSignature()
+        );
+
+        fileLists.stream()
+                .filter(Objects::nonNull)
+                .forEach(cloudinaryService::deleteFiles);
     }
 
     private SolarRecord findEntityById(String id) {
@@ -105,26 +130,13 @@ public class SolarRecordService {
         mapIndemnityFields(entity, req);
         mapInspectionFields(entity, req);
 
-        List<String> vendorSignatureList = mergeImageLists(null, req.getVendorSignature(), "vendorSignatures");
-        entity.setVendorSignature(vendorSignatureList);
-
-        List<String> consumerSignatureList = mergeImageLists(null, req.getConsumerSignature(), "consumerSignatures");
-        entity.setConsumerSignature(consumerSignatureList);
-
-        List<String> msedclSignatureList = mergeImageLists(null, req.getMsedclSignature(), "msedclSignatures");
-        entity.setMsedclSignature(msedclSignatureList);
-
-        List<String> vendorStampList = mergeImageLists(null, req.getVendorStamp(), "vendorStamps");
-        entity.setVendorStamp(vendorStampList);
-
-        List<String> witnessSignatureList = mergeImageLists(null, req.getWitnessSignature(), "witnessSignatures");
-        entity.setWitnessSignature(witnessSignatureList);
-
-        List<String> photoPaths = mergeImageLists(null, req.getSitePhotos(), "sitePhotos");
-        entity.setSitePhotos(photoPaths);
-
-        List<String> aadharPaths = mergeImageLists(null, req.getAadharImages(), "aadharImages");
-        entity.setAadharImages(aadharPaths);
+        entity.setVendorSignature(mergeImageLists(null, req.getVendorSignature(), "vendorSignatures"));
+        entity.setConsumerSignature(mergeImageLists(null, req.getConsumerSignature(), "consumerSignatures"));
+        entity.setMsedclSignature(mergeImageLists(null, req.getMsedclSignature(), "msedclSignatures"));
+        entity.setVendorStamp(mergeImageLists(null, req.getVendorStamp(), "vendorStamps"));
+        entity.setWitnessSignature(mergeImageLists(null, req.getWitnessSignature(), "witnessSignatures"));
+        entity.setSitePhotos(mergeImageLists(null, req.getSitePhotos(), "sitePhotos"));
+        entity.setAadharImages(mergeImageLists(null, req.getAadharImages(), "aadharImages"));
 
         return entity;
     }
@@ -145,26 +157,13 @@ public class SolarRecordService {
         mapIndemnityFields(entity, req);
         mapInspectionFields(entity, req);
 
-        List<String> updatedVendorSignature = mergeImageLists(req.getExistingVendorSignature(), req.getVendorSignature(), "vendorSignatures");
-        entity.setVendorSignature(updatedVendorSignature);
-
-        List<String> updatedConsumerSignature = mergeImageLists(req.getExistingConsumerSignature(), req.getConsumerSignature(), "consumerSignatures");
-        entity.setConsumerSignature(updatedConsumerSignature);
-
-        List<String> updatedMsedclSignature = mergeImageLists(req.getExistingMsedclSignature(), req.getMsedclSignature(), "msedclSignatures");
-        entity.setMsedclSignature(updatedMsedclSignature);
-
-        List<String> updatedVendorStamp = mergeImageLists(req.getExistingVendorStamp(), req.getVendorStamp(), "vendorStamps");
-        entity.setVendorStamp(updatedVendorStamp);
-
-        List<String> updatedWitnessSignature = mergeImageLists(req.getExistingWitnessSignature(), req.getWitnessSignature(), "witnessSignatures");
-        entity.setWitnessSignature(updatedWitnessSignature);
-
-        List<String> updatedPhotos = mergeImageLists(req.getExistingSitePhotos(), req.getSitePhotos(), "sitePhotos");
-        entity.setSitePhotos(updatedPhotos);
-
-        List<String> updatedAadharImages = mergeImageLists(req.getExistingAadharImages(), req.getAadharImages(), "aadharImages");
-        entity.setAadharImages(updatedAadharImages);
+        entity.setVendorSignature(mergeImageLists(req.getExistingVendorSignature(), req.getVendorSignature(), "vendorSignatures"));
+        entity.setConsumerSignature(mergeImageLists(req.getExistingConsumerSignature(), req.getConsumerSignature(), "consumerSignatures"));
+        entity.setMsedclSignature(mergeImageLists(req.getExistingMsedclSignature(), req.getMsedclSignature(), "msedclSignatures"));
+        entity.setVendorStamp(mergeImageLists(req.getExistingVendorStamp(), req.getVendorStamp(), "vendorStamps"));
+        entity.setWitnessSignature(mergeImageLists(req.getExistingWitnessSignature(), req.getWitnessSignature(), "witnessSignatures"));
+        entity.setSitePhotos(mergeImageLists(req.getExistingSitePhotos(), req.getSitePhotos(), "sitePhotos"));
+        entity.setAadharImages(mergeImageLists(req.getExistingAadharImages(), req.getAadharImages(), "aadharImages"));
     }
 
     private void mapBasicFields(SolarRecord entity, SolarRecordRequestDto req) {
@@ -234,12 +233,6 @@ public class SolarRecordService {
         entity.setVendorAddress(req.getVendorAddress());
         entity.setAuthorizedPersonName(req.getAuthorizedPersonName());
         entity.setDesignation(req.getDesignation());
-
-        List<String> vendorSignatureList = mergeImageLists(null, req.getVendorSignature(), "vendorSignatures");
-        entity.setVendorSignature(vendorSignatureList);
-
-        List<String> vendorStampList = mergeImageLists(null, req.getVendorStamp(), "vendorStamps");
-        entity.setVendorStamp(vendorStampList);
     }
 
     private void mapMsedclFields(SolarRecord entity, SolarRecordRequestDto req) {
@@ -330,54 +323,17 @@ public class SolarRecordService {
     }
 
     private List<String> uploadImagesWithCompression(List<MultipartFile> files, String folder) {
-        if (files == null || files.isEmpty()) {
-            return Collections.emptyList();
-        }
-
-        List<String> result = new ArrayList<>();
-        for (MultipartFile file : files) {
-            if (file != null) {
-                String url = cloudinaryService.uploadFile(file, folder);
-                result.add(url);
-                System.gc(); // Hint to free memory after each upload
-            }
-        }
-        return result;
+        if (files == null || files.isEmpty()) return Collections.emptyList();
+        return files.stream()
+                .filter(Objects::nonNull)
+                .map(file -> cloudinaryService.uploadFile(file, folder))
+                .collect(Collectors.toList());
     }
 
     private List<String> mergeImageLists(List<String> existing, List<MultipartFile> newFiles, String folder) {
         List<String> result = new ArrayList<>();
-
-        if (existing != null && !existing.isEmpty()) {
-            result.addAll(existing);
-        }
-
-        if (newFiles != null && !newFiles.isEmpty()) {
-            result.addAll(uploadImagesWithCompression(newFiles, folder));
-        }
-
+        if (existing != null && !existing.isEmpty()) result.addAll(existing);
+        if (newFiles != null && !newFiles.isEmpty()) result.addAll(uploadImagesWithCompression(newFiles, folder));
         return result;
-    }
-
-    private void setImageList(List<String> existing, List<MultipartFile> newFiles,
-                              java.util.function.Consumer<List<String>> setter, String folder) {
-        List<String> result = new ArrayList<>();
-        if (existing != null) {
-            result.addAll(existing);
-        }
-        if (newFiles != null && !newFiles.isEmpty()) {
-            result.addAll(uploadImagesWithCompression(newFiles, folder));
-        }
-        setter.accept(result);
-    }
-    private void deleteRemovedImages(List<String> oldImages, List<String> newImages) {
-        if (oldImages == null || oldImages.isEmpty()) return;
-        if (newImages == null) {
-            cloudinaryService.deleteFiles(oldImages);
-            return;
-        }
-        List<String> toDelete = new ArrayList<>(oldImages);
-        toDelete.removeAll(newImages);
-        cloudinaryService.deleteFiles(toDelete);
     }
 }

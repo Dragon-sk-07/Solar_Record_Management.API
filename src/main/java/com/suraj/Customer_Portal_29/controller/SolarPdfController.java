@@ -315,4 +315,14 @@ public class SolarPdfController {
         String stringValue = String.valueOf(value);
         return stringValue.isEmpty() ? defaultValue : stringValue;
     }
+
+    private void checkDownloadPermission(Owner currentUser, String format) {
+        if (currentUser.getRole() != UserRole.SUPER_ADMIN) {
+            Permission requiredPerm = "pdf".equalsIgnoreCase(format) ?
+                    Permission.DOWNLOAD_PDF : Permission.DOWNLOAD_WORD;
+            if (!currentUser.getPermissions().contains(requiredPerm)) {
+                throw new RuntimeException("You don't have permission to download " + format.toUpperCase());
+            }
+        }
+    }
 }
