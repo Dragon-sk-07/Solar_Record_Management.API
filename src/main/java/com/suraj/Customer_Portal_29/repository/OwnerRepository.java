@@ -13,6 +13,8 @@ public interface OwnerRepository extends JpaRepository<Owner, Long> {
     @QueryHints(@QueryHint(name = "org.hibernate.readOnly", value = "true"))
     Optional<Owner> findByEmail(String email);
 
+    Optional<Owner> findByEmailIgnoreCase(String email);
+
     boolean existsByEmail(String email);
 
     List<Owner> findByRole(UserRole role);

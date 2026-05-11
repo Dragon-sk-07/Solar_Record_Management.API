@@ -36,9 +36,16 @@ public class SolarRecordService {
     }
 
     private Owner getCurrentUser() {
-        String email = SecurityContextHolder.getContext().getAuthentication().getName();
-        return ownerRepository.findByEmail(email)
-                .orElseThrow(() -> new RuntimeException("User not found"));
+        org.springframework.security.core.Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        if (auth == null || !auth.isAuthenticated()) {
+            throw new RuntimeException("User not authenticated");
+        }
+        String email = auth.getName();
+        if (email == null || email.isEmpty()) {
+            throw new RuntimeException("Email not found in authentication");
+        }
+        return ownerRepository.findByEmailIgnoreCase(email.trim())
+                .orElseThrow(() -> new RuntimeException("User not found with email: " + email));
     }
 
     private boolean isSuperAdmin(Owner user) {
