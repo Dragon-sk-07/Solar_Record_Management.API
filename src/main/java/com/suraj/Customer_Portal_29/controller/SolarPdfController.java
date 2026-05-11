@@ -1,6 +1,9 @@
 package com.suraj.Customer_Portal_29.controller;
 
 import com.suraj.Customer_Portal_29.dto.response.SolarRecordResponseDto;
+import com.suraj.Customer_Portal_29.entity.Owner;
+import com.suraj.Customer_Portal_29.entity.Permission;
+import com.suraj.Customer_Portal_29.entity.UserRole;
 import com.suraj.Customer_Portal_29.service.*;
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
