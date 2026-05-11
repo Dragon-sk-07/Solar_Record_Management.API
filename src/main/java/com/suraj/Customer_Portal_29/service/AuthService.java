@@ -8,7 +8,7 @@ import com.suraj.Customer_Portal_29.entity.Owner;
 import com.suraj.Customer_Portal_29.repository.OtpRepository;
 import com.suraj.Customer_Portal_29.repository.OwnerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -25,11 +25,12 @@ public class AuthService {
     private final java.util.concurrent.ConcurrentHashMap<String, com.suraj.Customer_Portal_29.entity.Owner> userCache = new java.util.concurrent.ConcurrentHashMap<>();
     private final java.util.concurrent.ConcurrentHashMap<String, Long> cacheTime = new java.util.concurrent.ConcurrentHashMap<>();
     private static final long CACHE_DURATION = 300000L;
-    private final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+    private final PasswordEncoder passwordEncoder;
 
-    public AuthService(OwnerRepository repo, JwtTokenProvider jwtProvider) {
+    public AuthService(OwnerRepository repo, JwtTokenProvider jwtProvider, PasswordEncoder passwordEncoder) {
         this.repo = repo;
         this.jwtProvider = jwtProvider;
+        this.passwordEncoder = passwordEncoder;
     }
 
     public LoginResponseDto login(LoginRequestDto request) {
@@ -40,7 +41,7 @@ public class AuthService {
             userCache.put(email, owner);
             cacheTime.put(email, System.currentTimeMillis());
         }
-        if (!encoder.matches(request.getPassword(), owner.getPassword())) {
+        if (!passwordEncoder.matches(request.getPassword(), owner.getPassword())) {
             throw new RuntimeException("Invalid credentials");
         }
         String token = jwtProvider.generateToken(owner.getEmail());
@@ -53,7 +54,7 @@ public class AuthService {
         owner.setName(request.getName());
         owner.setEmail(request.getEmail());
         owner.setMobile(request.getMobile());
-        owner.setPassword(encoder.encode(request.getPassword()));
+        owner.setPassword(passwordEncoder.encode(request.getPassword()));
 
         repo.save(owner);
     }
