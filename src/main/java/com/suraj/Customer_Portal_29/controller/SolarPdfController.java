@@ -10,6 +10,11 @@ import org.springframework.web.bind.annotation.*;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
+import com.suraj.Customer_Portal_29.service.*;
+import com.suraj.Customer_Portal_29.repository.OwnerRepository;
+import org.springframework.http.*;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/solar/pdf")
@@ -19,19 +24,23 @@ public class SolarPdfController {
     private final PdfGeneratorService pdfService;
     private final WordGeneratorService wordService;
     private final PdfMergerService pdfMergerService;
+    private final OwnerRepository ownerRepository;
 
     public SolarPdfController(SolarRecordService solarService,
                               PdfGeneratorService pdfService,
                               WordGeneratorService wordService,
-                              PdfMergerService pdfMergerService) {
+                              PdfMergerService pdfMergerService,
+                              OwnerRepository ownerRepository) {
         this.solarService = solarService;
         this.pdfService = pdfService;
         this.wordService = wordService;
         this.pdfMergerService = pdfMergerService;
+        this.ownerRepository = ownerRepository;
     }
 
     @GetMapping("/{id}/{type}/word")
     public ResponseEntity<byte[]> downloadWord(@PathVariable String id, @PathVariable String type) {
+        checkDownloadPermission("word");
         Map<String, Object> data = buildData(id, false);
         byte[] wordDoc = wordService.generateWord(type, data);
         String filename = type + ".doc";
@@ -43,6 +52,7 @@ public class SolarPdfController {
 
     @GetMapping("/{id}/{type}")
     public ResponseEntity<byte[]> downloadPdf(@PathVariable String id, @PathVariable String type) {
+        checkDownloadPermission("pdf");
         Map<String, Object> data = buildData(id, true);
         byte[] pdf = pdfService.generatePdfAsync(type, data).join();
         String filename = getPdfFilename(type);
@@ -54,6 +64,7 @@ public class SolarPdfController {
 
     @GetMapping("/{id}/all-in-one")
     public ResponseEntity<byte[]> downloadAllInOnePdf(@PathVariable String id) {
+        checkDownloadPermission("pdf");
         try {
             Map<String, Object> data = buildData(id, true);
             List<byte[]> pdfs = new ArrayList<>();
@@ -96,6 +107,7 @@ public class SolarPdfController {
 
     @GetMapping("/{id}/all-in-one/word")
     public ResponseEntity<byte[]> downloadAllInOneWord(@PathVariable String id) {
+        checkDownloadPermission("word");
         try {
             Map<String, Object> data = buildData(id, true);
             byte[] wordDoc = wordService.generateCombinedWord(data);
@@ -319,13 +331,18 @@ public class SolarPdfController {
         return stringValue.isEmpty() ? defaultValue : stringValue;
     }
 
-    private void checkDownloadPermission(Owner currentUser, String format) {
-        if (currentUser.getRole() != UserRole.SUPER_ADMIN) {
-            Permission requiredPerm = "pdf".equalsIgnoreCase(format) ?
-                    Permission.DOWNLOAD_PDF : Permission.DOWNLOAD_WORD;
-            if (!currentUser.getPermissions().contains(requiredPerm)) {
-                throw new RuntimeException("You don't have permission to download " + format.toUpperCase());
-            }
+    private void checkDownloadPermission(String format) {
+        String email = SecurityContextHolder.getContext().getAuthentication().getName();
+        Owner currentUser = ownerRepository.findByEmail(email)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+
+        if (currentUser.getRole() == UserRole.SUPER_ADMIN) {
+            return;
+        }
+
+        Permission requiredPerm = "pdf".equalsIgnoreCase(format) ? Permission.DOWNLOAD_PDF : Permission.DOWNLOAD_WORD;
+        if (!currentUser.getPermissions().contains(requiredPerm)) {
+            throw new RuntimeException("You don't have permission to download " + format.toUpperCase());
         }
     }
 }
