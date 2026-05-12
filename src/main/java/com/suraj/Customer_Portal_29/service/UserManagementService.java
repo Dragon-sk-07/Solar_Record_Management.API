@@ -32,7 +32,6 @@ public class UserManagementService {
         user.setActive(true);
 
         if (permissions == null || permissions.isEmpty()) {
-            // Default: only VIEW permission
             user.setPermissions(Set.of(Permission.VIEW_RECORDS));
         } else {
             user.setPermissions(permissions);

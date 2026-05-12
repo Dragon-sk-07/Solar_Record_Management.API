@@ -5,6 +5,5 @@ public enum Permission {
     CREATE_RECORD,
     EDIT_RECORD,
     DELETE_RECORD,
-    DOWNLOAD_PDF,
-    DOWNLOAD_WORD
+    DOWNLOAD
 }

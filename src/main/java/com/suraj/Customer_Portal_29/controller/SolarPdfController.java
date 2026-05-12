@@ -340,9 +340,8 @@ public class SolarPdfController {
             return;
         }
 
-        Permission requiredPerm = "pdf".equalsIgnoreCase(format) ? Permission.DOWNLOAD_PDF : Permission.DOWNLOAD_WORD;
-        if (!currentUser.getPermissions().contains(requiredPerm)) {
-            throw new RuntimeException("You don't have permission to download " + format.toUpperCase());
+        if (!currentUser.getPermissions().contains(Permission.DOWNLOAD)) {
+            throw new RuntimeException("You don't have permission to download documents");
         }
     }
 }
