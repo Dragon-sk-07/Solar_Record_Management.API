@@ -7,6 +7,6 @@ import java.util.Optional;
 
 public interface SolarRecordRepository extends JpaRepository<SolarRecord, String> {
     Optional<SolarRecord> findByConsumerNumber(String consumerNumber);
-    List<SolarRecord> findByCreatedByUserEmail(String userEmail);
     List<SolarRecord> findByCreatedById(Long userId);
+    List<SolarRecord> findByCreatedByUserEmail(String userEmail);
 }

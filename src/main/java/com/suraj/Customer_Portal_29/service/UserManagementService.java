@@ -2,8 +2,10 @@ package com.suraj.Customer_Portal_29.service;
 
 import com.suraj.Customer_Portal_29.entity.Owner;
 import com.suraj.Customer_Portal_29.entity.Permission;
+import com.suraj.Customer_Portal_29.entity.SolarRecord;
 import com.suraj.Customer_Portal_29.entity.UserRole;
 import com.suraj.Customer_Portal_29.repository.OwnerRepository;
+import com.suraj.Customer_Portal_29.repository.SolarRecordRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import java.util.*;
@@ -13,10 +15,12 @@ public class UserManagementService {
 
     private final OwnerRepository ownerRepository;
     private final PasswordEncoder passwordEncoder;
+    private final SolarRecordRepository solarRecordRepository;
 
-    public UserManagementService(OwnerRepository ownerRepository, PasswordEncoder passwordEncoder) {
+    public UserManagementService(OwnerRepository ownerRepository, PasswordEncoder passwordEncoder, SolarRecordRepository solarRecordRepository) {
         this.ownerRepository = ownerRepository;
         this.passwordEncoder = passwordEncoder;
+        this.solarRecordRepository = solarRecordRepository;
     }
 
     public Owner createUser(String email, String name, String mobile, String password, Set<Permission> permissions) {
@@ -71,6 +75,11 @@ public class UserManagementService {
                 .orElseThrow(() -> new RuntimeException("User not found"));
         if (user.getRole() == UserRole.SUPER_ADMIN) {
             throw new RuntimeException("Cannot delete SUPER_ADMIN");
+        }
+
+        List<SolarRecord> userRecords = solarRecordRepository.findByCreatedByUserEmail(user.getEmail());
+        if (!userRecords.isEmpty()) {
+            solarRecordRepository.deleteAll(userRecords);
         }
         ownerRepository.delete(user);
     }
