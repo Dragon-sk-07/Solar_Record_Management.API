@@ -75,7 +75,7 @@ public class SolarRecordController {
     ) {
         checkPermission(Permission.EDIT_RECORD);
         SolarRecordResponseDto data = service.update(id, request);
-        return new ApiResponseDto<>("Solar record updated successfully", data);
+        return new ApiResponseDto<>("Solar record updated successfully.", data);
     }
 
     @DeleteMapping("/{id}")
