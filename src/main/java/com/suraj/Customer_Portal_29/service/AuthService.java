@@ -16,6 +16,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 
 import java.time.LocalDateTime;
+import java.util.HashMap;
+import java.util.Map;
 
 @Service
 public class AuthService {
@@ -44,8 +46,11 @@ public class AuthService {
         if (!passwordEncoder.matches(request.getPassword(), owner.getPassword())) {
             throw new RuntimeException("Invalid credentials");
         }
-        String token = jwtProvider.generateToken(owner.getEmail());
-        return new LoginResponseDto(token, owner.getName());
+        Map<String, Object> claims = new HashMap<>();
+        claims.put("role", owner.getRole().name());
+        claims.put("permissions", owner.getPermissions());
+        String token = jwtProvider.generateToken(owner.getEmail(), claims);
+        return new LoginResponseDto(token, owner.getName(), owner.getRole().name(), owner.getPermissions());
     }
 
     public void register(RegisterRequestDto request) {

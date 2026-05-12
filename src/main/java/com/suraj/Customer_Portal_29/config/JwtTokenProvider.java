@@ -10,6 +10,8 @@ import org.springframework.stereotype.Component;
 
 import javax.crypto.SecretKey;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Component
@@ -42,6 +44,21 @@ public class JwtTokenProvider {
                 .claim("email", email)
                 .claim("role", user.getRole().name())
                 .claim("permissions", user.getPermissions().stream().map(Enum::name).collect(Collectors.toList()))
+                .setIssuedAt(now)
+                .setExpiration(expiryDate)
+                .signWith(getSigningKey())
+                .compact();
+    }
+
+    public String generateToken(String email, Map<String, Object> extraClaims) {
+        Map<String, Object> claims = new HashMap<>(extraClaims);
+        claims.put("sub", email);
+        Date now = new Date();
+        Date expiryDate = new Date(now.getTime() + expiration);
+
+        return Jwts.builder()
+                .setClaims(claims)
+                .setSubject(email)
                 .setIssuedAt(now)
                 .setExpiration(expiryDate)
                 .signWith(getSigningKey())
