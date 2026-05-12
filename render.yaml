@@ -2,18 +2,9 @@ services:
   - type: web
     name: solar-record-api
     runtime: java
-    buildCommand: ./mvnw clean package -DskipTests
-    startCommand: java -jar -Dserver.port=10000 target/*.jar
-    envVars:
-      - key: SERVER_PORT
-        value: 10000
+    buildCommand: "./mvnw clean package -DskipTests"
+    startCommand: "java -jar target/*.jar"
+envVars:
+    - key: JAVA_OPTS
+      value: -Xmx1024m -Xms512m
 
-  - type: web
-    name: solar-rts-ui
-    runtime: static
-    buildCommand: npm install; npm run build
-    publishDirectory: dist
-    routes:
-      - type: rewrite
-        source: /*
-        destination: /index.html
