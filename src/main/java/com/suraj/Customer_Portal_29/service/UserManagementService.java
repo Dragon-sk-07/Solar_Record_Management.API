@@ -63,7 +63,10 @@ public class UserManagementService {
         Owner user = ownerRepository.findById(userId)
                 .orElseThrow(() -> new RuntimeException("User not found"));
         user.setActive(isActive);
-        return ownerRepository.save(user);
+        Owner updatedUser = ownerRepository.save(user);
+        userCache.remove(user.getEmail());
+        cacheTime.remove(user.getEmail());
+        return updatedUser;
     }
 
     public List<Owner> getAllUsers() {
