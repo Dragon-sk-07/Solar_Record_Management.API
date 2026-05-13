@@ -46,6 +46,9 @@ public class AuthService {
         if (!passwordEncoder.matches(request.getPassword(), owner.getPassword())) {
             throw new RuntimeException("Invalid credentials");
         }
+        if (!owner.isActive()) {
+            throw new RuntimeException("Your account has been deactivated. Please contact super admin.");
+        }
         Map<String, Object> claims = new HashMap<>();
         claims.put("role", owner.getRole().name());
         claims.put("permissions", owner.getPermissions());

@@ -17,6 +17,9 @@ public class UserManagementService {
     private final PasswordEncoder passwordEncoder;
     private final SolarRecordRepository solarRecordRepository;
 
+    private final Map<String, Owner> userCache = new java.util.concurrent.ConcurrentHashMap<>();
+    private final Map<String, Long> cacheTime = new java.util.concurrent.ConcurrentHashMap<>();
+
     public UserManagementService(OwnerRepository ownerRepository, PasswordEncoder passwordEncoder, SolarRecordRepository solarRecordRepository) {
         this.ownerRepository = ownerRepository;
         this.passwordEncoder = passwordEncoder;
@@ -50,7 +53,10 @@ public class UserManagementService {
             throw new RuntimeException("Cannot modify SUPER_ADMIN permissions");
         }
         user.setPermissions(permissions);
-        return ownerRepository.save(user);
+        Owner updatedUser = ownerRepository.save(user);
+        userCache.remove(user.getEmail());
+        cacheTime.remove(user.getEmail());
+        return updatedUser;
     }
 
     public Owner updateUserStatus(Long userId, boolean isActive) {

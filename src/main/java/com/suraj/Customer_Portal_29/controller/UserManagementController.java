@@ -76,6 +76,13 @@ public class UserManagementController {
         return ResponseEntity.ok(new ApiResponseDto<>("Users fetched successfully", users));
     }
 
+    @GetMapping("/me")
+    public ResponseEntity<ApiResponseDto<UserResponseDto>> getCurrentUser() {
+        String email = SecurityContextHolder.getContext().getAuthentication().getName();
+        Owner currentUser = ownerRepository.findByEmail(email).orElseThrow(() -> new RuntimeException("User not found"));
+        return ResponseEntity.ok(new ApiResponseDto<>("User fetched successfully", mapToResponse(currentUser)));
+    }
+
     @DeleteMapping("/{userId}")
     public ResponseEntity<ApiResponseDto<Void>> deleteUser(@PathVariable Long userId) {
         checkSuperAdmin();
