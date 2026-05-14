@@ -158,9 +158,9 @@
 
 <!-- VENDOR HEADER (Dynamic - uses vendor details from form) -->
 <div th:if="${vendorName != null and vendorName != ''}" class="vendor-header">
-  <div class="vendor-logo">
-    <img th:if="${not #lists.isEmpty(vendorStamp)}" th:src="${vendorStamp[0]}" alt="Vendor Logo"/>
-  </div>
+<!--  <div class="vendor-logo">-->
+<!--    <img th:if="${not #lists.isEmpty(vendorStamp)}" th:src="${vendorStamp[0]}" alt="Vendor Logo"/>-->
+<!--  </div>-->
   <div class="vendor-info">
     <div class="vendor-name" th:text="${vendorName}">Vendor Name</div>
     <div class="vendor-details">
