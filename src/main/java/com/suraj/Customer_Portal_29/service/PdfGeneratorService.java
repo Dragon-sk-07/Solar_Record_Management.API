@@ -87,12 +87,12 @@ public class PdfGeneratorService {
                 return "INDEMNITY_BOND";
             case "site-photos":
                 return "Site-photos";
-            case "solar-proposal-11kw":
-                return "Solar_Proposal";
-            case "meter-testing-request":
-                return "Meter_Testing_Request";
-            case "pm-surya-ghar-agreement":
-                return "PM_Surya_Ghar_Agreement";
+            case "SOLAR_PROPOSAL_11KW":
+                return "SOLAR_PROPOSAL_11KW";
+            case "METER_TESTING_REQUEST":
+                return "METER_TESTING_REQUEST";
+            case "PM_SURYA_GHAR_AGREEMENT":
+                return "PM_SURYA_GHAR_AGREEMENT"; 
             default:
                 return type;
         }
