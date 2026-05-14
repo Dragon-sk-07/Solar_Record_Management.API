@@ -273,6 +273,7 @@ public class SolarRecordRequestDto {
     private List<MultipartFile> witnessSignature;
     private List<MultipartFile> aadharImages;
     private List<MultipartFile> sitePhotos;
+    private List<MultipartFile> netMeteringStamp;
 
     // ==================== EXISTING FILES (FOR UPDATE) ====================
     private List<String> existingVendorSignature;
@@ -283,4 +284,5 @@ public class SolarRecordRequestDto {
     private List<String> existingSitePhotos;
     private List<String> existingPhotos;
     private List<String> existingAadharImages;
+    private List<String> existingNetMeteringStamp;
 }

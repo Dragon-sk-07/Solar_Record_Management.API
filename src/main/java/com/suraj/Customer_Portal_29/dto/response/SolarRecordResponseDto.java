@@ -155,4 +155,5 @@ public class SolarRecordResponseDto {
     private List<String> witnessSignature;
     private List<String> sitePhotos;
     private List<String> aadharImages;
+    private List<String> netMeteringStamp;
 }

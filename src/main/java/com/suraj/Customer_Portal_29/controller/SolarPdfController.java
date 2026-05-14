@@ -269,6 +269,7 @@ public class SolarPdfController {
         data.put("msedclSignature", record.getMsedclSignature());
         data.put("vendorStamp", record.getVendorStamp());
         data.put("witnessSignature", record.getWitnessSignature());
+        data.put("netMeteringStamp", record.getNetMeteringStamp());
 
         List<String> aadharImageUrls = new ArrayList<>();
         if (record.getAadharImages() != null && !record.getAadharImages().isEmpty()) {

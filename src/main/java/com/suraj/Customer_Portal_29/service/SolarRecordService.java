@@ -107,6 +107,7 @@ public class SolarRecordService {
                 entity.getSitePhotos(), entity.getAadharImages(),
                 entity.getVendorSignature(), entity.getConsumerSignature(),
                 entity.getMsedclSignature(), entity.getVendorStamp(),
+                entity.getNetMeteringStamp(),
                 entity.getWitnessSignature()
         );
 
@@ -144,6 +145,7 @@ public class SolarRecordService {
         entity.setWitnessSignature(mergeImageLists(null, req.getWitnessSignature(), "witnessSignatures"));
         entity.setSitePhotos(mergeImageLists(null, req.getSitePhotos(), "sitePhotos"));
         entity.setAadharImages(mergeImageLists(null, req.getAadharImages(), "aadharImages"));
+        entity.setNetMeteringStamp(mergeImageLists(null, req.getNetMeteringStamp(), "netMeteringStamps"));
 
         return entity;
     }
@@ -171,6 +173,7 @@ public class SolarRecordService {
         entity.setWitnessSignature(mergeImageLists(req.getExistingWitnessSignature(), req.getWitnessSignature(), "witnessSignatures"));
         entity.setSitePhotos(mergeImageLists(req.getExistingSitePhotos(), req.getSitePhotos(), "sitePhotos"));
         entity.setAadharImages(mergeImageLists(req.getExistingAadharImages(), req.getAadharImages(), "aadharImages"));
+        entity.setNetMeteringStamp(mergeImageLists(req.getExistingNetMeteringStamp(), req.getNetMeteringStamp(), "netMeteringStamps"));
     }
 
     private void mapBasicFields(SolarRecord entity, SolarRecordRequestDto req) {
@@ -326,6 +329,7 @@ public class SolarRecordService {
         response.setMsedclSignature(entity.getMsedclSignature());
         response.setVendorStamp(entity.getVendorStamp());
         response.setWitnessSignature(entity.getWitnessSignature());
+        response.setNetMeteringStamp(entity.getNetMeteringStamp());
         return response;
     }
 

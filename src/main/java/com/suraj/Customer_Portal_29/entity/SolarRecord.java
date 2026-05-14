@@ -362,6 +362,11 @@ public class SolarRecord {
     @Column(name = "aadhar_image", columnDefinition = "TEXT")
     private List<String> aadharImages = new ArrayList<>();
 
+    @ElementCollection
+    @CollectionTable(name = "solar_net_metering_stamps", joinColumns = @JoinColumn(name = "solar_record_id"))
+    @Column(name = "stamp", columnDefinition = "TEXT")
+    private List<String> netMeteringStamp = new ArrayList<>();
+
     @Transient
     private String currentDate;
 
