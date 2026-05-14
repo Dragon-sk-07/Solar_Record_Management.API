@@ -5,24 +5,85 @@
   <title>Site Photos - Solar Installation</title>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
-@page { margin: 5mm 10mm; }
-body { padding: 5px 10px; }
-.header-container { margin-bottom: 5px; }
-.letter-date { margin-top: 0; }
-table, .signature-area { page-break-inside: avoid; }
+    @page { margin: 5mm 10mm; }
+    body { padding: 5px 10px; }
     * {
         margin: 0;
         padding: 0;
         box-sizing: border-box;
     }
     body {
-       font-family: 'Times New Roman', Times, serif;
+        font-family: 'Times New Roman', Times, serif;
         padding: 30px 20px;
         background: white;
     }
     .container {
         max-width: 900px;
         margin: 0 auto;
+    }
+    .vendor-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 15px;
+        padding-bottom: 8px;
+        border-bottom: 1px solid #000;
+    }
+    .vendor-logo {
+        width: 40%;
+    }
+    .vendor-logo img {
+        max-height: 60px;
+        max-width: 100%;
+        object-fit: contain;
+    }
+    .vendor-info {
+        width: 60%;
+        text-align: right;
+    }
+    .vendor-name {
+        font-size: 14px;
+        font-weight: bold;
+        text-transform: uppercase;
+    }
+    .vendor-details {
+        font-size: 8px;
+        margin-top: 3px;
+    }
+    .msedcl-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 15px;
+        padding-bottom: 8px;
+        border-bottom: 1px solid #000;
+    }
+    .msedcl-logo {
+        width: 40%;
+    }
+    .msedcl-logo img {
+        max-height: 50px;
+        max-width: 100%;
+        object-fit: contain;
+    }
+    .msedcl-info {
+        width: 60%;
+        text-align: right;
+    }
+    .msedcl-name {
+        font-size: 14px;
+        font-weight: bold;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+    .msedcl-fullform {
+        font-size: 7px;
+        font-weight: normal;
+        letter-spacing: 0.5px;
+    }
+    .msedcl-address {
+        font-size: 7px;
+        margin-top: 3px;
     }
     h1 {
         text-align: center;
@@ -33,15 +94,15 @@ table, .signature-area { page-break-inside: avoid; }
         padding-bottom: 10px;
         border-bottom: 2px solid #333;
     }
-  .subtitle {
-    text-align: center;
-    font-size: 14px;
-    margin-bottom: 30px;
-    color: #555;
-}
-.subtitle span {
-    font-weight: 700;
-}
+    .subtitle {
+        text-align: center;
+        font-size: 14px;
+        margin-bottom: 30px;
+        color: #555;
+    }
+    .subtitle span {
+        font-weight: 700;
+    }
     .photos-grid {
         display: flex;
         flex-direction: column;
@@ -55,12 +116,12 @@ table, .signature-area { page-break-inside: avoid; }
         page-break-inside: avoid;
         break-inside: avoid;
     }
-  .photo-caption {
-    font-weight: 700;
-    margin-bottom: 10px;
-    font-size: 13px;
-    color: #333;
-}
+    .photo-caption {
+        font-weight: 700;
+        margin-bottom: 10px;
+        font-size: 13px;
+        color: #333;
+    }
     .photo-image {
         text-align: center;
     }
@@ -71,13 +132,17 @@ table, .signature-area { page-break-inside: avoid; }
         border-radius: 4px;
         box-shadow: 0 2px 8px rgba(0,0,0,0.1);
     }
-  .no-photos {
-    text-align: center;
-    padding: 50px;
-    color: #999;
-    font-style: italic;
-    font-weight: 400;
-}
+    .no-photos {
+        text-align: center;
+        padding: 50px;
+        color: #999;
+        font-style: italic;
+        font-weight: 400;
+    }
+    .value-missing {
+        color: #999;
+        font-style: italic;
+    }
     @media print {
         body {
             padding: 0;
@@ -90,11 +155,34 @@ table, .signature-area { page-break-inside: avoid; }
   </style>
 </head>
 <body>
-<div style="text-align: center; margin-bottom: 8px; font-family: 'Times New Roman', Times, serif;">
-  <div style="font-size: 30px; font-weight: bold; margin: 0; padding: 0;">Arihant Electrical Sangli</div>
-  <div style="font-size: 10px; margin: 2px 0; padding: 0;">Email: arihantele@gmail.com | Near Anuje Hospital, Kurundwad, Tal-shirol, Dist. Kolhapur - 416106 |  Mob:7774855501/9767334454</div>
-  <div style="border-bottom: 1px solid #000; margin-top: 5px;"></div>
+
+<!-- VENDOR HEADER (Dynamic - uses vendor details from form) -->
+<div th:if="${vendorName != null and vendorName != ''}" class="vendor-header">
+  <div class="vendor-logo">
+    <img th:if="${not #lists.isEmpty(vendorStamp)}" th:src="${vendorStamp[0]}" alt="Vendor Logo"/>
+  </div>
+  <div class="vendor-info">
+    <div class="vendor-name" th:text="${vendorName}">Vendor Name</div>
+    <div class="vendor-details">
+      <span th:text="${vendorAddress}">Vendor Address</span><br/>
+      <span>Email: <span th:text="${vendorEmail}">vendor@example.com</span></span> |
+      <span>Mobile: <span th:text="${vendorMobile}">9999999999</span></span>
+    </div>
+  </div>
 </div>
+
+<!-- MSEDCL HEADER (Fixed - used when vendor name not available) -->
+<div th:if="${vendorName == null or vendorName == ''}" class="msedcl-header">
+  <div class="msedcl-logo">
+    <img th:if="${not #lists.isEmpty(netMeteringStamp)}" th:src="${netMeteringStamp[0]}" alt="MSEDCL Logo"/>
+  </div>
+  <div class="msedcl-info">
+    <div class="msedcl-name">MSEDCL</div>
+    <div class="msedcl-fullform">Maharashtra State Electricity Distribution Company Limited</div>
+    <div class="msedcl-address">Prakashgad, Bandra East, Mumbai - 400051</div>
+  </div>
+</div>
+
 <div class="container">
   <h1>Site Installation Photos</h1>
   <div class="subtitle">
@@ -113,8 +201,9 @@ table, .signature-area { page-break-inside: avoid; }
   </div>
 
   <div class="no-photos" th:if="${sitePhotos == null or sitePhotos.isEmpty()}">
-    No site photos available for this installation.
+    <span class="value-missing">No site photos available for this installation.</span>
   </div>
 </div>
+
 </body>
 </html>

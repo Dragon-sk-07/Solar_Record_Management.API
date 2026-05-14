@@ -4,18 +4,15 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Generation Meter Testing Request</title>
-
   <style>
     * {
         margin: 0;
         padding: 0;
         box-sizing: border-box;
     }
-
     @page {
         margin: 6mm 10mm;
     }
-
     body {
         font-family: 'Times New Roman', Times, serif;
         font-size: 11pt;
@@ -23,245 +20,257 @@
         color: #000;
         padding: 10px 15px;
     }
-
     .document {
         width: 100%;
     }
-
     p {
         margin: 0 0 3px 0;
         text-align: justify;
     }
-
     .center {
         text-align: center;
     }
-
     .bold {
         font-weight: bold;
     }
-
-    .header-section {
-        text-align: center;
+    .vendor-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
         margin-bottom: 15px;
+        padding-bottom: 8px;
+        border-bottom: 1px solid #000;
     }
-
-    .company-name {
-        font-size: 22px;
+    .vendor-logo {
+        width: 40%;
+    }
+    .vendor-logo img {
+        max-height: 60px;
+        max-width: 100%;
+        object-fit: contain;
+    }
+    .vendor-info {
+        width: 60%;
+        text-align: right;
+    }
+    .vendor-name {
+        font-size: 16px;
         font-weight: bold;
-        margin: 0;
-        padding: 0;
+        text-transform: uppercase;
+    }
+    .vendor-details {
+        font-size: 9px;
+        margin-top: 3px;
+    }
+    .msedcl-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 15px;
+        padding-bottom: 8px;
+        border-bottom: 1px solid #000;
+    }
+    .msedcl-logo {
+        width: 40%;
+    }
+    .msedcl-logo img {
+        max-height: 50px;
+        max-width: 100%;
+        object-fit: contain;
+    }
+    .msedcl-info {
+        width: 60%;
+        text-align: right;
+    }
+    .msedcl-name {
+        font-size: 16px;
+        font-weight: bold;
+        text-transform: uppercase;
         letter-spacing: 1px;
     }
-
-    .company-sub {
-        font-size: 11px;
+    .msedcl-fullform {
+        font-size: 8px;
         font-weight: normal;
-        margin-top: 2px;
+        letter-spacing: 0.5px;
     }
-
-    .company-address {
-        font-size: 10px;
-        margin: 2px 0;
+    .msedcl-address {
+        font-size: 8px;
+        margin-top: 3px;
     }
-
-    .company-contact {
-        font-size: 10px;
-        margin: 2px 0;
-    }
-
-    .header-line {
-        border-bottom: 1px solid #000;
-        margin-top: 5px;
-    }
-
     .date-section {
         margin-top: 12px;
         text-align: right;
     }
-
     .to-section {
         margin-top: 12px;
     }
-
     .subject {
         margin-top: 10px;
         font-weight: bold;
         text-decoration: underline;
     }
-
     .ref-section {
         margin-top: 8px;
     }
-
     .ref-item {
         margin-left: 20px;
     }
-
     .body-text {
         margin-top: 10px;
     }
-
     .meter-details {
         margin-top: 10px;
         margin-left: 20px;
     }
-
     .closing {
         margin-top: 15px;
     }
-
     .signature-section {
         margin-top: 25px;
     }
-
     .signature-row {
         display: table;
         width: 100%;
         table-layout: fixed;
         margin: 12px 0 8px 0;
     }
-
     .signature-left, .signature-right {
         display: table-cell;
         width: 50%;
         vertical-align: top;
     }
-
     .signature-left {
         text-align: left;
         padding-right: 15px;
     }
-
     .signature-right {
         text-align: left;
         padding-left: 15px;
     }
-
     .signature-space {
         height: 50px;
         margin: 3px 0;
     }
-
     .line {
         margin-top: 3px;
         border-bottom: 1px solid #000;
         height: 15px;
         width: 100%;
     }
-
     .field {
         font-weight: 700;
     }
-
     .tax-invoice {
         margin-top: 30px;
         page-break-before: avoid;
     }
-
     .tax-invoice-title {
         font-size: 16px;
         font-weight: bold;
         text-align: center;
         margin: 15px 0 10px 0;
     }
-
     .invoice-details {
         margin-top: 10px;
     }
-
     .invoice-row {
         display: table;
         width: 100%;
         margin: 5px 0;
     }
-
     .invoice-label {
         display: table-cell;
         width: 150px;
         font-weight: bold;
     }
-
     .invoice-value {
         display: table-cell;
     }
-
     .invoice-table {
         width: 100%;
         border-collapse: collapse;
         margin: 10px 0;
     }
-
     .invoice-table th, .invoice-table td {
         border: 1px solid #000;
         padding: 6px 8px;
         text-align: right;
     }
-
     .invoice-table th {
         background-color: #f0f0f0;
         text-align: center;
     }
-
     .invoice-table td:first-child {
         text-align: left;
     }
-
     .total-row {
         font-weight: bold;
         border-top: 2px solid #000;
     }
-
     .declaration {
         margin-top: 15px;
         font-style: italic;
     }
-
+    .value-missing {
+        color: #999;
+        font-style: italic;
+    }
+    .fixed-value {
+        font-weight: 700;
+    }
     .mt8 {
         margin-top: 5px;
     }
-
     .mt12 {
         margin-top: 8px;
     }
-
     .mt18 {
         margin-top: 10px;
     }
-
     .mt25 {
         margin-top: 12px;
     }
   </style>
 </head>
-
 <body>
-<div th:if="${not #lists.isEmpty(vendorStamp)}">
-  <div style="text-align: center; margin-bottom: 8px; font-family: 'Times New Roman', Times, serif;">
-    <div style="font-size: 26px; font-weight: bold; margin: 0; padding: 0;">Arihant Electrical Sangli</div>
-    <div style="font-size: 10px; margin: 2px 0; padding: 0;">Email: arihantele@gmail.com | Near Anuje Hospital, Kurundwad, Tal-shirol, Dist. Kolhapur - 416106 | Mob:7774855501/9767334454</div>
-    <div style="border-bottom: 1px solid #000; margin-top: 5px;"></div>
+
+<!-- VENDOR HEADER (Dynamic - uses vendor details from form) -->
+<div th:if="${vendorName != null and vendorName != ''}" class="vendor-header">
+  <div class="vendor-logo">
+    <img th:if="${not #lists.isEmpty(vendorStamp)}" th:src="${vendorStamp[0]}" alt="Vendor Logo"/>
   </div>
-  <div style="display: flex; align-items: center; justify-content: center; min-height: 60vh; page-break-after: always;">
-    <img th:src="${vendorStamp[0]}" style="max-width: 90%; max-height: 70vh; object-fit: contain;"/>
+  <div class="vendor-info">
+    <div class="vendor-name" th:text="${vendorName}">Vendor Name</div>
+    <div class="vendor-details">
+      <span th:text="${vendorAddress}">Vendor Address</span><br/>
+      <span>Email: <span th:text="${vendorEmail}">vendor@example.com</span></span> |
+      <span>Mobile: <span th:text="${vendorMobile}">9999999999</span></span>
+    </div>
+  </div>
+</div>
+
+<!-- MSEDCL HEADER (Fixed - used when vendor name not available) -->
+<div th:if="${vendorName == null or vendorName == ''}" class="msedcl-header">
+  <div class="msedcl-logo">
+    <img th:if="${not #lists.isEmpty(netMeteringStamp)}" th:src="${netMeteringStamp[0]}" alt="MSEDCL Logo"/>
+  </div>
+  <div class="msedcl-info">
+    <div class="msedcl-name">MSEDCL</div>
+    <div class="msedcl-fullform">Maharashtra State Electricity Distribution Company Limited</div>
+    <div class="msedcl-address">Prakashgad, Bandra East, Mumbai - 400051</div>
   </div>
 </div>
 
 <div class="document">
-  <div class="header-section">
-    <div style="font-size: 26px; font-weight: bold; margin: 0; padding: 0;">Arihant Electrical Sangli</div>
-    <div style="font-size: 10px; margin: 2px 0; padding: 0;">Email: arihantele@gmail.com | Near Anuje Hospital, Kurundwad, Tal-shirol, Dist. Kolhapur - 416106 | Mob:7774855501/9767334454</div>
-    <div class="header-line"></div>
-  </div>
 
   <div class="date-section">
-    <p>Date: <span class="field" th:text="${currentDate != null and !#strings.isEmpty(currentDate)} ? ${currentDate} : '....'"></span></p>
+    <p>Date: <span th:if="${currentDate != null and currentDate != ''}" th:text="${currentDate}"></span><span th:if="${currentDate == null or currentDate == ''}" class="value-missing">Value Missing</span></p>
   </div>
 
   <div class="to-section">
     <p>To,</p>
     <p><strong>Executive Engineer, M.S.E.D.C.Ltd,</strong></p>
-    <p th:text="${msedclAddress != null and !#strings.isEmpty(msedclAddress)} ? ${msedclAddress} : '....'"></p>
+    <p><span class="fixed-value">Maharashtra State Electricity Distribution Company Limited, Prakashgad, Bandra East, Mumbai - 400051</span></p>
   </div>
 
   <div class="subject">
@@ -269,9 +278,9 @@
   </div>
 
   <div class="ref-section">
-    <p>Ref: 1. Consumer name: <span class="field" th:text="${customerName != null and !#strings.isEmpty(customerName)} ? ${customerName} : '....'"></span></p>
-    <p class="ref-item">2. Consumer Number: <span class="field" th:text="${consumerNumber != null and !#strings.isEmpty(consumerNumber)} ? ${consumerNumber} : '....'"></span></p>
-    <p class="ref-item">3. Sanction Number: <span class="field" th:text="${sanctionNumber != null and !#strings.isEmpty(sanctionNumber)} ? ${sanctionNumber} : '....'"></span></p>
+    <p>Ref: 1. Consumer name: <span th:if="${name != null and name != ''}" th:text="${name}"></span><span th:if="${name == null or name == ''}" class="value-missing">Value Missing</span></p>
+    <p class="ref-item">2. Consumer Number: <span th:if="${consumerNumber != null and consumerNumber != ''}" th:text="${consumerNumber}"></span><span th:if="${consumerNumber == null or consumerNumber == ''}" class="value-missing">Value Missing</span></p>
+    <p class="ref-item">3. Sanction Number: <span th:if="${sanctionNumber != null and sanctionNumber != ''}" th:text="${sanctionNumber}"></span><span th:if="${sanctionNumber == null or sanctionNumber == ''}" class="value-missing">Value Missing</span></p>
   </div>
 
   <div class="body-text">
@@ -280,9 +289,10 @@
   </div>
 
   <div class="meter-details">
-    <p>Make: <span class="field" th:text="${meterMake != null and !#strings.isEmpty(meterMake)} ? ${meterMake} : '....'"></span></p>
-    <p>Sr. No.: <span class="field" th:text="${meterNumber != null and !#strings.isEmpty(meterNumber)} ? ${meterNumber} : '....'"></span></p>
-    <p>Phase: <span class="field" th:text="${meterPhase != null and !#strings.isEmpty(meterPhase)} ? ${meterPhase} : '....'"></span></p>
+    <p>Make: <span th:if="${meterMake != null and meterMake != ''}" th:text="${meterMake}"></span><span th:if="${meterMake == null or meterMake == ''}" class="value-missing">Value Missing</span></p>
+    <p>Sr. No.: <span th:if="${meterNumber != null and meterNumber != ''}" th:text="${meterNumber}"></span><span th:if="${meterNumber == null or meterNumber == ''}" class="value-missing">Value Missing</span></p>
+    <p>Phase: <span class="fixed-value">1 Phase</span></p>
+    <p>Range: <span class="fixed-value">5-30A</span></p>
   </div>
 
   <div class="body-text">
@@ -301,8 +311,8 @@
            style="max-height:60px; max-width:200px; object-fit:contain;"/>
     </div>
     <div class="line" th:if="${#lists.isEmpty(vendorSignature)}" style="width:200px"></div>
-    <p><strong>Arihant Electrical Sangli</strong></p>
-    <p>Near Anuje Hospital, Kurundwad, Tal-shirol, Dist. Kolhapur - 416106</p>
+    <p><strong><span th:if="${vendorName != null and vendorName != ''}" th:text="${vendorName}"></span><span th:if="${vendorName == null or vendorName == ''}" class="value-missing">Value Missing</span></strong></p>
+    <p><span th:if="${vendorAddress != null and vendorAddress != ''}" th:text="${vendorAddress}"></span><span th:if="${vendorAddress == null or vendorAddress == ''}" class="value-missing">Value Missing</span></p>
   </div>
 
   <div class="tax-invoice">
@@ -311,11 +321,11 @@
     <div class="invoice-details">
       <div class="invoice-row">
         <span class="invoice-label">PREPARED FOR:</span>
-        <span class="invoice-value"><span class="field" th:text="${customerName != null and !#strings.isEmpty(customerName)} ? ${customerName} : '....'"></span></span>
+        <span class="invoice-value"><span th:if="${name != null and name != ''}" th:text="${name}"></span><span th:if="${name == null or name == ''}" class="value-missing">Value Missing</span></span>
       </div>
       <div class="invoice-row">
         <span class="invoice-label">PREPARE DATE:</span>
-        <span class="invoice-value"><span class="field" th:text="${invoiceDate != null and !#strings.isEmpty(invoiceDate)} ? ${invoiceDate} : '....'"></span></span>
+        <span class="invoice-value"><span th:if="${currentDate != null and currentDate != ''}" th:text="${currentDate}"></span><span th:if="${currentDate == null or currentDate == ''}" class="value-missing">Value Missing</span></span>
       </div>
     </div>
 
@@ -331,17 +341,17 @@
       </thead>
       <tbody>
       <tr>
-        <td>Generation Meter <span th:text="${meterMake != null and !#strings.isEmpty(meterMake)} ? ${' - ' + meterMake} : ''"></span>, Sr.No.- <span class="field" th:text="${meterNumber != null and !#strings.isEmpty(meterNumber)} ? ${meterNumber} : '....'"></span></td>
+        <td>Generation Meter <span th:if="${meterMake != null and meterMake != ''}" th:text="${' - ' + meterMake}"></span>, Sr.No.- <span th:if="${meterNumber != null and meterNumber != ''}" th:text="${meterNumber}"></span><span th:if="${meterNumber == null or meterNumber == ''}" class="value-missing">Value Missing</span></td>
         <td style="text-align:center">1</td>
-        <td style="text-align:center"><span class="field" th:text="${gstRate != null} ? ${gstRate} : '18'"></span>%</td>
-        <td style="text-align:right"><span class="field" th:text="${meterAmount != null} ? ${meterAmount} : '2100'"></span></td>
-        <td style="text-align:right"><span class="field" th:text="${totalAmount != null} ? ${totalAmount} : '2478'"></span></td>
+        <td style="text-align:center">18%</td>
+        <td style="text-align:right">2100</td>
+        <td style="text-align:right">2478</td>
       </tr>
       </tbody>
       <tfoot>
       <tr class="total-row">
         <td colspan="4" style="text-align:right"><strong>Grand Total</strong></td>
-        <td style="text-align:right"><strong><span class="field" th:text="${totalAmount != null} ? ${totalAmount} : '2478'"></span></strong></td>
+        <td style="text-align:right"><strong>2478</strong></td>
       </tr>
       </tfoot>
     </table>
@@ -352,7 +362,7 @@
 
     <div class="signature-row mt18">
       <div class="signature-left">
-        <p class="bold">For Arihant Electrical Sangli</p>
+        <p class="bold">For <span th:if="${vendorName != null and vendorName != ''}" th:text="${vendorName}"></span><span th:if="${vendorName == null or vendorName == ''}" class="value-missing">Value Missing</span></p>
         <div class="signature-space">
           <img th:if="${not #lists.isEmpty(vendorSignature)}"
                th:src="${vendorSignature[0]}"

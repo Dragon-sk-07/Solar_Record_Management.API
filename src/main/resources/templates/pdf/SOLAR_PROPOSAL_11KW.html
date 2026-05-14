@@ -4,18 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Solar Power Plant Proposal</title>
-
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-
         @page {
             margin: 6mm 10mm;
         }
-
         body {
             font-family: 'Times New Roman', Times, serif;
             font-size: 11pt;
@@ -23,24 +20,19 @@
             color: #000;
             padding: 10px 15px;
         }
-
         .document {
             width: 100%;
         }
-
         p {
             margin: 0 0 3px 0;
             text-align: justify;
         }
-
         .center {
             text-align: center;
         }
-
         .bold {
             font-weight: bold;
         }
-
         h1 {
             text-align: center;
             font-size: 18px;
@@ -48,136 +40,198 @@
             margin: 4px 0 8px 0;
             text-transform: uppercase;
         }
-
         h2 {
             font-size: 14px;
             font-weight: bold;
             margin: 10px 0 4px 0;
         }
-
+        .vendor-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #000;
+        }
+        .vendor-logo {
+            width: 40%;
+        }
+        .vendor-logo img {
+            max-height: 60px;
+            max-width: 100%;
+            object-fit: contain;
+        }
+        .vendor-info {
+            width: 60%;
+            text-align: right;
+        }
+        .vendor-name {
+            font-size: 14px;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+        .vendor-details {
+            font-size: 8px;
+            margin-top: 3px;
+        }
+        .msedcl-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #000;
+        }
+        .msedcl-logo {
+            width: 40%;
+        }
+        .msedcl-logo img {
+            max-height: 50px;
+            max-width: 100%;
+            object-fit: contain;
+        }
+        .msedcl-info {
+            width: 60%;
+            text-align: right;
+        }
+        .msedcl-name {
+            font-size: 14px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .msedcl-fullform {
+            font-size: 7px;
+            font-weight: normal;
+            letter-spacing: 0.5px;
+        }
+        .msedcl-address {
+            font-size: 7px;
+            margin-top: 3px;
+        }
         .header-section {
             text-align: center;
             margin-bottom: 8px;
         }
-
         .company-name-main {
             font-size: 22px;
             font-weight: bold;
             margin: 0;
             padding: 0;
         }
-
         .company-details {
             font-size: 10px;
             margin: 2px 0;
             padding: 0;
         }
-
         .header-line {
             border-bottom: 1px solid #000;
             margin-top: 5px;
         }
-
         .ref-no {
             margin-top: 10px;
             text-align: right;
         }
-
         .subject {
             margin-top: 8px;
             font-weight: bold;
             text-decoration: underline;
         }
-
         .salutation {
             margin-top: 8px;
         }
-
         .table-container {
             margin-top: 10px;
             width: 100%;
         }
-
         table {
             width: 100%;
             border-collapse: collapse;
             margin: 10px 0;
         }
-
         th, td {
             border: 1px solid #000;
             padding: 6px 8px;
             vertical-align: top;
         }
-
         th {
             background-color: #f0f0f0;
             font-weight: bold;
             text-align: center;
         }
-
         .signature-row {
             display: table;
             width: 100%;
             table-layout: fixed;
             margin: 12px 0 8px 0;
         }
-
         .signature-left, .signature-right {
             display: table-cell;
             width: 50%;
             vertical-align: top;
         }
-
         .signature-left {
             text-align: left;
             padding-right: 15px;
         }
-
         .signature-right {
             text-align: left;
             padding-left: 15px;
         }
-
         .signature-space {
             height: 50px;
             margin: 3px 0;
         }
-
         .line {
             margin-top: 3px;
             border-bottom: 1px solid #000;
             height: 15px;
             width: 100%;
         }
-
         .mt8 {
             margin-top: 5px;
         }
-
         .mt12 {
             margin-top: 8px;
         }
-
         .mt18 {
             margin-top: 10px;
         }
-
-        .field {
+        .value-missing {
+            color: #999;
+            font-style: italic;
+        }
+        .fixed-value {
             font-weight: 700;
         }
     </style>
 </head>
-
 <body>
-<div th:if="${not #lists.isEmpty(vendorStamp)}">
-    <div style="text-align: center; margin-bottom: 8px; font-family: 'Times New Roman', Times, serif;">
-        <div style="font-size: 26px; font-weight: bold; margin: 0; padding: 0;">Arihant Electrical Sangli</div>
-        <div style="font-size: 10px; margin: 2px 0; padding: 0;">Email: arihantele@gmail.com | Near Anuje Hospital, Kurundwad, Tal-shirol, Dist. Kolhapur - 416106 | Mob:7774855501/9767334454</div>
-        <div style="border-bottom: 1px solid #000; margin-top: 5px;"></div>
+
+<!-- VENDOR HEADER (Dynamic - uses vendor details from form) -->
+<div th:if="${vendorName != null and vendorName != ''}" class="vendor-header">
+    <div class="vendor-logo">
+        <img th:if="${not #lists.isEmpty(vendorStamp)}" th:src="${vendorStamp[0]}" alt="Vendor Logo"/>
     </div>
-    <div style="display: flex; align-items: center; justify-content: center; min-height: 60vh; page-break-after: always;">
-        <img th:src="${vendorStamp[0]}" style="max-width: 90%; max-height: 70vh; object-fit: contain;"/>
+    <div class="vendor-info">
+        <div class="vendor-name" th:text="${vendorName}">Vendor Name</div>
+        <div class="vendor-details">
+            <span th:text="${vendorAddress}">Vendor Address</span><br/>
+            <span>Email: <span th:text="${vendorEmail}">vendor@example.com</span></span> |
+            <span>Mobile: <span th:text="${vendorMobile}">9999999999</span></span>
+        </div>
+    </div>
+</div>
+
+<!-- MSEDCL HEADER (Fixed - used when vendor name not available) -->
+<div th:if="${vendorName == null or vendorName == ''}" class="msedcl-header">
+    <div class="msedcl-logo">
+        <img th:if="${not #lists.isEmpty(netMeteringStamp)}" th:src="${netMeteringStamp[0]}" alt="MSEDCL Logo"/>
+    </div>
+    <div class="msedcl-info">
+        <div class="msedcl-name">MSEDCL</div>
+        <div class="msedcl-fullform">Maharashtra State Electricity Distribution Company Limited</div>
+        <div class="msedcl-address">Prakashgad, Bandra East, Mumbai - 400051</div>
     </div>
 </div>
 
@@ -192,19 +246,19 @@
     </div>
 
     <div class="ref-no">
-        <p>REF NO.: <span class="field" th:text="${referenceNo != null and !#strings.isEmpty(referenceNo)} ? ${referenceNo} : '....'"></span></p>
-        <p>To: <span class="field" th:text="${customerName != null and !#strings.isEmpty(customerName)} ? ${customerName} : 'Mr. GURUKRUPA'"></span></p>
+        <p>REF NO.: <span class="fixed-value">PRO/2025/001</span></p>
+        <p>To: <span th:if="${name != null and name != ''}" th:text="${name}"></span><span th:if="${name == null or name == ''}" class="value-missing">Value Missing</span></p>
     </div>
 
     <div class="subject">
-        <p>Subject: Proposal Of <span class="field" th:text="${proposedCapacity != null and !#strings.isEmpty(proposedCapacity)} ? ${proposedCapacity} : '11'"></span> KW Solar Power Plant with Structure.</p>
+        <p>Subject: Proposal Of <span class="fixed-value">11</span> KW Solar Power Plant with Structure.</p>
     </div>
 
     <div class="salutation">
         <p>Respected Sir,</p>
     </div>
 
-    <p>As discussed, we would like to express our best quotation for <span class="field" th:text="${proposedCapacity != null and !#strings.isEmpty(proposedCapacity)} ? ${proposedCapacity} : '11'"></span> Kwp on grid Solar Power Plant with structure work. All work will be done as per your geographical condition & under all MSEDCL terms. All work will be done within period of <span class="field" th:text="${completionDays != null and !#strings.isEmpty(completionDays)} ? ${completionDays} : '45'"></span> days.</p>
+    <p>As discussed, we would like to express our best quotation for <span class="fixed-value">11</span> Kwp on grid Solar Power Plant with structure work. All work will be done as per your geographical condition & under all MSEDCL terms. All work will be done within period of <span class="fixed-value">45</span> days.</p>
 
     <p class="mt8">If you have any query, please free to contact us.</p>
 
@@ -233,7 +287,7 @@
             <tr>
                 <td style="text-align:center">3</td>
                 <td>Cleaning System</td>
-                <td>· An efficient sprinkle system is provided with <span class="field" th:text="${pumpHP != null and !#strings.isEmpty(pumpHP)} ? ${pumpHP} : '3 to 5'"></span> hp pump to protect generation from dust.</td>
+                <td>· An efficient sprinkle system is provided with <span class="fixed-value">3 to 5</span> hp pump to protect generation from dust.</td>
             </tr>
             <tr>
                 <td style="text-align:center">4</td>
@@ -267,57 +321,57 @@
             <tr>
                 <td style="text-align:center">1</td>
                 <td>Solar panel</td>
-                <td><span class="field" th:text="${numberOfPanels != null} ? ${numberOfPanels} : '05-06'"></span> Nos.</td>
-                <td><span class="field" th:text="${moduleMake != null and !#strings.isEmpty(moduleMake)} ? ${moduleMake} : 'TATA'"></span></td>
-                <td><span class="field" th:text="${panelWarranty != null and !#strings.isEmpty(panelWarranty)} ? ${panelWarranty} : '25 year warranty'"></span></td>
+                <td><span class="fixed-value">05-06</span> Nos.</td>
+                <td><span th:if="${moduleMake != null and moduleMake != ''}" th:text="${moduleMake}"></span><span th:if="${moduleMake == null or moduleMake == ''}" class="value-missing">Value Missing</span></td>
+                <td><span class="fixed-value">25 year warranty</span></td>
             </tr>
             <tr>
                 <td style="text-align:center">2</td>
                 <td>Inverter</td>
                 <td>1 Nos.</td>
-                <td><span class="field" th:text="${inverterMake != null and !#strings.isEmpty(inverterMake)} ? ${inverterMake} : 'TATA'"></span></td>
-                <td><span class="field" th:text="${inverterWarranty != null and !#strings.isEmpty(inverterWarranty)} ? ${inverterWarranty} : '10 Years for Inverter'"></span></td>
+                <td><span th:if="${inverterMake != null and inverterMake != ''}" th:text="${inverterMake}"></span><span th:if="${inverterMake == null or inverterMake == ''}" class="value-missing">Value Missing</span></td>
+                <td><span class="fixed-value">10 Years for Inverter</span></td>
             </tr>
             <tr>
                 <td style="text-align:center">3</td>
                 <td>DCBD</td>
                 <td>1 Nos.</td>
-                <td><span class="field" th:text="${dcbdMake != null and !#strings.isEmpty(dcbdMake)} ? ${dcbdMake} : 'TATA/IP 65'"></span></td>
+                <td><span class="fixed-value">TATA/IP 65</span></td>
                 <td>5 Years</td>
             </tr>
             <tr>
                 <td style="text-align:center">4</td>
                 <td>ACDB</td>
                 <td>1 Nos.</td>
-                <td><span class="field" th:text="${acdbMake != null and !#strings.isEmpty(acdbMake)} ? ${acdbMake} : 'TATA/IP 65'"></span></td>
+                <td><span class="fixed-value">TATA/IP 65</span></td>
                 <td>5 Years</td>
             </tr>
             <tr>
                 <td style="text-align:center">5</td>
                 <td>Wires</td>
                 <td>METER Nos.</td>
-                <td><span class="field" th:text="${wireMake != null and !#strings.isEmpty(wireMake)} ? ${wireMake} : 'Pure copper, Polycab Only'"></span></td>
+                <td><span class="fixed-value">Pure copper, Polycab Only</span></td>
                 <td>5 Years</td>
             </tr>
             <tr>
                 <td style="text-align:center">6</td>
                 <td>Earthing kit</td>
                 <td>3 Nos.</td>
-                <td><span class="field" th:text="${earthingMake != null and !#strings.isEmpty(earthingMake)} ? ${earthingMake} : 'Bentonite Chemical Earthing'"></span></td>
+                <td><span class="fixed-value">Bentonite Chemical Earthing</span></td>
                 <td>5 Years</td>
             </tr>
             <tr>
                 <td style="text-align:center">7</td>
                 <td>Lightening Arrester</td>
                 <td>1 Nos.</td>
-                <td><span class="field" th:text="${lighteningArresterMake != null and !#strings.isEmpty(lighteningArresterMake)} ? ${lighteningArresterMake} : 'TATA Power'"></span></td>
+                <td><span class="fixed-value">TATA Power</span></td>
                 <td>5 Years</td>
             </tr>
             <tr>
                 <td style="text-align:center">8</td>
                 <td>Bi-Directional (Net) Meter & Generation Meter</td>
                 <td>1 No. Each</td>
-                <td><span class="field" th:text="${meterMake != null and !#strings.isEmpty(meterMake)} ? ${meterMake} : 'Secure Make'"></span></td>
+                <td><span class="fixed-value">Secure Make</span></td>
                 <td>5 Years</td>
             </tr>
             <tr>
@@ -334,48 +388,44 @@
     <h2 class="mt18">Bank details and Terms</h2>
 
     <div class="mt8">
-        <p><strong>PAYMENT TERMS:</strong> <span class="field" th:text="${paymentTerms != null and !#strings.isEmpty(paymentTerms)} ? ${paymentTerms} : '50% Advance along with technically and commercially clear order. 40% after PV Module & Structure Installation 5% after Installation and commissioning of the work & Balance 5% after first bill generation with Solar Effect'"></span></p>
-        <p><strong>Taxes:</strong> GST <span class="field" th:text="${gstRate != null} ? ${gstRate} : '13.8'"></span>%</p>
+        <p><strong>PAYMENT TERMS:</strong> <span class="fixed-value">50% Advance along with technically and commercially clear order. 40% after PV Module & Structure Installation 5% after Installation and commissioning of the work & Balance 5% after first bill generation with Solar Effect</span></p>
+        <p><strong>Taxes:</strong> GST <span class="fixed-value">13.8</span>%</p>
         <p><strong>PRICE VARIATION:</strong> Price agreed upon contract signing shall be firm during the agreed execution period. However, Project cost escalation due to delay in clearances beyond agreed period shall be charged extra.</p>
-        <p><strong>WARRANTY:</strong> <span class="field" th:text="${systemWarranty != null and !#strings.isEmpty(systemWarranty)} ? ${systemWarranty} : '5 Years'"></span> from Date of Installation for the Solar Plant & <span class="field" th:text="${performanceWarranty != null and !#strings.isEmpty(performanceWarranty)} ? ${performanceWarranty} : '27 Years Performance Guaranty'"></span> for Solar Panels & <span class="field" th:text="${inverterWarrantyPeriod != null and !#strings.isEmpty(inverterWarrantyPeriod)} ? ${inverterWarrantyPeriod} : '10 Year Warranty'"></span> for the Solar Inverter.</p>
-        <p><strong>PROJECT COMPLETION DATE:</strong> Approx. <span class="field" th:text="${projectCompletionDays != null and !#strings.isEmpty(projectCompletionDays)} ? ${projectCompletionDays} : '60'"></span> Days for Installation & Commissioning of the Solar Plant & MSEDCL Net metering with Solar Bill Effect 3 Months from the Application.</p>
+        <p><strong>WARRANTY:</strong> <span class="fixed-value">5 Years</span> from Date of Installation for the Solar Plant & <span class="fixed-value">27 Years Performance Guaranty</span> for Solar Panels & <span class="fixed-value">10 Year Warranty</span> for the Solar Inverter.</p>
+        <p><strong>PROJECT COMPLETION DATE:</strong> Approx. <span class="fixed-value">60</span> Days for Installation & Commissioning of the Solar Plant & MSEDCL Net metering with Solar Bill Effect 3 Months from the Application.</p>
     </div>
 
     <h2 class="mt18">Bank Details</h2>
 
     <div class="mt8">
-        <p>A/c NO - <span class="field" th:text="${bankAccountName != null and !#strings.isEmpty(bankAccountName)} ? ${bankAccountName} : 'ME.ARIHANT SOLAR'"></span></p>
-        <p>BANK AC - <span class="field" th:text="${bankName != null and !#strings.isEmpty(bankName)} ? ${bankName} : 'BANK OF MAHARASHTRA'"></span></p>
-        <p>A/c No.: <span class="field" th:text="${bankAccountNumber != null and !#strings.isEmpty(bankAccountNumber)} ? ${bankAccountNumber} : '60520906312'"></span></p>
-        <p>Branch: <span class="field" th:text="${bankBranch != null and !#strings.isEmpty(bankBranch)} ? ${bankBranch} : 'NRUSINHAWADI'"></span></p>
-        <p>IFSC Code: <span class="field" th:text="${ifscCode != null and !#strings.isEmpty(ifscCode)} ? ${ifscCode} : 'MAHB0001872'"></span></p>
+        <p>A/c NO - <span class="fixed-value">ME.ARIHANT SOLAR</span></p>
+        <p>BANK AC - <span class="fixed-value">BANK OF MAHARASHTRA</span></p>
+        <p>A/c No.: <span class="fixed-value">60520906312</span></p>
+        <p>Branch: <span class="fixed-value">NRUSINHAWADI</span></p>
+        <p>IFSC Code: <span class="fixed-value">MAHB0001872</span></p>
     </div>
 
     <div class="signature-row">
         <div class="signature-left">
             <p class="bold">For ARIHANT ELECTRICALS</p>
             <div class="signature-space">
-                <img th:if="${not #lists.isEmpty(vendorSignature)}"
-                     th:src="${vendorSignature[0]}"
-                     style="max-height:60px; max-width:200px; object-fit:contain;"/>
+                <img th:if="${not #lists.isEmpty(vendorSignature)}" th:src="${vendorSignature[0]}" style="max-height:60px; max-width:200px; object-fit:contain;"/>
             </div>
             <div class="line" th:if="${#lists.isEmpty(vendorSignature)}"></div>
             <p>Authorized Signatory</p>
-            <p class="mt8">Name: <span class="field" th:text="${authorizedPersonName != null and !#strings.isEmpty(authorizedPersonName)} ? ${authorizedPersonName} : '....'"></span></p>
-            <p>Designation: <span class="field" th:text="${designation != null and !#strings.isEmpty(designation)} ? ${designation} : '....'"></span></p>
-            <p>Date: <span class="field" th:text="${proposalDate != null and !#strings.isEmpty(proposalDate)} ? ${proposalDate} : '....'"></span></p>
+            <p class="mt8">Name: <span th:if="${authorizedPersonName != null and authorizedPersonName != ''}" th:text="${authorizedPersonName}"></span><span th:if="${authorizedPersonName == null or authorizedPersonName == ''}" class="value-missing">Value Missing</span></p>
+            <p>Designation: <span class="fixed-value">Authorized Signatory</span></p>
+            <p>Date: <span th:if="${currentDate != null and currentDate != ''}" th:text="${currentDate}"></span><span th:if="${currentDate == null or currentDate == ''}" class="value-missing">Value Missing</span></p>
         </div>
         <div class="signature-right">
             <p class="bold">Accepted by Customer</p>
             <div class="signature-space">
-                <img th:if="${not #lists.isEmpty(consumerSignature)}"
-                     th:src="${consumerSignature[0]}"
-                     style="max-height:60px; max-width:200px; object-fit:contain;"/>
+                <img th:if="${not #lists.isEmpty(consumerSignature)}" th:src="${consumerSignature[0]}" style="max-height:60px; max-width:200px; object-fit:contain;"/>
             </div>
             <div class="line" th:if="${#lists.isEmpty(consumerSignature)}"></div>
             <p>Signature:</p>
-            <p class="mt8">Name: <span class="field" th:text="${customerName != null and !#strings.isEmpty(customerName)} ? ${customerName} : '....'"></span></p>
-            <p>Date: <span class="field" th:text="${acceptanceDate != null and !#strings.isEmpty(acceptanceDate)} ? ${acceptanceDate} : '....'"></span></p>
+            <p class="mt8">Name: <span th:if="${name != null and name != ''}" th:text="${name}"></span><span th:if="${name == null or name == ''}" class="value-missing">Value Missing</span></p>
+            <p>Date: <span th:if="${currentDate != null and currentDate != ''}" th:text="${currentDate}"></span><span th:if="${currentDate == null or currentDate == ''}" class="value-missing">Value Missing</span></p>
         </div>
     </div>
 </div>

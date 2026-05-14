@@ -4,46 +4,38 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Annexure - 3 Net Metering Connection Agreement</title>
-
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-
         @page {
             margin: 6mm 10mm;
         }
-
         body {
-           font-family: 'Times New Roman', Times, serif;
+            font-family: 'Times New Roman', Times, serif;
             font-size: 11pt;
             line-height: 1.35;
             color: #000;
             padding: 10px 15px;
         }
-
         .document {
             width: 100%;
         }
-
-      p {
-    margin: 0 0 3px 0;
-    text-align: justify;
-}
-p span.field {
-    font-weight: 700;
-}
-
+        p {
+            margin: 0 0 3px 0;
+            text-align: justify;
+        }
+        p span.field {
+            font-weight: 700;
+        }
         .center {
             text-align: center;
         }
-
         .bold {
             font-weight: bold;
         }
-
         h1 {
             text-align: center;
             font-size: 18px;
@@ -51,387 +43,335 @@ p span.field {
             margin: 4px 0 8px 0;
             text-transform: uppercase;
         }
-
         h2 {
             font-size: 14px;
             font-weight: bold;
             margin: 10px 0 4px 0;
         }
-
         .mt8 {
             margin-top: 5px;
         }
-
         .mt12 {
             margin-top: 8px;
         }
-
         .mt18 {
             margin-top: 10px;
         }
-
         .mt25 {
             margin-top: 12px;
         }
-
         .field {
             font-weight: 700;
         }
-
-        /* SIGNATURE ROW STYLES - HORIZONTAL */
+        .vendor-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #000;
+        }
+        .vendor-logo {
+            width: 40%;
+        }
+        .vendor-logo img {
+            max-height: 60px;
+            max-width: 100%;
+            object-fit: contain;
+        }
+        .vendor-info {
+            width: 60%;
+            text-align: right;
+        }
+        .vendor-name {
+            font-size: 14px;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+        .vendor-details {
+            font-size: 8px;
+            margin-top: 3px;
+        }
+        .msedcl-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #000;
+        }
+        .msedcl-logo {
+            width: 40%;
+        }
+        .msedcl-logo img {
+            max-height: 50px;
+            max-width: 100%;
+            object-fit: contain;
+        }
+        .msedcl-info {
+            width: 60%;
+            text-align: right;
+        }
+        .msedcl-name {
+            font-size: 14px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .msedcl-fullform {
+            font-size: 7px;
+            font-weight: normal;
+            letter-spacing: 0.5px;
+        }
+        .msedcl-address {
+            font-size: 7px;
+            margin-top: 3px;
+        }
         .signature-row {
             display: table;
             width: 100%;
             table-layout: fixed;
             margin: 12px 0 8px 0;
         }
-
-      .signature-left,
-.signature-right {
-    display: table-cell;
-    width: 50%;
-    vertical-align: top;
-}
-.signature-left p span, .signature-right p span {
-    font-weight: 700;
-}
-
+        .signature-left, .signature-right {
+            display: table-cell;
+            width: 50%;
+            vertical-align: top;
+        }
         .signature-left {
             text-align: left;
             padding-right: 15px;
         }
-
         .signature-right {
             text-align: left;
             padding-left: 15px;
         }
-
-        /* WITNESS ROW STYLES - HORIZONTAL */
         .witness-row {
             display: table;
             width: 100%;
             table-layout: fixed;
             margin: 12px 0 8px 0;
         }
-
-      .witness-left,
-.witness-right {
-    display: table-cell;
-    width: 50%;
-    vertical-align: top;
-}
-.witness-left p span, .witness-right p span {
-    font-weight: 700;
-}
-
+        .witness-left, .witness-right {
+            display: table-cell;
+            width: 50%;
+            vertical-align: top;
+        }
         .witness-left {
             text-align: left;
             padding-right: 15px;
         }
-
         .witness-right {
             text-align: left;
             padding-left: 15px;
         }
-
         .signature-space {
             height: 50px;
             margin: 3px 0;
         }
-
-        .signature-label {
-            font-weight: 700;
-            display: block;
-            font-size: 10px;
-            margin-top: 2px;
-            margin-bottom: 2px;
-            text-align: left;
-        }
-
         .line {
             margin-top: 3px;
             border-bottom: 1px solid #000;
             height: 15px;
             width: 100%;
-            margin-left: 0;
-            margin-right: 0;
         }
-
+        .value-missing {
+            color: #999;
+            font-style: italic;
+        }
+        .fixed-value {
+            font-weight: 700;
+        }
         .page-break {
             page-break-before: always;
         }
-
-        /* FORCE CONTENT TO STAY TOGETHER */
         .signature-row, .witness-row {
             page-break-inside: avoid;
             break-inside: avoid;
         }
     </style>
 </head>
-
 <body>
-<div th:if="${not #lists.isEmpty(netMeteringStamp)}">
-    <div style="text-align: center; margin-bottom: 8px; font-family: 'Times New Roman', Times, serif;">
-        <div style="font-size: 30px; font-weight: bold; margin: 0; padding: 0;">Arihant Electrical Sangli</div>
-        <div style="font-size: 10px; margin: 2px 0; padding: 0;">Email: arihantele@gmail.com | Near Anuje Hospital, Kurundwad, Tal-shirol, Dist. Kolhapur - 416106 |  Mob:7774855501/9767334454</div>
-        <div style="border-bottom: 1px solid #000; margin-top: 5px;"></div>
+
+<!-- VENDOR HEADER (Dynamic - uses vendor details from form) -->
+<div th:if="${vendorName != null and vendorName != ''}" class="vendor-header">
+    <div class="vendor-logo">
+        <img th:if="${not #lists.isEmpty(vendorStamp)}" th:src="${vendorStamp[0]}" alt="Vendor Logo"/>
     </div>
-    <div style="display: flex; align-items: center; justify-content: center; height: 90vh; page-break-after: always;">
+    <div class="vendor-info">
+        <div class="vendor-name" th:text="${vendorName}">Vendor Name</div>
+        <div class="vendor-details">
+            <span th:text="${vendorAddress}">Vendor Address</span><br/>
+            <span>Email: <span th:text="${vendorEmail}">vendor@example.com</span></span> |
+            <span>Mobile: <span th:text="${vendorMobile}">9999999999</span></span>
+        </div>
+    </div>
+</div>
+
+<!-- MSEDCL HEADER (Fixed - used when vendor name not available) -->
+<div th:if="${vendorName == null or vendorName == ''}" class="msedcl-header">
+    <div class="msedcl-logo">
+        <img th:if="${not #lists.isEmpty(netMeteringStamp)}" th:src="${netMeteringStamp[0]}" alt="MSEDCL Logo"/>
+    </div>
+    <div class="msedcl-info">
+        <div class="msedcl-name">MSEDCL</div>
+        <div class="msedcl-fullform">Maharashtra State Electricity Distribution Company Limited</div>
+        <div class="msedcl-address">Prakashgad, Bandra East, Mumbai - 400051</div>
+    </div>
+</div>
+
+<div th:if="${not #lists.isEmpty(netMeteringStamp)}" style="page-break-after: always;">
+    <div style="display: flex; align-items: center; justify-content: center; height: 90vh;">
         <img th:src="${netMeteringStamp[0]}" style="width: 100%; height: 85vh; object-fit: contain;"/>
     </div>
 </div>
+
 <div class="document">
 
     <p class="center">Annexure – 3</p>
-
     <h1>Net Metering Connection Agreement</h1>
 
     <p>
         This Agreement is made and entered into at
-        <span class="field"
-              th:text="${location != null and !#strings.isEmpty(location)} ? ${location} : '....'"></span>
+        <span th:if="${location != null and location != ''}" th:text="${location}"></span><span th:if="${location == null or location == ''}" class="value-missing">Value Missing</span>
         on this
-        <span class="field"
-              th:text="${day != null and !#strings.isEmpty(day)} ? ${day} : '....'"></span>
+        <span th:if="${day != null and day != ''}" th:text="${day}"></span><span th:if="${day == null or day == ''}" class="value-missing">Value Missing</span>
         day of
-        <span class="field"
-              th:text="${month != null and !#strings.isEmpty(month)} ? ${month} : '....'"></span>
-        <span class="field"
-              th:text="${year != null and !#strings.isEmpty(year)} ? ${year} : '....'"></span>
+        <span th:if="${month != null and month != ''}" th:text="${month}"></span><span th:if="${month == null or month == ''}" class="value-missing">Value Missing</span>
+        <span th:if="${year != null and year != ''}" th:text="${year}"></span><span th:if="${year == null or year == ''}" class="value-missing">Value Missing</span>
         between the Eligible Consumer
-        <span class="field"
-              th:text="${name != null and !#strings.isEmpty(name)} ? ${name} : '....'"></span>
+        <span th:if="${name != null and name != ''}" th:text="${name}"></span><span th:if="${name == null or name == ''}" class="value-missing">Value Missing</span>
         having premises at
-        <span class="field"
-              th:text="${siteAddress != null and !#strings.isEmpty(siteAddress)} ? ${siteAddress} : '....'"></span>
+        <span th:if="${siteAddress != null and siteAddress != ''}" th:text="${siteAddress}"></span><span th:if="${siteAddress == null or siteAddress == ''}" class="value-missing">Value Missing</span>
         and Consumer No.
-        <span class="field"
-              th:text="${consumerNumber != null and !#strings.isEmpty(consumerNumber)} ? ${consumerNumber} : '....'"></span>
+        <span th:if="${consumerNumber != null and consumerNumber != ''}" th:text="${consumerNumber}"></span><span th:if="${consumerNumber == null or consumerNumber == ''}" class="value-missing">Value Missing</span>
         Meter No.
-        <span class="field"
-              th:text="${meterNumber != null and !#strings.isEmpty(meterNumber)} ? ${meterNumber} : '....'"></span>
+        <span th:if="${meterNumber != null and meterNumber != ''}" th:text="${meterNumber}"></span><span th:if="${meterNumber == null or meterNumber == ''}" class="value-missing">Value Missing</span>
         as the first Party,
     </p>
 
     <p class="mt18 center">AND</p>
 
     <p>
-        MSEDCL (hereinafter referred to as ‘the Licensee’) and having its Registered Office at
-        <span class="field"
-              th:text="${msedclAddress != null and !#strings.isEmpty(msedclAddress)} ? ${msedclAddress} : '....'"></span>
+        MSEDCL (hereinafter referred to as 'the Licensee') and having its Registered Office at
+        <span class="fixed-value">Maharashtra State Electricity Distribution Company Limited, Prakashgad, Bandra East, Mumbai - 400051</span>
         as second Party of this Agreement.
     </p>
 
     <p class="mt12">
-        Whereas the Eligible Consumer has applied to MSEDCL for approval of a Net Metering Arrangement under the provisions of the Maharashtra Electricity Regulatory Commission (Grid Interactive Renewable Energy Generating Systems) Regulations, 2019 (‘the Grid Interactive Renewable Regulations’) and sought its connectivity to MSEDCL’s distribution Network;
+        Whereas the Eligible Consumer has applied to MSEDCL for approval of a Net Metering Arrangement under the provisions of the Maharashtra Electricity Regulatory Commission (Grid Interactive Renewable Energy Generating Systems) Regulations, 2019 ('the Grid Interactive Renewable Regulations') and sought its connectivity to MSEDCL's distribution Network;
     </p>
 
     <p class="mt12">
         And whereas MSEDCL has agreed to provide Network connectivity to the Eligible Consumer for injection of electricity generated from its Renewable Energy Generating System of
-        <span class="field"
-              th:text="${sanctionedCapacity != null} ? ${sanctionedCapacity} : '....'"></span>
+        <span th:if="${sanctionedCapacity != null}" th:text="${sanctionedCapacity}"></span><span th:if="${sanctionedCapacity == null}" class="value-missing">Value Missing</span>
         kilowatt;
     </p>
 
     <p class="mt12">Both Parties hereby agree as follows:</p>
 
     <h2>1 Eligibility</h2>
-
-    <p>
-        The Renewable Energy Generating System meets the applicable norms for being integrated into the distribution network, and that the Eligible Consumer shall maintain the System accordingly for the duration of this Agreement.
-    </p>
+    <p>The Renewable Energy Generating System meets the applicable norms for being integrated into the distribution network, and that the Eligible Consumer shall maintain the System accordingly for the duration of this Agreement.</p>
 
     <h2>2 Technical and Inter-connection Requirements</h2>
-
-    <p>
-        <b>2.1</b>
-        The metering arrangement and the inter-connection of the Renewable Energy Generating System with the Network of MSEDCL shall be as per the provisions of the Grid Interactive Renewable Regulations, and the technical standards and norms specified by the Central Electricity Authority for connectivity of distributed generation resources and for the installation and operation of meters.
-    </p>
-
-    <p class="mt8">
-        <b>2.2</b>
-        The Eligible Consumer agrees, that he shall install, prior to connection of the Renewable Energy Generating System to the Network of MSEDCL, an isolation device (both automatic and in-built within inverter and external manual relays); and MSEDCL shall have access to it if required for the repair and maintenance of the distribution Network.
-    </p>
-
-    <p class="mt8">
-        <b>2.3</b>
-        MSEDCL shall specify the interface/inter-connection point and metering point
-        <span class="field"
-              th:text="${interconnectionPoint != null and !#strings.isEmpty(interconnectionPoint)} ? ${' (' + interconnectionPoint + ')'} : '.'"></span>
-    </p>
-
-    <p class="mt8">
-        <b>2.4</b>
-        The Eligible Consumer shall furnish all relevant data, such as voltage, frequency, circuit breaker, isolator position in his System, as and when required by MSEDCL.
-    </p>
+    <p><b>2.1</b> The metering arrangement and the inter-connection of the Renewable Energy Generating System with the Network of MSEDCL shall be as per the provisions of the Grid Interactive Renewable Regulations, and the technical standards and norms specified by the Central Electricity Authority for connectivity of distributed generation resources and for the installation and operation of meters.</p>
+    <p class="mt8"><b>2.2</b> The Eligible Consumer agrees, that he shall install, prior to connection of the Renewable Energy Generating System to the Network of MSEDCL, an isolation device (both automatic and in-built within inverter and external manual relays); and MSEDCL shall have access to it if required for the repair and maintenance of the distribution Network.</p>
+    <p class="mt8"><b>2.3</b> MSEDCL shall specify the interface/inter-connection point and metering point <span th:if="${interconnectionPoint != null and interconnectionPoint != ''}" th:text="${' (' + interconnectionPoint + ')'}"></span><span th:if="${interconnectionPoint == null or interconnectionPoint == ''}" class="value-missing">Value Missing</span></p>
+    <p class="mt8"><b>2.4</b> The Eligible Consumer shall furnish all relevant data, such as voltage, frequency, circuit breaker, isolator position in his System, as and when required by MSEDCL.</p>
 
     <h2>3 Safety</h2>
-
-    <p><b>3.1</b>
-        The equipment connected to MSEDCL’s distribution System shall be compliant with relevant International (IEEE/IEC) or Indian standards (BIS), as the case may be, and the installation of electrical equipment shall comply with the requirements specified by the Central Electricity Authority regarding safety and electricity supply.
-    </p>
-
-    <p class="mt8"><b>3.2</b>
-        The design, installation, maintenance and operation of the Renewable Energy Generating System shall be undertaken in a manner conducive to the safety of the Renewable Energy Generating System as well as MSEDCL’s Network.
-    </p>
-
-    <p class="mt8"><b>3.3</b>
-        If, at any time, MSEDCL determines that the Eligible Consumer’s Renewable Energy Generating System is causing or may cause damage to and/or results in MSEDCL’s other consumers or its assets, the Eligible Consumer shall disconnect the Renewable Energy Generating System from the distribution Network upon direction from MSEDCL, and shall undertake corrective measures at his own expense prior to re-connection.
-    </p>
-
-    <p class="mt8"><b>3.4</b>
-        MSEDCL shall not be responsible for any accident resulting in injury to human beings or animals or damage to property that may occur due to back-feeding from the Renewable Energy Generating System when the grid supply is off. MSEDCL may disconnect the installation at any time in the event of such exigencies to prevent such accident.
-    </p>
+    <p><b>3.1</b> The equipment connected to MSEDCL's distribution System shall be compliant with relevant International (IEEE/IEC) or Indian standards (BIS), as the case may be, and the installation of electrical equipment shall comply with the requirements specified by the Central Electricity Authority regarding safety and electricity supply.</p>
+    <p class="mt8"><b>3.2</b> The design, installation, maintenance and operation of the Renewable Energy Generating System shall be undertaken in a manner conducive to the safety of the Renewable Energy Generating System as well as MSEDCL's Network.</p>
+    <p class="mt8"><b>3.3</b> If, at any time, MSEDCL determines that the Eligible Consumer's Renewable Energy Generating System is causing or may cause damage to and/or results in MSEDCL's other consumers or its assets, the Eligible Consumer shall disconnect the Renewable Energy Generating System from the distribution Network upon direction from MSEDCL, and shall undertake corrective measures at his own expense prior to re-connection.</p>
+    <p class="mt8"><b>3.4</b> MSEDCL shall not be responsible for any accident resulting in injury to human beings or animals or damage to property that may occur due to back-feeding from the Renewable Energy Generating System when the grid supply is off. MSEDCL may disconnect the installation at any time in the event of such exigencies to prevent such accident.</p>
 
     <h2>4 Other Clearances and Approvals</h2>
-
-    <p>
-        The Eligible Consumer shall obtain any statutory approvals and clearances that may be required, such as from the Electrical Inspector or the municipal or other authorities, before connecting the Renewable Energy Generating System to the distribution Network.
-    </p>
+    <p>The Eligible Consumer shall obtain any statutory approvals and clearances that may be required, such as from the Electrical Inspector or the municipal or other authorities, before connecting the Renewable Energy Generating System to the distribution Network.</p>
 
     <h2>5 Period of Agreement, and Termination</h2>
-
     <p><b>5.1</b> This Agreement shall be for a period for 20 years, but may be terminated prematurely</p>
-
     <p>a) By mutual consent; or</p>
-    <p>b) By the Eligible Consumer, by giving 90 days’ notice to MSEDCL;</p>
-    <p>c) By MSEDCL, by giving 30 days’ notice, if the Eligible Consumer breaches any terms of this Agreement or the provisions of the Grid Interactive Rooftop Renewable Energy Generating Systems Regulations and does not remedy such breach within 30 days, or such other reasonable period as may be provided, of receiving notice of such breach, or for any other valid reason communicated by MSEDCL in writing;</p>
-    <p>d) By MSEDCL, by giving 30 days’ notice, if the Eligible Consumer fails to pay his dues in a timely manner or indulges in any malpractices.</p>
+    <p>b) By the Eligible Consumer, by giving 90 days' notice to MSEDCL;</p>
+    <p>c) By MSEDCL, by giving 30 days' notice, if the Eligible Consumer breaches any terms of this Agreement or the provisions of the Grid Interactive Rooftop Renewable Energy Generating Systems Regulations and does not remedy such breach within 30 days, or such other reasonable period as may be provided, of receiving notice of such breach, or for any other valid reason communicated by MSEDCL in writing;</p>
+    <p>d) By MSEDCL, by giving 30 days' notice, if the Eligible Consumer fails to pay his dues in a timely manner or indulges in any malpractices.</p>
 
     <h2>6 Access and Disconnection</h2>
-
-    <p><b>6.1</b>
-        The Eligible Consumer shall provide access to MSEDCL to the metering equipment and disconnecting devices of Renewable Energy Generating System, both automatic and manual, by the Eligible Consumer.
-    </p>
-
-    <p class="mt8"><b>6.2</b>
-        If, in an emergent or outage situation, MSEDCL cannot access the disconnecting devices of the Renewable Energy Generating System, both automatic and manual, it may disconnect power supply to the premises.
-    </p>
-
-    <p class="mt8"><b>6.3</b>
-        Upon termination of this Agreement under Clause 5, the Eligible Consumer shall disconnect the Renewable Energy Generating System forthwith from the Network of MSEDCL.
-    </p>
+    <p><b>6.1</b> The Eligible Consumer shall provide access to MSEDCL to the metering equipment and disconnecting devices of Renewable Energy Generating System, both automatic and manual, by the Eligible Consumer.</p>
+    <p class="mt8"><b>6.2</b> If, in an emergent or outage situation, MSEDCL cannot access the disconnecting devices of the Renewable Energy Generating System, both automatic and manual, it may disconnect power supply to the premises.</p>
+    <p class="mt8"><b>6.3</b> Upon termination of this Agreement under Clause 5, the Eligible Consumer shall disconnect the Renewable Energy Generating System forthwith from the Network of MSEDCL.</p>
 
     <h2>7 Liabilities</h2>
-
-    <p><b>7.1</b>
-        The Parties shall indemnify each other for damages or adverse effects of either Party’s negligence or misconduct during the installation of the Renewable Energy Generating System, connectivity with the distribution Network and operation of the System.
-    </p>
-
-    <p class="mt8"><b>7.2</b>
-        The Parties shall not be liable to each other for any loss of profits or revenues, business interruption losses, loss of contract or goodwill, or for indirect, consequential, incidental or special damages including, but not limited to, punitive or exemplary damages, whether any of these liabilities, losses or damages arise in contract, or otherwise.
-    </p>
+    <p><b>7.1</b> The Parties shall indemnify each other for damages or adverse effects of either Party's negligence or misconduct during the installation of the Renewable Energy Generating System, connectivity with the distribution Network and operation of the System.</p>
+    <p class="mt8"><b>7.2</b> The Parties shall not be liable to each other for any loss of profits or revenues, business interruption losses, loss of contract or goodwill, or for indirect, consequential, incidental or special damages including, but not limited to, punitive or exemplary damages, whether any of these liabilities, losses or damages arise in contract, or otherwise.</p>
 
     <h2>8 Commercial Settlement</h2>
-
-    <p><b>8.1</b>
-        The commercial settlements under this Agreement shall be in accordance with the Grid Interactive Renewable Regulations.
-    </p>
-
-    <p class="mt8"><b>8.2</b>
-        MSEDCL shall not be liable to compensate the Eligible Consumer if his Renewable Energy Generating System is unable to inject surplus power generated into MSEDCL’s Network on account of failure of power supply in the grid/Network.
-    </p>
-
-    <p class="mt8"><b>8.3</b>
-        The existing metering System, if not in accordance with the Grid Interactive Renewable Regulations, shall be replaced by a bi-directional meter
-        (Net Meter No.
-        <span th:text="${netMeterNumber != null and !#strings.isEmpty(netMeterNumber)} ? ${netMeterNumber} : '....'"></span>)
-        (whole current/CT operated) and a separate Renewable Energy Generation Meter shall be provided to measure Renewable Energy generation. The bi-directional meter (whole current/CT operated) shall be installed at the inter-connection point to MSEDCL’s Network for recording export and import of energy.
-    </p>
-
-    <p class="mt8"><b>8.4</b>
-        The uni-directional and bi-directional meters shall be fixed in separate meter boxes in the same proximity.
-    </p>
-
-    <p class="mt8"><b>8.5</b>
-        The energy generated by the Renewable Energy Generating Station shall be offset against the energy consumption of the consumer from the MSEDCL in the following manner:
-    </p>
-
+    <p><b>8.1</b> The commercial settlements under this Agreement shall be in accordance with the Grid Interactive Renewable Regulations.</p>
+    <p class="mt8"><b>8.2</b> MSEDCL shall not be liable to compensate the Eligible Consumer if his Renewable Energy Generating System is unable to inject surplus power generated into MSEDCL's Network on account of failure of power supply in the grid/Network.</p>
+    <p class="mt8"><b>8.3</b> The existing metering System, if not in accordance with the Grid Interactive Renewable Regulations, shall be replaced by a bi-directional meter (Net Meter No. <span th:if="${netMeterNumber != null and netMeterNumber != ''}" th:text="${netMeterNumber}"></span><span th:if="${netMeterNumber == null or netMeterNumber == ''}" class="value-missing">Value Missing</span>) (whole current/CT operated) and a separate Renewable Energy Generation Meter shall be provided to measure Renewable Energy generation. The bi-directional meter (whole current/CT operated) shall be installed at the inter-connection point to MSEDCL's Network for recording export and import of energy.</p>
+    <p class="mt8"><b>8.4</b> The uni-directional and bi-directional meters shall be fixed in separate meter boxes in the same proximity.</p>
+    <p class="mt8"><b>8.5</b> The energy generated by the Renewable Energy Generating Station shall be offset against the energy consumption of the consumer from the MSEDCL in the following manner:</p>
     <p>a) If the quantum of electricity exported exceeds the quantum imported during the Billing Period, the excess quantum shall be carried forward to the next Billing Period as credited Units of electricity;</p>
-
     <p>b) If the quantum of electricity Units imported by the Eligible Consumer during any Billing Period exceeds the quantum exported, the MSEDCL shall raise its invoice for the net electricity consumption after adjusting the credited Units;</p>
-
     <p>c) The unadjusted net credited Units of electricity as at the end of each financial year shall be purchased by the MSEDCL at the Generic Tariff approved by the Commission for that year, within the first month of the following year: Provided that, at the beginning of each Settlement Period, the cumulative quantum of injected electricity carried forward will be re-set to zero;</p>
-
     <p>d) In case the Eligible Consumer is within the ambit of Time of Day (ToD) tariff, the electricity consumption in any time block, i.e. peak hours, off-peak hours, etc., shall be first compensated with the quantum of electricity injected in the same time block; any excess injection over and above the consumption in any other time block in a Billing Cycle shall be accounted as if the excess injection had occurred during off-peak hours;</p>
-
     <p>e) MSEDCL shall compute the amount payable to the Eligible Consumer for the excess Renewable Energy purchased by it as specified in Clause 8.5 (c), and shall provide credit equivalent to the amount payable in the immediately succeeding Billing Cycle.</p>
 
     <h2>9 Connection Costs</h2>
-
-    <p>
-        The Eligible Consumer shall bear all costs related to the setting up of the Renewable Energy Generating System, including the cost of the Renewable Energy Generation Meter.
-    </p>
+    <p>The Eligible Consumer shall bear all costs related to the setting up of the Renewable Energy Generating System, including the cost of the Renewable Energy Generation Meter.</p>
 
     <h2>10 Dispute Resolution</h2>
-
-    <p><b>10.1</b>
-        Any dispute arising under this Agreement shall be resolved promptly, in good faith and in an equitable manner by both the Parties.
-    </p>
-
-    <p class="mt8"><b>10.2</b>
-        The Eligible Consumer shall have recourse to the concerned Consumer Grievance Redressal Forum constituted under the relevant Regulations in respect of any grievance regarding billing, which has not been redressed by MSEDCL.
-    </p>
+    <p><b>10.1</b> Any dispute arising under this Agreement shall be resolved promptly, in good faith and in an equitable manner by both the Parties.</p>
+    <p class="mt8"><b>10.2</b> The Eligible Consumer shall have recourse to the concerned Consumer Grievance Redressal Forum constituted under the relevant Regulations in respect of any grievance regarding billing, which has not been redressed by MSEDCL.</p>
 
     <p class="mt25">
         In the witness, where of
-        <span th:text="${name != null and !#strings.isEmpty(name)} ? ${name} : '....'"></span>
+        <span th:if="${name != null and name != ''}" th:text="${name}"></span><span th:if="${name == null or name == ''}" class="value-missing">Value Missing</span>
         for and on behalf of Eligible Consumer and
-        <span th:text="${msedclOfficerName != null and !#strings.isEmpty(msedclOfficerName)} ? ${msedclOfficerName} : '....'"></span>
-        for and on behalf of
-        <span th:text="${discomName != null and !#strings.isEmpty(discomName)} ? ${discomName} : 'MSEDCL'"></span>
-        (Licensee) agree to this agreement.
+        <span th:if="${msedclOfficerName != null and msedclOfficerName != ''}" th:text="${msedclOfficerName}"></span><span th:if="${msedclOfficerName == null or msedclOfficerName == ''}" class="value-missing">Value Missing</span>
+        for and on behalf of <span class="fixed-value">MSEDCL</span> (Licensee) agree to this agreement.
     </p>
 
     <div class="signature-row">
         <div class="signature-left">
             <p class="bold">For and on behalf of Eligible Consumer</p>
             <div class="signature-space">
-                <img th:if="${not #lists.isEmpty(consumerSignature)}"
-                     th:src="${consumerSignature[0]}"
-                     style="max-height:60px; max-width:200px; object-fit:contain;"/>
+                <img th:if="${not #lists.isEmpty(consumerSignature)}" th:src="${consumerSignature[0]}" style="max-height:60px; max-width:200px; object-fit:contain;"/>
             </div>
             <div class="line" th:if="${#lists.isEmpty(consumerSignature)}"></div>
             <p>Signature:</p>
-            <p class="mt8">Name: <span th:text="${name}">....</span></p>
-            <p>Date: <span th:text="${installationDate}">....</span></p>
+            <p class="mt8">Name: <span th:if="${name != null and name != ''}" th:text="${name}"></span><span th:if="${name == null or name == ''}" class="value-missing">Value Missing</span></p>
+            <p>Date: <span th:if="${installationDate != null and installationDate != ''}" th:text="${installationDate}"></span><span th:if="${installationDate == null or installationDate == ''}" class="value-missing">Value Missing</span></p>
         </div>
         <div class="signature-right">
             <p class="bold">For and on behalf of MSEDCL (Licensee)</p>
             <div class="signature-space">
-                <img th:if="${not #lists.isEmpty(msedclSignature)}"
-                     th:src="${msedclSignature[0]}"
-                     style="max-height:60px; max-width:200px; object-fit:contain;"/>
+                <img th:if="${not #lists.isEmpty(msedclSignature)}" th:src="${msedclSignature[0]}" style="max-height:60px; max-width:200px; object-fit:contain;"/>
             </div>
             <div class="line" th:if="${#lists.isEmpty(msedclSignature)}"></div>
             <p>Signature:</p>
-            <p class="mt8">Name: <span th:text="${msedclOfficerName}">....</span></p>
-            <p>Designation: <span th:text="${msedclOfficerDesignation}">....</span></p>
-            <p>Date: <span th:text="${installationDate}">....</span></p>
+            <p class="mt8">Name: <span th:if="${msedclOfficerName != null and msedclOfficerName != ''}" th:text="${msedclOfficerName}"></span><span th:if="${msedclOfficerName == null or msedclOfficerName == ''}" class="value-missing">Value Missing</span></p>
+            <p>Designation: <span class="fixed-value">Executive Engineer</span></p>
+            <p>Date: <span th:if="${installationDate != null and installationDate != ''}" th:text="${installationDate}"></span><span th:if="${installationDate == null or installationDate == ''}" class="value-missing">Value Missing</span></p>
         </div>
     </div>
 
     <div class="witness-row">
         <div class="witness-left">
             <p class="bold">Witness 1</p>
-            <p>Name: <span th:text="${witness1Name}">....</span></p>
-            <p>Address: <span th:text="${witness1Address}">....</span></p>
+            <p>Name: <span th:if="${witness1Name != null and witness1Name != ''}" th:text="${witness1Name}"></span><span th:if="${witness1Name == null or witness1Name == ''}" class="value-missing">Value Missing</span></p>
+            <p>Address: <span th:if="${witness1Address != null and witness1Address != ''}" th:text="${witness1Address}"></span><span th:if="${witness1Address == null or witness1Address == ''}" class="value-missing">Value Missing</span></p>
             <div class="signature-space">
-                <img th:if="${not #lists.isEmpty(witnessSignature) and #lists.size(witnessSignature) >= 1}"
-                     th:src="${witnessSignature[0]}"
-                     style="max-height:60px; max-width:200px; object-fit:contain;"/>
+                <img th:if="${not #lists.isEmpty(witnessSignature) and #lists.size(witnessSignature) >= 1}" th:src="${witnessSignature[0]}" style="max-height:60px; max-width:200px; object-fit:contain;"/>
             </div>
             <div class="line" th:if="${#lists.isEmpty(witnessSignature) or #lists.size(witnessSignature) < 1}"></div>
             <p>Signature:</p>
         </div>
         <div class="witness-right">
             <p class="bold">Witness 2</p>
-            <p>Name: <span th:text="${witness2Name}">....</span></p>
-            <p>Address: <span th:text="${witness2Address}">....</span></p>
+            <p>Name: <span th:if="${witness2Name != null and witness2Name != ''}" th:text="${witness2Name}"></span><span th:if="${witness2Name == null or witness2Name == ''}" class="value-missing">Value Missing</span></p>
+            <p>Address: <span th:if="${witness2Address != null and witness2Address != ''}" th:text="${witness2Address}"></span><span th:if="${witness2Address == null or witness2Address == ''}" class="value-missing">Value Missing</span></p>
             <div class="signature-space">
-                <img th:if="${not #lists.isEmpty(witnessSignature) and #lists.size(witnessSignature) >= 2}"
-                     th:src="${witnessSignature[1]}"
-                     style="max-height:60px; max-width:200px; object-fit:contain;"/>
+                <img th:if="${not #lists.isEmpty(witnessSignature) and #lists.size(witnessSignature) >= 2}" th:src="${witnessSignature[1]}" style="max-height:60px; max-width:200px; object-fit:contain;"/>
             </div>
             <div class="line" th:if="${#lists.isEmpty(witnessSignature) or #lists.size(witnessSignature) < 2}"></div>
             <p>Signature:</p>

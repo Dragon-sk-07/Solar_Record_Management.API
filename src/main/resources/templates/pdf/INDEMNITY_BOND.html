@@ -5,11 +5,8 @@
     <title>Indemnity Bond - MSEDCL Solar RTS</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-@page { margin: 5mm 10mm; }
-body { padding: 5px 10px; }
-.header-container { margin-bottom: 5px; }
-.letter-date { margin-top: 0; }
-table, .signature-area { page-break-inside: avoid; }
+        @page { margin: 5mm 10mm; }
+        body { padding: 5px 10px; }
         * {
             margin: 0;
             padding: 0;
@@ -28,7 +25,70 @@ table, .signature-area { page-break-inside: avoid; }
             margin: 0 auto;
             background: #fff;
         }
-        /* headings */
+        .vendor-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #000;
+        }
+        .vendor-logo {
+            width: 40%;
+        }
+        .vendor-logo img {
+            max-height: 60px;
+            max-width: 100%;
+            object-fit: contain;
+        }
+        .vendor-info {
+            width: 60%;
+            text-align: right;
+        }
+        .vendor-name {
+            font-size: 14px;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+        .vendor-details {
+            font-size: 8px;
+            margin-top: 3px;
+        }
+        .msedcl-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #000;
+        }
+        .msedcl-logo {
+            width: 40%;
+        }
+        .msedcl-logo img {
+            max-height: 50px;
+            max-width: 100%;
+            object-fit: contain;
+        }
+        .msedcl-info {
+            width: 60%;
+            text-align: right;
+        }
+        .msedcl-name {
+            font-size: 14px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .msedcl-fullform {
+            font-size: 7px;
+            font-weight: normal;
+            letter-spacing: 0.5px;
+        }
+        .msedcl-address {
+            font-size: 7px;
+            margin-top: 3px;
+        }
         h1 {
             font-size: 18pt;
             font-weight: bold;
@@ -50,32 +110,18 @@ table, .signature-area { page-break-inside: avoid; }
             font-size: 13.5pt;
             margin-bottom: 10px;
         }
-        .subhead {
-            font-size: 14pt;
-            font-weight: bold;
-            text-align: center;
-            margin: 10pt 0;
-        }
-        /* paragraph & legal text */
         p {
             margin: 6pt 0;
             text-align: justify;
             line-height: 1.4;
             font-size: 13.5pt;
         }
-        .indent {
-            text-indent: 30px;
-        }
         .bold {
             font-weight: 700;
         }
         strong, .field {
-    font-weight: 700;
-}
-        .underline {
-            text-decoration: underline;
+            font-weight: 700;
         }
-        /* tables */
         table {
             width: 100%;
             border-collapse: collapse;
@@ -97,13 +143,12 @@ table, .signature-area { page-break-inside: avoid; }
             width: 100%;
             margin-top: 8px;
         }
-       .consumer-table td, .consumer-table th {
-    padding: 5px 6px;
-}
-.consumer-table td {
-    font-weight: 700;
-}
-        /* roman numeral lists */
+        .consumer-table td, .consumer-table th {
+            padding: 5px 6px;
+        }
+        .consumer-table td {
+            font-weight: 700;
+        }
         .roman-list {
             margin: 6pt 0 6pt 35pt;
             list-style-type: upper-roman;
@@ -131,12 +176,10 @@ table, .signature-area { page-break-inside: avoid; }
             margin-bottom: 4pt;
             font-size: 14pt;
         }
-        /* inspection schedule table */
         .inspection-table td, .inspection-table th {
             font-size: 11.5pt;
             padding: 5px 4px;
         }
-        /* signature area */
         .signature-row {
             display: flex;
             width: 100%;
@@ -145,22 +188,18 @@ table, .signature-area { page-break-inside: avoid; }
             gap: 30px;
             flex-wrap: wrap;
         }
-        .signature-box {
-            flex: 1;
-            text-align: center;
-        }
         .witness-area {
             display: flex;
             justify-content: space-between;
             margin-top: 18pt;
             gap: 25px;
         }
-       .witness {
-    flex: 1;
-}
-.witness span {
-    font-weight: 700;
-}
+        .witness {
+            flex: 1;
+        }
+        .witness span {
+            font-weight: 700;
+        }
         .stamp-placeholder {
             border: 1.5px solid #000;
             width: 170px;
@@ -178,24 +217,24 @@ table, .signature-area { page-break-inside: avoid; }
             border-top: 1px solid #aaa;
             padding-top: 8px;
         }
-        .page-break {
-            page-break-before: always;
-            break-before: page;
+        .signature-line-area {
+            margin-top: 30pt;
+            text-align: left;
         }
-        .value-field {
-            font-weight: 700;
-            display: inline-block;
-        }
-       .signature-line-area {
-    margin-top: 30pt;
-    text-align: left;
-}
-.signature-line-area p span {
-    font-weight: 700;
-}
         .for-on-behalf {
             margin-top: 15px;
             text-align: center;
+        }
+        .guidelines-list {
+            margin-left: 35px;
+            list-style-type: decimal;
+        }
+        .value-missing {
+            color: #999;
+            font-style: italic;
+        }
+        .fixed-value {
+            font-weight: 700;
         }
         @media print {
             body {
@@ -206,37 +245,46 @@ table, .signature-area { page-break-inside: avoid; }
                 page-break-inside: avoid;
             }
         }
-        .list-alpha {
-            margin-left: 35px;
-            list-style-type: lower-alpha;
-        }
-        .disc-list {
-            margin-left: 35px;
-            list-style-type: disc;
-        }
-        .guidelines-list {
-            margin-left: 35px;
-            list-style-type: decimal;
-        }
     </style>
 </head>
 <body>
-<div style="text-align: center; margin-bottom: 8px; font-family: 'Times New Roman', Times, serif;">
-    <div style="font-size: 30px; font-weight: bold; margin: 0; padding: 0;">Arihant Electrical Sangli</div>
-    <div style="font-size: 10px; margin: 2px 0; padding: 0;">Email: arihantele@gmail.com | Near Anuje Hospital, Kurundwad, Tal-shirol, Dist. Kolhapur - 416106 |  Mob:7774855501/9767334454</div>
-    <div style="border-bottom: 1px solid #000; margin-top: 5px;"></div>
+
+<!-- VENDOR HEADER (Dynamic) -->
+<div th:if="${vendorName != null and vendorName != ''}" class="vendor-header">
+    <div class="vendor-logo">
+        <img th:if="${not #lists.isEmpty(vendorStamp)}" th:src="${vendorStamp[0]}" alt="Vendor Logo"/>
+    </div>
+    <div class="vendor-info">
+        <div class="vendor-name" th:text="${vendorName}">Vendor Name</div>
+        <div class="vendor-details">
+            <span th:text="${vendorAddress}">Vendor Address</span><br/>
+            <span>Email: <span th:text="${vendorEmail}">vendor@example.com</span></span> |
+            <span>Mobile: <span th:text="${vendorMobile}">9999999999</span></span>
+        </div>
+    </div>
 </div>
+
+<!-- MSEDCL HEADER (Fixed) -->
+<div th:if="${vendorName == null or vendorName == ''}" class="msedcl-header">
+    <div class="msedcl-logo">
+        <img th:if="${not #lists.isEmpty(netMeteringStamp)}" th:src="${netMeteringStamp[0]}" alt="MSEDCL Logo"/>
+    </div>
+    <div class="msedcl-info">
+        <div class="msedcl-name">MSEDCL</div>
+        <div class="msedcl-fullform">Maharashtra State Electricity Distribution Company Limited</div>
+        <div class="msedcl-address">Prakashgad, Bandra East, Mumbai - 400051</div>
+    </div>
+</div>
+
 <div class="bond-wrapper">
-    <!-- Stamp paper line - centered bold -->
+
     <div class="stamp-paper">***(On non-judicial stamp paper of Rs. 500/-)***</div>
     <h1>INDEMNITY BOND</h1>
 
-    <!-- Recitals -->
-    <p><strong>This Indemnity Bond</strong> is made this <span th:text="${indemnityDay}">____</span> day of <span th:text="${indemnityMonth}">________</span>, <span th:text="${indemnityYear}">________</span> by <strong>M/s <span th:text="${vendorName}">_________________________</span></strong>, having its registered office at <span th:text="${vendorAddress}">_________________________________________________________________________________</span> (herein after called as <strong>“vendor”</strong> which expression shall include its successors and permitted assigns) in favour of <strong>Maharashtra State Electricity Distribution Company Limited</strong> (hereinafter called <strong>“MSEDCL”</strong> which expression shall include its successor and assigns).</p>
+    <p><strong>This Indemnity Bond</strong> is made this <span th:if="${indemnityDay != null and indemnityDay != ''}" th:text="${indemnityDay}"></span><span th:if="${indemnityDay == null or indemnityDay == ''}" class="value-missing">Value Missing</span> day of <span th:if="${indemnityMonth != null and indemnityMonth != ''}" th:text="${indemnityMonth}"></span><span th:if="${indemnityMonth == null or indemnityMonth == ''}" class="value-missing">Value Missing</span>, <span th:if="${indemnityYear != null and indemnityYear != ''}" th:text="${indemnityYear}"></span><span th:if="${indemnityYear == null or indemnityYear == ''}" class="value-missing">Value Missing</span> by <strong>M/s <span th:if="${vendorName != null and vendorName != ''}" th:text="${vendorName}"></span><span th:if="${vendorName == null or vendorName == ''}" class="value-missing">Value Missing</span></strong>, having its registered office at <span th:if="${vendorAddress != null and vendorAddress != ''}" th:text="${vendorAddress}"></span><span th:if="${vendorAddress == null or vendorAddress == ''}" class="value-missing">Value Missing</span> (herein after called as <strong>"vendor"</strong> which expression shall include its successors and permitted assigns) in favour of <strong>Maharashtra State Electricity Distribution Company Limited</strong> (hereinafter called <strong>"MSEDCL"</strong> which expression shall include its successor and assigns).</p>
 
-    <p><strong>Whereas</strong> Vendor executed the work of the roof top solar installation on the household of the following consumer as per MSEDCL technical sanctions under the SMART solar scheme and by the virtue of clause No 9 of G.R. of GoM with reference number <span th:text="${grReferenceNumber}">202510061736312910</span> on <span th:text="${grReferenceDate}">06th Oct 2025</span>, the Vendor undertakes the responsibility of Operation and maintenance for the period of 5 years from the date of commissioning.</p>
+    <p><strong>Whereas</strong> Vendor executed the work of the roof top solar installation on the household of the following consumer as per MSEDCL technical sanctions under the SMART solar scheme and by the virtue of clause No 9 of G.R. of GoM with reference number <span class="fixed-value">202510061736312910</span> on <span class="fixed-value">06th Oct 2025</span>, the Vendor undertakes the responsibility of Operation and maintenance for the period of 5 years from the date of commissioning.</p>
 
-    <!-- Consumer Details Table -->
     <table class="consumer-table">
         <thead>
         <tr style="background:#ececec;">
@@ -249,23 +297,21 @@ table, .signature-area { page-break-inside: avoid; }
         <tbody>
         <tr>
             <td style="text-align:center">1</td>
-            <td><span th:text="${name}">_________________________</span><br/><span th:text="${siteAddress}">_________________________________________________________________________________</span></td>
-            <td><span th:text="${consumerNumber}">_________________________</span></td>
-            <td><span th:text="${installedCapacity}">_________________________</span> kWp</td>
+            <td><span th:if="${name != null and name != ''}" th:text="${name}"></span><span th:if="${name == null or name == ''}" class="value-missing">Value Missing</span><br/><span th:if="${siteAddress != null and siteAddress != ''}" th:text="${siteAddress}"></span><span th:if="${siteAddress == null or siteAddress == ''}" class="value-missing">Value Missing</span></td>
+            <td><span th:if="${consumerNumber != null and consumerNumber != ''}" th:text="${consumerNumber}"></span><span th:if="${consumerNumber == null or consumerNumber == ''}" class="value-missing">Value Missing</span></td>
+            <td><span th:if="${installedCapacity != null}" th:text="${installedCapacity}"></span><span th:if="${installedCapacity == null}" class="value-missing">Value Missing</span> kWp</td>
         </tr>
         </tbody>
     </table>
 
     <p>The Vendor will carry out operation and maintenance of the grid connected RTS plant as per the schedule annexed herewith.</p>
 
-    <!-- Using Roman numerals as per original -->
     <ol class="roman-list">
         <li>For the optimal operation of a PV plant, maintenance must be carried out on a regular basis.</li>
         <li>All the components should be kept clean. It should be ensured that all the components are fastened well at their due place.</li>
         <li>Maintenance guidelines for various components viz. solar panels, inverter, wiring etc. are discussed below:</li>
     </ol>
 
-    <!-- SOLAR PANELS section -->
     <div class="component-head">SOLAR PANELS</div>
     <p>Although the cleaning frequency for the panels will vary from site to site depending on soiling, it is recommended that</p>
     <ol class="lower-roman-list">
@@ -284,7 +330,6 @@ table, .signature-area { page-break-inside: avoid; }
         <li>Ensure that monkeys or other animals do not damage the panels.</li>
     </ol>
 
-    <!-- CABLES AND CONNECTION BOXES -->
     <div class="component-head">CABLES AND CONNECTION BOXES</div>
     <ol class="lower-roman-list">
         <li>Check the connections for corrosion and tightness.</li>
@@ -296,7 +341,6 @@ table, .signature-area { page-break-inside: avoid; }
         <li>If some wire needs to be changed, make sure it is of proper rating and type.</li>
     </ol>
 
-    <!-- INVERTER -->
     <div class="component-head">INVERTER</div>
     <ol class="lower-roman-list">
         <li>The inverter should be installed in a clean, dry, and ventilated area which is separated from, and not directly above, the battery bank.</li>
@@ -306,7 +350,6 @@ table, .signature-area { page-break-inside: avoid; }
         <li>Verify the state of DC/AC surge arrestors, cable connections, and circuit breakers.</li>
     </ol>
 
-    <!-- SHUTTING DOWN THE SYSTEM -->
     <div class="component-head">SHUTTING DOWN THE SYSTEM</div>
     <ol class="lower-roman-list">
         <li>Disconnect system from all power sources in accordance with instructions for all other components used in the system.</li>
@@ -314,7 +357,6 @@ table, .signature-area { page-break-inside: avoid; }
         <li>To the extent possible, system shutdown will not be done during daytime or peak generation.</li>
     </ol>
 
-    <!-- =============== INSPECTION AND MAINTENANCE SCHEDULE (3rd page starts here) =============== -->
     <h2>INSPECTION AND MAINTENANCE SCHEDULE:</h2>
     <table class="inspection-table">
         <thead>
@@ -345,7 +387,6 @@ table, .signature-area { page-break-inside: avoid; }
         </tbody>
     </table>
 
-    <!-- Operation and Maintenance Guidelines (exact text with decimal points) -->
     <div class="component-head">Operation and Maintenance Guidelines of Grid Connected PV Plants</div>
     <ol class="guidelines-list">
         <li>Periodic cleaning of solar modules, preferably once every fortnight. As this task has to be done by the beneficiary, the vendors shall apprise the beneficiary on the importance and proper technique for cleaning.</li>
@@ -359,83 +400,65 @@ table, .signature-area { page-break-inside: avoid; }
         <li>MSEDCL reserves the right to make surprise checks/ inspection visits at its own or through authorized representative to verify the O&M activities being carried out by the Bidder. Failure to adhere to above guidelines will result in penal action including debarring from participation in next tender</li>
     </ol>
 
-    <!-- Indemnity clauses -->
     <p><strong>Now, therefore, this indemnity bond witnesses this as follows:</strong></p>
     <ol class="decimal-list">
         <li>The contractor undertakes to keep MSEDCL harmless against any past, future unforeseen loss or damage due to any event/act occurred up to the period of commissioning that may be caused due to non-establishment of Insurance Cover under the contract against which the CFA has been released by MSEDCL on the behalf of GoM.</li>
-        <li>This indemnity bond is irrevocable. The vendor to execute the project and O & M will be carried for 5 Years, failing to which or breach of above condition, the PBG submitted by the vendor will be forfeited by the MSEDCL without further notice. (PBG Amount: <span th:text="${pbgAmount}">_____________</span> INR)</li>
+        <li>This indemnity bond is irrevocable. The vendor to execute the project and O & M will be carried for 5 Years, failing to which or breach of above condition, the PBG submitted by the vendor will be forfeited by the MSEDCL without further notice. (PBG Amount: <span th:if="${pbgAmount != null}" th:text="${pbgAmount}"></span><span th:if="${pbgAmount == null}" class="value-missing">Value Missing</span> INR)</li>
         <li>Now, the condition of this bond is that if the vendor shall duly and punctually comply with the terms and conditions of this bond to the satisfaction of MSEDCL, then the above bond shall be void, but otherwise, it shall remain in full force and virtue.</li>
     </ol>
 
     <p>In witness where of the vendor has here-unto set its hand through its authorized representative under the common seal of the company, the day, month and year first above mentioned.</p>
 
-    <!-- FOR AND ON BEHALF OF M/s (Exactly before Witness section as per original) -->
     <div class="for-on-behalf">
-        <p><strong>For and on behalf of M/s <span th:text="${vendorName}">_________________________</span></strong></p>
+        <p><strong>For and on behalf of M/s <span th:if="${vendorName != null and vendorName != ''}" th:text="${vendorName}"></span><span th:if="${vendorName == null or vendorName == ''}" class="value-missing">Value Missing</span></strong></p>
         <p>Authorized Representative</p>
         <div class="signature-line-area">
             <p>Signature:</p>
-            <div class="signature-space">
-                <img th:if="${not #lists.isEmpty(vendorSignature)}"
-                     th:src="${vendorSignature[0]}"
-                     style="max-height:60px; max-width:200px; object-fit:contain;"/>
+            <div>
+                <img th:if="${not #lists.isEmpty(vendorSignature)}" th:src="${vendorSignature[0]}" style="max-height:60px; max-width:200px; object-fit:contain;"/>
             </div>
-            <div class="line" th:if="${#lists.isEmpty(vendorSignature)}"></div>
-            <p>Name: <span th:text="${authorizedPersonName}">_________________________</span></p>
-            <p>Address: <span th:text="${vendorAddress}">_________________________________________________________________________________</span></p>
+            <p>Name: <span th:if="${authorizedPersonName != null and authorizedPersonName != ''}" th:text="${authorizedPersonName}"></span><span th:if="${authorizedPersonName == null or authorizedPersonName == ''}" class="value-missing">Value Missing</span></p>
+            <p>Address: <span th:if="${vendorAddress != null and vendorAddress != ''}" th:text="${vendorAddress}"></span><span th:if="${vendorAddress == null or vendorAddress == ''}" class="value-missing">Value Missing</span></p>
         </div>
     </div>
 
-    <!-- Witness I and Witness II (exact as original word file) -->
     <div class="witness-area">
         <div class="witness">
             <strong>Witness I</strong><br/>
             Signature:<br/>
-            <div class="signature-space">
-                <img th:if="${not #lists.isEmpty(witnessSignature) and #lists.size(witnessSignature) >= 1}"
-                     th:src="${witnessSignature[0]}"
-                     style="max-height:60px; max-width:200px; object-fit:contain;"/>
+            <div>
+                <img th:if="${not #lists.isEmpty(witnessSignature) and #lists.size(witnessSignature) >= 1}" th:src="${witnessSignature[0]}" style="max-height:60px; max-width:200px; object-fit:contain;"/>
             </div>
-            <div class="line" th:if="${#lists.isEmpty(witnessSignature) or #lists.size(witnessSignature) < 1}"></div>
-            Name: <span th:text="${witness1Name}">_________________________</span><br/>
-            Address: <span th:text="${witness1Address}">_________________________________________________________________________________</span>
+            Name: <span th:if="${witness1Name != null and witness1Name != ''}" th:text="${witness1Name}"></span><span th:if="${witness1Name == null or witness1Name == ''}" class="value-missing">Value Missing</span><br/>
+            Address: <span th:if="${witness1Address != null and witness1Address != ''}" th:text="${witness1Address}"></span><span th:if="${witness1Address == null or witness1Address == ''}" class="value-missing">Value Missing</span>
         </div>
         <div class="witness">
             <strong>Witness II</strong><br/>
             Signature:<br/>
-            <div class="signature-space">
-                <img th:if="${not #lists.isEmpty(witnessSignature) and #lists.size(witnessSignature) >= 2}"
-                     th:src="${witnessSignature[1]}"
-                     style="max-height:60px; max-width:200px; object-fit:contain;"/>
+            <div>
+                <img th:if="${not #lists.isEmpty(witnessSignature) and #lists.size(witnessSignature) >= 2}" th:src="${witnessSignature[1]}" style="max-height:60px; max-width:200px; object-fit:contain;"/>
             </div>
-            <div class="line" th:if="${#lists.isEmpty(witnessSignature) or #lists.size(witnessSignature) < 2}"></div>
-            Name: <span th:text="${witness2Name}">_________________________</span><br/>
-            Address: <span th:text="${witness2Address}">_________________________________________________________________________________</span>
+            Name: <span th:if="${witness2Name != null and witness2Name != ''}" th:text="${witness2Name}"></span><span th:if="${witness2Name == null or witness2Name == ''}" class="value-missing">Value Missing</span><br/>
+            Address: <span th:if="${witness2Address != null and witness2Address != ''}" th:text="${witness2Address}"></span><span th:if="${witness2Address == null or witness2Address == ''}" class="value-missing">Value Missing</span>
         </div>
     </div>
 
-    <!-- Stamp & Seal block as per original -->
     <div style="text-align: center; margin-top: 18px;">
         <div class="stamp-placeholder" style="margin: 0 auto;">
-            <img th:if="${not #lists.isEmpty(vendorStamp)}"
-                 th:src="${vendorStamp[0]}"
-                 style="max-height:65px; max-width:210px; object-fit:contain;"/>
-            <span th:if="${#lists.isEmpty(vendorStamp)}" th:text="${vendorName}">(Common Seal / Stamp)</span>
+            <img th:if="${not #lists.isEmpty(vendorStamp)}" th:src="${vendorStamp[0]}" style="max-height:65px; max-width:210px; object-fit:contain;"/>
+            <span th:if="${#lists.isEmpty(vendorStamp)}">(Common Seal / Stamp)</span>
         </div>
         <p><strong>(Stamp & Seal of the Company)</strong></p>
     </div>
 
-    <!-- Notarization line -->
     <div style="margin-top: 20px; text-align: center;">
         <p><strong><u>(Bond should be duly notarized)</u></strong></p>
     </div>
 
-    <!-- Note exactly from original -->
     <div class="note-text">
         <p><strong>Note:</strong> *Indemnity Bonds are to be executed by the authorized persons and (i) In case of contracting Company under common seal of the Company or (ii) having the power of attorney issued under common seal of the company with authority to execute Indemnity Bonds, (iii) In case, (ii) the original Power of Attorney if it is specifically for our contract or a Photostat copy of the Power of Attorney if it is a General Power of Attorney and such documents should be attached to Indemnity Bond.*</p>
     </div>
 
-    <!-- hidden fields maintain all solar record mapping -->
 </div>
 </body>
 </html>

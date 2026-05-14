@@ -6,329 +6,283 @@
     <title>WCR Undertaking Guarantee Aadhar</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-@page { margin: 5mm 10mm; }
-body { padding: 5px 10px; }
-.header-container { margin-bottom: 5px; }
-.letter-date { margin-top: 0; }
-table, .signature-area { page-break-inside: avoid; }
-        *{
-            margin:0;
-            padding:0;
-            box-sizing:border-box;
+        @page { margin: 5mm 10mm; }
+        body { padding: 5px 10px; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
-
-        /* SECTION TITLE (7,8,9 rows) */
-        .section-title{
-            font-weight:700;
-            text-align:center;
-            font-size:13px;   /* bigger than normal table text */
+        .section-title {
+            font-weight: 700;
+            text-align: center;
+            font-size: 13px;
         }
-
-        body{
-           font-family: 'Times New Roman', Times, serif;
-            background:#ffffff;
-            color:#000000;
-            font-size:12px;
-            line-height:1.35;
-            padding:12px 15px;
+        body {
+            font-family: 'Times New Roman', Times, serif;
+            background: #ffffff;
+            color: #000000;
+            font-size: 12px;
+            line-height: 1.35;
+            padding: 12px 15px;
         }
-
-        .gov-wrapper{
-            max-width:1100px;
-            margin:0 auto;
-            background:#fff;
+        .gov-wrapper {
+            max-width: 1100px;
+            margin: 0 auto;
+            background: #fff;
         }
-
-        h1{
-            font-size:15px;
-            font-weight:700;
-            text-align:center;
-            text-transform:uppercase;
-            margin:0 0 8px 0;
+        .vendor-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #000;
         }
-
-        h2{
-            font-size:14px;
-            font-weight:700;
-            text-align:center;
-            text-transform:uppercase;
-            margin:0 0 12px 0;
+        .vendor-logo {
+            width: 40%;
         }
-
-        /* =======================
-           TABLE
-        ======================= */
-        table{
-            width:100%;
-            border-collapse:collapse;
-            border:1px solid #000;
-            font-size:11px;
-            table-layout:fixed;
+        .vendor-logo img {
+            max-height: 60px;
+            max-width: 100%;
+            object-fit: contain;
         }
-
-        td{
-            border:1px solid #000;
-            padding:3px 4px;
-            vertical-align:top;
+        .vendor-info {
+            width: 60%;
+            text-align: right;
         }
-
-        .col-srno{
-            width:6%;
-            background:#efefef;
-            font-weight:700;
-            text-align:center;
+        .vendor-name {
+            font-size: 14px;
+            font-weight: bold;
+            text-transform: uppercase;
         }
-
-        .col-obs{
-            width:38%;
-            font-weight:700;
+        .vendor-details {
+            font-size: 8px;
+            margin-top: 3px;
         }
-
-        .col-value{
-            width:56%;
+        .msedcl-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #000;
         }
-
-        .value-field{
-            font-weight:700;
+        .msedcl-logo {
+            width: 40%;
         }
-
-        .bold{
-            font-weight:700;
+        .msedcl-logo img {
+            max-height: 50px;
+            max-width: 100%;
+            object-fit: contain;
         }
-
-        /* =======================
-           UNDERTAKING TEXT
-        ======================= */
-       .undertaking-p1,
-.undertaking-p2{
-    margin:8px 0;
-    text-align:justify;
-    font-size:12.5px;
-    line-height:1.45;
-}
-.undertaking-p1 .value-field, .undertaking-p2 .value-field {
-    font-weight:700;
-}
-
-        .undertaking-p2{
-            margin-bottom:18px;
+        .msedcl-info {
+            width: 60%;
+            text-align: right;
         }
-
-        /* =======================
-           SIGNATURE AREA
-        ======================= */
-        .signature-row{
-            display:table;
-            width:100%;
-            table-layout:fixed;
-            margin:18px 0 10px 0;
+        .msedcl-name {
+            font-size: 14px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
-
-        .signature-left,
-        .signature-right{
-            display:table-cell;
-            width:50%;
-            vertical-align:top;
+        .msedcl-fullform {
+            font-size: 7px;
+            font-weight: normal;
+            letter-spacing: 0.5px;
         }
-
-        .signature-left{
-            text-align:center;
-            padding-right:0;
+        .msedcl-address {
+            font-size: 7px;
+            margin-top: 3px;
         }
-
-        .signature-right{
-            text-align:center;
-            padding-left:0;
+        h1 {
+            font-size: 15px;
+            font-weight: 700;
+            text-align: center;
+            text-transform: uppercase;
+            margin: 0 0 8px 0;
         }
-
-        .signature-label{
-            font-weight:700;
-            display:block;
-            font-size:12px;
-            margin-top:4px;
-            margin-bottom:0;
-            text-align:center;
+        h2 {
+            font-size: 14px;
+            font-weight: 700;
+            text-align: center;
+            text-transform: uppercase;
+            margin: 0 0 12px 0;
         }
-
-        .signature-space{
-            height:55px;
-            margin-top:0;
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            border: 1px solid #000;
+            font-size: 11px;
+            table-layout: fixed;
         }
-
-     .signature-name{
-    display:block;
-    margin-top:0;
-    font-size:12px;
-    text-align:center;
-    font-weight:700;
-}
-
-        /* =======================
-           STAMP
-        ======================= */
-        .stamp-box{
-            border:1.5px solid #000;
-            height:75px;
-            width:220px;
-            display:flex;
-            align-items:center;
-            justify-content:center;
-            background:#fff;
-            margin:5px auto 0 auto;
-            font-size:11px;
-            text-align:center;
+        td {
+            border: 1px solid #000;
+            padding: 3px 4px;
+            vertical-align: top;
         }
-
-        /* =======================
-           PAGE 2 TEXT
-        ======================= */
-      .guarantee-text{
-    margin:12px 0 14px 0;
-    text-align:justify;
-    font-size:12.5px;
-    line-height:1.5;
-}
-.guarantee-text .value-field {
-    font-weight:700;
-}
-
-        /* =======================
-           AADHAR BLOCK
-        ======================= */
-        .aadhar-block{
-            margin-top:16px;
-            border:1.5px solid #000;
-            padding:10px;
+        .col-srno {
+            width: 6%;
+            background: #efefef;
+            font-weight: 700;
+            text-align: center;
         }
-
-      .aadhar-number-text{
-    font-weight:700;
-    margin:6px 0 10px 0;
-}
-.aadhar-number-text .value-field {
-    font-weight:700;
-}
-
-        .aadhar-images-container{
-            display:flex !important;
-            flex-direction:column !important;
-            align-items:center !important;
-            justify-content:center !important;
-            width:100%;
-            gap:16px;
-            margin:10px 0;
+        .col-obs {
+            width: 38%;
+            font-weight: 700;
         }
-
-        .aadhar-image-box{
-            border:2px dashed #444;
-            background:#f9f9f9;
-            width:320px;
-            min-height:210px;
-            height:auto;
-            display:block;
-            margin:0 auto;
-            padding:8px;
-            overflow:visible;
-            text-align:center;
+        .col-value {
+            width: 56%;
         }
-
-        .aadhar-image{
-            width:auto;
-            height:auto;
-            max-width:100%;
-            max-height:none;
-            object-fit:contain;
-            border:1px solid #aaa;
-            border-radius:5px;
-            box-shadow:0 2px 5px rgba(0,0,0,0.15);
-            background:#fff;
-            display:block;
-            margin:0 auto;
+        .value-field {
+            font-weight: 700;
         }
-
-        .aadhar-placeholder{
-            text-align:center;
-            padding:20px;
-            color:#666;
-            font-size:10px;
-            line-height:1.5;
+        .bold {
+            font-weight: 700;
         }
-
-        .text-right{
-            text-align:right;
+        .undertaking-p1, .undertaking-p2 {
+            margin: 8px 0;
+            text-align: justify;
+            font-size: 12.5px;
+            line-height: 1.45;
         }
-
-        /* =======================
-           PAGE BREAK
-        ======================= */
-        .page-break{
-            page-break-before:always;
-            break-before:page;
-            margin:0;
+        .undertaking-p1 .value-field, .undertaking-p2 .value-field {
+            font-weight: 700;
         }
-
-        /* =======================
-           PRINT
-        ======================= */
-        @media print{
-
-            body{
-                padding:0;
-                margin:0;
-            }
-
-            .page-1-content{
-                page-break-after:always;
-            }
-
-            .page-break{
-                page-break-before:always;
-            }
-
-            .signature-row,
-            .aadhar-image-box,
-            .aadhar-block{
-                page-break-inside:avoid;
-            }
-
-            .aadhar-images-container{
-                display:flex !important;
-                flex-direction:column !important;
-                align-items:center !important;
-                justify-content:center !important;
-                width:100% !important;
-            }
-
-            .aadhar-image-box{
-                display:flex !important;
-                align-items:center !important;
-                justify-content:center !important;
-                margin:0 auto 16px auto !important;
-            }
-
-            .aadhar-image{
-                display:block !important;
-                margin:auto !important;
-                max-width:100% !important;
-                max-height:100% !important;
-                object-fit:contain !important;
-            }
+        .undertaking-p2 {
+            margin-bottom: 18px;
+        }
+        .signature-row {
+            display: table;
+            width: 100%;
+            table-layout: fixed;
+            margin: 18px 0 10px 0;
+        }
+        .signature-left, .signature-right {
+            display: table-cell;
+            width: 50%;
+            vertical-align: top;
+        }
+        .signature-left, .signature-right {
+            text-align: center;
+            padding: 0;
+        }
+        .signature-label {
+            font-weight: 700;
+            display: block;
+            font-size: 12px;
+            margin-top: 4px;
+            margin-bottom: 0;
+            text-align: center;
+        }
+        .signature-space {
+            height: 55px;
+            margin-top: 0;
+        }
+        .signature-name {
+            display: block;
+            margin-top: 0;
+            font-size: 12px;
+            text-align: center;
+            font-weight: 700;
+        }
+        .stamp-box {
+            border: 1.5px solid #000;
+            height: 75px;
+            width: 220px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #fff;
+            margin: 5px auto 0 auto;
+            font-size: 11px;
+            text-align: center;
+        }
+        .guarantee-text {
+            margin: 12px 0 14px 0;
+            text-align: justify;
+            font-size: 12.5px;
+            line-height: 1.5;
+        }
+        .guarantee-text .value-field {
+            font-weight: 700;
+        }
+        .aadhar-block {
+            margin-top: 16px;
+            border: 1.5px solid #000;
+            padding: 10px;
+        }
+        .aadhar-number-text {
+            font-weight: 700;
+            margin: 6px 0 10px 0;
+        }
+        .aadhar-number-text .value-field {
+            font-weight: 700;
+        }
+        .aadhar-image-box {
+            border: 2px dashed #444;
+            background: #f9f9f9;
+            width: 320px;
+            min-height: 210px;
+            margin: 10px auto;
+            padding: 8px;
+            text-align: center;
+        }
+        .text-right {
+            text-align: right;
+        }
+        .page-break {
+            page-break-before: always;
+            break-before: page;
+            margin: 0;
+        }
+        .value-missing {
+            color: #999;
+            font-style: italic;
+        }
+        .fixed-value {
+            font-weight: 700;
+        }
+        @media print {
+            body { padding: 0; margin: 0; }
+            .page-1-content { page-break-after: always; }
+            .page-break { page-break-before: always; }
+            .signature-row, .aadhar-image-box, .aadhar-block { page-break-inside: avoid; }
         }
     </style>
 </head>
 <body>
-<div style="text-align: center; margin-bottom: 8px; font-family: 'Times New Roman', Times, serif;">
-    <div style="font-size: 30px; font-weight: bold; margin: 0; padding: 0;">Arihant Electrical Sangli</div>
-    <div style="font-size: 10px; margin: 2px 0; padding: 0;">Email: arihantele@gmail.com | Near Anuje Hospital, Kurundwad, Tal-shirol, Dist. Kolhapur - 416106 |  Mob:7774855501/9767334454</div>
-    <div style="border-bottom: 1px solid #000; margin-top: 5px;"></div>
+
+<!-- VENDOR HEADER (Dynamic - uses vendor details from form) -->
+<div th:if="${vendorName != null and vendorName != ''}" class="vendor-header">
+    <div class="vendor-logo">
+        <img th:if="${not #lists.isEmpty(vendorStamp)}" th:src="${vendorStamp[0]}" alt="Vendor Logo"/>
+    </div>
+    <div class="vendor-info">
+        <div class="vendor-name" th:text="${vendorName}">Vendor Name</div>
+        <div class="vendor-details">
+            <span th:text="${vendorAddress}">Vendor Address</span><br/>
+            <span>Email: <span th:text="${vendorEmail}">vendor@example.com</span></span> |
+            <span>Mobile: <span th:text="${vendorMobile}">9999999999</span></span>
+        </div>
+    </div>
 </div>
+
+<!-- MSEDCL HEADER (Fixed - used when vendor name not available) -->
+<div th:if="${vendorName == null or vendorName == ''}" class="msedcl-header">
+    <div class="msedcl-logo">
+        <img th:if="${not #lists.isEmpty(netMeteringStamp)}" th:src="${netMeteringStamp[0]}" alt="MSEDCL Logo"/>
+    </div>
+    <div class="msedcl-info">
+        <div class="msedcl-name">MSEDCL</div>
+        <div class="msedcl-fullform">Maharashtra State Electricity Distribution Company Limited</div>
+        <div class="msedcl-address">Prakashgad, Bandra East, Mumbai - 400051</div>
+    </div>
+</div>
+
 <div class="gov-wrapper">
 
-    <!-- ═══════════════════════════════════════════════════════
-         PAGE 1 — Table + Undertaking + Signature 1
-         ═══════════════════════════════════════════════════════ -->
     <div class="page-1-content">
-
         <h1>WORK COMPLETION REPORT</h1>
 
         <table>
@@ -337,73 +291,83 @@ table, .signature-area { page-break-inside: avoid; }
                 <td class="col-obs">Component</td>
                 <td class="col-value">Observation</td>
             </tr>
-            <tr><td class="col-srno">1</td><td class="col-obs">Name</td><td class="col-value"><span class="value-field" th:text="${name}">_________________________</span></td></tr>
-            <tr><td class="col-srno">2</td><td class="col-obs">Consumer number</td><td class="col-value"><span class="value-field" th:text="${consumerNumber}">_________________________</span></td></tr>
-            <tr><td class="col-srno">3</td><td class="col-obs">Site/Location With Complete Address</td><td class="col-value"><span class="value-field" th:text="${siteAddress}">_________________________</span></td></tr>
-            <tr><td class="col-srno">4</td><td class="col-obs">Category: Govt/Private Sector</td><td class="col-value"><span class="value-field" th:text="${category}">_________________________</span></td></tr>
-            <tr><td class="col-srno">5</td><td class="col-obs">Sanction number</td><td class="col-value"><span class="value-field" th:text="${sanctionNumber}">_________________________</span></td></tr>
-            <tr><td class="col-srno">6</td><td class="col-obs">Sanctioned Capacity of solar PV system (KW) Installed</td><td class="col-value"><span class="value-field" th:text="${sanctionedCapacity}">_________________________</span></td></tr>
-            <tr><td class="col-srno"></td><td class="col-obs">Capacity of solar PV system (KW) Installed</td><td class="col-value"><span class="value-field" th:text="${installedCapacity}">_________________________</span></td></tr>
+            <tr><td class="col-srno">1</td><td class="col-obs">Name</td><td class="col-value"><span th:if="${name != null and name != ''}" th:text="${name}"></span><span th:if="${name == null or name == ''}" class="value-missing">Value Missing</span></td></tr>
+            <tr><td class="col-srno">2</td><td class="col-obs">Consumer number</td><td class="col-value"><span th:if="${consumerNumber != null and consumerNumber != ''}" th:text="${consumerNumber}"></span><span th:if="${consumerNumber == null or consumerNumber == ''}" class="value-missing">Value Missing</span></td></tr>
+            <tr><td class="col-srno">3</td><td class="col-obs">Site/Location With Complete Address</td><td class="col-value"><span th:if="${siteAddress != null and siteAddress != ''}" th:text="${siteAddress}"></span><span th:if="${siteAddress == null or siteAddress == ''}" class="value-missing">Value Missing</span></td></tr>
+            <tr><td class="col-srno">4</td><td class="col-obs">Category: Govt/Private Sector</td><td class="col-value"><span class="fixed-value">Private Sector</span></td></tr>
+            <tr><td class="col-srno">5</td><td class="col-obs">Sanction number</td><td class="col-value"><span th:if="${sanctionNumber != null and sanctionNumber != ''}" th:text="${sanctionNumber}"></span><span th:if="${sanctionNumber == null or sanctionNumber == ''}" class="value-missing">Value Missing</span></td></tr>
+            <tr><td class="col-srno">6</td><td class="col-obs">Sanctioned Capacity of solar PV system (KW) Installed</td><td class="col-value"><span th:if="${sanctionedCapacity != null}" th:text="${sanctionedCapacity}"></span><span th:if="${sanctionedCapacity == null}" class="value-missing">Value Missing</span></td></tr>
+            <tr><td class="col-srno"></td><td class="col-obs">Capacity of solar PV system (KW) Installed</td><td class="col-value"><span th:if="${installedCapacity != null}" th:text="${installedCapacity}"></span><span th:if="${installedCapacity == null}" class="value-missing">Value Missing</span></td></tr>
             <tr><td class="col-srno">7</td><td colspan="2" class="section-title">Specification of the Modules</td></tr>
-            <tr><td class="col-srno"></td><td class="col-obs">Make of Module</td><td class="col-value"><span class="value-field" th:text="${moduleMake}">_________________________</span></td></tr>
-            <tr><td class="col-srno"></td><td class="col-obs">ALMM Model Number</td><td class="col-value"><span class="value-field" th:text="${almmModelNumber}">_________________________</span></td></tr>
-            <tr><td class="col-srno"></td><td class="col-obs">Wattage per module</td><td class="col-value"><span class="value-field" th:text="${wattagePerModule}">_________________________</span></td></tr>
-            <tr><td class="col-srno"></td><td class="col-obs">No. of Module</td><td class="col-value"><span class="value-field" th:text="${numberOfModules}">_________________________</span></td></tr>
-            <tr><td class="col-srno"></td><td class="col-obs">Total Capacity (KWP)</td><td class="col-value"><span class="value-field" th:text="${totalCapacityKWP}">_________________________</span></td></tr>
-            <tr><td class="col-srno"></td><td class="col-obs">Warrantee Details (Product + Performance)</td><td class="col-value"><span class="value-field" th:text="${warrantyDetails}">_________________________</span></td></tr>
+            <tr><td class="col-srno"></td><td class="col-obs">Make of Module</td><td class="col-value"><span th:if="${moduleMake != null and moduleMake != ''}" th:text="${moduleMake}"></span><span th:if="${moduleMake == null or moduleMake == ''}" class="value-missing">Value Missing</span></td></tr>
+            <tr><td class="col-srno"></td><td class="col-obs">ALMM Model Number</td><td class="col-value"><span th:if="${almmModelNumber != null and almmModelNumber != ''}" th:text="${almmModelNumber}"></span><span th:if="${almmModelNumber == null or almmModelNumber == ''}" class="value-missing">Value Missing</span></td></tr>
+            <tr><td class="col-srno"></td><td class="col-obs">Wattage per module</td><td class="col-value"><span th:if="${wattagePerModule != null}" th:text="${wattagePerModule}"></span><span th:if="${wattagePerModule == null}" class="value-missing">Value Missing</span></td></tr>
+            <tr><td class="col-srno"></td><td class="col-obs">No. of Module</td><td class="col-value"><span th:if="${numberOfModules != null}" th:text="${numberOfModules}"></span><span th:if="${numberOfModules == null}" class="value-missing">Value Missing</span></td></tr>
+            <tr><td class="col-srno"></td><td class="col-obs">Total Capacity (KWP)</td><td class="col-value"><span th:if="${totalCapacityKWP != null}" th:text="${totalCapacityKWP}"></span><span th:if="${totalCapacityKWP == null}" class="value-missing">Value Missing</span></td></tr>
+            <tr><td class="col-srno"></td><td class="col-obs">Warrantee Details (Product + Performance)</td><td class="col-value"><span class="fixed-value">25 Years Product / 25 Years Performance Warranty</span></td></tr>
             <tr><td class="col-srno">8</td><td colspan="2" class="section-title">PCU</td></tr>
-            <tr><td class="col-srno"></td><td class="col-obs">Make &amp; Model number of Inverter</td><td class="col-value"><span class="value-field" th:text="${inverterMakeModel}">_________________________</span></td></tr>
-            <tr><td class="col-srno"></td><td class="col-obs">Rating</td><td class="col-value"><span class="value-field" th:text="${inverterRating}">_________________________</span></td></tr>
-            <tr><td class="col-srno"></td><td class="col-obs">Type of charge controller/ MPPT</td><td class="col-value"><span class="value-field" th:text="${chargeControllerType}">_________________________</span></td></tr>
-            <tr><td class="col-srno"></td><td class="col-obs">Capacity of Inverter</td><td class="col-value"><span class="value-field" th:text="${inverterCapacity}">_________________________</span></td></tr>
-            <tr><td class="col-srno"></td><td class="col-obs">HPD</td><td class="col-value"><span class="value-field" th:text="${hpd}">_________________________</span></td></tr>
-            <tr><td class="col-srno"></td><td class="col-obs">Year of manufacturing</td><td class="col-value"><span class="value-field" th:text="${yearOfManufacturing}">_________________________</span></td></tr>
+            <tr><td class="col-srno"></td><td class="col-obs">Make &amp; Model number of Inverter</td><td class="col-value"><span th:if="${inverterMake != null and inverterMake != ''}" th:text="${inverterMake}"></span><span th:if="${inverterMake == null or inverterMake == ''}" class="value-missing">Value Missing</span> <span th:if="${inverterModelNumber != null and inverterModelNumber != ''}" th:text="${inverterModelNumber}"></span></td></tr>
+            <tr><td class="col-srno"></td><td class="col-obs">Rating</td><td class="col-value"><span class="fixed-value">5</span></td></tr>
+            <tr><td class="col-srno"></td><td class="col-obs">Type of charge controller/ MPPT</td><td class="col-value"><span class="fixed-value">MPPT</span></td></tr>
+            <tr><td class="col-srno"></td><td class="col-obs">Capacity of Inverter</td><td class="col-value"><span th:if="${inverterCapacity != null}" th:text="${inverterCapacity}"></span><span th:if="${inverterCapacity == null}" class="value-missing">Value Missing</span></td></tr>
+            <tr><td class="col-srno"></td><td class="col-obs">HPD</td><td class="col-value"><span class="fixed-value">Yes</span></td></tr>
+            <tr><td class="col-srno"></td><td class="col-obs">Year of manufacturing</td><td class="col-value"><span th:if="${yearOfManufacturing != null}" th:text="${yearOfManufacturing}"></span><span th:if="${yearOfManufacturing == null}" class="value-missing">Value Missing</span></td></tr>
             <tr><td class="col-srno">9</td><td colspan="2" class="section-title">Earthing and Protections</td></tr>
-            <tr><td class="col-srno"></td><td class="col-obs">No of Separate Earthings with earth Resistance</td><td class="col-value"><span class="value-field" th:text="${numberOfEarthings}">_________________________</span> with <span class="value-field" th:text="${earthResistance}">_________________________</span> Ohms</td></tr>
-            <tr><td class="col-srno"></td><td class="col-obs">It is certified that the Earth Resistance measure in presence of Licensed Electrical Contractor/Supervisor and found in order i.e. less than 5 Ohms as per MNRE OM Dtd. 07.06.24 for CFA Component.</td><td class="col-value"><span class="value-field">Certified</span></td></tr>
-            <tr><td class="col-srno"></td><td class="col-obs">Lightening Arrester</td><td class="col-value"><span class="value-field" th:text="${lighteningArrester}">_________________________</span></td></tr>
+            <tr><td class="col-srno"></td><td class="col-obs">No of Separate Earthings with earth Resistance</td><td class="col-value"><span class="fixed-value">1</span> with <span class="fixed-value">5</span> Ohms</td></tr>
+            <tr><td class="col-srno"></td><td class="col-obs">It is certified that the Earth Resistance measure in presence of Licensed Electrical Contractor/Supervisor and found in order i.e. less than 5 Ohms as per MNRE OM Dtd. 07.06.24 for CFA Component.</td><td class="col-value"><span class="fixed-value">Certified</span></td></tr>
+            <tr><td class="col-srno"></td><td class="col-obs">Lightening Arrester</td><td class="col-value"><span th:if="${lighteningArrester != null and lighteningArrester != ''}" th:text="${lighteningArrester}"></span><span th:if="${lighteningArrester == null or lighteningArrester == ''}" class="value-missing">Value Missing</span></td></tr>
         </table>
 
         <div class="undertaking-p1">
-            <p>We <span class="value-field" th:text="${vendorName}">_________________________</span> &amp; <span class="value-field" th:text="${consumerName}">_________________________</span> bearing Consumer Number <span class="value-field" th:text="${consumerNumber}">_________________________</span>. Ensured structural stability of installed solar power plant and obtained requisite permissions from the concerned authority. If in future, by virtue of any means due to collapsing or damage to installed solar power plant, MSEDCL will not be held responsible for any loss to property or human life, if any.</p>
+            <p>We <span th:if="${vendorName != null and vendorName != ''}" th:text="${vendorName}"></span><span th:if="${vendorName == null or vendorName == ''}" class="value-missing">Value Missing</span> &amp; <span th:if="${name != null and name != ''}" th:text="${name}"></span><span th:if="${name == null or name == ''}" class="value-missing">Value Missing</span> bearing Consumer Number <span th:if="${consumerNumber != null and consumerNumber != ''}" th:text="${consumerNumber}"></span><span th:if="${consumerNumber == null or consumerNumber == ''}" class="value-missing">Value Missing</span>. Ensured structural stability of installed solar power plant and obtained requisite permissions from the concerned authority. If in future, by virtue of any means due to collapsing or damage to installed solar power plant, MSEDCL will not be held responsible for any loss to property or human life, if any.</p>
         </div>
         <div class="undertaking-p2">
             <p>This is to Certified above Installed Solar PV System is working properly with electrical safety &amp; Islanding switch in case of any presence of backup inverter an arrangement should be made in such way the backup inverter supply should never be synchronized with solar inverter to avoid any electrical accident due to back feeding. We will be held responsible for non-working of islanding mechanism and back feed to the de-energized grid.</p>
         </div>
 
-        <!-- Signature Row 1 — Vendor (Left) + Consumer (Right) — stays on PAGE 1 -->
         <div class="signature-row">
             <div class="signature-left">
                 <div class="signature-space">
-                    <img th:if="${not #lists.isEmpty(vendorSignature)}"
-                         th:src="${vendorSignature[0]}"
-                         style="max-height:60px; max-width:200px; object-fit:contain;"/>
+                    <img th:if="${not #lists.isEmpty(vendorSignature)}" th:src="${vendorSignature[0]}" style="max-height:60px; max-width:200px; object-fit:contain;"/>
                 </div>
                 <span class="signature-label">Signature [Vendor]</span>
-                <span class="signature-name">(<span class="value-field" th:text="${vendorName}">________________</span>)</span>
+                <span class="signature-name">(<span th:if="${vendorName != null and vendorName != ''}" th:text="${vendorName}"></span><span th:if="${vendorName == null or vendorName == ''}" class="value-missing">Value Missing</span>)</span>
             </div>
             <div class="signature-right">
                 <div class="signature-space">
-                    <img th:if="${not #lists.isEmpty(consumerSignature)}"
-                         th:src="${consumerSignature[0]}"
-                         style="max-height:60px; max-width:200px; object-fit:contain;"/>
+                    <img th:if="${not #lists.isEmpty(consumerSignature)}" th:src="${consumerSignature[0]}" style="max-height:60px; max-width:200px; object-fit:contain;"/>
                 </div>
                 <span class="signature-label">Signature [Consumer]</span>
-                <span class="signature-name">(<span class="value-field" th:text="${name}">________________</span>)</span>
+                <span class="signature-name">(<span th:if="${name != null and name != ''}" th:text="${name}"></span><span th:if="${name == null or name == ''}" class="value-missing">Value Missing</span>)</span>
             </div>
         </div>
+    </div>
 
-    </div><!-- end page-1-content -->
-
-
-    <!-- ═══════════════════════════════════════════════════════
-         PAGE 2 — Guarantee Certificate + Aadhar
-         ═══════════════════════════════════════════════════════ -->
     <div class="page-break"></div>
-    <div style="text-align: center; margin-bottom: 8px; font-family: 'Times New Roman', Times, serif;">
-        <div style="font-size: 30px; font-weight: bold; margin: 0; padding: 0;">Arihant Electrical Sangli</div>
-        <div style="font-size: 10px; margin: 2px 0; padding: 0;">Email: arihantele@gmail.com | Near Anuje Hospital, Kurundwad, Tal-shirol, Dist. Kolhapur - 416106 |  Mob:7774855501/9767334454</div>
-        <div style="border-bottom: 1px solid #000; margin-top: 5px;"></div>
+
+    <div th:if="${vendorName != null and vendorName != ''}" class="vendor-header">
+        <div class="vendor-logo">
+            <img th:if="${not #lists.isEmpty(vendorStamp)}" th:src="${vendorStamp[0]}" alt="Vendor Logo"/>
+        </div>
+        <div class="vendor-info">
+            <div class="vendor-name" th:text="${vendorName}">Vendor Name</div>
+            <div class="vendor-details">
+                <span th:text="${vendorAddress}">Vendor Address</span><br/>
+                <span>Email: <span th:text="${vendorEmail}">vendor@example.com</span></span> |
+                <span>Mobile: <span th:text="${vendorMobile}">9999999999</span></span>
+            </div>
+        </div>
+    </div>
+
+    <div th:if="${vendorName == null or vendorName == ''}" class="msedcl-header">
+        <div class="msedcl-logo">
+            <img th:if="${not #lists.isEmpty(netMeteringStamp)}" th:src="${netMeteringStamp[0]}" alt="MSEDCL Logo"/>
+        </div>
+        <div class="msedcl-info">
+            <div class="msedcl-name">MSEDCL</div>
+            <div class="msedcl-fullform">Maharashtra State Electricity Distribution Company Limited</div>
+            <div class="msedcl-address">Prakashgad, Bandra East, Mumbai - 400051</div>
+        </div>
     </div>
 
     <h2>GUARANTEE CERTIFICATE UNDERTAKING TO BE SUBMITTED BY VENDOR</h2>
@@ -412,34 +376,28 @@ table, .signature-area { page-break-inside: avoid; }
         <p>The undersigned will provide the services to the consumers for repairs/maintenance of the RTS plant free of cost for 5 years of the comprehensive Maintenance Contract (CMC) period from the date of commissioning of the plant. Non performing/under-performing system component will be replaced/repaired free of cost in the CMC period.</p>
     </div>
 
-    <!-- Signature Row 2 — Vendor (Left) + Stamp & Seal (Right) -->
     <div class="signature-row">
         <div class="signature-left">
             <div class="signature-space">
-                <img th:if="${not #lists.isEmpty(vendorSignature)}"
-                     th:src="${vendorSignature[0]}"
-                     style="max-height:60px; max-width:200px; object-fit:contain;"/>
+                <img th:if="${not #lists.isEmpty(vendorSignature)}" th:src="${vendorSignature[0]}" style="max-height:60px; max-width:200px; object-fit:contain;"/>
             </div>
             <span class="signature-label">Signature [Vendor]</span>
-            <span class="signature-name">(<span class="value-field" th:text="${vendorName}">_________________________</span>)</span>
+            <span class="signature-name">(<span th:if="${vendorName != null and vendorName != ''}" th:text="${vendorName}"></span><span th:if="${vendorName == null or vendorName == ''}" class="value-missing">Value Missing</span>)</span>
         </div>
         <div class="signature-right">
             <div class="stamp-box">
-                <img th:if="${not #lists.isEmpty(vendorStamp)}"
-                     th:src="${vendorStamp[0]}"
-                     style="max-height:70px; max-width:210px; object-fit:contain;"/>
-                <span th:if="${#lists.isEmpty(vendorStamp)}" th:text="${vendorName}">________________</span>
+                <img th:if="${not #lists.isEmpty(vendorStamp)}" th:src="${vendorStamp[0]}" style="max-height:70px; max-width:210px; object-fit:contain;"/>
+                <span th:if="${#lists.isEmpty(vendorStamp)}">Stamp &amp; Seal</span>
             </div>
             <span class="signature-label">Stamp &amp; Seal</span>
         </div>
     </div>
 
-    <!-- ── AADHAR SECTION ── -->
     <div class="aadhar-block">
         <p style="font-size: 12px; font-weight: 700; margin-bottom: 6px;">Identity Details of Consumer: -</p>
         <div class="aadhar-number-text">
             <span class="bold">Aadhar Number:</span>
-            <span class="value-field" th:text="${aadharNumber}">_________________________</span>
+            <span th:if="${aadharNumber != null and aadharNumber != ''}" th:text="${aadharNumber}"></span><span th:if="${aadharNumber == null or aadharNumber == ''}" class="value-missing">Value Missing</span>
         </div>
 
         <div th:if="${not #lists.isEmpty(aadharImageUrls)}">
@@ -450,7 +408,6 @@ table, .signature-area { page-break-inside: avoid; }
 
         <p class="text-right" style="margin-top: 8px;"><span class="bold">[SELF ATTESTED]</span></p>
     </div>
-
 </div>
 </body>
 </html>

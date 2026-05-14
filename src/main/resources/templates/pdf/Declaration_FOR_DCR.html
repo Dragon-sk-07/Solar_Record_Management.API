@@ -5,300 +5,325 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Undertaking for Domestic Content Requirement</title>
     <style>
-
-        /* ===== FINAL UPDATED CSS ===== */
-* { margin: 0; padding: 0; box-sizing: border-box; }
-@page { margin: 5mm 10mm; }
-body { padding: 5px 10px; }
-.header-container { margin-bottom: 5px; }
-.letter-date { margin-top: 0; }
-table, .signature-area { page-break-inside: avoid; }
-        *{
-            margin:0;
-            padding:0;
-            box-sizing:border-box;
-           font-family: 'Times New Roman', Times, serif;
-        }
-
-        body{
-            background:#fff;
-            color:#000;
-            padding:18px 28px;
-            font-size:14.5px;
-            line-height:1.5;
-        }
-
-        .document-container{
-            max-width:820px;
-            margin:0 auto;
-        }
-
-        /* ===== HEADINGS ===== */
-
-        .main-heading{
-            font-size:16px;
-            font-weight:700;
-            text-align:center;
-            text-transform:uppercase;
-            margin-bottom:6px;
-        }
-
-        .sub-heading{
-            font-size:15px;
-            font-weight:700;
-            text-align:center;
-            text-transform:uppercase;
-            text-decoration:underline;
-            margin-bottom:18px;
-        }
-
-        /* ===== TEXT ===== */
-
-        .paragraph{
-            margin:9px 0;
-            text-align:left;
-        }
-
-        .paragraph p{
-            margin:0;
-            font-size:14.5px;
-            line-height:1.45;
-        }
-
-        .bold{
-            font-weight:700;
-        }
-
-        .bracket-text{
-            font-weight:400;
-        }
-
-        /* ===== VALUES ===== */
-
-        .dynamic-value{
-            font-weight:700;
-            white-space:nowrap;
-            display:inline;
-        }
-
-        /* ===== PLACEHOLDER ===== */
-
-        .placeholder-dots{
-            border-bottom:1px dotted #000;
-            min-width:120px;
-            display:inline-block;
-            height:12px;
-            vertical-align:middle;
-            font-weight:700;
-        }
-
-        .placeholder-wide{min-width:240px;}
-        .placeholder-extra-wide{min-width:340px;}
-        .placeholder-medium{min-width:160px;}
-        .placeholder-small{min-width:70px;}
-
-        /* ===== MODULE DETAILS CENTER ===== */
-
-        .module-details{
-            width:470px;
-            margin:8px auto 10px auto;
-        }
-
-        .detail-line{
-            display:flex;
-            align-items:flex-start;
-            margin:4px 0;
-        }
-
-        .detail-label{
-            width:245px;
-            font-weight:700;
-            flex-shrink:0;
-            white-space:nowrap;
-        }
-
-        .detail-label::after{
-            content:" :";
-            width:16px;
-            display:inline-block;
-            text-align:center;
-        }
-
-        .detail-value{
-            flex:1;
-            white-space:nowrap;
-            overflow:hidden;
-            text-overflow:ellipsis;
-            font-weight:700;
-        }
-
-        /* ===== SIGNATURE BLOCK RIGHT ===== */
-
-        .signature-section{
-            width:100%;
-            margin-top:16px;
-            display:flex;
-            flex-direction:column;
-            align-items:flex-end;
-        }
-
-        .signature-space{
-            width:310px;
-            height:55px;
-        }
-
-        .signature-seal-text{
-            width:310px;
-            text-align:left;
-            font-weight:700;
-            margin-bottom:6px;
-        }
-
-        .signature-details{
-            width:310px;
-        }
-
-        .signature-row{
-            display:flex;
-            align-items:flex-start;
-            margin:4px 0;
-        }
-
-        .signature-label{
-            width:92px;
-            font-weight:700;
-            flex-shrink:0;
-            white-space:nowrap;
-        }
-
-        .signature-label::after{
-            content:" :";
-            width:16px;
-            display:inline-block;
-            text-align:center;
-        }
-
-        .signature-value{
-            flex:1;
-            white-space:nowrap;
-            overflow:hidden;
-            text-overflow:ellipsis;
-            font-weight:700;
-        }
-
-        /* ===== GLOBAL FONT ===== */
-
-        p,span,div{
-            font-size:14.5px;
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        @page { margin: 5mm 10mm; }
+        body { padding: 5px 10px; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
             font-family: 'Times New Roman', Times, serif;
         }
-
-        /* ===== PAGE FIT ===== */
-
-        @page{
-            size:A4;
-            margin:14.5mm;
+        body {
+            background: #fff;
+            color: #000;
+            padding: 18px 28px;
+            font-size: 14.5px;
+            line-height: 1.5;
         }
-
+        .document-container {
+            max-width: 820px;
+            margin: 0 auto;
+        }
+        /* VENDOR HEADER SECTION */
+        .vendor-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #000;
+        }
+        .vendor-logo {
+            width: 40%;
+        }
+        .vendor-logo img {
+            max-height: 60px;
+            max-width: 100%;
+            object-fit: contain;
+        }
+        .vendor-info {
+            width: 60%;
+            text-align: right;
+        }
+        .vendor-name {
+            font-size: 16px;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+        .vendor-details {
+            font-size: 9px;
+            margin-top: 3px;
+        }
+        .msedcl-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #000;
+        }
+        .msedcl-logo {
+            width: 40%;
+        }
+        .msedcl-logo img {
+            max-height: 50px;
+            max-width: 100%;
+            object-fit: contain;
+        }
+        .msedcl-info {
+            width: 60%;
+            text-align: right;
+        }
+        .msedcl-name {
+            font-size: 16px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .msedcl-fullform {
+            font-size: 8px;
+            font-weight: normal;
+            letter-spacing: 0.5px;
+        }
+        .msedcl-address {
+            font-size: 8px;
+            margin-top: 3px;
+        }
+        .main-heading {
+            font-size: 16px;
+            font-weight: 700;
+            text-align: center;
+            text-transform: uppercase;
+            margin-bottom: 6px;
+        }
+        .sub-heading {
+            font-size: 15px;
+            font-weight: 700;
+            text-align: center;
+            text-transform: uppercase;
+            text-decoration: underline;
+            margin-bottom: 18px;
+        }
+        .paragraph {
+            margin: 9px 0;
+            text-align: left;
+        }
+        .paragraph p {
+            margin: 0;
+            font-size: 14.5px;
+            line-height: 1.45;
+        }
+        .bold {
+            font-weight: 700;
+        }
+        .bracket-text {
+            font-weight: 400;
+        }
+        .dynamic-value {
+            font-weight: 700;
+            white-space: nowrap;
+            display: inline;
+        }
+        .module-details {
+            width: 470px;
+            margin: 8px auto 10px auto;
+        }
+        .detail-line {
+            display: flex;
+            align-items: flex-start;
+            margin: 4px 0;
+        }
+        .detail-label {
+            width: 245px;
+            font-weight: 700;
+            flex-shrink: 0;
+            white-space: nowrap;
+        }
+        .detail-label::after {
+            content: " :";
+            width: 16px;
+            display: inline-block;
+            text-align: center;
+        }
+        .detail-value {
+            flex: 1;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            font-weight: 700;
+        }
+        .signature-section {
+            width: 100%;
+            margin-top: 16px;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+        }
+        .signature-space {
+            width: 310px;
+            height: 55px;
+        }
+        .signature-seal-text {
+            width: 310px;
+            text-align: left;
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+        .signature-details {
+            width: 310px;
+        }
+        .signature-row {
+            display: flex;
+            align-items: flex-start;
+            margin: 4px 0;
+        }
+        .signature-label {
+            width: 92px;
+            font-weight: 700;
+            flex-shrink: 0;
+            white-space: nowrap;
+        }
+        .signature-label::after {
+            content: " :";
+            width: 16px;
+            display: inline-block;
+            text-align: center;
+        }
+        .signature-value {
+            flex: 1;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            font-weight: 700;
+        }
+        p, span, div {
+            font-size: 14.5px;
+            font-family: 'Times New Roman', Times, serif;
+        }
+        .value-missing {
+            color: #999;
+            font-style: italic;
+        }
+        @page {
+            size: A4;
+            margin: 14.5mm;
+        }
     </style>
 </head>
 <body>
-<div style="text-align: center; margin-bottom: 8px; font-family: 'Times New Roman', Times, serif;">
-    <div style="font-size: 30px; font-weight: bold; margin: 0; padding: 0;">Arihant Electrical Sangli</div>
-    <div style="font-size: 10px; margin: 2px 0; padding: 0;">Email: arihantele@gmail.com | Near Anuje Hospital, Kurundwad, Tal-shirol, Dist. Kolhapur - 416106 |  Mob:7774855501/9767334454</div>
-    <div style="border-bottom: 1px solid #000; margin-top: 5px;"></div>
+
+<!-- VENDOR HEADER (Dynamic - uses vendor details from form) -->
+<div th:if="${vendorName != null and vendorName != ''}" class="vendor-header">
+    <div class="vendor-logo">
+        <img th:if="${not #lists.isEmpty(vendorStamp)}" th:src="${vendorStamp[0]}" alt="Vendor Logo"/>
+    </div>
+    <div class="vendor-info">
+        <div class="vendor-name" th:text="${vendorName}">Vendor Name</div>
+        <div class="vendor-details">
+            <span th:text="${vendorAddress}">Vendor Address</span><br/>
+            <span>Email: <span th:text="${vendorEmail}">vendor@example.com</span></span> |
+            <span>Mobile: <span th:text="${vendorMobile}">9999999999</span></span>
+        </div>
+    </div>
 </div>
+
+<!-- MSEDCL HEADER (Fixed - used when vendor name not available) -->
+<div th:if="${vendorName == null or vendorName == ''}" class="msedcl-header">
+    <div class="msedcl-logo">
+        <img th:if="${not #lists.isEmpty(netMeteringStamp)}" th:src="${netMeteringStamp[0]}" alt="MSEDCL Logo"/>
+    </div>
+    <div class="msedcl-info">
+        <div class="msedcl-name">MSEDCL</div>
+        <div class="msedcl-fullform">Maharashtra State Electricity Distribution Company Limited</div>
+        <div class="msedcl-address">Prakashgad, Bandra East, Mumbai - 400051</div>
+    </div>
+</div>
+
 <div class="document-container">
-    <!-- HEADER -->
+
     <div class="main-heading">UNDERTAKING/SELF-DECLARATION FOR DOMESTIC CONTENT REQUIREMENT</div>
     <div class="sub-heading">(ON A PLAIN PAPER)</div>
 
-    <!-- Paragraph 1 - Sample data: Adani Green Energy, Neha Gupta -->
     <div class="paragraph">
         <p>
             <span class="bold">1.</span> This is to certify that M/S.
-            <span th:if="${vendorName}" class="dynamic-value" th:text="${vendorName}">Adani Green Energy</span>
-            <span th:unless="${vendorName}" class="placeholder-dots">.....................</span>
+            <span th:if="${vendorName != null and vendorName != ''}" class="dynamic-value" th:text="${vendorName}"></span>
+            <span th:if="${vendorName == null or vendorName == ''}" class="value-missing">Value Missing</span>
             has installed
-            <span th:if="${installedCapacity}" class="dynamic-value" th:text="${installedCapacity}">11.56</span>
-            <span th:unless="${installedCapacity}" class="placeholder-dots placeholder-small">.....</span>
+            <span th:if="${installedCapacity != null}" class="dynamic-value" th:text="${installedCapacity}"></span>
+            <span th:if="${installedCapacity == null}" class="value-missing">Value Missing</span>
             KW <span class="bracket-text">[Capacity]</span> Grid Connected Rooftop Solar Plant for
-            <span th:if="${name}" class="dynamic-value" th:text="${name}">Neha Gupta</span>
-            <span th:unless="${name}" class="placeholder-dots placeholder-wide">.....................</span>
+            <span th:if="${name != null and name != ''}" class="dynamic-value" th:text="${name}"></span>
+            <span th:if="${name == null or name == ''}" class="value-missing">Value Missing</span>
             <span class="bracket-text">[Consumer Name]</span> at
-            <span th:if="${siteAddress}" class="dynamic-value" th:text="${siteAddress}">H. No. 845, Near Market Yard, Kothrud, Kolhapur - 416001, Maharashtra</span>
-            <span th:unless="${siteAddress}" class="placeholder-dots placeholder-extra-wide">.....................</span>
+            <span th:if="${siteAddress != null and siteAddress != ''}" class="dynamic-value" th:text="${siteAddress}"></span>
+            <span th:if="${siteAddress == null or siteAddress == ''}" class="value-missing">Value Missing</span>
             <span class="bracket-text">[Address]</span> under application number
-            <span th:if="${applicationNumber}" class="dynamic-value" th:text="${applicationNumber}">APP/SOLAR/2025/31540</span>
-            <span th:unless="${applicationNumber}" class="placeholder-dots placeholder-medium">.....................</span>
+            <span th:if="${applicationNumber != null and applicationNumber != ''}" class="dynamic-value" th:text="${applicationNumber}"></span>
+            <span th:if="${applicationNumber == null or applicationNumber == ''}" class="value-missing">Value Missing</span>
             dated
-            <span th:if="${applicationDate}" class="dynamic-value" th:text="${applicationDate}">2025-06-06</span>
-            <span th:unless="${applicationDate}" class="placeholder-dots placeholder-medium">.....................</span>
+            <span th:if="${applicationDate != null and applicationDate != ''}" class="dynamic-value" th:text="${applicationDate}"></span>
+            <span th:if="${applicationDate == null or applicationDate == ''}" class="value-missing">Value Missing</span>
             <span class="bracket-text">[date of application]</span> under
-            <span th:if="${discomName}" class="dynamic-value" th:text="${discomName}">MSEDCL</span>
-            <span th:unless="${discomName}" class="placeholder-dots placeholder-medium">.....................</span>
+            <span class="dynamic-value">MSEDCL</span>
             <span class="bracket-text">[DISCOM Name]</span>.
         </p>
     </div>
 
-    <!-- Paragraph 2 with module details - PERFECT VERTICAL ALIGNMENT with : fixed -->
     <div class="paragraph">
         <p><span class="bold">2.</span> It is hereby undertaken that the PV modules installed for the above-mentioned project are domestically manufactured using domestic manufactured solar cells. The details of installed PV Modules are follows:</p>
 
         <div class="module-details">
-            <!-- ALL LINES with : aligned perfectly - values are NOT BOLD -->
             <div class="detail-line">
                 <span class="detail-label">1. PV Module Capacity </span>
-                <span class="detail-value" th:if="${wattagePerModule}" th:text="${wattagePerModule}">413.0</span>
-                <span th:unless="${wattagePerModule}" class="placeholder-dots placeholder-medium">.....................</span>
+                <span th:if="${wattagePerModule != null}" class="detail-value" th:text="${wattagePerModule}"></span>
+                <span th:if="${wattagePerModule == null}" class="value-missing">Value Missing</span>
             </div>
             <div class="detail-line">
                 <span class="detail-label">2. Number of PV Modules </span>
-                <span class="detail-value" th:if="${numberOfModules}" th:text="${numberOfModules}">28</span>
-                <span th:unless="${numberOfModules}" class="placeholder-dots placeholder-medium">.....................</span>
+                <span th:if="${numberOfModules != null}" class="detail-value" th:text="${numberOfModules}"></span>
+                <span th:if="${numberOfModules == null}" class="value-missing">Value Missing</span>
             </div>
             <div class="detail-line">
                 <span class="detail-label">3. Sr No of PV Module </span>
-                <span class="detail-value" th:if="${moduleSerialNumbers}" th:text="${moduleSerialNumbers}">SN:MOD-65086-9918</span>
-                <span th:unless="${moduleSerialNumbers}" class="placeholder-dots placeholder-wide">.....................</span>
+                <span th:if="${moduleSerialNumbers != null and moduleSerialNumbers != ''}" class="detail-value" th:text="${moduleSerialNumbers}"></span>
+                <span th:if="${moduleSerialNumbers == null or moduleSerialNumbers == ''}" class="value-missing">Value Missing</span>
             </div>
             <div class="detail-line">
                 <span class="detail-label">4. PV Module Make </span>
-                <span class="detail-value" th:if="${moduleMake}" th:text="${moduleMake}">Adani Solar</span>
-                <span th:unless="${moduleMake}" class="placeholder-dots placeholder-medium">.....................</span>
+                <span th:if="${moduleMake != null and moduleMake != ''}" class="detail-value" th:text="${moduleMake}"></span>
+                <span th:if="${moduleMake == null or moduleMake == ''}" class="value-missing">Value Missing</span>
             </div>
             <div class="detail-line">
                 <span class="detail-label">5. Cell manufacturer's name </span>
-                <span class="detail-value" th:if="${cellManufacturerName}" th:text="${cellManufacturerName}">Adani Cells</span>
-                <span th:unless="${cellManufacturerName}" class="placeholder-dots placeholder-medium">.....................</span>
+                <span th:if="${cellManufacturerName != null and cellManufacturerName != ''}" class="detail-value" th:text="${cellManufacturerName}"></span>
+                <span th:if="${cellManufacturerName == null or cellManufacturerName == ''}" class="value-missing">Value Missing</span>
             </div>
             <div class="detail-line">
                 <span class="detail-label">6. Cell GST invoice No </span>
-                <span class="detail-value" th:if="${cellGSTInvoiceNo}" th:text="${cellGSTInvoiceNo}">27ABCDE9640F1Z5</span>
-                <span th:unless="${cellGSTInvoiceNo}" class="placeholder-dots placeholder-medium">.....................</span>
+                <span th:if="${cellGSTInvoiceNo != null and cellGSTInvoiceNo != ''}" class="detail-value" th:text="${cellGSTInvoiceNo}"></span>
+                <span th:if="${cellGSTInvoiceNo == null or cellGSTInvoiceNo == ''}" class="value-missing">Value Missing</span>
             </div>
         </div>
     </div>
 
-    <!-- Paragraph 3 -->
     <div class="paragraph">
         <p><span class="bold">3.</span> The above undertaking is based on the certificate issued by PV Module manufacturer/supplier while supplying the above mentioned order.</p>
     </div>
 
-    <!-- Paragraph 4 -->
     <div class="paragraph">
         <p>
             <span class="bold">4.</span> I,
-            <span th:if="${authorizedPersonName}" class="dynamic-value" th:text="${authorizedPersonName}">Anaya Nair</span>
-            <span th:unless="${authorizedPersonName}" class="placeholder-dots placeholder-medium">.....................</span>
+            <span th:if="${authorizedPersonName != null and authorizedPersonName != ''}" class="dynamic-value" th:text="${authorizedPersonName}"></span>
+            <span th:if="${authorizedPersonName == null or authorizedPersonName == ''}" class="value-missing">Value Missing</span>
             on behalf of M/S.
-            <span th:if="${vendorName}" class="dynamic-value" th:text="${vendorName}">Adani Green Energy</span>
-            <span th:unless="${vendorName}" class="placeholder-dots placeholder-medium">.....................</span>
-            <span class="bracket-text">[Company Name]</span> further declare that the information given above is true and correct and nothing has been concealed therein. If anything is found incorrect at any stage, then REC/ MNRE may take any appropriate action against my company for wrong declaration. Supporting documents and proof of the above information will be provided as and when requested by MNRE.
+            <span th:if="${vendorName != null and vendorName != ''}" class="dynamic-value" th:text="${vendorName}"></span>
+            <span th:if="${vendorName == null or vendorName == ''}" class="value-missing">Value Missing</span>
+            <span class="bracket-text">[Company Name]</span> further declare that the information given above is true and correct and nothing has been concealed therein. If anything is found incorrect at any stage, then REC/MNRE may take any appropriate action against my company for wrong declaration. Supporting documents and proof of the above information will be provided as and when requested by MNRE.
         </p>
     </div>
 
-    <!-- SIGNATURE SECTION - PERFECT VERTICAL ALIGNMENT with : fixed -->
     <div class="signature-section">
         <div class="signature-space">
             <img th:if="${not #lists.isEmpty(vendorSignature)}"
@@ -309,18 +334,21 @@ table, .signature-area { page-break-inside: avoid; }
         <div class="signature-details">
             <div class="signature-row">
                 <span class="signature-label">For M/S </span>
-                <span class="signature-value" th:if="${vendorName}" th:text="${vendorName}">Adani Green Energy</span>
+                <span class="signature-value" th:if="${vendorName != null and vendorName != ''}" th:text="${vendorName}"></span>
+                <span th:if="${vendorName == null or vendorName == ''}" class="value-missing">Value Missing</span>
             </div>
             <div class="signature-row">
                 <span class="signature-label">Name </span>
-                <span class="signature-value" th:if="${authorizedPersonName}" th:text="${authorizedPersonName}">Anaya Nair</span>
+                <span class="signature-value" th:if="${authorizedPersonName != null and authorizedPersonName != ''}" th:text="${authorizedPersonName}"></span>
+                <span th:if="${authorizedPersonName == null or authorizedPersonName == ''}" class="value-missing">Value Missing</span>
             </div>
             <div class="signature-row">
                 <span class="signature-label">Designation </span>
-                <span class="signature-value" th:if="${designation}" th:text="${designation}">CEO</span>
+                <span class="signature-value">Authorized Signatory</span>
             </div>
         </div>
     </div>
+
 </div>
 </body>
 </html>
