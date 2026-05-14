@@ -259,7 +259,9 @@
   <div class="msedcl-info">
     <div class="msedcl-name">MSEDCL</div>
     <div class="msedcl-fullform">Maharashtra State Electricity Distribution Company Limited</div>
-    <div class="msedcl-address">Prakashgad, Bandra East, Mumbai - 400051</div>
+    <div>
+      To, Executive Engineer, M.S.E.D.C.Ltd, <span th:if="${place != null and place != ''}" th:text="${place}"></span><span th:if="${place == null or place == ''}" class="value-missing">Value Missing</span>
+    </div>
   </div>
 </div>
 
