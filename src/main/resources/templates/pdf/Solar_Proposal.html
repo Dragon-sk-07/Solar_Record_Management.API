@@ -60,7 +60,7 @@
             margin-bottom: 8px;
         }
 
-        .company-name {
+        .company-name-main {
             font-size: 22px;
             font-weight: bold;
             margin: 0;
@@ -151,10 +151,6 @@
             width: 100%;
         }
 
-        .page-break {
-            page-break-before: always;
-        }
-
         .mt8 {
             margin-top: 5px;
         }
@@ -167,21 +163,8 @@
             margin-top: 10px;
         }
 
-        .mt25 {
-            margin-top: 12px;
-        }
-
         .field {
             font-weight: 700;
-        }
-
-        .terms-list {
-            margin-left: 20px;
-            margin-top: 5px;
-        }
-
-        .terms-list li {
-            margin-bottom: 3px;
         }
     </style>
 </head>
@@ -189,9 +172,9 @@
 <body>
 <div th:if="${not #lists.isEmpty(vendorStamp)}">
     <div style="text-align: center; margin-bottom: 8px; font-family: 'Times New Roman', Times, serif;">
-        <div class="company-name">Arihant Electrical Sangli</div>
-        <div class="company-details">Email: arihantele@gmail.com | Near Anuje Hospital, Kurundwad, Tal-shirol, Dist. Kolhapur - 416106 | Mob:7774855501/9767334454</div>
-        <div class="header-line"></div>
+        <div style="font-size: 26px; font-weight: bold; margin: 0; padding: 0;">Arihant Electrical Sangli</div>
+        <div style="font-size: 10px; margin: 2px 0; padding: 0;">Email: arihantele@gmail.com | Near Anuje Hospital, Kurundwad, Tal-shirol, Dist. Kolhapur - 416106 | Mob:7774855501/9767334454</div>
+        <div style="border-bottom: 1px solid #000; margin-top: 5px;"></div>
     </div>
     <div style="display: flex; align-items: center; justify-content: center; min-height: 60vh; page-break-after: always;">
         <img th:src="${vendorStamp[0]}" style="max-width: 90%; max-height: 70vh; object-fit: contain;"/>
@@ -200,7 +183,7 @@
 
 <div class="document">
     <div class="header-section">
-        <div class="company-name">ARIHANT ELECTRICALS</div>
+        <div class="company-name-main">ARIHANT ELECTRICALS</div>
         <div class="company-details">A Govt. Licenced Contractor & Industrial Solar</div>
         <div class="company-details">PM SURYA GHAR SOLAR SYSTEM | SOUR KRUSHI PUMP | MSEDCL | PWD | GOVT. | RESIDENTIAL | COMMERCIAL | INDUSTRIAL | ALL TYPE ON GRID & OFF GRID SOLAR</div>
         <div class="company-details">A/p- NEAR SIDDHIVINAYAK HOSPITAL KURUNDWAD, MOB NO- 7774855501, 9767334454</div>
@@ -221,7 +204,7 @@
         <p>Respected Sir,</p>
     </div>
 
-    <p>As discussed, we would like to express our best quotation for <span class="field" th:text="${proposedCapacity != null and !#strings.isEmpty(proposedCapacity)} ? ${proposedCapacity : '11'}"></span> Kwp on grid Solar Power Plant with structure work. All work will be done as per your geographical condition & under all MSEDCL terms. All work will be done within period of <span class="field" th:text="${completionDays != null and !#strings.isEmpty(completionDays)} ? ${completionDays} : '45'"></span> days.</p>
+    <p>As discussed, we would like to express our best quotation for <span class="field" th:text="${proposedCapacity != null and !#strings.isEmpty(proposedCapacity)} ? ${proposedCapacity} : '11'"></span> Kwp on grid Solar Power Plant with structure work. All work will be done as per your geographical condition & under all MSEDCL terms. All work will be done within period of <span class="field" th:text="${completionDays != null and !#strings.isEmpty(completionDays)} ? ${completionDays} : '45'"></span> days.</p>
 
     <p class="mt8">If you have any query, please free to contact us.</p>
 
