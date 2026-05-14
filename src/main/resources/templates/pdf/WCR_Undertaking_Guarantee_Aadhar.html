@@ -254,18 +254,20 @@
 <body>
 
 <!-- VENDOR HEADER (Dynamic - uses vendor details from form) -->
-<div th:if="${vendorName != null and vendorName != ''}" class="vendor-header">
-<!--    <div class="vendor-logo">-->
-<!--        <img th:if="${not #lists.isEmpty(vendorStamp)}" th:src="${vendorStamp[0]}" alt="Vendor Logo"/>-->
-<!--    </div>-->
-    <div class="vendor-info">
-        <div class="vendor-name" th:text="${vendorName}">Vendor Name</div>
-        <div class="vendor-details">
-            <span th:text="${vendorAddress}">Vendor Address</span><br/>
-            <span>Email: <span th:text="${vendorEmail}">vendor@example.com</span></span> |
-            <span>Mobile: <span th:text="${vendorMobile}">9999999999</span></span>
+<div th:if="${vendorName != null and vendorName != ''}" style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; padding-bottom: 6px; border-bottom: 1px solid #000;">
+    <div style="width: 70px; height: 55px; display: flex; align-items: center; justify-content: flex-start;">
+        <img th:if="${not #lists.isEmpty(headerLogo)}" th:src="${headerLogo[0]}" style="max-width: 70px; max-height: 55px; object-fit: contain;"/>
+    </div>
+    <div style="flex: 1; text-align: center;">
+        <div style="font-size: 22px; font-weight: bold; margin: 0; padding: 0; letter-spacing: 1px;" th:text="${vendorName}">Vendor Name</div>
+        <div style="font-size: 9px; margin: 3px 0 2px; padding: 0;">
+            <span th:text="${vendorAddress}">Vendor Address</span>
+        </div>
+        <div style="font-size: 9px; margin: 0; padding: 0;">
+            Email: <span th:text="${vendorEmail}">vendor@example.com</span> | Mobile: <span th:text="${vendorMobile}">9999999999</span>
         </div>
     </div>
+    <div style="width: 70px;"></div>
 </div>
 
 <!-- MSEDCL HEADER (Fixed - used when vendor name not available) -->
@@ -300,7 +302,7 @@
             <tr><td class="col-srno"></td><td class="col-obs">Capacity of solar PV system (KW) Installed</td><td class="col-value"><span th:if="${installedCapacity != null}" th:text="${installedCapacity}"></span><span th:if="${installedCapacity == null}" class="value-missing">Value Missing</span></td></tr>
             <tr><td class="col-srno">7</td><td colspan="2" class="section-title">Specification of the Modules</td></tr>
             <tr><td class="col-srno"></td><td class="col-obs">Make of Module</td><td class="col-value"><span th:if="${moduleMake != null and moduleMake != ''}" th:text="${moduleMake}"></span><span th:if="${moduleMake == null or moduleMake == ''}" class="value-missing">Value Missing</span></td></tr>
-            <tr><td class="col-srno"></td><td class="col-obs">ALMM Model Number</td><td class="col-value"><span th:if="${almmModelNumber != null and almmModelNumber != ''}" th:text="${almmModelNumber}"></span><span th:if="${almmModelNumber == null or almmModelNumber == ''}" class="value-missing">Value Missing</span></td></tr>
+            <tr><td class="col-srno"></td><td class="col-obs">ALMM Model Number</td><td class="col-value"><span th:if="${moduleSerialNumbers != null ...}" th:text="${moduleSerialNumbers}"></span><span th:if="${almmModelNumber == null or almmModelNumber == ''}" class="value-missing">Value Missing</span></td></tr>
             <tr><td class="col-srno"></td><td class="col-obs">Wattage per module</td><td class="col-value"><span th:if="${wattagePerModule != null}" th:text="${wattagePerModule}"></span><span th:if="${wattagePerModule == null}" class="value-missing">Value Missing</span></td></tr>
             <tr><td class="col-srno"></td><td class="col-obs">No. of Module</td><td class="col-value"><span th:if="${numberOfModules != null}" th:text="${numberOfModules}"></span><span th:if="${numberOfModules == null}" class="value-missing">Value Missing</span></td></tr>
             <tr><td class="col-srno"></td><td class="col-obs">Total Capacity (KWP)</td><td class="col-value"><span th:if="${totalCapacityKWP != null}" th:text="${totalCapacityKWP}"></span><span th:if="${totalCapacityKWP == null}" class="value-missing">Value Missing</span></td></tr>
@@ -315,7 +317,7 @@
             <tr><td class="col-srno">9</td><td colspan="2" class="section-title">Earthing and Protections</td></tr>
             <tr><td class="col-srno"></td><td class="col-obs">No of Separate Earthings with earth Resistance</td><td class="col-value"><span class="fixed-value">1</span> with <span class="fixed-value">5</span> Ohms</td></tr>
             <tr><td class="col-srno"></td><td class="col-obs">It is certified that the Earth Resistance measure in presence of Licensed Electrical Contractor/Supervisor and found in order i.e. less than 5 Ohms as per MNRE OM Dtd. 07.06.24 for CFA Component.</td><td class="col-value"><span class="fixed-value">Certified</span></td></tr>
-            <tr><td class="col-srno"></td><td class="col-obs">Lightening Arrester</td><td class="col-value"><span th:if="${lighteningArrester != null and lighteningArrester != ''}" th:text="${lighteningArrester}"></span><span th:if="${lighteningArrester == null or lighteningArrester == ''}" class="value-missing">Value Missing</span></td></tr>
+            <tr><td class="col-srno"></td><td class="col-obs">Lightening Arrester</td><td class="col-value">Provided</td></tr>
         </table>
 
         <div class="undertaking-p1">
@@ -345,18 +347,20 @@
 
     <div class="page-break"></div>
 
-    <div th:if="${vendorName != null and vendorName != ''}" class="vendor-header">
-        <div class="vendor-logo">
-            <img th:if="${not #lists.isEmpty(vendorStamp)}" th:src="${vendorStamp[0]}" alt="Vendor Logo"/>
+    <div th:if="${vendorName != null and vendorName != ''}" style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; padding-bottom: 6px; border-bottom: 1px solid #000;">
+        <div style="width: 70px; height: 55px; display: flex; align-items: center; justify-content: flex-start;">
+            <img th:if="${not #lists.isEmpty(headerLogo)}" th:src="${headerLogo[0]}" style="max-width: 70px; max-height: 55px; object-fit: contain;"/>
         </div>
-        <div class="vendor-info">
-            <div class="vendor-name" th:text="${vendorName}">Vendor Name</div>
-            <div class="vendor-details">
-                <span th:text="${vendorAddress}">Vendor Address</span><br/>
-                <span>Email: <span th:text="${vendorEmail}">vendor@example.com</span></span> |
-                <span>Mobile: <span th:text="${vendorMobile}">9999999999</span></span>
+        <div style="flex: 1; text-align: center;">
+            <div style="font-size: 22px; font-weight: bold; margin: 0; padding: 0; letter-spacing: 1px;" th:text="${vendorName}">Vendor Name</div>
+            <div style="font-size: 9px; margin: 3px 0 2px; padding: 0;">
+                <span th:text="${vendorAddress}">Vendor Address</span>
+            </div>
+            <div style="font-size: 9px; margin: 0; padding: 0;">
+                Email: <span th:text="${vendorEmail}">vendor@example.com</span> | Mobile: <span th:text="${vendorMobile}">9999999999</span>
             </div>
         </div>
+        <div style="width: 70px;"></div>
     </div>
 
     <div th:if="${vendorName == null or vendorName == ''}" class="msedcl-header">
@@ -385,10 +389,7 @@
             <span class="signature-name">(<span th:if="${vendorName != null and vendorName != ''}" th:text="${vendorName}"></span><span th:if="${vendorName == null or vendorName == ''}" class="value-missing">Value Missing</span>)</span>
         </div>
         <div class="signature-right">
-            <div class="stamp-box">
-                <img th:if="${not #lists.isEmpty(vendorStamp)}" th:src="${vendorStamp[0]}" style="max-height:70px; max-width:210px; object-fit:contain;"/>
-                <span th:if="${#lists.isEmpty(vendorStamp)}">Stamp &amp; Seal</span>
-            </div>
+
             <span class="signature-label">Stamp &amp; Seal</span>
         </div>
     </div>

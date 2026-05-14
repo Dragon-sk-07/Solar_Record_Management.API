@@ -56,7 +56,6 @@ public class SolarRecordRequestDto {
 
     private String moduleMake;
 
-    private String almmModelNumber;
 
     @NotNull(message = "Wattage per module is required")
     private Double wattagePerModule;
@@ -78,7 +77,6 @@ public class SolarRecordRequestDto {
 
     private Double inverterCapacity;
 
-    private String lighteningArrester;
 
     private String vendorName;
 
@@ -106,7 +104,6 @@ public class SolarRecordRequestDto {
     private List<MultipartFile> vendorSignature;
     private List<MultipartFile> consumerSignature;
     private List<MultipartFile> msedclSignature;
-    private List<MultipartFile> vendorStamp;
     private List<MultipartFile> witnessSignature;
     private List<MultipartFile> aadharImages;
     private List<MultipartFile> sitePhotos;
@@ -116,11 +113,19 @@ public class SolarRecordRequestDto {
     private List<String> existingVendorSignature;
     private List<String> existingConsumerSignature;
     private List<String> existingMsedclSignature;
-    private List<String> existingVendorStamp;
     private List<String> existingWitnessSignature;
     private List<String> existingSitePhotos;
     private List<String> existingPhotos;
     private List<String> existingAadharImages;
     private List<String> existingNetMeteringStamp;
     private List<String> existingAnnexureTwoStamp;
+    private String cellManufacturerName;
+    private String cellGSTInvoiceNo;
+    private String meterMake;
+    private String meterNumber;
+    private String netMeterNumber;
+    private String invoiceNumber;
+    private Integer yearOfManufacturing;
+    private List<MultipartFile> headerLogo;
+    private List<String> existingHeaderLogo;
 }

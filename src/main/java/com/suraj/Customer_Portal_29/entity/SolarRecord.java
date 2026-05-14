@@ -62,8 +62,7 @@ public class SolarRecord {
     // Module Details
     @Column(name = "module_make")
     private String moduleMake;
-    @Column(name = "almm_model_number")
-    private String almmModelNumber;
+
     @Column(name = "wattage_per_module")
     private Double wattagePerModule;
     @Column(name = "number_of_modules")
@@ -82,8 +81,7 @@ public class SolarRecord {
     private String inverterModelNumber;
     @Column(name = "inverter_capacity")
     private Double inverterCapacity;
-    @Column(name = "lightening_arrester")
-    private String lighteningArrester;
+
 
     // Vendor & Witness Information
     @Column(name = "vendor_name")
@@ -123,10 +121,7 @@ public class SolarRecord {
     @Column(name = "signature", columnDefinition = "TEXT")
     private List<String> msedclSignature = new ArrayList<>();
 
-    @ElementCollection
-    @CollectionTable(name = "solar_vendor_stamps", joinColumns = @JoinColumn(name = "solar_record_id"))
-    @Column(name = "stamp", columnDefinition = "TEXT")
-    private List<String> vendorStamp = new ArrayList<>();
+
 
     @ElementCollection
     @CollectionTable(name = "solar_witness_signatures", joinColumns = @JoinColumn(name = "solar_record_id"))
@@ -162,4 +157,30 @@ public class SolarRecord {
 
     @Transient
     private String currentDate;
+
+    @Column(name = "cell_manufacturer_name")
+    private String cellManufacturerName;
+
+    @Column(name = "cell_gst_invoice_no")
+    private String cellGSTInvoiceNo;
+
+    @Column(name = "meter_make")
+    private String meterMake;
+
+    @Column(name = "meter_number")
+    private String meterNumber;
+
+    @Column(name = "net_meter_number")
+    private String netMeterNumber;
+
+    @Column(name = "invoice_number")
+    private String invoiceNumber;
+
+    @Column(name = "year_of_manufacturing")
+    private Integer yearOfManufacturing;
+
+    @ElementCollection
+    @CollectionTable(name = "solar_header_logos", joinColumns = @JoinColumn(name = "solar_record_id"))
+    @Column(name = "logo", columnDefinition = "TEXT")
+    private List<String> headerLogo = new ArrayList<>();
 }

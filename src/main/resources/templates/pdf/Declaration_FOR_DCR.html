@@ -214,18 +214,20 @@
 <body>
 
 <!-- VENDOR HEADER (Dynamic - uses vendor details from form) -->
-<div th:if="${vendorName != null and vendorName != ''}" class="vendor-header">
-<!--    <div class="vendor-logo">-->
-<!--        <img th:if="${not #lists.isEmpty(vendorStamp)}" th:src="${vendorStamp[0]}" alt="Vendor Logo"/>-->
-<!--    </div>-->
-    <div class="vendor-info">
-        <div class="vendor-name" th:text="${vendorName}">Vendor Name</div>
-        <div class="vendor-details">
-            <span th:text="${vendorAddress}">Vendor Address</span><br/>
-            <span>Email: <span th:text="${vendorEmail}">vendor@example.com</span></span> |
-            <span>Mobile: <span th:text="${vendorMobile}">9999999999</span></span>
+<div th:if="${vendorName != null and vendorName != ''}" style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; padding-bottom: 6px; border-bottom: 1px solid #000;">
+    <div style="width: 70px; height: 55px; display: flex; align-items: center; justify-content: flex-start;">
+        <img th:if="${not #lists.isEmpty(headerLogo)}" th:src="${headerLogo[0]}" style="max-width: 70px; max-height: 55px; object-fit: contain;"/>
+    </div>
+    <div style="flex: 1; text-align: center;">
+        <div style="font-size: 22px; font-weight: bold; margin: 0; padding: 0; letter-spacing: 1px;" th:text="${vendorName}">Vendor Name</div>
+        <div style="font-size: 9px; margin: 3px 0 2px; padding: 0;">
+            <span th:text="${vendorAddress}">Vendor Address</span>
+        </div>
+        <div style="font-size: 9px; margin: 0; padding: 0;">
+            Email: <span th:text="${vendorEmail}">vendor@example.com</span> | Mobile: <span th:text="${vendorMobile}">9999999999</span>
         </div>
     </div>
+    <div style="width: 70px;"></div>
 </div>
 
 <!-- MSEDCL HEADER (Fixed - used when vendor name not available) -->

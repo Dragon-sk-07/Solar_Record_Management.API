@@ -193,19 +193,17 @@
 </head>
 <body>
 
-<!-- VENDOR HEADER (Dynamic - uses vendor details from form) -->
-<div th:if="${vendorName != null and vendorName != ''}" class="vendor-header">
-<!--    <div class="vendor-logo">-->
-<!--        <img th:if="${not #lists.isEmpty(vendorStamp)}" th:src="${vendorStamp[0]}" alt="Vendor Logo"/>-->
-<!--    </div>-->
-    <div class="vendor-info">
-        <div class="vendor-name" th:text="${vendorName}">Vendor Name</div>
-        <div class="vendor-details">
-            <span th:text="${vendorAddress}">Vendor Address</span><br/>
-            <span>Email: <span th:text="${vendorEmail}">vendor@example.com</span></span> |
-            <span>Mobile: <span th:text="${vendorMobile}">9999999999</span></span>
-        </div>
+<!-- Replace current vendor-header with new logo header -->
+<div th:if="${vendorName != null and vendorName != ''}" style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; padding-bottom: 6px; border-bottom: 1px solid #000;">
+    <div style="width: 70px; height: 55px; display: flex; align-items: center; justify-content: flex-start;">
+        <img th:if="${not #lists.isEmpty(headerLogo)}" th:src="${headerLogo[0]}" style="max-width: 70px; max-height: 55px; object-fit: contain;"/>
     </div>
+    <div style="flex: 1; text-align: center;">
+        <div style="font-size: 22px; font-weight: bold;" th:text="${vendorName}">Vendor Name</div>
+        <div style="font-size: 9px;"><span th:text="${vendorAddress}">Vendor Address</span></div>
+        <div style="font-size: 9px;">Email: <span th:text="${vendorEmail}">vendor@example.com</span> | Mobile: <span th:text="${vendorMobile}">9999999999</span></div>
+    </div>
+    <div style="width: 70px;"></div>
 </div>
 
 <!-- MSEDCL HEADER (Fixed - used when vendor name not available) -->
@@ -327,7 +325,6 @@
         In the witness, where of
         <span th:if="${name != null and name != ''}" th:text="${name}"></span><span th:if="${name == null or name == ''}" class="value-missing">Value Missing</span>
         for and on behalf of Eligible Consumer and
-        <span th:if="${msedclOfficerName != null and msedclOfficerName != ''}" th:text="${msedclOfficerName}"></span><span th:if="${msedclOfficerName == null or msedclOfficerName == ''}" class="value-missing">Value Missing</span>
         for and on behalf of <span class="fixed-value">MSEDCL</span> (Licensee) agree to this agreement.
     </p>
 
@@ -349,7 +346,7 @@
             </div>
             <div class="line" th:if="${#lists.isEmpty(msedclSignature)}"></div>
             <p>Signature:</p>
-            <p class="mt8">Name: <span th:if="${msedclOfficerName != null and msedclOfficerName != ''}" th:text="${msedclOfficerName}"></span><span th:if="${msedclOfficerName == null or msedclOfficerName == ''}" class="value-missing">Value Missing</span></p>
+            <p class="mt8">Name: </p>
             <p>Designation: <span class="fixed-value">Executive Engineer</span></p>
             <p>Date: <span th:if="${installationDate != null and installationDate != ''}" th:text="${installationDate}"></span><span th:if="${installationDate == null or installationDate == ''}" class="value-missing">Value Missing</span></p>
         </div>

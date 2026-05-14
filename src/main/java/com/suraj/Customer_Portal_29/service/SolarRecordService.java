@@ -94,8 +94,8 @@ public class SolarRecordService {
         List<List<String>> fileLists = Arrays.asList(
                 entity.getSitePhotos(), entity.getAadharImages(),
                 entity.getVendorSignature(), entity.getConsumerSignature(),
-                entity.getMsedclSignature(), entity.getVendorStamp(),
                 entity.getWitnessSignature(), entity.getNetMeteringStamp(),
+                entity.getHeaderLogo(),
                 entity.getAnnexureTwoStamp()
         );
         fileLists.stream().filter(Objects::nonNull).forEach(cloudinaryService::deleteFiles);
@@ -124,7 +124,6 @@ public class SolarRecordService {
         entity.setInstalledCapacity(req.getInstalledCapacity());
         entity.setInstallationDate(req.getInstallationDate());
         entity.setModuleMake(req.getModuleMake());
-        entity.setAlmmModelNumber(req.getAlmmModelNumber());
         entity.setWattagePerModule(req.getWattagePerModule());
         entity.setNumberOfModules(req.getNumberOfModules());
         entity.setTotalCapacityKWP(req.getTotalCapacityKWP());
@@ -133,7 +132,6 @@ public class SolarRecordService {
         entity.setInverterMake(req.getInverterMake());
         entity.setInverterModelNumber(req.getInverterModelNumber());
         entity.setInverterCapacity(req.getInverterCapacity());
-        entity.setLighteningArrester(req.getLighteningArrester());
         entity.setVendorName(req.getVendorName());
         entity.setVendorAddress(req.getVendorAddress());
         entity.setVendorMobile(req.getVendorMobile());
@@ -144,10 +142,17 @@ public class SolarRecordService {
         entity.setWitness1Address(req.getWitness1Address());
         entity.setWitness2Name(req.getWitness2Name());
         entity.setWitness2Address(req.getWitness2Address());
+        entity.setCellManufacturerName(req.getCellManufacturerName());
+        entity.setCellGSTInvoiceNo(req.getCellGSTInvoiceNo());
+        entity.setMeterMake(req.getMeterMake());
+        entity.setMeterNumber(req.getMeterNumber());
+        entity.setNetMeterNumber(req.getNetMeterNumber());
+        entity.setInvoiceNumber(req.getInvoiceNumber());
+        entity.setYearOfManufacturing(req.getYearOfManufacturing());
+        entity.setHeaderLogo(mergeImageLists(null, req.getHeaderLogo(), "headerLogos"));
         entity.setVendorSignature(mergeImageLists(null, req.getVendorSignature(), "vendorSignatures"));
         entity.setConsumerSignature(mergeImageLists(null, req.getConsumerSignature(), "consumerSignatures"));
         entity.setMsedclSignature(mergeImageLists(null, req.getMsedclSignature(), "msedclSignatures"));
-        entity.setVendorStamp(mergeImageLists(null, req.getVendorStamp(), "vendorStamps"));
         entity.setWitnessSignature(mergeImageLists(null, req.getWitnessSignature(), "witnessSignatures"));
         entity.setAadharImages(mergeImageLists(null, req.getAadharImages(), "aadharImages"));
         entity.setSitePhotos(mergeImageLists(null, req.getSitePhotos(), "sitePhotos"));
@@ -173,7 +178,6 @@ public class SolarRecordService {
         entity.setInstalledCapacity(req.getInstalledCapacity());
         entity.setInstallationDate(req.getInstallationDate());
         entity.setModuleMake(req.getModuleMake());
-        entity.setAlmmModelNumber(req.getAlmmModelNumber());
         entity.setWattagePerModule(req.getWattagePerModule());
         entity.setNumberOfModules(req.getNumberOfModules());
         entity.setTotalCapacityKWP(req.getTotalCapacityKWP());
@@ -182,7 +186,6 @@ public class SolarRecordService {
         entity.setInverterMake(req.getInverterMake());
         entity.setInverterModelNumber(req.getInverterModelNumber());
         entity.setInverterCapacity(req.getInverterCapacity());
-        entity.setLighteningArrester(req.getLighteningArrester());
         entity.setVendorName(req.getVendorName());
         entity.setVendorAddress(req.getVendorAddress());
         entity.setVendorMobile(req.getVendorMobile());
@@ -193,10 +196,17 @@ public class SolarRecordService {
         entity.setWitness1Address(req.getWitness1Address());
         entity.setWitness2Name(req.getWitness2Name());
         entity.setWitness2Address(req.getWitness2Address());
+        entity.setCellManufacturerName(req.getCellManufacturerName());
+        entity.setCellGSTInvoiceNo(req.getCellGSTInvoiceNo());
+        entity.setMeterMake(req.getMeterMake());
+        entity.setMeterNumber(req.getMeterNumber());
+        entity.setNetMeterNumber(req.getNetMeterNumber());
+        entity.setInvoiceNumber(req.getInvoiceNumber());
+        entity.setYearOfManufacturing(req.getYearOfManufacturing());
+        entity.setHeaderLogo(mergeImageLists(req.getExistingHeaderLogo(), req.getHeaderLogo(), "headerLogos"));
         entity.setVendorSignature(mergeImageLists(req.getExistingVendorSignature(), req.getVendorSignature(), "vendorSignatures"));
         entity.setConsumerSignature(mergeImageLists(req.getExistingConsumerSignature(), req.getConsumerSignature(), "consumerSignatures"));
         entity.setMsedclSignature(mergeImageLists(req.getExistingMsedclSignature(), req.getMsedclSignature(), "msedclSignatures"));
-        entity.setVendorStamp(mergeImageLists(req.getExistingVendorStamp(), req.getVendorStamp(), "vendorStamps"));
         entity.setWitnessSignature(mergeImageLists(req.getExistingWitnessSignature(), req.getWitnessSignature(), "witnessSignatures"));
         entity.setAadharImages(mergeImageLists(req.getExistingAadharImages(), req.getAadharImages(), "aadharImages"));
         entity.setSitePhotos(mergeImageLists(req.getExistingSitePhotos(), req.getSitePhotos(), "sitePhotos"));
@@ -212,10 +222,17 @@ public class SolarRecordService {
         response.setVendorSignature(entity.getVendorSignature());
         response.setConsumerSignature(entity.getConsumerSignature());
         response.setMsedclSignature(entity.getMsedclSignature());
-        response.setVendorStamp(entity.getVendorStamp());
         response.setWitnessSignature(entity.getWitnessSignature());
         response.setNetMeteringStamp(entity.getNetMeteringStamp());
         response.setAnnexureTwoStamp(entity.getAnnexureTwoStamp());
+        response.setCellManufacturerName(entity.getCellManufacturerName());
+        response.setCellGSTInvoiceNo(entity.getCellGSTInvoiceNo());
+        response.setMeterMake(entity.getMeterMake());
+        response.setMeterNumber(entity.getMeterNumber());
+        response.setNetMeterNumber(entity.getNetMeterNumber());
+        response.setInvoiceNumber(entity.getInvoiceNumber());
+        response.setYearOfManufacturing(entity.getYearOfManufacturing());
+        response.setHeaderLogo(entity.getHeaderLogo());
         return response;
     }
 

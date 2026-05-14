@@ -35,107 +35,47 @@
     }
     h1 {
         text-align: center;
-        font-size: 18px;
+        font-size: 14px;
         font-weight: bold;
         margin: 4px 0 8px 0;
         text-transform: uppercase;
+        letter-spacing: 0.5px;
     }
     h2 {
-        font-size: 14px;
+        font-size: 13px;
         font-weight: bold;
         margin: 10px 0 4px 0;
+        text-align: center;
     }
     .annexure-title {
         text-align: center;
         margin-bottom: 5px;
         font-weight: bold;
     }
-    .vendor-header {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        margin-bottom: 15px;
-        padding-bottom: 8px;
-        border-bottom: 1px solid #000;
-    }
-    .vendor-logo {
-        width: 40%;
-    }
-    .vendor-logo img {
-        max-height: 60px;
-        max-width: 100%;
-        object-fit: contain;
-    }
-    .vendor-info {
-        width: 60%;
-        text-align: right;
-    }
-    .vendor-name {
-        font-size: 14px;
-        font-weight: bold;
-        text-transform: uppercase;
-    }
-    .vendor-details {
-        font-size: 8px;
-        margin-top: 3px;
-    }
-    .msedcl-header {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        margin-bottom: 15px;
-        padding-bottom: 8px;
-        border-bottom: 1px solid #000;
-    }
-    .msedcl-logo {
-        width: 40%;
-    }
-    .msedcl-logo img {
-        max-height: 50px;
-        max-width: 100%;
-        object-fit: contain;
-    }
-    .msedcl-info {
-        width: 60%;
-        text-align: right;
-    }
-    .msedcl-name {
-        font-size: 14px;
-        font-weight: bold;
-        text-transform: uppercase;
-        letter-spacing: 1px;
-    }
-    .msedcl-fullform {
-        font-size: 7px;
-        font-weight: normal;
-        letter-spacing: 0.5px;
-    }
-    .msedcl-address {
-        font-size: 7px;
-        margin-top: 3px;
-    }
-    .agreement-title {
-        text-align: center;
-        font-size: 16px;
-        font-weight: bold;
-        margin: 12px 0 8px 0;
-    }
     .execution-date {
         margin: 10px 0;
+        text-align: center;
     }
     .party-section {
         margin: 10px 0;
+        text-align: center;
+    }
+    .party-section p {
+        text-align: center;
     }
     .clause {
         margin: 8px 0;
+        text-align: center;
     }
     .sub-clause {
         margin-left: 20px;
         margin-top: 3px;
+        text-align: left;
     }
     .list-item {
         margin-left: 30px;
         margin-top: 3px;
+        text-align: left;
     }
     .signature-row {
         display: table;
@@ -168,8 +108,9 @@
     }
     .disclaimer {
         margin-top: 15px;
-        font-size: 10px;
+        font-size: 9px;
         font-style: italic;
+        text-align: center;
     }
     .value-missing {
         color: #999;
@@ -177,6 +118,12 @@
     }
     .fixed-value {
         font-weight: 700;
+    }
+    .section-heading {
+        text-align: center;
+        font-weight: bold;
+        font-size: 13px;
+        margin: 15px 0 10px 0;
     }
     .mt8 {
         margin-top: 5px;
@@ -193,47 +140,52 @@
     .mt30 {
         margin-top: 15px;
     }
+    .underline {
+        text-decoration: underline;
+    }
   </style>
 </head>
 <body>
 
 <!-- VENDOR HEADER (Dynamic - uses vendor details from form) -->
-<div th:if="${vendorName != null and vendorName != ''}" class="vendor-header">
-<!--  <div class="vendor-logo">-->
-<!--    <img th:if="${not #lists.isEmpty(vendorStamp)}" th:src="${vendorStamp[0]}" alt="Vendor Logo"/>-->
-<!--  </div>-->
-  <div class="vendor-info">
-    <div class="vendor-name" th:text="${vendorName}">Vendor Name</div>
-    <div class="vendor-details">
-      <span th:text="${vendorAddress}">Vendor Address</span><br/>
-      <span>Email: <span th:text="${vendorEmail}">vendor@example.com</span></span> |
-      <span>Mobile: <span th:text="${vendorMobile}">9999999999</span></span>
+<div th:if="${vendorName != null and vendorName != ''}" style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; padding-bottom: 6px; border-bottom: 1px solid #000;">
+  <div style="width: 70px; height: 55px; display: flex; align-items: center; justify-content: flex-start;">
+    <img th:if="${not #lists.isEmpty(headerLogo)}" th:src="${headerLogo[0]}" style="max-width: 70px; max-height: 55px; object-fit: contain;"/>
+  </div>
+  <div style="flex: 1; text-align: center;">
+    <div style="font-size: 22px; font-weight: bold; margin: 0; padding: 0; letter-spacing: 1px;" th:text="${vendorName}">Vendor Name</div>
+    <div style="font-size: 9px; margin: 3px 0 2px; padding: 0;">
+      <span th:text="${vendorAddress}">Vendor Address</span>
+    </div>
+    <div style="font-size: 9px; margin: 0; padding: 0;">
+      Email: <span th:text="${vendorEmail}">vendor@example.com</span> | Mobile: <span th:text="${vendorMobile}">9999999999</span>
     </div>
   </div>
+  <div style="width: 70px;"></div>
 </div>
 
 <!-- MSEDCL HEADER (Fixed - used when vendor name not available) -->
-<div th:if="${vendorName == null or vendorName == ''}" class="msedcl-header">
-  <div class="msedcl-logo">
-    <img th:if="${not #lists.isEmpty(netMeteringStamp)}" th:src="${netMeteringStamp[0]}" alt="MSEDCL Logo"/>
-  </div>
-  <div class="msedcl-info">
-    <div class="msedcl-name">MSEDCL</div>
-    <div class="msedcl-fullform">Maharashtra State Electricity Distribution Company Limited</div>
-    <div class="msedcl-address">Prakashgad, Bandra East, Mumbai - 400051</div>
+<div th:if="${vendorName == null or vendorName == ''}" style="text-align: center; margin-bottom: 12px; padding-bottom: 6px; border-bottom: 1px solid #000;">
+  <div style="font-size: 22px; font-weight: bold; margin: 0; padding: 0; letter-spacing: 1px;">MSEDCL</div>
+  <div style="font-size: 9px; margin: 3px 0 2px; padding: 0;">Maharashtra State Electricity Distribution Company Limited</div>
+  <div style="font-size: 9px; margin: 0; padding: 0;">Prakashgad, Bandra East, Mumbai - 400051</div>
+</div>
+
+<!-- Annexure-II Stamp (Rs. 100) - Page 1 -->
+<div th:if="${not #lists.isEmpty(annexureTwoStamp)}" style="page-break-after: avoid; margin-bottom: 15px;">
+  <div style="display: flex; align-items: center; justify-content: center; min-height: 200px; border: 1px dashed #ccc; padding: 10px;">
+    <img th:src="${annexureTwoStamp[0]}" style="max-width: 100%; max-height: 180px; object-fit: contain;"/>
   </div>
 </div>
 
 <div class="document">
   <div class="annexure-title">Annexure 2</div>
 
-  <h1>Model Draft Agreement between Consumer & Vendor for installation of grid connected rooftop solar (RTS) project under PM - Surya Ghar: Muft Bijli Yojana</h1>
+  <h1>MODEL DRAFT AGREEMENT BETWEEN CONSUMER & VENDOR FOR<br/>INSTALLATION OF GRID CONNECTED ROOFTOP SOLAR (RTS) PROJECT<br/>UNDER PM - SURYA GHAR: MUFT BIJLI YOJANA</h1>
 
   <p class="execution-date">
     This agreement is executed on
-    <span th:if="${agreementDay != null and agreementDay != ''}" th:text="${agreementDay}"></span><span th:if="${agreementDay == null or agreementDay == ''}" class="value-missing">Value Missing</span> day of
-    <span th:if="${agreementMonth != null and agreementMonth != ''}" th:text="${agreementMonth}"></span><span th:if="${agreementMonth == null or agreementMonth == ''}" class="value-missing">Value Missing</span>
-    <span th:if="${agreementYear != null and agreementYear != ''}" th:text="${agreementYear}"></span><span th:if="${agreementYear == null or agreementYear == ''}" class="value-missing">Value Missing</span>
+    <span th:if="${installationDate != null and installationDate != ''}" th:text="${installationDate}"></span><span th:if="${installationDate == null or installationDate == ''}" class="value-missing">Value Missing</span>
     for design, supply, installation, commissioning and 5-year comprehensive maintenance of RTS project/system along with warranty under PM Surya Ghar: Muft Bijli Yojana.
   </p>
 
@@ -257,15 +209,21 @@
     </p>
   </div>
 
-  <h2>Whereas</h2>
-  <p class="clause">First Party wishes to install a Grid Connected Rooftop Solar Plant on the rooftop of the residential building of the Consumer under PM Surya Ghar: Muft Bijli Yojana.</p>
+  <div class="centered-content">
+    <h2>Whereas</h2>
+    <p class="clause">First Party wishes to install a Grid Connected Rooftop Solar Plant on the rooftop of the residential building of the Consumer under PM Surya Ghar: Muft Bijli Yojana.</p>
+  </div>
 
-  <h2>And whereas</h2>
-  <p class="clause">Second Party has verified availability of appropriate roof and found it feasible to install a Grid Connected Roof Top Solar plant and that the second party is willing to design, supply, install, test, commission and carry out Operation & Maintenance of the Rooftop Solar plant for 5 year period</p>
+  <div class="centered-content">
+    <h2>And whereas</h2>
+    <p class="clause">Second Party has verified availability of appropriate roof and found it feasible to install a Grid Connected Roof Top Solar plant and that the second party is willing to design, supply, install, test, commission and carry out Operation & Maintenance of the Rooftop Solar plant for 5 year period</p>
+  </div>
 
-  <p class="mt12">On this day, the First Party and Second Party agree to the following:</p>
+  <div class="centered-content">
+    <p class="mt12">On this day, the First Party and Second Party agree to the following:</p>
+  </div>
 
-  <h2>The First Party hereby undertakes to perform the following activities:</h2>
+  <div class="section-heading">The First Party hereby undertakes to perform the following activities:</div>
 
   <div class="sub-clause">1. Submission of online application at National Portal for installation of RTS project/system, Submission of application for net-metering and system inspection and upload of the relevant documents on the National Portal of the scheme.</div>
   <div class="sub-clause">2. Provide secure storage of the material of the RTS plant delivered at the premises till handover of the system.</div>
@@ -274,7 +232,7 @@
   <div class="sub-clause">5. Report any malfunctioning of the plant to the Vendor during the warranty period.</div>
   <div class="sub-clause">6. Pay the amount as per the payment schedule as mutually agreed with the vendor, including any additional amount to the second party for any additional work /customization required depending upon the building condition.</div>
 
-  <h2 class="mt18">The Second Party hereby undertakes to perform the following activities:</h2>
+  <div class="section-heading">The Second Party hereby undertakes to perform the following activities:</div>
 
   <div class="sub-clause">1. The Vendor must follow all the standards and safety guidelines prescribed under state regulations and technical standards prescribed by MNRE for RTS projects, failing which the vendor is liable for blacklisting from participation in the govt. project/ scheme and other penal actions in accordance with the law. The responsibility of supply, installation and commissioning of the rooftop solar project/system in complete compliance with MNRE scheme guidelines lies with the Vendor.</div>
   <div class="sub-clause">2. Site Survey: Site visit, survey and development of detailed project report for installation of RTS system. This also includes, feasibility study of roof, strength of roof and shadow free area. If any additional work or customization is involved for the plant installation as per site condition and requirement of the consumer building, the Vendor shall prepare an estimate and can raise separate invoice including GST in addition to the amount towards standard plant cost. The consumer shall pay the amount for such additional work directly to the Vendor.</div>
@@ -295,8 +253,8 @@
   <div class="sub-clause">17. Subsidy / Project Related Documents: Vendor must provide all the documents to consumer and help in uploading the same to National Portal for smooth release of subsidy.</div>
   <div class="sub-clause">18. Performance of Plant: The Performance Ratio (PR) of Plant must be 75% at the time of commissioning of the project by DISCOM or its authorised agency. Vendor must provide (returnable basis) radiation sensor with valid calibration certificate of any NABL / International laboratory at the time of commissioning / testing of the plant. Vendor must maintain the PR of the plant till warranty of project i.e. 5 years from the date of commissioning.</div>
 
-  <h2 class="mt18">19. Mutually Agreed Terms of Payment</h2>
-  <p class="sub-clause">The payment terms shall be as mutually agreed between the parties:</p>
+  <div class="section-heading">19. Mutually Agreed Terms of Payment</div>
+  <p class="sub-clause" style="text-align: center;">The payment terms shall be as mutually agreed between the parties:</p>
   <p class="list-item">• Advance Payment: <span class="fixed-value">30</span>% of total contract value</p>
   <p class="list-item">• Milestone 1 (Structure Installation): <span class="fixed-value">25</span>%</p>
   <p class="list-item">• Milestone 2 (Module Installation): <span class="fixed-value">25</span>%</p>
@@ -313,7 +271,7 @@
       </div>
       <div class="line" th:if="${#lists.isEmpty(consumerSignature)}"></div>
       <p>Signature:</p>
-      <p class="mt8">Date: <span th:if="${agreementDate != null and agreementDate != ''}" th:text="${agreementDate}"></span><span th:if="${agreementDate == null or agreementDate == ''}" class="value-missing">Value Missing</span></p>
+      <p class="mt8">Date: <span th:if="${installationDate != null and installationDate != ''}" th:text="${installationDate}"></span><span th:if="${installationDate == null or installationDate == ''}" class="value-missing">Value Missing</span></p>
     </div>
     <div class="signature-right">
       <p class="bold">Second Party</p>
@@ -324,7 +282,7 @@
       </div>
       <div class="line" th:if="${#lists.isEmpty(vendorSignature)}"></div>
       <p>Signature:</p>
-      <p class="mt8">Date: <span th:if="${agreementDate != null and agreementDate != ''}" th:text="${agreementDate}"></span><span th:if="${agreementDate == null or agreementDate == ''}" class="value-missing">Value Missing</span></p>
+      <p class="mt8">Date: <span th:if="${installationDate != null and installationDate != ''}" th:text="${installationDate}"></span><span th:if="${installationDate == null or installationDate == ''}" class="value-missing">Value Missing</span></p>
     </div>
   </div>
 

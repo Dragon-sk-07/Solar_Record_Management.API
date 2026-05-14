@@ -144,11 +144,18 @@ public class SolarPdfController {
         data.put("connectionType", getValueOrDefault(record.getConnectionType(), ""));
 
         // Technical Details
+        data.put("cellManufacturerName", getValueOrDefault(record.getCellManufacturerName(), ""));
+        data.put("cellGSTInvoiceNo", getValueOrDefault(record.getCellGSTInvoiceNo(), ""));
+        data.put("meterMake", getValueOrDefault(record.getMeterMake(), ""));
+        data.put("meterNumber", getValueOrDefault(record.getMeterNumber(), ""));
+        data.put("netMeterNumber", getValueOrDefault(record.getNetMeterNumber(), ""));
+        data.put("invoiceNumber", getValueOrDefault(record.getInvoiceNumber(), ""));
+        data.put("yearOfManufacturing", getValueOrDefault(record.getYearOfManufacturing(), ""));
+        data.put("headerLogo", record.getHeaderLogo());
         data.put("sanctionedCapacity", getValueOrDefault(record.getSanctionedCapacity(), ""));
         data.put("installedCapacity", getValueOrDefault(record.getInstalledCapacity(), ""));
         data.put("installationDate", installationDate);
         data.put("moduleMake", getValueOrDefault(record.getModuleMake(), ""));
-        data.put("almmModelNumber", getValueOrDefault(record.getAlmmModelNumber(), ""));
         data.put("wattagePerModule", getValueOrDefault(record.getWattagePerModule(), ""));
         data.put("numberOfModules", getValueOrDefault(record.getNumberOfModules(), ""));
         data.put("totalCapacityKWP", getValueOrDefault(record.getTotalCapacityKWP(), ""));
@@ -157,7 +164,6 @@ public class SolarPdfController {
         data.put("inverterMake", getValueOrDefault(record.getInverterMake(), ""));
         data.put("inverterModelNumber", getValueOrDefault(record.getInverterModelNumber(), ""));
         data.put("inverterCapacity", getValueOrDefault(record.getInverterCapacity(), ""));
-        data.put("lighteningArrester", getValueOrDefault(record.getLighteningArrester(), ""));
 
         // Vendor & Witness Information
         data.put("vendorName", getValueOrDefault(record.getVendorName(), ""));
@@ -181,7 +187,6 @@ public class SolarPdfController {
         data.put("vendorSignature", record.getVendorSignature());
         data.put("consumerSignature", record.getConsumerSignature());
         data.put("msedclSignature", record.getMsedclSignature());
-        data.put("vendorStamp", record.getVendorStamp());
         data.put("witnessSignature", record.getWitnessSignature());
         data.put("netMeteringStamp", record.getNetMeteringStamp());
         data.put("annexureTwoStamp", record.getAnnexureTwoStamp());

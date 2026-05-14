@@ -29,7 +29,6 @@ public class SolarRecordResponseDto {
     private String installationDate;
 
     private String moduleMake;
-    private String almmModelNumber;
     private Double wattagePerModule;
     private Integer numberOfModules;
     private Double totalCapacityKWP;
@@ -39,7 +38,6 @@ public class SolarRecordResponseDto {
     private String inverterMake;
     private String inverterModelNumber;
     private Double inverterCapacity;
-    private String lighteningArrester;
 
     private String vendorName;
     private String vendorAddress;
@@ -56,10 +54,17 @@ public class SolarRecordResponseDto {
     private List<String> vendorSignature;
     private List<String> consumerSignature;
     private List<String> msedclSignature;
-    private List<String> vendorStamp;
     private List<String> witnessSignature;
     private List<String> aadharImages;
     private List<String> sitePhotos;
     private List<String> netMeteringStamp;
     private List<String> annexureTwoStamp;
+    private String cellManufacturerName;
+    private String cellGSTInvoiceNo;
+    private String meterMake;
+    private String meterNumber;
+    private String netMeterNumber;
+    private String invoiceNumber;
+    private Integer yearOfManufacturing;
+    private List<String> headerLogo;
 }
