@@ -265,10 +265,10 @@
         <div class="msedcl-logo">
             <img th:if="${not #lists.isEmpty(netMeteringStamp)}" th:src="${netMeteringStamp[0]}" alt="MSEDCL Logo"/>
         </div>
-        <div class="msedcl-info">
-            <div class="msedcl-name">MSEDCL</div>
-            <div class="msedcl-fullform">Maharashtra State Electricity Distribution Company Limited</div>
-            <div class="msedcl-address">Prakashgad, Bandra East, Mumbai - 400051</div>
+        <div style="text-align: center; margin-bottom: 12px; padding-bottom: 6px; border-bottom: 1px solid #000;">
+            <div style="font-size: 22px; font-weight: bold;">MSEDCL</div>
+            <div style="font-size: 9px;">Maharashtra State Electricity Distribution Company Limited</div>
+            <div style="font-size: 9px;"><span th:text="${place != null and place != ''} ? ${place} : 'Value Missing'">Division Name</span></div>
         </div>
     </div>
 
