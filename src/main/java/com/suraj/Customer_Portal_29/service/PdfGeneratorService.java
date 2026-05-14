@@ -88,11 +88,11 @@ public class PdfGeneratorService {
             case "site-photos":
                 return "Site-photos";
             case "solar-proposal-11kw":
-                return "SOLAR_PROPOSAL_11KW";
+                return "Solar_Proposal";
             case "meter-testing-request":
-                return "METER_TESTING_REQUEST";
+                return "Meter_Testing_Request";
             case "pm-surya-ghar-agreement":
-                return "PM_SURYA_GHAR_AGREEMENT";
+                return "PM_Surya_Ghar_Agreement";
             default:
                 return type;
         }

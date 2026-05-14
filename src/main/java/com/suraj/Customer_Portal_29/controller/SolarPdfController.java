@@ -322,6 +322,9 @@ public class SolarPdfController {
             case "dcr": return "Declaration_FOR_DCR.pdf";
             case "agreement": return "NET_METERING_CONNECTION_AGREEMENT.pdf";
             case "indemnity": return "INDEMNITY_BOND.pdf";
+            case "SOLAR_PROPOSAL_11KW": return "11KW_Solar_Proposal.pdf";
+            case "METER_TESTING_REQUEST": return "Meter_Testing_Request.pdf";
+            case "PM_SURYA_GHAR_AGREEMENT": return "PM_Surya_Ghar_Agreement.pdf";
             default: return "document_" + System.currentTimeMillis() + ".pdf";
         }
     }
