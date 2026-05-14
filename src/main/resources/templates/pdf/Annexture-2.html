@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PM Surya Ghar - Consumer Vendor Agreement</title>
+
+  <style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    @page {
+        margin: 6mm 10mm;
+    }
+
+    body {
+        font-family: 'Times New Roman', Times, serif;
+        font-size: 11pt;
+        line-height: 1.35;
+        color: #000;
+        padding: 10px 15px;
+    }
+
+    .document {
+        width: 100%;
+    }
+
+    p {
+        margin: 0 0 3px 0;
+        text-align: justify;
+    }
+
+    .center {
+        text-align: center;
+    }
+
+    .bold {
+        font-weight: bold;
+    }
+
+    h1 {
+        text-align: center;
+        font-size: 18px;
+        font-weight: bold;
+        margin: 4px 0 8px 0;
+        text-transform: uppercase;
+    }
+
+    h2 {
+        font-size: 14px;
+        font-weight: bold;
+        margin: 10px 0 4px 0;
+    }
+
+    .annexure-title {
+        text-align: center;
+        margin-bottom: 5px;
+    }
+
+    .header-section {
+        text-align: center;
+        margin-bottom: 8px;
+    }
+
+    .company-name {
+        font-size: 22px;
+        font-weight: bold;
+        margin: 0;
+        padding: 0;
+    }
+
+    .company-details {
+        font-size: 10px;
+        margin: 2px 0;
+        padding: 0;
+    }
+
+    .header-line {
+        border-bottom: 1px solid #000;
+        margin-top: 5px;
+    }
+
+    .agreement-title {
+        text-align: center;
+        font-size: 16px;
+        font-weight: bold;
+        margin: 12px 0 8px 0;
+    }
+
+    .execution-date {
+        margin: 10px 0;
+    }
+
+    .party-section {
+        margin: 10px 0;
+    }
+
+    .clause {
+        margin: 8px 0;
+    }
+
+    .clause-number {
+        font-weight: bold;
+        margin-right: 5px;
+    }
+
+    .sub-clause {
+        margin-left: 20px;
+        margin-top: 3px;
+    }
+
+    .sub-clause-number {
+        font-weight: bold;
+        margin-right: 5px;
+    }
+
+    .list-item {
+        margin-left: 30px;
+        margin-top: 3px;
+    }
+
+    .signature-row {
+        display: table;
+        width: 100%;
+        table-layout: fixed;
+        margin: 12px 0 8px 0;
+    }
+
+    .signature-left, .signature-right {
+        display: table-cell;
+        width: 50%;
+        vertical-align: top;
+    }
+
+    .signature-left {
+        text-align: left;
+        padding-right: 15px;
+    }
+
+    .signature-right {
+        text-align: left;
+        padding-left: 15px;
+    }
+
+    .signature-space {
+        height: 50px;
+        margin: 3px 0;
+    }
+
+    .line {
+        margin-top: 3px;
+        border-bottom: 1px solid #000;
+        height: 15px;
+        width: 100%;
+    }
+
+    .witness-row {
+        display: table;
+        width: 100%;
+        table-layout: fixed;
+        margin: 12px 0 8px 0;
+    }
+
+    .witness-left, .witness-right {
+        display: table-cell;
+        width: 50%;
+        vertical-align: top;
+    }
+
+    .witness-left {
+        text-align: left;
+        padding-right: 15px;
+    }
+
+    .witness-right {
+        text-align: left;
+        padding-left: 15px;
+    }
+
+    .field {
+        font-weight: 700;
+    }
+
+    .disclaimer {
+        margin-top: 15px;
+        font-size: 10px;
+        font-style: italic;
+    }
+
+    .page-break {
+        page-break-before: always;
+    }
+
+    .mt8 {
+        margin-top: 5px;
+    }
+
+    .mt12 {
+        margin-top: 8px;
+    }
+
+    .mt18 {
+        margin-top: 10px;
+    }
+
+    .mt25 {
+        margin-top: 12px;
+    }
+
+    .mt30 {
+        margin-top: 15px;
+    }
+  </style>
+</head>
+
+<body>
+<div th:if="${not #lists.isEmpty(vendorStamp)}">
+  <div style="text-align: center; margin-bottom: 8px; font-family: 'Times New Roman', Times, serif;">
+    <div class="company-name">Arihant Electrical Sangli</div>
+    <div class="company-details">Email: arihantele@gmail.com | Near Anuje Hospital, Kurundwad, Tal-shirol, Dist. Kolhapur - 416106 | Mob:7774855501/9767334454</div>
+    <div class="header-line"></div>
+  </div>
+  <div style="display: flex; align-items: center; justify-content: center; min-height: 60vh; page-break-after: always;">
+    <img th:src="${vendorStamp[0]}" style="max-width: 90%; max-height: 70vh; object-fit: contain;"/>
+  </div>
+</div>
+
+<div class="document">
+  <div class="annexure-title">Annexure 2</div>
+
+  <h1>Model Draft Agreement between Consumer & Vendor for installation of grid connected rooftop solar (RTS) project under PM - Surya Ghar: Muft Bijli Yojana</h1>
+
+  <p class="execution-date">
+    This agreement is executed on
+    <span class="field" th:text="${agreementDay != null and !#strings.isEmpty(agreementDay)} ? ${agreementDay} : '....'"></span> day of
+    <span class="field" th:text="${agreementMonth != null and !#strings.isEmpty(agreementMonth)} ? ${agreementMonth} : '....'"></span>
+    <span class="field" th:text="${agreementYear != null and !#strings.isEmpty(agreementYear)} ? ${agreementYear} : '....'"></span>
+    for design, supply, installation, commissioning and 5-year comprehensive maintenance of RTS project/system along with warranty under PM Surya Ghar: Muft Bijli Yojana.
+  </p>
+
+  <div class="party-section">
+    <p><strong>Between</strong></p>
+    <p class="mt8">
+      <span class="field" th:text="${customerName != null and !#strings.isEmpty(customerName)} ? ${customerName} : '....'"></span>
+      having address at
+      <span class="field" th:text="${siteAddress != null and !#strings.isEmpty(siteAddress)} ? ${siteAddress} : '....'"></span>
+      (hereinafter referred to as first Party i.e. Consumer/purchaser/owner of system).
+    </p>
+  </div>
+
+  <div class="party-section">
+    <p><strong>And</strong></p>
+    <p class="mt8">
+      <span class="field" th:text="${vendorName != null and !#strings.isEmpty(vendorName)} ? ${vendorName} : '....'"></span>
+      having registered office at
+      <span class="field" th:text="${vendorAddress != null and !#strings.isEmpty(vendorAddress)} ? ${vendorAddress} : '....'"></span>
+      (hereinafter referred to as second Party i.e. Vendor/contractor/System Integrator).
+    </p>
+  </div>
+
+  <h2>Whereas</h2>
+  <p class="clause">First Party wishes to install a Grid Connected Rooftop Solar Plant on the rooftop of the residential building of the Consumer under PM Surya Ghar: Muft Bijli Yojana.</p>
+
+  <h2>And whereas</h2>
+  <p class="clause">Second Party has verified availability of appropriate roof and found it feasible to install a Grid Connected Roof Top Solar plant and that the second party is willing to design, supply, install, test, commission and carry out Operation & Maintenance of the Rooftop Solar plant for 5 year period</p>
+
+  <p class="mt12">On this day, the First Party and Second Party agree to the following:</p>
+
+  <h2>The First Party hereby undertakes to perform the following activities:</h2>
+
+  <div class="sub-clause">1. Submission of online application at National Portal for installation of RTS project/system, Submission of application for net-metering and system inspection and upload of the relevant documents on the National Portal of the scheme.</div>
+  <div class="sub-clause">2. Provide secure storage of the material of the RTS plant delivered at the premises till handover of the system.</div>
+  <div class="sub-clause">3. Provide access to the Roof Top during installation of the plant, operation & maintenance, testing of the plant and equipment and for meter reading from solar meter, inverter etc.</div>
+  <div class="sub-clause">4. Provide electricity during plant installation and water for cleaning of the panels.</div>
+  <div class="sub-clause">5. Report any malfunctioning of the plant to the Vendor during the warranty period.</div>
+  <div class="sub-clause">6. Pay the amount as per the payment schedule as mutually agreed with the vendor, including any additional amount to the second party for any additional work /customization required depending upon the building condition.</div>
+
+  <h2 class="mt18">The Second Party hereby undertakes to perform the following activities:</h2>
+
+  <div class="sub-clause">1. The Vendor must follow all the standards and safety guidelines prescribed under state regulations and technical standards prescribed by MNRE for RTS projects, failing which the vendor is liable for blacklisting from participation in the govt. project/ scheme and other penal actions in accordance with the law. The responsibility of supply, installation and commissioning of the rooftop solar project/system in complete compliance with MNRE scheme guidelines lies with the Vendor.</div>
+  <div class="sub-clause">2. Site Survey: Site visit, survey and development of detailed project report for installation of RTS system. This also includes, feasibility study of roof, strength of roof and shadow free area. If any additional work or customization is involved for the plant installation as per site condition and requirement of the consumer building, the Vendor shall prepare an estimate and can raise separate invoice including GST in addition to the amount towards standard plant cost. The consumer shall pay the amount for such additional work directly to the Vendor.</div>
+  <div class="sub-clause">3. Design & Engineering: Design of plant along with drawings and selection of components as per standard provided by the DISCOM/SERC/MNRE for best performance and safety of the plant.</div>
+  <div class="sub-clause">4. Module and Inverter: The solar modules, including the solar cells, should be manufactured in India. Both the solar modules and inverters shall conform to the relevant standards and specifications prescribed by MNRE. Any other requirement, viz. star labelling (solar modules), quality control orders and standards & labelling (inverters) etc., shall also be complied.</div>
+  <div class="sub-clause">5. Procurement & Supply: Procurement of complete system as per BIS/IS/IEC standard (whatever applicable) & safety guidelines for installation of rooftop solar plants. The supplied materials should comply with all MNRE standards for release of subsidy.</div>
+  <div class="sub-clause">6. Installation & Civil work: Complete civil work, structure work and electrical work (including drawings) following all the safety and relevant BIS standards.</div>
+  <div class="sub-clause">7. Documentation (Technical Catalogues/Warranty Certificates/BIS certificates/other test reports etc): All such documents shall be provided to the consumer for online uploading and submission of technical specifications, IEC/BIS report, Sr. Nos, Warranty card of Solar Panel & Inverter, Layout & Electrical SLD, Structure Design and Drawing, Cable and other detailed documents.</div>
+  <div class="sub-clause">8. Project completion report (PCR): Assisting the consumer in filling and uploading of signed documents (Consumer & Vendor) on the national portal.</div>
+  <div class="sub-clause">9. Warranty: System warranty certificates should be provided to the consumer. The complete system should be warranted for 5 years from the date of commissioning by DISCOM. Individual component warranty documents provided by the manufacturer shall be provided to the consumer and all possible assistance should be extended to the consumer for claiming the warranty from the manufacturer.</div>
+  <div class="sub-clause">10. NET meter & Grid Connectivity: Net meter supply/procurement, testing and approvals shall be in the scope of vendor. Grid connection of the plant shall be in the scope of the vendor.</div>
+  <div class="sub-clause">11. Testing and Commissioning: The vendor shall be present at the time of testing and commissioning by the DISCOM.</div>
+  <div class="sub-clause">12. Operation & Maintenance: Five (5) years Comprehensive Operation and Maintenance including overhauling, wear and tear and regular checking of healthiness of system at proper interval shall be in the scope of vendor. The vendor shall also educate the consumer on best practices for cleaning of the modules and system maintenance.</div>
+  <div class="sub-clause">13. Insurance: Any insurance cost pertaining to material transfer/storage before commissioning of the system shall be in the scope of the vendor.</div>
+  <div class="sub-clause">14. Applicable Standard: The system must meet the technical standards and specifications notified by MNRE. The vendor is solely responsible to supply component and service which meets the technical standards and specification prescribed by MNRE and State DISCOMs.</div>
+  <div class="sub-clause">15. Project/system cost & payment terms: The cost of the plant and payment schedule should be mutually discussed and decided between the vendor and consumer. The consumer may opt for milestone-based payment to the vendor and the same shall be included in the agreement.</div>
+  <div class="sub-clause">16. Dispute: In-case of any dispute between consumer and vendor (in supply/installation/maintenance of system or payment terms), both parties must settle the same mutually or as per law. MNRE/DISCOM shall not be liable for, and would not be a party to any dispute arising between vendor and consumer.</div>
+  <div class="sub-clause">17. Subsidy / Project Related Documents: Vendor must provide all the documents to consumer and help in uploading the same to National Portal for smooth release of subsidy.</div>
+  <div class="sub-clause">18. Performance of Plant: The Performance Ratio (PR) of Plant must be 75% at the time of commissioning of the project by DISCOM or its authorised agency. Vendor must provide (returnable basis) radiation sensor with valid calibration certificate of any NABL / International laboratory at the time of commissioning / testing of the plant. Vendor must maintain the PR of the plant till warranty of project i.e. 5 years from the date of commissioning.</div>
+
+  <h2 class="mt18">19. Mutually Agreed Terms of Payment</h2>
+  <p class="sub-clause">The payment terms shall be as mutually agreed between the parties:</p>
+  <p class="list-item">• Advance Payment: <span class="field" th:text="${advancePaymentPercent != null} ? ${advancePaymentPercent} : '....'"></span>% of total contract value</p>
+  <p class="list-item">• Milestone 1 (Structure Installation): <span class="field" th:text="${milestone1Percent != null} ? ${milestone1Percent} : '....'"></span>%</p>
+  <p class="list-item">• Milestone 2 (Module Installation): <span class="field" th:text="${milestone2Percent != null} ? ${milestone2Percent} : '....'"></span>%</p>
+  <p class="list-item">• Milestone 3 (Commissioning): <span class="field" th:text="${milestone3Percent != null} ? ${milestone3Percent} : '....'"></span>%</p>
+  <p class="list-item">• Retention Amount: <span class="field" th:text="${retentionPercent != null} ? ${retentionPercent} : '....'"></span>%</p>
+
+  <div class="signature-row mt30">
+    <div class="signature-left">
+      <p class="bold">First Party</p>
+      <p>Name: <span class="field" th:text="${customerName != null and !#strings.isEmpty(customerName)} ? ${customerName} : '....'"></span></p>
+      <p>Address: <span class="field" th:text="${siteAddress != null and !#strings.isEmpty(siteAddress)} ? ${siteAddress} : '....'"></span></p>
+      <div class="signature-space">
+        <img th:if="${not #lists.isEmpty(consumerSignature)}"
+             th:src="${consumerSignature[0]}"
+             style="max-height:60px; max-width:200px; object-fit:contain;"/>
+      </div>
+      <div class="line" th:if="${#lists.isEmpty(consumerSignature)}"></div>
+      <p>Signature:</p>
+      <p class="mt8">Date: <span class="field" th:text="${agreementDate != null and !#strings.isEmpty(agreementDate)} ? ${agreementDate} : '....'"></span></p>
+    </div>
+    <div class="signature-right">
+      <p class="bold">Second Party</p>
+      <p>Name: <span class="field" th:text="${authorizedPersonName != null and !#strings.isEmpty(authorizedPersonName)} ? ${authorizedPersonName} : '....'"></span></p>
+      <p>Address: <span class="field" th:text="${vendorAddress != null and !#strings.isEmpty(vendorAddress)} ? ${vendorAddress} : '....'"></span></p>
+      <div class="signature-space">
+        <img th:if="${not #lists.isEmpty(vendorSignature)}"
+             th:src="${vendorSignature[0]}"
+             style="max-height:60px; max-width:200px; object-fit:contain;"/>
+      </div>
+      <div class="line" th:if="${#lists.isEmpty(vendorSignature)}"></div>
+      <p>Signature:</p>
+      <p class="mt8">Date: <span class="field" th:text="${agreementDate != null and !#strings.isEmpty(agreementDate)} ? ${agreementDate} : '....'"></span></p>
+    </div>
+  </div>
+
+  <div class="disclaimer">
+    Disclaimer: This agreement is between vendor and consumer and any dispute related to the same shall not involve any third party including MNRE and Distribution Utilities.
+  </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Generation Meter Testing Request</title>
+
+  <style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    @page {
+        margin: 6mm 10mm;
+    }
+
+    body {
+        font-family: 'Times New Roman', Times, serif;
+        font-size: 11pt;
+        line-height: 1.35;
+        color: #000;
+        padding: 10px 15px;
+    }
+
+    .document {
+        width: 100%;
+    }
+
+    p {
+        margin: 0 0 3px 0;
+        text-align: justify;
+    }
+
+    .center {
+        text-align: center;
+    }
+
+    .bold {
+        font-weight: bold;
+    }
+
+    .header-section {
+        text-align: center;
+        margin-bottom: 15px;
+    }
+
+    .company-name {
+        font-size: 18px;
+        font-weight: bold;
+        margin: 0;
+        padding: 0;
+    }
+
+    .company-address {
+        font-size: 10px;
+        margin: 2px 0;
+    }
+
+    .company-contact {
+        font-size: 10px;
+        margin: 2px 0;
+    }
+
+    .header-line {
+        border-bottom: 1px solid #000;
+        margin-top: 5px;
+    }
+
+    .date-section {
+        margin-top: 12px;
+        text-align: right;
+    }
+
+    .to-section {
+        margin-top: 12px;
+    }
+
+    .subject {
+        margin-top: 10px;
+        font-weight: bold;
+        text-decoration: underline;
+    }
+
+    .ref-section {
+        margin-top: 8px;
+    }
+
+    .ref-item {
+        margin-left: 20px;
+    }
+
+    .body-text {
+        margin-top: 10px;
+    }
+
+    .meter-details {
+        margin-top: 10px;
+        margin-left: 20px;
+    }
+
+    .closing {
+        margin-top: 15px;
+    }
+
+    .signature-section {
+        margin-top: 25px;
+    }
+
+    .signature-row {
+        display: table;
+        width: 100%;
+        table-layout: fixed;
+        margin: 12px 0 8px 0;
+    }
+
+    .signature-left, .signature-right {
+        display: table-cell;
+        width: 50%;
+        vertical-align: top;
+    }
+
+    .signature-left {
+        text-align: left;
+        padding-right: 15px;
+    }
+
+    .signature-right {
+        text-align: left;
+        padding-left: 15px;
+    }
+
+    .signature-space {
+        height: 50px;
+        margin: 3px 0;
+    }
+
+    .line {
+        margin-top: 3px;
+        border-bottom: 1px solid #000;
+        height: 15px;
+        width: 100%;
+    }
+
+    .field {
+        font-weight: 700;
+    }
+
+    .tax-invoice {
+        margin-top: 30px;
+        page-break-before: avoid;
+    }
+
+    .tax-invoice-title {
+        font-size: 16px;
+        font-weight: bold;
+        text-align: center;
+        margin: 15px 0 10px 0;
+    }
+
+    .invoice-details {
+        margin-top: 10px;
+    }
+
+    .invoice-row {
+        display: table;
+        width: 100%;
+        margin: 5px 0;
+    }
+
+    .invoice-label {
+        display: table-cell;
+        width: 150px;
+        font-weight: bold;
+    }
+
+    .invoice-value {
+        display: table-cell;
+    }
+
+    .invoice-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 10px 0;
+    }
+
+    .invoice-table th, .invoice-table td {
+        border: 1px solid #000;
+        padding: 6px 8px;
+        text-align: right;
+    }
+
+    .invoice-table th {
+        background-color: #f0f0f0;
+        text-align: center;
+    }
+
+    .invoice-table td:first-child {
+        text-align: left;
+    }
+
+    .total-row {
+        font-weight: bold;
+        border-top: 2px solid #000;
+    }
+
+    .declaration {
+        margin-top: 15px;
+        font-style: italic;
+    }
+
+    .mt8 {
+        margin-top: 5px;
+    }
+
+    .mt12 {
+        margin-top: 8px;
+    }
+
+    .mt18 {
+        margin-top: 10px;
+    }
+
+    .mt25 {
+        margin-top: 12px;
+    }
+  </style>
+</head>
+
+<body>
+<div th:if="${not #lists.isEmpty(vendorStamp)}">
+  <div style="text-align: center; margin-bottom: 8px; font-family: 'Times New Roman', Times, serif;">
+    <div class="company-name">Primestar Energy Solutions</div>
+    <div class="company-address">Kapad Peth, Ashta, Tal-Miraj, Dist. Sangli - 416301</div>
+    <div class="company-contact">E-mail: primestarsolar@gmail.com | Mob: 9850385899</div>
+    <div class="header-line"></div>
+  </div>
+  <div style="display: flex; align-items: center; justify-content: center; min-height: 60vh; page-break-after: always;">
+    <img th:src="${vendorStamp[0]}" style="max-width: 90%; max-height: 70vh; object-fit: contain;"/>
+  </div>
+</div>
+
+<div class="document">
+  <div class="header-section">
+    <div class="company-name">Primestar Energy Solutions</div>
+    <div class="company-address">Kapad Peth, Ashta, Tal-Miraj, Dist. Sangli - 416301</div>
+    <div class="company-contact">E-mail: primestarsolar@gmail.com | Mob: 9850385899</div>
+    <div class="header-line"></div>
+  </div>
+
+  <div class="date-section">
+    <p>Date: <span class="field" th:text="${currentDate != null and !#strings.isEmpty(currentDate)} ? ${currentDate} : '....'"></span></p>
+  </div>
+
+  <div class="to-section">
+    <p>To,</p>
+    <p><strong>Executive Engineer, M.S.E.D.C.Ltd,</strong></p>
+    <p th:text="${msedclAddress != null and !#strings.isEmpty(msedclAddress)} ? ${msedclAddress} : '....'"></p>
+  </div>
+
+  <div class="subject">
+    <p>Subject: Regarding Generation meter testing.</p>
+  </div>
+
+  <div class="ref-section">
+    <p>Ref: 1. Consumer name: <span class="field" th:text="${customerName != null and !#strings.isEmpty(customerName)} ? ${customerName} : '....'"></span></p>
+    <p class="ref-item">2. Consumer Number: <span class="field" th:text="${consumerNumber != null and !#strings.isEmpty(consumerNumber)} ? ${consumerNumber} : '....'"></span></p>
+    <p class="ref-item">3. Sanction Number: <span class="field" th:text="${sanctionNumber != null and !#strings.isEmpty(sanctionNumber)} ? ${sanctionNumber} : '....'"></span></p>
+  </div>
+
+  <div class="body-text">
+    <p>Dear Sir/Madam,</p>
+    <p class="mt8">With reference to above mentioned subject, the consumer has completed required documents for solar connection. Hence, we request to please proceed with the testing of below mentioned meter.</p>
+  </div>
+
+  <div class="meter-details">
+    <p>Make: <span class="field" th:text="${meterMake != null and !#strings.isEmpty(meterMake)} ? ${meterMake} : '....'"></span></p>
+    <p>Sr. No.: <span class="field" th:text="${meterNumber != null and !#strings.isEmpty(meterNumber)} ? ${meterNumber} : '....'"></span></p>
+    <p>Phase: <span class="field" th:text="${meterPhase != null and !#strings.isEmpty(meterPhase)} ? ${meterPhase} : '....'"></span></p>
+  </div>
+
+  <div class="body-text">
+    <p><strong>Meter Details:</strong></p>
+  </div>
+
+  <div class="closing">
+    <p>Thanking you.</p>
+  </div>
+
+  <div class="signature-section">
+    <p>Yours Faithfully,</p>
+    <div class="signature-space">
+      <img th:if="${not #lists.isEmpty(vendorSignature)}"
+           th:src="${vendorSignature[0]}"
+           style="max-height:60px; max-width:200px; object-fit:contain;"/>
+    </div>
+    <div class="line" th:if="${#lists.isEmpty(vendorSignature)}" style="width:200px"></div>
+    <p><strong>Primestar Energy Solutions</strong></p>
+    <p>Kapad Peth, Ashta, Tal-Miraj, Dist. Sangli - 416301</p>
+  </div>
+
+  <div class="tax-invoice">
+    <div class="tax-invoice-title">TAX INVOICE</div>
+
+    <div class="invoice-details">
+      <div class="invoice-row">
+        <span class="invoice-label">PREPARED FOR:</span>
+        <span class="invoice-value"><span class="field" th:text="${customerName != null and !#strings.isEmpty(customerName)} ? ${customerName} : '....'"></span></span>
+      </div>
+      <div class="invoice-row">
+        <span class="invoice-label">PREPARE DATE:</span>
+        <span class="invoice-value"><span class="field" th:text="${invoiceDate != null and !#strings.isEmpty(invoiceDate)} ? ${invoiceDate} : '....'"></span></span>
+      </div>
+    </div>
+
+    <table class="invoice-table">
+      <thead>
+      <tr>
+        <th>Particulars</th>
+        <th>Qty</th>
+        <th>GST</th>
+        <th>Amount (₹)</th>
+        <th>Total (₹)</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <td>Generation Meter <span th:text="${meterMake != null and !#strings.isEmpty(meterMake)} ? ${' - ' + meterMake} : ''"></span>, Sr.No.- <span class="field" th:text="${meterNumber != null and !#strings.isEmpty(meterNumber)} ? ${meterNumber} : '....'"></span></td>
+        <td style="text-align:center">1</td>
+        <td style="text-align:center"><span class="field" th:text="${gstRate != null} ? ${gstRate} : '18'"></span>%</td>
+        <td style="text-align:right"><span class="field" th:text="${meterAmount != null} ? ${meterAmount} : '2100'"></span></td>
+        <td style="text-align:right"><span class="field" th:text="${totalAmount != null} ? ${totalAmount} : '2478'"></span></td>
+      </tr>
+      </tbody>
+      <tfoot>
+      <tr class="total-row">
+        <td colspan="4" style="text-align:right"><strong>Grand Total</strong></td>
+        <td style="text-align:right"><strong><span class="field" th:text="${totalAmount != null} ? ${totalAmount} : '2478'"></span></strong></td>
+      </tr>
+      </tfoot>
+    </table>
+
+    <div class="declaration">
+      <p>I declare that the above information mentioned is true to the best of my knowledge.</p>
+    </div>
+
+    <div class="signature-row mt18">
+      <div class="signature-left">
+        <p class="bold">For Primestar Energy Solutions</p>
+        <div class="signature-space">
+          <img th:if="${not #lists.isEmpty(vendorSignature)}"
+               th:src="${vendorSignature[0]}"
+               style="max-height:60px; max-width:200px; object-fit:contain;"/>
+        </div>
+        <div class="line" th:if="${#lists.isEmpty(vendorSignature)}"></div>
+        <p>Authorized Signatory</p>
+      </div>
+      <div class="signature-right">
+        <p class="bold">Customer Acknowledgement</p>
+        <div class="signature-space">
+          <img th:if="${not #lists.isEmpty(consumerSignature)}"
+               th:src="${consumerSignature[0]}"
+               style="max-height:60px; max-width:200px; object-fit:contain;"/>
+        </div>
+        <div class="line" th:if="${#lists.isEmpty(consumerSignature)}"></div>
+        <p>Customer Signature</p>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>
