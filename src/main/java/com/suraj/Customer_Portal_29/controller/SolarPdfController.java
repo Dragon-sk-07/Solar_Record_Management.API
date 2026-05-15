@@ -190,8 +190,8 @@ public class SolarPdfController {
         data.put("witnessSignature", record.getWitnessSignature());
         data.put("netMeteringStamp", record.getNetMeteringStamp());
         data.put("annexureTwoStamp", record.getAnnexureTwoStamp());
-        data.put("defaultArihantHeader", "/Arihant_Header.jpeg");
-        data.put("defaultMsedclHeader", "/MSEDCL_Header.jpeg");
+        data.put("defaultArihantHeader", convertImageToBase64("/Arihant_Header.jpeg"));
+        data.put("defaultMsedclHeader", convertImageToBase64("/MSEDCL_Header.jpeg"));
 
 // DEBUG LOGS - Check header paths
         System.out.println("=== HEADER DEBUG ===");
@@ -248,6 +248,19 @@ public class SolarPdfController {
         if (value == null) return defaultValue;
         String stringValue = String.valueOf(value);
         return stringValue.isEmpty() ? defaultValue : stringValue;
+    }
+
+    private String convertImageToBase64(String imagePath) {
+        try {
+            org.springframework.core.io.Resource resource = new org.springframework.core.io.ClassPathResource("static" + imagePath);
+            byte[] imageBytes = resource.getContentAsByteArray();
+            String base64 = java.util.Base64.getEncoder().encodeToString(imageBytes);
+            String mimeType = imagePath.endsWith(".png") ? "image/png" : "image/jpeg";
+            return "data:" + mimeType + ";base64," + base64;
+        } catch (Exception e) {
+            System.err.println("Failed to load image: " + imagePath + " - " + e.getMessage());
+            return "";
+        }
     }
 
     private void checkDownloadPermission(String format) {

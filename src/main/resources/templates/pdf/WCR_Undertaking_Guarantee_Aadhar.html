@@ -339,12 +339,19 @@
         </div>
 
         <div class="signature-row">
-            <div class="signature-left">
+            <div class="signature-left" style="width: 50%; display: table-cell; text-align: center;">
                 <div class="signature-space">
                     <img th:if="${not #lists.isEmpty(vendorSignature)}" th:src="${vendorSignature[0]}" style="max-height:60px; max-width:200px; object-fit:contain;"/>
                 </div>
                 <span class="signature-label">Signature [Vendor]</span>
                 <span class="signature-name">(<span th:if="${vendorName != null and vendorName != ''}" th:text="${vendorName}"></span><span th:if="${vendorName == null or vendorName == ''}" class="value-missing">Value Missing</span>)</span>
+            </div>
+            <div class="signature-right" style="width: 50%; display: table-cell; text-align: center;">
+                <div class="signature-space">
+                    <img th:if="${not #lists.isEmpty(consumerSignature)}" th:src="${consumerSignature[0]}" style="max-height:60px; max-width:200px; object-fit:contain;"/>
+                </div>
+                <span class="signature-label">Signature [Consumer]</span>
+                <span class="signature-name">(<span th:if="${name != null and name != ''}" th:text="${name}"></span><span th:if="${name == null or name == ''}" class="value-missing">Value Missing</span>)</span>
             </div>
         </div>
     </div>
@@ -365,7 +372,7 @@
     </div>
 
     <div class="signature-row">
-        <div class="signature-left">
+        <div style="width: 100%; text-align: left;">
             <div class="signature-space">
                 <img th:if="${not #lists.isEmpty(vendorSignature)}" th:src="${vendorSignature[0]}" style="max-height:60px; max-width:200px; object-fit:contain;"/>
             </div>
