@@ -195,6 +195,10 @@
         p {
             margin: 6px 0;
         }
+        .to-address {
+            margin: 10px 0;
+            line-height: 1.5;
+        }
     </style>
 </head>
 <body>
@@ -211,7 +215,7 @@
         Date: <span th:if="${currentDate != null and currentDate != ''}" th:text="${currentDate}"></span><span th:if="${currentDate == null or currentDate == ''}" class="value-missing">__/__/____</span>
     </div>
 
-    <div>
+    <div class="to-address">
         To,<br/>
         Executive Engineer, M.S.E.D.C.Ltd,<br/>
         <span th:if="${place != null and place != ''}" th:text="${place}"></span><span th:if="${place == null or place == ''}" class="value-missing">_____________</span>
@@ -344,24 +348,24 @@
 
     <div class="section-title">CHECKING OF EARTHING SYSTEM</div>
     <table class="wcr-table">
-        <tr><td style="text-align:center">10</td><td>Separate Earthing provided for LA Earthing</td><td class="fixed-value">Provided</td></tr>
-        <tr><td style="text-align:center">11</td><td>Separate Earthing provided for Solar Panel Structure</td><td class="fixed-value">Provided</td></tr>
-        <tr><td style="text-align:center">12</td><td>Earthing provided DCBB Earthing</td><td class="fixed-value">Provided</td></tr>
-        <tr><td style="text-align:center">13</td><td>Earthing provided ACBB Earthing</td><td class="fixed-value">Provided</td></tr>
-        <tr><td style="text-align:center">14</td><td>Separate Earthing provided Grid Inverter Built(AC side Earthing)</td><td class="fixed-value">Provided</td></tr>
-        <tr><td style="text-align:center">15</td><td>Earthing provided to Metering cubicle</td><td class="fixed-value">Provided</td></tr>
-        <tr><td style="text-align:center">16</td><td>All Metallic body Parts earthed</td><td class="fixed-value">Yes</td></tr>
+        <tr><td style="text-align:center">12</td><td>Separate Earthing provided for LA Earthing</td><td class="fixed-value">Provided</td></tr>
+        <tr><td style="text-align:center">13</td><td>Separate Earthing provided for Solar Panel Structure</td><td class="fixed-value">Provided</td></tr>
+        <tr><td style="text-align:center">14</td><td>Earthing provided DCBB Earthing</td><td class="fixed-value">Provided</td></tr>
+        <tr><td style="text-align:center">15</td><td>Earthing provided ACBB Earthing</td><td class="fixed-value">Provided</td></tr>
+        <tr><td style="text-align:center">16</td><td>Separate Earthing provided Grid Inverter Built(AC side Earthing)</td><td class="fixed-value">Provided</td></tr>
+        <tr><td style="text-align:center">17</td><td>Earthing provided to Metering cubicle</td><td class="fixed-value">Provided</td></tr>
+        <tr><td style="text-align:center">18</td><td>All Metallic body Parts earthed</td><td class="fixed-value">Yes</td></tr>
     </table>
 
     <div class="section-title">Checking of Protection Switchgear</div>
     <table class="wcr-table">
-        <tr><td style="text-align:center">17</td><td>DC Fuses provided after Solar Modules</td><td class="fixed-value">Provided</td></tr>
-        <tr><td style="text-align:center">18</td><td>AC Junction Box provided with Built in Surge protector device</td><td class="fixed-value">Provided</td></tr>
-        <tr><td style="text-align:center">19</td><td>Separate Lightning Arrestor provided before Solar Panel</td><td class="fixed-value">Provided</td></tr>
-        <tr><td style="text-align:center">20</td><td>Internal Protection provided after Grid-tie Inverter with MCC/MCB Rating-</td><td class="fixed-value">32A</td></tr>
-        <tr><td style="text-align:center">21</td><td>ACDB provided with Built in Surge Protector</td><td class="fixed-value">Provided</td></tr>
-        <tr><td style="text-align:center">22</td><td>Manual Operated Isolation switch of rated Capacity provided for protection, If Yes<br/>1. Whether switch has visible verification that separation has been accomplished<br/>2. Whether switch clearly indicate Open/Close Position<br/>3. Whether switch has facility of locking in open Position</td><td class="fixed-value">Yes, with visible verification</td></tr>
-        <tr><td style="text-align:center">23</td><td>MCB Provided before Load side</td><td class="fixed-value">Provided</td></tr>
+        <tr><td style="text-align:center">19</td><td>DC Fuses provided after Solar Modules</td><td class="fixed-value">Provided</td></tr>
+        <tr><td style="text-align:center">20</td><td>AC Junction Box provided with Built in Surge protector device</td><td class="fixed-value">Provided</td></tr>
+        <tr><td style="text-align:center">21</td><td>Separate Lightning Arrestor provided before Solar Panel</td><td class="fixed-value">Provided</td></tr>
+        <tr><td style="text-align:center">22</td><td>Internal Protection provided after Grid-tie Inverter with MCC/MCB Rating-</td><td class="fixed-value">32A</td></tr>
+        <tr><td style="text-align:center">23</td><td>ACDB provided with Built in Surge Protector</td><td class="fixed-value">Provided</td></tr>
+        <tr><td style="text-align:center">24</td><td>Manual Operated Isolation switch of rated Capacity provided for protection, If Yes<br/>1. Whether switch has visible verification that separation has been accomplished<br/>2. Whether switch clearly indicate Open/Close Position<br/>3. Whether switch has facility of locking in open Position</td><td class="fixed-value">Yes, with visible verification</td></tr>
+        <tr><td style="text-align:center">25</td><td>MCB Provided before Load side</td><td class="fixed-value">Provided</td></tr>
     </table>
 </div>
 
@@ -371,36 +375,36 @@
 <div class="page">
     <div class="section-title">Net Metering &amp; Islanding Details</div>
     <table class="wcr-table">
-        <tr><td style="text-align:center">24</td><td>Net Metering cabinet with ELCB/RCCB protection of rated capacity with Sealing arrangement for 3ph</td><td>Not Applicable</td></tr>
-        <tr><td style="text-align:center">24A</td><td>Net Metering with ELCB/RCCB protection for 1ph. If Yes, Rating-</td><td class="fixed-value">30mA</td></tr>
+        <tr><td style="text-align:center">26</td><td>Net Metering cabinet with ELCB/RCCB protection of rated capacity with Sealing arrangement for 3ph</td><td>Not Applicable</td></tr>
+        <tr><td style="text-align:center">27</td><td>Net Metering with ELCB/RCCB protection for 1ph. If Yes, Rating-</td><td class="fixed-value">30mA</td></tr>
         <tr style="background:#e9ecef;"><td colspan="3" style="text-align:center;"><strong>Checking of Islanding Mode of Operation</strong></td></tr>
-        <tr><td style="text-align:center">25</td><td>Checking of Islanding mode of Solar System by disconnecting from grid supply and also with Single phasing of Grid</td><td>Checked <span class="fixed-value">Checked</span>, If Yes working satisfactory <span class="fixed-value">Yes</span></td></tr>
-        <tr><td style="text-align:center">26</td><td>In case of Solar Inverter with Storage Battery or DG as standby source, separate wiring &amp; change over switch</td><td>Provided <span class="fixed-value">Not Applicable</span></td></tr>
+        <tr><td style="text-align:center">28</td><td>Checking of Islanding mode of Solar System by disconnecting from grid supply and also with Single phasing of Grid</td><td>Checked <span class="fixed-value">Checked</span>, If Yes working satisfactory <span class="fixed-value">Yes</span></td></tr>
+        <tr><td style="text-align:center">29</td><td>In case of Solar Inverter with Storage Battery or DG as standby source, separate wiring &amp; change over switch</td><td>Provided <span class="fixed-value">Not Applicable</span></td></tr>
         <tr style="background:#e9ecef;"><td colspan="3" style="text-align:center;"><strong>Net Metering System Details</strong></td></tr>
-        <tr><td style="text-align:center">27</td><td>Net meter Installed in Grid/Network system at the time of Joint Inspection</td><td class="fixed-value">Yes</td></tr>
-        <tr><td style="text-align:center">28</td><td>Net meter is Tested at MSEDCL Testing-Division Lab</td><td class="fixed-value">Yes</td></tr>
-        <tr><td style="text-align:center">29</td><td>Meter make</td><td><span th:if="${meterMake != null and meterMake != ''}" th:text="${meterMake}"></span><span th:if="${meterMake == null or meterMake == ''}" class="value-missing">Value Missing</span></td></tr>
-        <tr><td style="text-align:center">30</td><td>Meter Type</td><td class="fixed-value">DLMS, Generation Meter</td></tr>
-        <tr><td style="text-align:center">31</td><td>Meter Serial No</td><td><span th:if="${netMeterNumber != null and netMeterNumber != ''}" th:text="${netMeterNumber}"></span><span th:if="${netMeterNumber == null or netMeterNumber == ''}" class="value-missing">Value Missing</span></td></tr>
-        <tr><td style="text-align:center">32</td><td>Meter Class of Accuracy</td><td class="fixed-value">Class 1.0</td></tr>
-        <tr><td style="text-align:center">33</td><td>Meter Capacity</td><td class="fixed-value">5-30A</td></tr>
-        <tr><td style="text-align:center">34</td><td>Meter Constant</td><td class="fixed-value">1600 imp/kWh</td></tr>
-        <tr><td style="text-align:center">35</td><td>Meter Initial Reading</td><td class="fixed-value">0.00</td></tr>
-        <tr><td style="text-align:center">36</td><td>Location meter easily assessable for meter reading</td><td class="fixed-value">Yes</td></tr>
+        <tr><td style="text-align:center">30</td><td>Net meter Installed in Grid/Network system at the time of Joint Inspection</td><td class="fixed-value">Yes</td></tr>
+        <tr><td style="text-align:center">31</td><td>Net meter is Tested at MSEDCL Testing-Division Lab</td><td class="fixed-value">Yes</td></tr>
+        <tr><td style="text-align:center">32</td><td>Meter make</td><td><span th:if="${meterMake != null and meterMake != ''}" th:text="${meterMake}"></span><span th:if="${meterMake == null or meterMake == ''}" class="value-missing">Value Missing</span></td></tr>
+        <tr><td style="text-align:center">33</td><td>Meter Type</td><td class="fixed-value">DLMS, Generation Meter</td></tr>
+        <tr><td style="text-align:center">34</td><td>Meter Serial No</td><td><span th:if="${netMeterNumber != null and netMeterNumber != ''}" th:text="${netMeterNumber}"></span><span th:if="${netMeterNumber == null or netMeterNumber == ''}" class="value-missing">Value Missing</span></td></tr>
+        <tr><td style="text-align:center">35</td><td>Meter Class of Accuracy</td><td class="fixed-value">Class 1.0</td></tr>
+        <tr><td style="text-align:center">36</td><td>Meter Capacity</td><td class="fixed-value">5-30A</td></tr>
+        <tr><td style="text-align:center">37</td><td>Meter Constant</td><td class="fixed-value">1600 imp/kWh</td></tr>
+        <tr><td style="text-align:center">38</td><td>Meter Initial Reading</td><td class="fixed-value">0.00</td></tr>
+        <tr><td style="text-align:center">39</td><td>Location meter easily assessable for meter reading</td><td class="fixed-value">Yes</td></tr>
     </table>
 
     <div class="section-title">Generation Meter Details</div>
     <table class="wcr-table">
-        <tr><td style="text-align:center">37</td><td>Generation meter Installed for recording Solar Generation</td><td class="fixed-value">Yes</td></tr>
-        <tr><td style="text-align:center">38</td><td>Meter is Tested at MSEDCL Testing-Division Lab</td><td class="fixed-value">Yes</td></tr>
-        <tr><td style="text-align:center">38A</td><td>Meter make</td><td><span th:if="${meterMake != null and meterMake != ''}" th:text="${meterMake}"></span><span th:if="${meterMake == null or meterMake == ''}" class="value-missing">Value Missing</span></td></tr>
-        <tr><td style="text-align:center">39</td><td>Meter Type</td><td class="fixed-value">DLMS, Generation Meter</td></tr>
-        <tr><td style="text-align:center">40</td><td>Meter Serial No</td><td><span th:if="${meterNumber != null and meterNumber != ''}" th:text="${meterNumber}"></span><span th:if="${meterNumber == null or meterNumber == ''}" class="value-missing">Value Missing</span></td></tr>
-        <tr><td style="text-align:center">41</td><td>Meter Class of Accuracy</td><td class="fixed-value">Class 1.0</td></tr>
-        <tr><td style="text-align:center">42</td><td>Meter Capacity</td><td class="fixed-value">5-30A</td></tr>
-        <tr><td style="text-align:center">43</td><td>Meter Constant</td><td class="fixed-value">1600 imp/kWh</td></tr>
-        <tr><td style="text-align:center">44</td><td>Meter Initial Reading</td><td class="fixed-value">0.00</td></tr>
-        <tr><td style="text-align:center">45</td><td>Location meter easily assessable for meter reading</td><td class="fixed-value">Yes</td></tr>
+        <tr><td style="text-align:center">40</td><td>Generation meter Installed for recording Solar Generation</td><td class="fixed-value">Yes</td></tr>
+        <tr><td style="text-align:center">41</td><td>Meter is Tested at MSEDCL Testing-Division Lab</td><td class="fixed-value">Yes</td></tr>
+        <tr><td style="text-align:center">42</td><td>Meter make</td><td><span th:if="${meterMake != null and meterMake != ''}" th:text="${meterMake}"></span><span th:if="${meterMake == null or meterMake == ''}" class="value-missing">Value Missing</span></td></tr>
+        <tr><td style="text-align:center">43</td><td>Meter Type</td><td class="fixed-value">DLMS, Generation Meter</td></tr>
+        <tr><td style="text-align:center">44</td><td>Meter Serial No</td><td><span th:if="${meterNumber != null and meterNumber != ''}" th:text="${meterNumber}"></span><span th:if="${meterNumber == null or meterNumber == ''}" class="value-missing">Value Missing</span></td></tr>
+        <tr><td style="text-align:center">45</td><td>Meter Class of Accuracy</td><td class="fixed-value">Class 1.0</td></tr>
+        <tr><td style="text-align:center">46</td><td>Meter Capacity</td><td class="fixed-value">5-30A</td></tr>
+        <tr><td style="text-align:center">47</td><td>Meter Constant</td><td class="fixed-value">1600 imp/kWh</td></tr>
+        <tr><td style="text-align:center">48</td><td>Meter Initial Reading</td><td class="fixed-value">0.00</td></tr>
+        <tr><td style="text-align:center">49</td><td>Location meter easily assessable for meter reading</td><td class="fixed-value">Yes</td></tr>
     </table>
 </div>
 
@@ -410,49 +414,49 @@
 <div class="page">
     <div class="section-title">Solar System Equipment Details</div>
     <table class="wcr-table">
-        <tr><td style="text-align:center">46</td><td>Grid Tie Inverter Make:-</td><td><span th:if="${inverterMake != null and inverterMake != ''}" th:text="${inverterMake}"></span><span th:if="${inverterMake == null or inverterMake == ''}" class="value-missing">Value Missing</span></td></tr>
-        <tr><td style="text-align:center">47</td><td>Inverter Capacity(AC Kw/Kva)</td><td><span th:if="${inverterCapacity != null}" th:text="${inverterCapacity}"></span><span th:if="${inverterCapacity == null}" class="value-missing">Value Missing</span></td></tr>
-        <tr><td style="text-align:center">48</td><td>PV Module make:-</td><td><span th:if="${moduleMake != null and moduleMake != ''}" th:text="${moduleMake}"></span><span th:if="${moduleMake == null or moduleMake == ''}" class="value-missing">Value Missing</span></td></tr>
-        <tr><td style="text-align:center">49</td><td>PV Module Nos</td><td><span th:if="${numberOfModules != null}" th:text="${numberOfModules}"></span><span th:if="${numberOfModules == null}" class="value-missing">Value Missing</span></td></tr>
-        <tr><td style="text-align:center">50</td><td>PV Module serial Nos</td><td><span th:if="${moduleSerialNumbers != null and moduleSerialNumbers != ''}" th:text="${moduleSerialNumbers}"></span><span th:if="${moduleSerialNumbers == null or moduleSerialNumbers == ''}" class="value-missing">Value Missing</span></td></tr>
-        <tr><td style="text-align:center">51</td><td>No. of strings:-</td><td class="fixed-value">1</td></tr>
-        <tr><td style="text-align:center">52</td><td>Rating of Each PV modules &amp; total Capacity</td><td><span th:if="${wattagePerModule != null}" th:text="${wattagePerModule}"></span><span th:if="${wattagePerModule == null}" class="value-missing">Value Missing</span> watt / <span th:if="${totalCapacityKWP != null}" th:text="${totalCapacityKWP}"></span><span th:if="${totalCapacityKWP == null}" class="value-missing">Value Missing</span> kW</td></tr>
+        <tr><td style="text-align:center">50</td><td>Grid Tie Inverter Make:-</td><td><span th:if="${inverterMake != null and inverterMake != ''}" th:text="${inverterMake}"></span><span th:if="${inverterMake == null or inverterMake == ''}" class="value-missing">Value Missing</span></td></tr>
+        <tr><td style="text-align:center">51</td><td>Inverter Capacity(AC Kw/Kva)</td><td><span th:if="${inverterCapacity != null}" th:text="${inverterCapacity}"></span><span th:if="${inverterCapacity == null}" class="value-missing">Value Missing</span></td></tr>
+        <tr><td style="text-align:center">52</td><td>PV Module make:-</td><td><span th:if="${moduleMake != null and moduleMake != ''}" th:text="${moduleMake}"></span><span th:if="${moduleMake == null or moduleMake == ''}" class="value-missing">Value Missing</span></td></tr>
+        <tr><td style="text-align:center">53</td><td>PV Module Nos</td><td><span th:if="${numberOfModules != null}" th:text="${numberOfModules}"></span><span th:if="${numberOfModules == null}" class="value-missing">Value Missing</span></td></tr>
+        <tr><td style="text-align:center">54</td><td>PV Module serial Nos</td><td><span th:if="${moduleSerialNumbers != null and moduleSerialNumbers != ''}" th:text="${moduleSerialNumbers}"></span><span th:if="${moduleSerialNumbers == null or moduleSerialNumbers == ''}" class="value-missing">Value Missing</span></td></tr>
+        <tr><td style="text-align:center">55</td><td>No. of strings:-</td><td class="fixed-value">1</td></tr>
+        <tr><td style="text-align:center">56</td><td>Rating of Each PV modules &amp; total Capacity</td><td><span th:if="${wattagePerModule != null}" th:text="${wattagePerModule}"></span><span th:if="${wattagePerModule == null}" class="value-missing">Value Missing</span> watt / <span th:if="${totalCapacityKWP != null}" th:text="${totalCapacityKWP}"></span><span th:if="${totalCapacityKWP == null}" class="value-missing">Value Missing</span> kW</td></tr>
         <tr style="background:#e9ecef;"><td colspan="3" style="text-align:center;"><strong>Checking of connection of Meter</strong></td></tr>
-        <tr><td style="text-align:center">53</td><td>Generation Meter connection</td><td class="fixed-value">Correct</td></tr>
-        <tr><td style="text-align:center">54</td><td>Net Meter connection</td><td class="fixed-value">Correct</td></tr>
+        <tr><td style="text-align:center">57</td><td>Generation Meter connection</td><td class="fixed-value">Correct</td></tr>
+        <tr><td style="text-align:center">58</td><td>Net Meter connection</td><td class="fixed-value">Correct</td></tr>
     </table>
 
     <div class="section-title">Overall Observation</div>
     <table class="wcr-table">
-        <tr><td style="text-align:center">55</td><td>Found that Inverter is working in Healthy condition</td><td class="fixed-value">Yes</td></tr>
-        <tr><td style="text-align:center">56</td><td>Islanding of Solar System working Satisfactory</td><td class="fixed-value">Yes</td></tr>
-        <tr><td style="text-align:center">57</td><td>The Above inspected Solar Invertors system with associated equipment &amp; Metering system can be taken into system</td><td class="fixed-value">Yes</td></tr>
-        <tr><td style="text-align:center">58</td><td>If, No, Discrepancies to be attended by consumer (Please mention Serial Nos of Points to be complied by consumers)</td><td class="fixed-value">None</td></tr>
-    </table>
-
-    <div class="signature-row">
-        <table class="signature-table">
-            <tr>
-                <td>
-                    <div><img th:if="${consumerSignature != null and !#lists.isEmpty(consumerSignature)}" th:src="${consumerSignature[0]}" class="sign-img" alt="Consumer Signature"/><div th:if="${consumerSignature == null or #lists.isEmpty(consumerSignature)}" class="sign-line"></div></div>
-                    <div><strong>Consumer representative</strong></div>
-                    <div>(<span th:if="${name != null and name != ''}" th:text="${name}"></span><span th:if="${name == null or name == ''}" class="value-missing">Value Missing</span>)</div>
-                </td>
-                <td>
-                    <div><img th:if="${vendorSignature != null and !#lists.isEmpty(vendorSignature)}" th:src="${vendorSignature[0]}" class="sign-img" alt="Vendor Signature"/><div th:if="${vendorSignature == null or #lists.isEmpty(vendorSignature)}" class="sign-line"></div></div>
-                    <div><strong>Contractor Representative</strong></div>
-                    <div>(<span th:if="${vendorName != null and vendorName != ''}" th:text="${vendorName}"></span><span th:if="${vendorName == null or vendorName == ''}" class="value-missing">Value Missing</span>)</div>
-                </td>
-            </tr>
+        <tr><td style="text-align:center">59</td><td>Found that Inverter is working in Healthy condition</td><td class="fixed-value">Yes</td></tr>
+        <tr><td style="text-align:center">60</td><td>Islanding of Solar System working Satisfactory</td><td class="fixed-value">Yes</td></tr>
+        <tr><td style="text-align:center">61</td><td>The Above inspected Solar Invertors system with associated equipment &amp; Metering system can be taken into system</td><td class="fixed-value">Yes</td></tr>
+        <tr><td style="text-align:center">62</td><td>If, No, Discrepancies to be attended by consumer (Please mention Serial Nos of Points to be complied by consumers)</td><td class="fixed-value">None</td></tr>
         </table>
-    </div>
 
-    <div class="remarks-box">
-        <p><strong>Remarks:-</strong></p>
-        <p>In the presence of backup inverter an arrangement should be made in such way that the backup inverter supply should never be synchronised with solar inverter to avoid any electrical accident due to back feeding. If Islanding is not working satisfactory then connection should not be released by AE(QC) and agency should be instructed to solve the islanding issue.</p>
-        <p>In case of DG synchronisation, synchronised panel protection, uv and frequency should be verified</p>
-        <p>Please refer "Sample detailed specification of typical rooftop photovoltaic system" and MSEDCL commercial circular No- 322 dated 21-01-2019 regarding "connectivity to the Distribution network of MSEDCL for eligible consumers installing Rooftop Renewable Energy Generating Systems in his premises under MERC (Grid Interactive Rooftop Renewable Energy Generating Systems) Regulations, 2019 - Procedure for Application, methodology for Metering &amp; Billing, etc."</p>
-    </div>
+        <div class="signature-row">
+            <table class="signature-table">
+                <tr>
+                    <td>
+                        <div><img th:if="${consumerSignature != null and !#lists.isEmpty(consumerSignature)}" th:src="${consumerSignature[0]}" class="sign-img" alt="Consumer Signature"/><div th:if="${consumerSignature == null or #lists.isEmpty(consumerSignature)}" class="sign-line"></div></div>
+                        <div><strong>Consumer representative</strong></div>
+                        <div>(<span th:if="${name != null and name != ''}" th:text="${name}"></span><span th:if="${name == null or name == ''}" class="value-missing">Value Missing</span>)</div>
+                    </td>
+                    <td>
+                        <div><img th:if="${vendorSignature != null and !#lists.isEmpty(vendorSignature)}" th:src="${vendorSignature[0]}" class="sign-img" alt="Vendor Signature"/><div th:if="${vendorSignature == null or #lists.isEmpty(vendorSignature)}" class="sign-line"></div></div>
+                        <div><strong>Contractor Representative</strong></div>
+                        <div>(<span th:if="${vendorName != null and vendorName != ''}" th:text="${vendorName}"></span><span th:if="${vendorName == null or vendorName == ''}" class="value-missing">Value Missing</span>)</div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="remarks-box">
+            <p><strong>Remarks:-</strong></p>
+            <p>In the presence of backup inverter an arrangement should be made in such way that the backup inverter supply should never be synchronised with solar inverter to avoid any electrical accident due to back feeding. If Islanding is not working satisfactory then connection should not be released by AE(QC) and agency should be instructed to solve the islanding issue.</p>
+            <p>In case of DG synchronisation, synchronised panel protection, uv and frequency should be verified</p>
+            <p>Please refer "Sample detailed specification of typical rooftop photovoltaic system" and MSEDCL commercial circular No- 322 dated 21-01-2019 regarding "connectivity to the Distribution network of MSEDCL for eligible consumers installing Rooftop Renewable Energy Generating Systems in his premises under MERC (Grid Interactive Rooftop Renewable Energy Generating Systems) Regulations, 2019 - Procedure for Application, methodology for Metering &amp; Billing, etc."</p>
+        </div>
 </div>
 
 </body>

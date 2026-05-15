@@ -200,9 +200,9 @@
 <body>
 
 <!-- WCR Header: Uploaded headerLogo OR default Arihant Header -->
-<div class="header-container">
-    <img th:if="${not #lists.isEmpty(headerLogo)}" th:src="${headerLogo[0]}" alt="Vendor Header"/>
-    <img th:if="${#lists.isEmpty(headerLogo)}" th:src="${defaultArihantHeader}" alt="Arihant Electricals Header"/>
+<div style="text-align: center; margin-bottom: 15px; padding-bottom: 8px; border-bottom: 1px solid #000;">
+    <img th:if="${not #lists.isEmpty(headerLogo)}" th:src="${headerLogo[0]}" style="max-width: 100%; max-height: 80px; object-fit: contain;" alt="Vendor Header"/>
+    <img th:if="${#lists.isEmpty(headerLogo)}" th:src="${defaultArihantHeader}" style="max-width: 100%; max-height: 80px; object-fit: contain;" alt="Arihant Electricals Header"/>
 </div>
 
 <div class="gov-wrapper">
@@ -262,10 +262,9 @@
 
     <div class="page-break"></div>
 
-    <!-- WCR Header on Page 2 -->
-    <div class="header-container">
-        <img th:if="${not #lists.isEmpty(headerLogo)}" th:src="${headerLogo[0]}" alt="Vendor Header"/>
-        <img th:if="${#lists.isEmpty(headerLogo)}" th:src="${defaultArihantHeader}" alt="Arihant Electricals Header"/>
+    <div style="text-align: center; margin-bottom: 15px; padding-bottom: 8px; border-bottom: 1px solid #000;">
+        <img th:if="${not #lists.isEmpty(headerLogo)}" th:src="${headerLogo[0]}" style="max-width: 100%; max-height: 80px; object-fit: contain;" alt="Vendor Header"/>
+        <img th:if="${#lists.isEmpty(headerLogo)}" th:src="${defaultArihantHeader}" style="max-width: 100%; max-height: 80px; object-fit: contain;" alt="Arihant Electricals Header"/>
     </div>
 
     <h2>GUARANTEE CERTIFICATE UNDERTAKING TO BE SUBMITTED BY VENDOR</h2>
