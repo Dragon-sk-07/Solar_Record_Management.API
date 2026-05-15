@@ -11,7 +11,7 @@
         }
         @page {
             size: A4;
-            margin: 5mm 8mm;
+            margin: 8mm 10mm;
         }
         body {
             font-family: 'Times New Roman', Times, serif;
@@ -29,27 +29,27 @@
         .page:last-child {
             page-break-after: avoid;
         }
+        .page-first {
+            page-break-after: always;
+        }
         .header {
             text-align: center;
-            margin: 0;
-            padding: 0;
-            border: none;
+            margin-bottom: 15px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #000;
         }
         .header img {
-            width: 100%;
-            max-height: 100px;
-            object-fit: cover;
-            margin: 0;
-            padding: 0;
-            display: block;
+            max-width: 100%;
+            max-height: 80px;
+            object-fit: contain;
         }
         .letter-date {
             text-align: right;
-            margin: 15px 0 10px 0;
+            margin: 10px 0 12px 0;
         }
         .subject {
             font-weight: bold;
-            margin: 12px 0 8px 0;
+            margin: 10px 0 8px 0;
             text-decoration: underline;
         }
         .ref-line {
@@ -62,7 +62,7 @@
             margin: 12px 0 10px 0;
         }
         .meter-details div {
-            margin: 3px 0;
+            margin: 4px 0;
         }
         .meter-label {
             font-weight: 700;
@@ -75,13 +75,13 @@
         .wcr-table {
             width: 100%;
             border-collapse: collapse;
-            margin: 4px 0;
+            margin: 6px 0;
             font-size: 9pt;
             border: 1px solid #000;
         }
         .wcr-table th, .wcr-table td {
             border: 1px solid #000;
-            padding: 4px 5px;
+            padding: 5px 6px;
             vertical-align: top;
         }
         .wcr-table td:nth-child(3) {
@@ -125,10 +125,13 @@
         .invoice-table td {
             text-align: right;
         }
+        .invoice-table td:first-child {
+            text-align: left;
+        }
         .section-title {
             font-weight: bold;
             font-size: 10pt;
-            margin: 6px 0 3px 0;
+            margin: 8px 0 4px 0;
             background: #e9ecef;
             padding: 4px 8px;
             text-align: center;
@@ -148,7 +151,7 @@
             vertical-align: top;
         }
         .sign-line {
-            margin-top: 20px;
+            margin-top: 25px;
             border-top: 1px solid #000;
             width: 70%;
             margin-left: auto;
@@ -159,16 +162,16 @@
             max-width: 150px;
         }
         .remarks-box {
-            margin-top: 10px;
-            padding: 6px 8px;
+            margin-top: 12px;
+            padding: 8px 10px;
             background: #fef9e6;
             border-left: 3px solid #b8860b;
-            font-size: 8pt;
+            font-size: 8.5pt;
         }
         .note-text {
             font-size: 8pt;
-            margin-top: 3px;
-            margin-bottom: 5px;
+            margin-top: 4px;
+            margin-bottom: 6px;
             color: #2c3e50;
         }
         .note-text ul {
@@ -183,10 +186,10 @@
             font-weight: 700;
         }
         .tax-invoice-title {
-            font-size: 16px;
+            font-size: 14px;
             font-weight: bold;
             text-align: center;
-            margin: 12px 0 10px 0;
+            margin: 15px 0 10px 0;
         }
         .invoice-info {
             margin-bottom: 10px;
@@ -196,41 +199,34 @@
             font-style: italic;
         }
         p {
-            margin: 5px 0;
-        }
-        .to-line {
-            margin: 8px 0;
-        }
-        .ref-container {
-            margin: 8px 0;
+            margin: 6px 0;
         }
     </style>
 </head>
 <body>
 
 <!-- ============================================ -->
-<!-- PAGE 1: LETTER FORMAT -->
+<!-- PAGE 1: LETTER FORMAT (NO TAX INVOICE) -->
 <!-- ============================================ -->
-<div class="page">
+<div class="page page-first">
 
-    <div style="margin: 0; padding: 0;">
-        <img th:src="${defaultMsedclHeader}" style="width: 100%; max-height: 100px; object-fit: cover; display: block;" alt="MSEDCL Header"/>
+    <div style="text-align: center; margin-bottom: 15px; padding-bottom: 8px; border-bottom: 1px solid #000;">
+        <img th:src="${defaultMsedclHeader}" style="max-width: 100%; max-height: 80px; object-fit: contain;" alt="MSEDCL Header"/>
     </div>
 
     <div class="letter-date">
-        Date: <span th:if="${currentDate != null and currentDate != ''}" th:text="${currentDate}"></span><span th:if="${currentDate == null or currentDate == ''}" class="value-missing">__/__/____</span>
+        Date: <span th:if="${currentDate != null and currentDate != ''}" th:text="${currentDate}"></span><span th:if="${currentDate == null or currentDate == ''}" class="value-missing">Value Missing</span>
     </div>
 
-    <div class="to-line">
-        To,<br/>
-        Executive Engineer, M.S.E.D.C.Ltd, <span th:if="${place != null and place != ''}" th:text="${place}"></span><span th:if="${place == null or place == ''}" class="value-missing">Value Missing</span>
+    <div>
+        To, Executive Engineer, M.S.E.D.C.Ltd, <span th:if="${place != null and place != ''}" th:text="${place}"></span><span th:if="${place == null or place == ''}" class="value-missing">Value Missing</span>
     </div>
 
     <div class="subject">
         Subject: Regarding Generation meter testing.
     </div>
 
-    <div class="ref-container">
+    <div>
         <div class="ref-line"><strong>Ref:</strong> 1. Consumer name: <span th:if="${name != null and name != ''}" th:text="${name}"></span><span th:if="${name == null or name == ''}" class="value-missing">Value Missing</span></div>
         <div class="ref-line">2. Consumer Number: <span th:if="${consumerNumber != null and consumerNumber != ''}" th:text="${consumerNumber}"></span><span th:if="${consumerNumber == null or consumerNumber == ''}" class="value-missing">Value Missing</span></div>
         <div class="ref-line">3. Sanction Number: <span th:if="${sanctionNumber != null and sanctionNumber != ''}" th:text="${sanctionNumber}"></span><span th:if="${sanctionNumber == null or sanctionNumber == ''}" class="value-missing">Value Missing</span></div>
@@ -268,8 +264,8 @@
 <!-- ============================================ -->
 <div class="page">
 
-    <div style="margin: 0; padding: 0;">
-        <img th:src="${defaultMsedclHeader}" style="width: 100%; max-height: 100px; object-fit: cover; display: block;" alt="MSEDCL Header"/>
+    <div style="text-align: center; margin-bottom: 15px; padding-bottom: 8px; border-bottom: 1px solid #000;">
+        <img th:src="${defaultMsedclHeader}" style="max-width: 100%; max-height: 80px; object-fit: contain;" alt="MSEDCL Header"/>
     </div>
 
     <div class="tax-invoice-title">TAX INVOICE</div>
@@ -323,12 +319,16 @@
 </div>
 
 <!-- ============================================ -->
-<!-- PAGE 3: PRE-COMMISSIONING REPORT (No Header) -->
+<!-- PAGE 3: PRE-COMMISSIONING REPORT (START) -->
 <!-- ============================================ -->
 <div class="page">
+    <div class="header">
+        <img th:src="${defaultMsedclHeader}" alt="MSEDCL Header"/>
+    </div>
+
     <div class="section-title">1) Checking of Eligibility Criteria</div>
     <table class="wcr-table">
-        <thead><tr><th>Sr.No.</th><th>Points to be checked</th><th>Observation</th></tr></thead>
+        <thead> hilab<th>Sr.No.</th><th>Points to be checked</th><th>Observation</th> </thead>
         <tbody>
         <tr><td style="text-align:center">1</td><td>The Consumer sanctioned load shall be at least 1 KW but not exceeding 20 KW</td><td><span th:if="${sanctionedCapacity != null}" th:text="${sanctionedCapacity}"></span><span th:if="${sanctionedCapacity == null}" class="value-missing">Value Missing</span> (Connected/Sanction Load)</td></tr>
         <tr><td style="text-align:center">2</td><td>Nos of Solar Module Installed &amp; Capacity of each Module</td><td><span th:if="${numberOfModules != null}" th:text="${numberOfModules}"></span><span th:if="${numberOfModules == null}" class="value-missing">Value Missing</span> Nos / <span th:if="${wattagePerModule != null}" th:text="${wattagePerModule}"></span><span th:if="${wattagePerModule == null}" class="value-missing">Value Missing</span> Wp</td></tr>
@@ -381,6 +381,10 @@
 <!-- PAGE 4: NET METERING & GENERATOR DETAILS -->
 <!-- ============================================ -->
 <div class="page">
+    <div class="header">
+        <img th:src="${defaultMsedclHeader}" alt="MSEDCL Header"/>
+    </div>
+
     <div class="section-title">Net Metering &amp; Islanding Details</div>
     <table class="wcr-table">
         <tr><td style="text-align:center">24</td><td>Net Metering cabinet with ELCB/RCCB protection of rated capacity with Sealing arrangement for 3ph</td><td>Not Applicable</td></tr>
@@ -434,6 +438,10 @@
 <!-- PAGE 5: OVERALL OBSERVATION & SIGNATURES -->
 <!-- ============================================ -->
 <div class="page">
+    <div class="header">
+        <img th:src="${defaultMsedclHeader}" alt="MSEDCL Header"/>
+    </div>
+
     <div class="section-title">Overall Observation</div>
     <table class="wcr-table">
         <tr><td style="text-align:center">55</td><td>Found that Inverter is working in Healthy condition</td><td class="fixed-value">Yes</td></tr>

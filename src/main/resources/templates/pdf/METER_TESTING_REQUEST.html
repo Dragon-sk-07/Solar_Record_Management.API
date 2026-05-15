@@ -11,15 +11,14 @@
         box-sizing: border-box;
     }
     @page {
-        margin: 5mm 8mm;
+        margin: 8mm 12mm;
     }
     body {
         font-family: 'Times New Roman', Times, serif;
         font-size: 11pt;
         line-height: 1.4;
         color: #000;
-        padding: 0;
-        margin: 0;
+        padding: 10px 15px;
     }
     .page1 {
         page-break-after: always;
@@ -29,33 +28,30 @@
     }
     .header {
         text-align: center;
-        margin: 0;
-        padding: 0;
-        border: none;
+        margin-bottom: 20px;
+        padding-bottom: 8px;
+        border-bottom: 1px solid #000;
     }
     .header img {
-        width: 100%;
-        max-height: 100px;
-        object-fit: cover;
-        margin: 0;
-        padding: 0;
-        display: block;
+        max-width: 100%;
+        max-height: 80px;
+        object-fit: contain;
     }
     .letter-date {
         text-align: right;
-        margin: 15px 0 10px 0;
+        margin-bottom: 20px;
     }
     .to-section {
-        margin: 10px 0;
+        margin-bottom: 15px;
     }
     .subject {
         font-weight: bold;
         text-decoration: underline;
-        margin: 12px 0 8px 0;
+        margin: 15px 0 10px 0;
     }
     .ref-table {
         width: 100%;
-        margin: 8px 0;
+        margin: 10px 0;
         border-collapse: collapse;
     }
     .ref-table td {
@@ -67,14 +63,10 @@
         font-weight: bold;
     }
     .body-text {
-        margin: 10px 0;
-    }
-    .meter-details {
         margin: 12px 0;
     }
-    .meter-details strong {
-        display: block;
-        margin-bottom: 5px;
+    .meter-details {
+        margin: 15px 0;
     }
     .meter-table {
         width: 60%;
@@ -82,7 +74,7 @@
         margin: 5px 0;
     }
     .meter-table td {
-        padding: 3px 0;
+        padding: 4px 0;
         vertical-align: top;
     }
     .meter-label {
@@ -90,13 +82,14 @@
         font-weight: bold;
     }
     .closing {
-        margin: 15px 0;
+        margin: 20px 0;
     }
     .signature-section {
         margin-top: 25px;
     }
     .signature-line {
-        margin-top: 15px;
+        margin-top: 20px;
+        width: 250px;
     }
     .signature-img {
         max-height: 60px;
@@ -112,19 +105,19 @@
         font-size: 18px;
         font-weight: bold;
         text-align: center;
-        margin: 15px 0 15px 0;
+        margin: 20px 0 15px 0;
     }
     .invoice-info-table {
         width: 100%;
         border-collapse: collapse;
-        margin-bottom: 15px;
+        margin-bottom: 20px;
     }
     .invoice-info-table td {
         padding: 4px 0;
         vertical-align: top;
     }
     .info-label {
-        width: 130px;
+        width: 140px;
         font-weight: bold;
     }
     .invoice-number-right {
@@ -158,7 +151,7 @@
         font-weight: bold;
     }
     .declaration {
-        margin-top: 15px;
+        margin-top: 20px;
         font-style: italic;
     }
     .authorized-signatory {
@@ -171,12 +164,6 @@
     .fixed-value {
         font-weight: 700;
     }
-    .line-break {
-        height: 1px;
-        background: #000;
-        width: 200px;
-        margin-top: 5px;
-    }
   </style>
 </head>
 <body>
@@ -186,8 +173,8 @@
 <!-- ============================================ -->
 <div class="page1">
 
-  <div style="margin: 0; padding: 0;">
-    <img th:src="${defaultMsedclHeader}" style="width: 100%; max-height: 100px; object-fit: cover; display: block;" alt="MSEDCL Header"/>
+  <div style="text-align: center; margin-bottom: 15px; padding-bottom: 8px; border-bottom: 1px solid #000;">
+    <img th:src="${defaultMsedclHeader}" style="max-width: 100%; max-height: 80px; object-fit: contain;" alt="MSEDCL Header"/>
   </div>
 
   <!-- Date -->
@@ -199,7 +186,8 @@
   <div class="to-section">
     To,<br/>
     <strong>Executive Engineer, M.S.E.D.C.Ltd,</strong><br/>
-    <span th:if="${place != null and place != ''}" th:text="${place}"></span><span th:if="${place == null or place == ''}" class="value-missing">Value Missing</span>
+    Maharashtra State Electricity Distribution Company Limited,<br/>
+    Prakashgad, Bandra East, Mumbai - 400051
   </div>
 
   <!-- Subject -->
@@ -212,7 +200,6 @@
     <tr><td class="ref-label">Ref: 1. Consumer name:</td><td><span th:if="${name != null and name != ''}" th:text="${name}"></span><span th:if="${name == null or name == ''}" class="value-missing">Value Missing</span></td></tr>
     <tr><td class="ref-label">2. Consumer Number:</td><td><span th:if="${consumerNumber != null and consumerNumber != ''}" th:text="${consumerNumber}"></span><span th:if="${consumerNumber == null or consumerNumber == ''}" class="value-missing">Value Missing</span></td></tr>
     <tr><td class="ref-label">3. Sanction Number:</td><td><span th:if="${sanctionNumber != null and sanctionNumber != ''}" th:text="${sanctionNumber}"></span><span th:if="${sanctionNumber == null or sanctionNumber == ''}" class="value-missing">Value Missing</span></td></tr>
-    <tr><td class="ref-label">4. Scheme name:</td><td>PM Suryghar Muft Bijli Yojana</td></tr>
   </table>
 
   <!-- Body -->
@@ -236,7 +223,9 @@
 
   <!-- Closing -->
   <div class="closing">
-    Thanking you.<br/><br/>
+    Thanking you.
+  </div>
+  <div class="closing">
     Yours Faithfully,
   </div>
 
@@ -244,7 +233,7 @@
   <div class="signature-section">
     <div class="signature-line">
       <img th:if="${not #lists.isEmpty(vendorSignature)}" th:src="${vendorSignature[0]}" class="signature-img" alt="Vendor Signature"/>
-      <div th:if="${#lists.isEmpty(vendorSignature)}" class="line-break"></div>
+      <div th:if="${#lists.isEmpty(vendorSignature)}" style="border-bottom: 1px solid #000; width: 200px; height: 30px;"></div>
     </div>
     <div class="vendor-details">
       <strong><span th:if="${vendorName != null and vendorName != ''}" th:text="${vendorName}"></span><span th:if="${vendorName == null or vendorName == ''}" class="value-missing">Value Missing</span></strong><br/>
@@ -257,15 +246,15 @@
 <!-- PAGE 2: TAX INVOICE -->
 <!-- ============================================ -->
 <div class="page2">
-  <!-- MSEDCL Header Full Width -->
-  <div class="header">
-    <img th:src="${defaultMsedclHeader}" alt="MSEDCL Header"/>
+
+  <div style="text-align: center; margin-bottom: 15px; padding-bottom: 8px; border-bottom: 1px solid #000;">
+    <img th:src="${defaultMsedclHeader}" style="max-width: 100%; max-height: 80px; object-fit: contain;" alt="MSEDCL Header"/>
   </div>
 
   <!-- TAX INVOICE Title -->
   <div class="tax-invoice-title">TAX INVOICE</div>
 
-  <!-- Invoice Info: PREPARED FOR + PREPARE DATE + INVOICE NUMBER -->
+  <!-- Invoice Info: PREPARED FOR + PREPARE DATE + INVOICE NUMBER in same row using table -->
   <table class="invoice-info-table">
     <tr>
       <td class="info-label">PREPARED FOR:</td>
@@ -314,14 +303,14 @@
 
   <!-- Authorized Signatory -->
   <div class="authorized-signatory">
-    <div style="margin-top: 20px;">
+    <div style="margin-top: 30px;">
       <strong>For <span th:if="${vendorName != null and vendorName != ''}" th:text="${vendorName}"></span><span th:if="${vendorName == null or vendorName == ''}" class="value-missing">Value Missing</span></strong>
     </div>
     <div style="margin-top: 15px;">
       <img th:if="${not #lists.isEmpty(vendorSignature)}" th:src="${vendorSignature[0]}" class="signature-img" alt="Vendor Signature"/>
-      <div th:if="${#lists.isEmpty(vendorSignature)}" class="line-break"></div>
+      <div th:if="${#lists.isEmpty(vendorSignature)}" style="border-bottom: 1px solid #000; width: 200px; height: 30px;"></div>
     </div>
-    <div style="margin-top: 5px;">
+    <div>
       <strong>Authorized Signatory</strong>
     </div>
   </div>

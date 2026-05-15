@@ -94,13 +94,7 @@
         }
         .signature-left {
             display: table-cell;
-            width: 50%;
-            vertical-align: top;
-            text-align: center;
-        }
-        .signature-right {
-            display: table-cell;
-            width: 50%;
+            width: 100%;
             vertical-align: top;
             text-align: center;
         }
@@ -122,17 +116,6 @@
             font-size: 12px;
             text-align: center;
             font-weight: 700;
-        }
-        .signature-left-align {
-            width: 100%;
-            text-align: left;
-            margin-top: 15px;
-        }
-        .signature-left-align .signature-label {
-            text-align: left;
-        }
-        .signature-left-align .signature-name {
-            text-align: left;
         }
         .guarantee-text {
             margin: 12px 0 14px 0;
@@ -188,16 +171,6 @@
             margin-left: 20px;
             padding-left: 5px;
         }
-        .full-width-header {
-            margin: 0;
-            padding: 0;
-        }
-        .full-width-header img {
-            width: 100%;
-            max-height: 100px;
-            object-fit: cover;
-            display: block;
-        }
         @media print {
             body { padding: 0; margin: 0; }
             .page-1-content { page-break-after: always; }
@@ -208,9 +181,10 @@
 </head>
 <body>
 
-<div style="margin: 0; padding: 0;">
-    <img th:if="${not #lists.isEmpty(headerLogo)}" th:src="${headerLogo[0]}" style="width: 100%; max-height: 100px; object-fit: cover; display: block;" alt="Vendor Header"/>
-    <img th:if="${#lists.isEmpty(headerLogo)}" th:src="${defaultArihantHeader}" style="width: 100%; max-height: 100px; object-fit: cover; display: block;" alt="Arihant Electricals Header"/>
+<!-- WCR Header: Uploaded headerLogo OR default Arihant Header -->
+<div style="text-align: center; margin-bottom: 15px; padding-bottom: 8px; border-bottom: 1px solid #000;">
+    <img th:if="${not #lists.isEmpty(headerLogo)}" th:src="${headerLogo[0]}" style="max-width: 100%; max-height: 80px; object-fit: contain;" alt="Vendor Header"/>
+    <img th:if="${#lists.isEmpty(headerLogo)}" th:src="${defaultArihantHeader}" style="max-width: 100%; max-height: 80px; object-fit: contain;" alt="Arihant Electricals Header"/>
 </div>
 
 <div class="gov-wrapper">
@@ -365,14 +339,14 @@
         </div>
 
         <div class="signature-row">
-            <div class="signature-left">
+            <div class="signature-left" style="width: 50%; display: table-cell; text-align: center;">
                 <div class="signature-space">
                     <img th:if="${not #lists.isEmpty(vendorSignature)}" th:src="${vendorSignature[0]}" style="max-height:60px; max-width:200px; object-fit:contain;"/>
                 </div>
                 <span class="signature-label">Signature [Vendor]</span>
                 <span class="signature-name">(<span th:if="${vendorName != null and vendorName != ''}" th:text="${vendorName}"></span><span th:if="${vendorName == null or vendorName == ''}" class="value-missing">Value Missing</span>)</span>
             </div>
-            <div class="signature-right">
+            <div class="signature-right" style="width: 50%; display: table-cell; text-align: center;">
                 <div class="signature-space">
                     <img th:if="${not #lists.isEmpty(consumerSignature)}" th:src="${consumerSignature[0]}" style="max-height:60px; max-width:200px; object-fit:contain;"/>
                 </div>
@@ -384,9 +358,10 @@
 
     <div class="page-break"></div>
 
-    <div style="margin: 0; padding: 0;">
-        <img th:if="${not #lists.isEmpty(headerLogo)}" th:src="${headerLogo[0]}" style="width: 100%; max-height: 100px; object-fit: cover; display: block;" alt="Vendor Header"/>
-        <img th:if="${#lists.isEmpty(headerLogo)}" th:src="${defaultArihantHeader}" style="width: 100%; max-height: 100px; object-fit: cover; display: block;" alt="Arihant Electricals Header"/>
+    <!-- WCR Header on Page 2 (Same as Page 1) -->
+    <div style="text-align: center; margin-bottom: 15px; padding-bottom: 8px; border-bottom: 1px solid #000;">
+        <img th:if="${not #lists.isEmpty(headerLogo)}" th:src="${headerLogo[0]}" style="max-width: 100%; max-height: 80px; object-fit: contain;" alt="Vendor Header"/>
+        <img th:if="${#lists.isEmpty(headerLogo)}" th:src="${defaultArihantHeader}" style="max-width: 100%; max-height: 80px; object-fit: contain;" alt="Arihant Electricals Header"/>
     </div>
 
     <h2>GUARANTEE CERTIFICATE UNDERTAKING TO BE SUBMITTED BY VENDOR</h2>
@@ -396,13 +371,14 @@
         <p style="margin-top: 8px;">This guarantee covers all manufacturing defects and performance issues as per MNRE guidelines. The vendor shall be responsible for any failure to maintain the system during the warranty period.</p>
     </div>
 
-    <!-- Page 2 Signature - LEFT ALIGNED (image + text both left) -->
-    <div class="signature-left-align">
-        <div class="signature-space">
-            <img th:if="${not #lists.isEmpty(vendorSignature)}" th:src="${vendorSignature[0]}" style="max-height:60px; max-width:200px; object-fit:contain;"/>
+    <div class="signature-row">
+        <div style="width: 100%; text-align: left;">
+            <div class="signature-space">
+                <img th:if="${not #lists.isEmpty(vendorSignature)}" th:src="${vendorSignature[0]}" style="max-height:60px; max-width:200px; object-fit:contain;"/>
+            </div>
+            <span class="signature-label" style="text-align: left; display: block;">Signature [Vendor]</span>
+            <span class="signature-name" style="text-align: left; display: block;">(<span th:if="${vendorName != null and vendorName != ''}" th:text="${vendorName}"></span><span th:if="${vendorName == null or vendorName == ''}" class="value-missing">Value Missing</span>)</span>
         </div>
-        <span class="signature-label">Signature [Vendor]</span>
-        <span class="signature-name">(<span th:if="${vendorName != null and vendorName != ''}" th:text="${vendorName}"></span><span th:if="${vendorName == null or vendorName == ''}" class="value-missing">Value Missing</span>)</span>
     </div>
 
     <div class="aadhar-block">
