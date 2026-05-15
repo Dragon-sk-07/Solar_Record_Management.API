@@ -193,29 +193,8 @@
 </head>
 <body>
 
-<!-- Replace current vendor-header with new logo header -->
-<div th:if="${vendorName != null and vendorName != ''}" style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; padding-bottom: 6px; border-bottom: 1px solid #000;">
-    <div style="width: 70px; height: 55px; display: flex; align-items: center; justify-content: flex-start;">
-        <img th:if="${not #lists.isEmpty(headerLogo)}" th:src="${headerLogo[0]}" style="max-width: 70px; max-height: 55px; object-fit: contain;"/>
-    </div>
-    <div style="flex: 1; text-align: center;">
-        <div style="font-size: 22px; font-weight: bold;" th:text="${vendorName}">Vendor Name</div>
-        <div style="font-size: 9px;"><span th:text="${vendorAddress}">Vendor Address</span></div>
-        <div style="font-size: 9px;">Email: <span th:text="${vendorEmail}">vendor@example.com</span> | Mobile: <span th:text="${vendorMobile}">9999999999</span></div>
-    </div>
-    <div style="width: 70px;"></div>
-</div>
-
-<!-- MSEDCL HEADER (Fixed - used when vendor name not available) -->
-<div th:if="${vendorName == null or vendorName == ''}" class="msedcl-header">
-    <div class="msedcl-logo">
-        <img th:if="${not #lists.isEmpty(netMeteringStamp)}" th:src="${netMeteringStamp[0]}" alt="MSEDCL Logo"/>
-    </div>
-    <div class="msedcl-info">
-        <div class="msedcl-name">MSEDCL</div>
-        <div class="msedcl-fullform">Maharashtra State Electricity Distribution Company Limited</div>
-        <div class="msedcl-address">Prakashgad, Bandra East, Mumbai - 400051</div>
-    </div>
+<div style="text-align: center; margin-bottom: 15px; padding-bottom: 8px; border-bottom: 1px solid #000;">
+    <img th:src="${defaultMsedclHeader}" style="max-width: 100%; max-height: 80px; object-fit: contain;" alt="MSEDCL Header"/>
 </div>
 
 <div th:if="${not #lists.isEmpty(netMeteringStamp)}" style="page-break-after: always;">
@@ -231,7 +210,8 @@
 
     <p>
         This Agreement is made and entered into at
-        <span th:if="${location != null and location != ''}" th:text="${location}"></span><span th:if="${location == null or location == ''}" class="value-missing">Value Missing</span>
+        This Agreement is made and entered into at
+        <span th:if="${place != null and place != ''}" th:text="${place}"></span><span th:if="${place == null or place == ''}" class="value-missing">Value Missing</span>
         on this
         <span th:if="${day != null and day != ''}" th:text="${day}"></span><span th:if="${day == null or day == ''}" class="value-missing">Value Missing</span>
         day of
@@ -274,7 +254,7 @@
     <h2>2 Technical and Inter-connection Requirements</h2>
     <p><b>2.1</b> The metering arrangement and the inter-connection of the Renewable Energy Generating System with the Network of MSEDCL shall be as per the provisions of the Grid Interactive Renewable Regulations, and the technical standards and norms specified by the Central Electricity Authority for connectivity of distributed generation resources and for the installation and operation of meters.</p>
     <p class="mt8"><b>2.2</b> The Eligible Consumer agrees, that he shall install, prior to connection of the Renewable Energy Generating System to the Network of MSEDCL, an isolation device (both automatic and in-built within inverter and external manual relays); and MSEDCL shall have access to it if required for the repair and maintenance of the distribution Network.</p>
-    <p class="mt8"><b>2.3</b> MSEDCL shall specify the interface/inter-connection point and metering point <span th:if="${interconnectionPoint != null and interconnectionPoint != ''}" th:text="${' (' + interconnectionPoint + ')'}"></span><span th:if="${interconnectionPoint == null or interconnectionPoint == ''}" class="value-missing">Value Missing</span></p>
+    <p class="mt8"><b>2.3</b> MSEDCL shall specify the interface/inter-connection point and metering point at the point of supply as per MSEDCL standards.</p>
     <p class="mt8"><b>2.4</b> The Eligible Consumer shall furnish all relevant data, such as voltage, frequency, circuit breaker, isolator position in his System, as and when required by MSEDCL.</p>
 
     <h2>3 Safety</h2>

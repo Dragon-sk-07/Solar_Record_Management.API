@@ -190,6 +190,8 @@ public class SolarPdfController {
         data.put("witnessSignature", record.getWitnessSignature());
         data.put("netMeteringStamp", record.getNetMeteringStamp());
         data.put("annexureTwoStamp", record.getAnnexureTwoStamp());
+        data.put("defaultArihantHeader", "/Arihant_Header.jpeg");
+        data.put("defaultMsedclHeader", "/MSEDCL_Header.jpeg");
 
         // Aadhar Images
         List<String> aadharImageUrls = new ArrayList<>();

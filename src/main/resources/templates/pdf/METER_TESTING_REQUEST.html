@@ -11,205 +11,151 @@
         box-sizing: border-box;
     }
     @page {
-        margin: 6mm 10mm;
+        margin: 8mm 12mm;
     }
     body {
         font-family: 'Times New Roman', Times, serif;
         font-size: 11pt;
-        line-height: 1.35;
+        line-height: 1.4;
         color: #000;
         padding: 10px 15px;
     }
-    .document {
-        width: 100%;
+    .page1 {
+        page-break-after: always;
     }
-    p {
-        margin: 0 0 3px 0;
-        text-align: justify;
+    .page2 {
+        page-break-before: avoid;
     }
-    .center {
+    .header {
         text-align: center;
-    }
-    .bold {
-        font-weight: bold;
-    }
-    .vendor-header {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        margin-bottom: 15px;
+        margin-bottom: 20px;
         padding-bottom: 8px;
         border-bottom: 1px solid #000;
     }
-    .vendor-logo {
-        width: 40%;
-    }
-    .vendor-logo img {
-        max-height: 60px;
+    .header img {
         max-width: 100%;
+        max-height: 80px;
         object-fit: contain;
     }
-    .vendor-info {
-        width: 60%;
+    .letter-date {
         text-align: right;
-    }
-    .vendor-name {
-        font-size: 16px;
-        font-weight: bold;
-        text-transform: uppercase;
-    }
-    .vendor-details {
-        font-size: 9px;
-        margin-top: 3px;
-    }
-    .msedcl-header {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        margin-bottom: 15px;
-        padding-bottom: 8px;
-        border-bottom: 1px solid #000;
-    }
-    .msedcl-logo {
-        width: 40%;
-    }
-    .msedcl-logo img {
-        max-height: 50px;
-        max-width: 100%;
-        object-fit: contain;
-    }
-    .msedcl-info {
-        width: 60%;
-        text-align: right;
-    }
-    .msedcl-name {
-        font-size: 16px;
-        font-weight: bold;
-        text-transform: uppercase;
-        letter-spacing: 1px;
-    }
-    .msedcl-fullform {
-        font-size: 8px;
-        font-weight: normal;
-        letter-spacing: 0.5px;
-    }
-    .msedcl-address {
-        font-size: 8px;
-        margin-top: 3px;
-    }
-    .date-section {
-        margin-top: 12px;
-        text-align: right;
+        margin-bottom: 20px;
     }
     .to-section {
-        margin-top: 12px;
+        margin-bottom: 15px;
     }
     .subject {
-        margin-top: 10px;
         font-weight: bold;
         text-decoration: underline;
+        margin: 15px 0 10px 0;
     }
-    .ref-section {
-        margin-top: 8px;
+    .ref-table {
+        width: 100%;
+        margin: 10px 0;
+        border-collapse: collapse;
     }
-    .ref-item {
-        margin-left: 20px;
+    .ref-table td {
+        padding: 2px 0;
+        vertical-align: top;
+    }
+    .ref-label {
+        width: 180px;
+        font-weight: bold;
     }
     .body-text {
-        margin-top: 10px;
+        margin: 12px 0;
     }
     .meter-details {
-        margin-top: 10px;
-        margin-left: 20px;
+        margin: 15px 0;
+    }
+    .meter-table {
+        width: 60%;
+        border-collapse: collapse;
+        margin: 5px 0;
+    }
+    .meter-table td {
+        padding: 4px 0;
+        vertical-align: top;
+    }
+    .meter-label {
+        width: 100px;
+        font-weight: bold;
     }
     .closing {
-        margin-top: 15px;
+        margin: 20px 0;
     }
     .signature-section {
         margin-top: 25px;
     }
-    .signature-row {
-        display: table;
-        width: 100%;
-        table-layout: fixed;
-        margin: 12px 0 8px 0;
+    .signature-line {
+        margin-top: 20px;
+        width: 250px;
     }
-    .signature-left, .signature-right {
-        display: table-cell;
-        width: 50%;
-        vertical-align: top;
+    .signature-img {
+        max-height: 60px;
+        max-width: 200px;
+        object-fit: contain;
     }
-    .signature-left {
-        text-align: left;
-        padding-right: 15px;
+    .vendor-details {
+        margin-top: 5px;
     }
-    .signature-right {
-        text-align: left;
-        padding-left: 15px;
-    }
-    .signature-space {
-        height: 50px;
-        margin: 3px 0;
-    }
-    .line {
-        margin-top: 3px;
-        border-bottom: 1px solid #000;
-        height: 15px;
-        width: 100%;
-    }
-    .field {
-        font-weight: 700;
-    }
-    .tax-invoice {
-        margin-top: 30px;
-        page-break-before: avoid;
-    }
+
+    /* TAX INVOICE PAGE 2 STYLES */
     .tax-invoice-title {
-        font-size: 16px;
+        font-size: 18px;
         font-weight: bold;
         text-align: center;
-        margin: 15px 0 10px 0;
+        margin: 20px 0 15px 0;
     }
-    .invoice-details {
-        margin-top: 10px;
-    }
-    .invoice-row {
-        display: table;
+    .invoice-info-table {
         width: 100%;
-        margin: 5px 0;
+        border-collapse: collapse;
+        margin-bottom: 20px;
     }
-    .invoice-label {
-        display: table-cell;
-        width: 150px;
+    .invoice-info-table td {
+        padding: 4px 0;
+        vertical-align: top;
+    }
+    .info-label {
+        width: 140px;
         font-weight: bold;
     }
-    .invoice-value {
-        display: table-cell;
+    .invoice-number-right {
+        text-align: right;
+        font-weight: bold;
     }
     .invoice-table {
         width: 100%;
         border-collapse: collapse;
-        margin: 10px 0;
-    }
-    .invoice-table th, .invoice-table td {
+        margin: 15px 0;
         border: 1px solid #000;
-        padding: 6px 8px;
-        text-align: right;
+    }
+    .invoice-table th,
+    .invoice-table td {
+        border: 1px solid #000;
+        padding: 8px 6px;
+        vertical-align: top;
     }
     .invoice-table th {
         background-color: #f0f0f0;
+        font-weight: bold;
         text-align: center;
     }
     .invoice-table td:first-child {
         text-align: left;
     }
+    .invoice-table td {
+        text-align: right;
+    }
     .total-row {
         font-weight: bold;
-        border-top: 2px solid #000;
     }
     .declaration {
-        margin-top: 15px;
+        margin-top: 20px;
         font-style: italic;
+    }
+    .authorized-signatory {
+        margin-top: 30px;
     }
     .value-missing {
         color: #999;
@@ -218,166 +164,157 @@
     .fixed-value {
         font-weight: 700;
     }
-    .mt8 {
-        margin-top: 5px;
-    }
-    .mt12 {
-        margin-top: 8px;
-    }
-    .mt18 {
-        margin-top: 10px;
-    }
-    .mt25 {
-        margin-top: 12px;
-    }
   </style>
 </head>
 <body>
 
-<!-- VENDOR HEADER (Dynamic - uses vendor details from form) -->
-<div th:if="${vendorName != null and vendorName != ''}" style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; padding-bottom: 6px; border-bottom: 1px solid #000;">
-  <div style="width: 70px; height: 55px; display: flex; align-items: center; justify-content: flex-start;">
-    <img th:if="${not #lists.isEmpty(headerLogo)}" th:src="${headerLogo[0]}" style="max-width: 70px; max-height: 55px; object-fit: contain;"/>
-  </div>
-  <div style="flex: 1; text-align: center;">
-    <div style="font-size: 22px; font-weight: bold; margin: 0; padding: 0; letter-spacing: 1px;" th:text="${vendorName}">Vendor Name</div>
-    <div style="font-size: 9px; margin: 3px 0 2px; padding: 0;">
-      <span th:text="${vendorAddress}">Vendor Address</span>
-    </div>
-    <div style="font-size: 9px; margin: 0; padding: 0;">
-      Email: <span th:text="${vendorEmail}">vendor@example.com</span> | Mobile: <span th:text="${vendorMobile}">9999999999</span>
-    </div>
-  </div>
-  <div style="width: 70px;"></div>
-</div>
-
-<!-- MSEDCL HEADER (Fixed - used when vendor name not available) -->
-<div th:if="${vendorName == null or vendorName == ''}" class="msedcl-header">
-  <div class="msedcl-logo">
-    <img th:if="${not #lists.isEmpty(netMeteringStamp)}" th:src="${netMeteringStamp[0]}" alt="MSEDCL Logo"/>
-  </div>
-  <div class="msedcl-info">
-    <div class="msedcl-name">MSEDCL</div>
-    <div class="msedcl-fullform">Maharashtra State Electricity Distribution Company Limited</div>
-    <div>
-      To, Executive Engineer, M.S.E.D.C.Ltd, <span th:if="${place != null and place != ''}" th:text="${place}"></span><span th:if="${place == null or place == ''}" class="value-missing">Value Missing</span>
-    </div>
-  </div>
-</div>
-
-<div class="document">
-
-  <div class="date-section">
-    <p>Date: <span th:if="${currentDate != null and currentDate != ''}" th:text="${currentDate}"></span><span th:if="${currentDate == null or currentDate == ''}" class="value-missing">Value Missing</span></p>
+<!-- ============================================ -->
+<!-- PAGE 1: LETTER FORMAT -->
+<!-- ============================================ -->
+<div class="page1">
+  <!-- MSEDCL Header -->
+  <div class="header">
+    <img th:src="${defaultMsedclHeader}" alt="MSEDCL Header"/>
   </div>
 
+  <!-- Date -->
+  <div class="letter-date">
+    Date: <span th:if="${currentDate != null and currentDate != ''}" th:text="${currentDate}"></span><span th:if="${currentDate == null or currentDate == ''}" class="value-missing">__/__/____</span>
+  </div>
+
+  <!-- To Section -->
   <div class="to-section">
-    <p>To,</p>
-    <p><strong>Executive Engineer, M.S.E.D.C.Ltd,</strong></p>
-    <p><span class="fixed-value">Maharashtra State Electricity Distribution Company Limited, Prakashgad, Bandra East, Mumbai - 400051</span></p>
+    To,<br/>
+    <strong>Executive Engineer, M.S.E.D.C.Ltd,</strong><br/>
+    Maharashtra State Electricity Distribution Company Limited,<br/>
+    Prakashgad, Bandra East, Mumbai - 400051
   </div>
 
+  <!-- Subject -->
   <div class="subject">
-    <p>Subject: Regarding Generation meter testing.</p>
+    Subject: Regarding Generation meter testing.
   </div>
 
-  <div class="ref-section">
-    <p>Ref: 1. Consumer name: <span th:if="${name != null and name != ''}" th:text="${name}"></span><span th:if="${name == null or name == ''}" class="value-missing">Value Missing</span></p>
-    <p class="ref-item">2. Consumer Number: <span th:if="${consumerNumber != null and consumerNumber != ''}" th:text="${consumerNumber}"></span><span th:if="${consumerNumber == null or consumerNumber == ''}" class="value-missing">Value Missing</span></p>
-    <p class="ref-item">3. Sanction Number: <span th:if="${sanctionNumber != null and sanctionNumber != ''}" th:text="${sanctionNumber}"></span><span th:if="${sanctionNumber == null or sanctionNumber == ''}" class="value-missing">Value Missing</span></p>
-  </div>
+  <!-- Reference Details -->
+  <table class="ref-table">
+    <tr><td class="ref-label">Ref: 1. Consumer name:</td><td><span th:if="${name != null and name != ''}" th:text="${name}"></span><span th:if="${name == null or name == ''}" class="value-missing">Value Missing</span></td></tr>
+    <tr><td class="ref-label">2. Consumer Number:</td><td><span th:if="${consumerNumber != null and consumerNumber != ''}" th:text="${consumerNumber}"></span><span th:if="${consumerNumber == null or consumerNumber == ''}" class="value-missing">Value Missing</span></td></tr>
+    <tr><td class="ref-label">3. Sanction Number:</td><td><span th:if="${sanctionNumber != null and sanctionNumber != ''}" th:text="${sanctionNumber}"></span><span th:if="${sanctionNumber == null or sanctionNumber == ''}" class="value-missing">Value Missing</span></td></tr>
+  </table>
 
+  <!-- Body -->
   <div class="body-text">
-    <p>Dear Sir/Madam,</p>
-    <p class="mt8">With reference to above mentioned subject, the consumer has completed required documents for solar connection. Hence, we request to please proceed with the testing of below mentioned meter.</p>
+    Dear Sir/Madam,
+  </div>
+  <div class="body-text">
+    With reference to above mentioned subject, the consumer has completed required documents for solar connection. Hence, we request to please proceed with the testing of below mentioned meter.
   </div>
 
+  <!-- Meter Details -->
   <div class="meter-details">
-    <p>Make: <span th:if="${meterMake != null and meterMake != ''}" th:text="${meterMake}"></span><span th:if="${meterMake == null or meterMake == ''}" class="value-missing">Value Missing</span></p>
-    <p>Sr. No.: <span th:if="${meterNumber != null and meterNumber != ''}" th:text="${meterNumber}"></span><span th:if="${meterNumber == null or meterNumber == ''}" class="value-missing">Value Missing</span></p>
-    <p>Phase: <span class="fixed-value">1 Phase</span></p>
-    <p>Range: <span class="fixed-value">5-30A</span></p>
-  </div>
-
-  <div class="body-text">
-    <p><strong>Meter Details:</strong></p>
-  </div>
-
-  <div class="closing">
-    <p>Thanking you.</p>
-  </div>
-
-  <div class="signature-section">
-    <p>Yours Faithfully,</p>
-    <div class="signature-space">
-      <img th:if="${not #lists.isEmpty(vendorSignature)}"
-           th:src="${vendorSignature[0]}"
-           style="max-height:60px; max-width:200px; object-fit:contain;"/>
-    </div>
-    <div class="line" th:if="${#lists.isEmpty(vendorSignature)}" style="width:200px"></div>
-    <p><strong><span th:if="${vendorName != null and vendorName != ''}" th:text="${vendorName}"></span><span th:if="${vendorName == null or vendorName == ''}" class="value-missing">Value Missing</span></strong></p>
-    <p><span th:if="${vendorAddress != null and vendorAddress != ''}" th:text="${vendorAddress}"></span><span th:if="${vendorAddress == null or vendorAddress == ''}" class="value-missing">Value Missing</span></p>
-  </div>
-
-  <div class="tax-invoice">
-    <div class="tax-invoice-title">TAX INVOICE</div>
-
-    <div class="invoice-details">
-      <div class="invoice-row">
-        <span class="invoice-label">PREPARED FOR:</span>
-        <span class="invoice-value"><span th:if="${name != null and name != ''}" th:text="${name}"></span><span th:if="${name == null or name == ''}" class="value-missing">Value Missing</span></span>
-      </div>
-      <div class="invoice-row">
-        <span class="invoice-label">PREPARE DATE:</span>
-        <span class="invoice-value"><span th:if="${currentDate != null and currentDate != ''}" th:text="${currentDate}"></span><span th:if="${currentDate == null or currentDate == ''}" class="value-missing">Value Missing</span></span>
-      </div>
-    </div>
-
-    <table class="invoice-table">
-      <thead>
-      <tr>
-        <th>Particulars</th>
-        <th>Qty</th>
-        <th>GST</th>
-        <th>Amount (₹)</th>
-        <th>Total (₹)</th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr>
-        <td>Generation Meter <span th:if="${meterMake != null and meterMake != ''}" th:text="${' - ' + meterMake}"></span>, Sr.No.- <span th:if="${meterNumber != null and meterNumber != ''}" th:text="${meterNumber}"></span><span th:if="${meterNumber == null or meterNumber == ''}" class="value-missing">Value Missing</span></td>
-        <td style="text-align:center">1</td>
-        <td style="text-align:center">18%</td>
-        <td style="text-align:right">2100</td>
-        <td style="text-align:right">2478</td>
-      </tr>
-      </tbody>
-      <tfoot>
-      <tr class="total-row">
-        <td colspan="4" style="text-align:right"><strong>Grand Total</strong></td>
-        <td style="text-align:right"><strong>2478</strong></td>
-      </tr>
-      </tfoot>
+    <strong>Meter Details:</strong>
+    <table class="meter-table">
+      <tr><td class="meter-label">Make:</td><td><span th:if="${meterMake != null and meterMake != ''}" th:text="${meterMake}"></span><span th:if="${meterMake == null or meterMake == ''}" class="value-missing">Value Missing</span></td></tr>
+      <tr><td class="meter-label">Sr. No.:</td><td><span th:if="${meterNumber != null and meterNumber != ''}" th:text="${meterNumber}"></span><span th:if="${meterNumber == null or meterNumber == ''}" class="value-missing">Value Missing</span></td></tr>
+      <tr><td class="meter-label">Phase:</td><td>1 Phase</td></tr>
+      <tr><td class="meter-label">Range:</td><td>5-30A</td></tr>
     </table>
+  </div>
 
-    <div class="declaration">
-      <p>I declare that the above information mentioned is true to the best of my knowledge.</p>
+  <!-- Closing -->
+  <div class="closing">
+    Thanking you.
+  </div>
+  <div class="closing">
+    Yours Faithfully,
+  </div>
+
+  <!-- Signature -->
+  <div class="signature-section">
+    <div class="signature-line">
+      <img th:if="${not #lists.isEmpty(vendorSignature)}" th:src="${vendorSignature[0]}" class="signature-img" alt="Vendor Signature"/>
+      <div th:if="${#lists.isEmpty(vendorSignature)}" style="border-bottom: 1px solid #000; width: 200px; height: 30px;"></div>
     </div>
-
-    <div class="signature-row mt18">
-      <div class="signature-left">
-        <p class="bold">For <span th:if="${vendorName != null and vendorName != ''}" th:text="${vendorName}"></span><span th:if="${vendorName == null or vendorName == ''}" class="value-missing">Value Missing</span></p>
-        <div class="signature-space">
-          <img th:if="${not #lists.isEmpty(vendorSignature)}"
-               th:src="${vendorSignature[0]}"
-               style="max-height:60px; max-width:200px; object-fit:contain;"/>
-        </div>
-        <div class="line" th:if="${#lists.isEmpty(vendorSignature)}"></div>
-        <p>Authorized Signatory</p>
-      </div>
-
+    <div class="vendor-details">
+      <strong><span th:if="${vendorName != null and vendorName != ''}" th:text="${vendorName}"></span><span th:if="${vendorName == null or vendorName == ''}" class="value-missing">Value Missing</span></strong><br/>
+      <span th:if="${vendorAddress != null and vendorAddress != ''}" th:text="${vendorAddress}"></span><span th:if="${vendorAddress == null or vendorAddress == ''}" class="value-missing">Value Missing</span>
     </div>
   </div>
 </div>
+
+<!-- ============================================ -->
+<!-- PAGE 2: TAX INVOICE -->
+<!-- ============================================ -->
+<div class="page2">
+  <!-- MSEDCL Header -->
+  <div class="header">
+    <img th:src="${defaultMsedclHeader}" alt="MSEDCL Header"/>
+  </div>
+
+  <!-- TAX INVOICE Title -->
+  <div class="tax-invoice-title">TAX INVOICE</div>
+
+  <!-- Invoice Info: PREPARED FOR + PREPARE DATE + INVOICE NUMBER in same row using table -->
+  <table class="invoice-info-table">
+    <tr>
+      <td class="info-label">PREPARED FOR:</td>
+      <td><span th:if="${name != null and name != ''}" th:text="${name}"></span><span th:if="${name == null or name == ''}" class="value-missing">Value Missing</span></td>
+      <td class="invoice-number-right">INVOICE NO: <span th:if="${invoiceNumber != null and invoiceNumber != ''}" th:text="${invoiceNumber}"></span><span th:if="${invoiceNumber == null or invoiceNumber == ''}" class="value-missing">Value Missing</span></td>
+    </tr>
+    <tr>
+      <td class="info-label">PREPARE DATE:</td>
+      <td><span th:if="${currentDate != null and currentDate != ''}" th:text="${currentDate}"></span><span th:if="${currentDate == null or currentDate == ''}" class="value-missing">Value Missing</span></td>
+      <td></td>
+    </tr>
+  </table>
+
+  <!-- Invoice Items Table -->
+  <table class="invoice-table">
+    <thead>
+    <tr>
+      <th>Particulars</th>
+      <th style="width:8%">Qty</th>
+      <th style="width:10%">GST</th>
+      <th style="width:15%">Amount (₹)</th>
+      <th style="width:15%">Total (₹)</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+      <td>Generation Meter - <span th:if="${meterMake != null and meterMake != ''}" th:text="${meterMake}"></span><span th:if="${meterMake == null or meterMake == ''}" class="value-missing">Value Missing</span>, Sr.No.- <span th:if="${meterNumber != null and meterNumber != ''}" th:text="${meterNumber}"></span><span th:if="${meterNumber == null or meterNumber == ''}" class="value-missing">Value Missing</span></td>
+      <td style="text-align:center">1</td>
+      <td style="text-align:center">18%</td>
+      <td style="text-align:right">2,100</td>
+      <td style="text-align:right">2,478</td>
+    </tr>
+    </tbody>
+    <tfoot>
+    <tr class="total-row">
+      <td colspan="4" style="text-align:right"><strong>Grand Total</strong></td>
+      <td style="text-align:right"><strong>2,478</strong></td>
+    </tr>
+    </tfoot>
+  </table>
+
+  <!-- Declaration -->
+  <div class="declaration">
+    I declare that the above information mentioned is true to the best of my knowledge.
+  </div>
+
+  <!-- Authorized Signatory -->
+  <div class="authorized-signatory">
+    <div style="margin-top: 30px;">
+      <strong>For <span th:if="${vendorName != null and vendorName != ''}" th:text="${vendorName}"></span><span th:if="${vendorName == null or vendorName == ''}" class="value-missing">Value Missing</span></strong>
+    </div>
+    <div style="margin-top: 15px;">
+      <img th:if="${not #lists.isEmpty(vendorSignature)}" th:src="${vendorSignature[0]}" class="signature-img" alt="Vendor Signature"/>
+      <div th:if="${#lists.isEmpty(vendorSignature)}" style="border-bottom: 1px solid #000; width: 200px; height: 30px;"></div>
+    </div>
+    <div>
+      <strong>Authorized Signatory</strong>
+    </div>
+  </div>
+</div>
+
 </body>
 </html>

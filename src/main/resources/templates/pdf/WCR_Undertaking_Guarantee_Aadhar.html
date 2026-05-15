@@ -8,11 +8,6 @@
         * { margin: 0; padding: 0; box-sizing: border-box; }
         @page { margin: 5mm 10mm; }
         body { padding: 5px 10px; }
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
         .section-title {
             font-weight: 700;
             text-align: center;
@@ -97,14 +92,11 @@
             table-layout: fixed;
             margin: 18px 0 10px 0;
         }
-        .signature-left, .signature-right {
+        .signature-left {
             display: table-cell;
-            width: 50%;
+            width: 100%;
             vertical-align: top;
-        }
-        .signature-left, .signature-right {
             text-align: center;
-            padding: 0;
         }
         .signature-label {
             font-weight: 700;
@@ -189,28 +181,10 @@
 </head>
 <body>
 
-<!-- HEADER: Logo left side, Vendor details center in same row -->
-<div th:if="${vendorName != null and vendorName != ''}" style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; padding-bottom: 6px; border-bottom: 1px solid #000;">
-    <div style="width: 80px; height: 55px; display: flex; align-items: center; justify-content: flex-start;">
-        <img th:if="${not #lists.isEmpty(headerLogo)}" th:src="${headerLogo[0]}" style="max-width: 70px; max-height: 50px; object-fit: contain;"/>
-    </div>
-    <div style="flex: 1; text-align: center;">
-        <div style="font-size: 18px; font-weight: bold; margin: 0; padding: 0; letter-spacing: 1px;" th:text="${vendorName}">Vendor Name</div>
-        <div style="font-size: 8px; margin: 2px 0 0 0; padding: 0;">
-            <span th:text="${vendorAddress}">Vendor Address</span>
-        </div>
-        <div style="font-size: 8px; margin: 0; padding: 0;">
-            Email: <span th:text="${vendorEmail}">vendor@example.com</span> | Mobile: <span th:text="${vendorMobile}">9999999999</span>
-        </div>
-    </div>
-    <div style="width: 80px;"></div>
-</div>
-
-<!-- MSEDCL HEADER (Fixed - used when vendor name not available) -->
-<div th:if="${vendorName == null or vendorName == ''}" style="text-align: center; margin-bottom: 12px; padding-bottom: 6px; border-bottom: 1px solid #000;">
-    <div style="font-size: 18px; font-weight: bold; margin: 0; padding: 0; letter-spacing: 1px;">MSEDCL</div>
-    <div style="font-size: 8px; margin: 2px 0 0 0; padding: 0;">Maharashtra State Electricity Distribution Company Limited</div>
-    <div style="font-size: 8px; margin: 0; padding: 0;"><span th:text="${place != null and place != ''} ? ${place} : 'Value Missing'">Division</span></div>
+<!-- WCR Header: Uploaded headerLogo OR default Arihant Header -->
+<div style="text-align: center; margin-bottom: 15px; padding-bottom: 8px; border-bottom: 1px solid #000;">
+    <img th:if="${not #lists.isEmpty(headerLogo)}" th:src="${headerLogo[0]}" style="max-width: 100%; max-height: 80px; object-fit: contain;" alt="Vendor Header"/>
+    <img th:if="${#lists.isEmpty(headerLogo)}" th:src="${defaultArihantHeader}" style="max-width: 100%; max-height: 80px; object-fit: contain;" alt="Arihant Electricals Header"/>
 </div>
 
 <div class="gov-wrapper">
@@ -320,7 +294,7 @@
             <tr>
                 <td class="col-srno"></td>
                 <td class="col-obs">HPD</td>
-                <td class="col-value"><span class="fixed-value">Yes</span></td>
+                <td class="col-value"><span class="fixed-value">NA</span></td>
             </tr>
             <tr>
                 <td class="col-srno"></td>
@@ -372,39 +346,15 @@
                 <span class="signature-label">Signature [Vendor]</span>
                 <span class="signature-name">(<span th:if="${vendorName != null and vendorName != ''}" th:text="${vendorName}"></span><span th:if="${vendorName == null or vendorName == ''}" class="value-missing">Value Missing</span>)</span>
             </div>
-            <div class="signature-right">
-                <div class="signature-space">
-                    <img th:if="${not #lists.isEmpty(consumerSignature)}" th:src="${consumerSignature[0]}" style="max-height:60px; max-width:200px; object-fit:contain;"/>
-                </div>
-                <span class="signature-label">Signature [Consumer]</span>
-                <span class="signature-name">(<span th:if="${name != null and name != ''}" th:text="${name}"></span><span th:if="${name == null or name == ''}" class="value-missing">Value Missing</span>)</span>
-            </div>
         </div>
     </div>
 
     <div class="page-break"></div>
 
-    <!-- Header on Page 2 -->
-    <div th:if="${vendorName != null and vendorName != ''}" style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; padding-bottom: 6px; border-bottom: 1px solid #000;">
-        <div style="width: 80px; height: 55px; display: flex; align-items: center; justify-content: flex-start;">
-            <img th:if="${not #lists.isEmpty(headerLogo)}" th:src="${headerLogo[0]}" style="max-width: 70px; max-height: 50px; object-fit: contain;"/>
-        </div>
-        <div style="flex: 1; text-align: center;">
-            <div style="font-size: 18px; font-weight: bold; margin: 0; padding: 0; letter-spacing: 1px;" th:text="${vendorName}">Vendor Name</div>
-            <div style="font-size: 8px; margin: 2px 0 0 0; padding: 0;">
-                <span th:text="${vendorAddress}">Vendor Address</span>
-            </div>
-            <div style="font-size: 8px; margin: 0; padding: 0;">
-                Email: <span th:text="${vendorEmail}">vendor@example.com</span> | Mobile: <span th:text="${vendorMobile}">9999999999</span>
-            </div>
-        </div>
-        <div style="width: 80px;"></div>
-    </div>
-
-    <div th:if="${vendorName == null or vendorName == ''}" style="text-align: center; margin-bottom: 12px; padding-bottom: 6px; border-bottom: 1px solid #000;">
-        <div style="font-size: 18px; font-weight: bold; margin: 0; padding: 0; letter-spacing: 1px;">MSEDCL</div>
-        <div style="font-size: 8px; margin: 2px 0 0 0; padding: 0;">Maharashtra State Electricity Distribution Company Limited</div>
-        <div style="font-size: 8px; margin: 0; padding: 0;"><span th:text="${place != null and place != ''} ? ${place} : 'Value Missing'">Division</span></div>
+    <!-- WCR Header on Page 2 (Same as Page 1) -->
+    <div style="text-align: center; margin-bottom: 15px; padding-bottom: 8px; border-bottom: 1px solid #000;">
+        <img th:if="${not #lists.isEmpty(headerLogo)}" th:src="${headerLogo[0]}" style="max-width: 100%; max-height: 80px; object-fit: contain;" alt="Vendor Header"/>
+        <img th:if="${#lists.isEmpty(headerLogo)}" th:src="${defaultArihantHeader}" style="max-width: 100%; max-height: 80px; object-fit: contain;" alt="Arihant Electricals Header"/>
     </div>
 
     <h2>GUARANTEE CERTIFICATE UNDERTAKING TO BE SUBMITTED BY VENDOR</h2>
@@ -421,14 +371,6 @@
             </div>
             <span class="signature-label">Signature [Vendor]</span>
             <span class="signature-name">(<span th:if="${vendorName != null and vendorName != ''}" th:text="${vendorName}"></span><span th:if="${vendorName == null or vendorName == ''}" class="value-missing">Value Missing</span>)</span>
-        </div>
-        <div class="signature-right">
-            <div class="signature-space">
-                <div style="border: 1.5px solid #000; height: 55px; width: 180px; margin: 0 auto; display: flex; align-items: center; justify-content: center;">
-                    <span style="font-size: 9px;">(Stamp &amp; Seal)</span>
-                </div>
-            </div>
-            <span class="signature-label">Stamp &amp; Seal</span>
         </div>
     </div>
 

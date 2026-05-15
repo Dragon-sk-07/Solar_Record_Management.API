@@ -249,32 +249,8 @@
 </head>
 <body>
 
-<div th:if="${vendorName != null and vendorName != ''}" style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; padding-bottom: 6px; border-bottom: 1px solid #000;">
-    <div style="width: 70px; height: 55px; display: flex; align-items: center; justify-content: flex-start;">
-        <img th:if="${not #lists.isEmpty(headerLogo)}" th:src="${headerLogo[0]}" style="max-width: 70px; max-height: 55px; object-fit: contain;"/>
-    </div>
-    <div style="flex: 1; text-align: center;">
-        <div style="font-size: 22px; font-weight: bold; margin: 0; padding: 0; letter-spacing: 1px;" th:text="${vendorName}">Vendor Name</div>
-        <div style="font-size: 9px; margin: 3px 0 2px; padding: 0;">
-            <span th:text="${vendorAddress}">Vendor Address</span>
-        </div>
-        <div style="font-size: 9px; margin: 0; padding: 0;">
-            Email: <span th:text="${vendorEmail}">vendor@example.com</span> | Mobile: <span th:text="${vendorMobile}">9999999999</span>
-        </div>
-    </div>
-    <div style="width: 70px;"></div>
-</div>
-
-<!-- MSEDCL HEADER (Fixed) -->
-<div th:if="${vendorName == null or vendorName == ''}" class="msedcl-header">
-    <div class="msedcl-logo">
-        <img th:if="${not #lists.isEmpty(netMeteringStamp)}" th:src="${netMeteringStamp[0]}" alt="MSEDCL Logo"/>
-    </div>
-    <div class="msedcl-info">
-        <div class="msedcl-name">MSEDCL</div>
-        <div class="msedcl-fullform">Maharashtra State Electricity Distribution Company Limited</div>
-        <div class="msedcl-address">Prakashgad, Bandra East, Mumbai - 400051</div>
-    </div>
+<div style="text-align: center; margin-bottom: 15px; padding-bottom: 8px; border-bottom: 1px solid #000;">
+    <img th:src="${defaultMsedclHeader}" style="max-width: 100%; max-height: 80px; object-fit: contain;" alt="MSEDCL Header"/>
 </div>
 
 <div class="bond-wrapper">

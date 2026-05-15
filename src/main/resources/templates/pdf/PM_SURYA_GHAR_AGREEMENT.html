@@ -140,47 +140,30 @@
     .mt30 {
         margin-top: 15px;
     }
-    .underline {
-        text-decoration: underline;
+    .page-break {
+        page-break-before: always;
     }
   </style>
 </head>
 <body>
 
-<!-- VENDOR HEADER (Dynamic - uses vendor details from form) -->
-<div th:if="${vendorName != null and vendorName != ''}" style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; padding-bottom: 6px; border-bottom: 1px solid #000;">
-  <div style="width: 70px; height: 55px; display: flex; align-items: center; justify-content: flex-start;">
-    <img th:if="${not #lists.isEmpty(headerLogo)}" th:src="${headerLogo[0]}" style="max-width: 70px; max-height: 55px; object-fit: contain;"/>
-  </div>
-  <div style="flex: 1; text-align: center;">
-    <div style="font-size: 22px; font-weight: bold; margin: 0; padding: 0; letter-spacing: 1px;" th:text="${vendorName}">Vendor Name</div>
-    <div style="font-size: 9px; margin: 3px 0 2px; padding: 0;">
-      <span th:text="${vendorAddress}">Vendor Address</span>
-    </div>
-    <div style="font-size: 9px; margin: 0; padding: 0;">
-      Email: <span th:text="${vendorEmail}">vendor@example.com</span> | Mobile: <span th:text="${vendorMobile}">9999999999</span>
-    </div>
-  </div>
-  <div style="width: 70px;"></div>
+<!-- MSEDCL Header - ALWAYS on Page 1 -->
+<div style="text-align: center; margin-bottom: 15px; padding-bottom: 8px; border-bottom: 1px solid #000;">
+  <img th:src="${defaultMsedclHeader}" style="max-width: 100%; max-height: 80px; object-fit: contain;" alt="MSEDCL Header"/>
 </div>
 
-<!-- MSEDCL HEADER (Fixed - used when vendor name not available) -->
-<div th:if="${vendorName == null or vendorName == ''}" style="text-align: center; margin-bottom: 12px; padding-bottom: 6px; border-bottom: 1px solid #000;">
-  <div style="font-size: 22px; font-weight: bold; margin: 0; padding: 0; letter-spacing: 1px;">MSEDCL</div>
-  <div style="font-size: 9px; margin: 3px 0 2px; padding: 0;">Maharashtra State Electricity Distribution Company Limited</div>
-  <div style="font-size: 9px; margin: 0; padding: 0;">Prakashgad, Bandra East, Mumbai - 400051</div>
-</div>
-
-<!-- Annexure-II Stamp (Rs. 100) - Page 1 -->
-<div th:if="${not #lists.isEmpty(annexureTwoStamp)}" style="page-break-after: avoid; margin-bottom: 15px;">
-  <div style="display: flex; align-items: center; justify-content: center; min-height: 200px; border: 1px dashed #ccc; padding: 10px;">
-    <img th:src="${annexureTwoStamp[0]}" style="max-width: 100%; max-height: 180px; object-fit: contain;"/>
+<!-- If Stamp Uploaded: Show Stamp on Page 1 -->
+<div th:if="${not #lists.isEmpty(annexureTwoStamp)}">
+  <div style="text-align: center; margin-top: 30px;">
+    <img th:src="${annexureTwoStamp[0]}" style="max-width: 80%; max-height: 500px; object-fit: contain; border: 1px solid #ccc; padding: 10px;" alt="Annexure-II Stamp"/>
   </div>
+  <!-- Force page break before content -->
+  <div class="page-break"></div>
 </div>
 
+<!-- Main Content (appears on Page 2 if stamp uploaded, otherwise Page 1) -->
 <div class="document">
   <div class="annexure-title">Annexure 2</div>
-
   <h1>MODEL DRAFT AGREEMENT BETWEEN CONSUMER & VENDOR FOR<br/>INSTALLATION OF GRID CONNECTED ROOFTOP SOLAR (RTS) PROJECT<br/>UNDER PM - SURYA GHAR: MUFT BIJLI YOJANA</h1>
 
   <p class="execution-date">
@@ -290,5 +273,6 @@
     Disclaimer: This agreement is between vendor and consumer and any dispute related to the same shall not involve any third party including MNRE and Distribution Utilities.
   </div>
 </div>
+
 </body>
 </html>
