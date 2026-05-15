@@ -19,7 +19,7 @@
             font-family: 'Times New Roman', Times, serif;
             background: #ffffff;
             color: #000000;
-            font-size: 12px;
+            font-size: 11px;
             line-height: 1.35;
             padding: 12px 15px;
         }
@@ -46,7 +46,7 @@
             width: 100%;
             border-collapse: collapse;
             border: 1px solid #000;
-            font-size: 11px;
+            font-size: 10px;
             table-layout: fixed;
             margin: 5px 0;
         }
@@ -67,6 +67,7 @@
         }
         .col-value {
             width: 56%;
+            font-weight: 700;
         }
         .value-field {
             font-weight: 700;
@@ -77,7 +78,7 @@
         .undertaking-p1, .undertaking-p2 {
             margin: 8px 0;
             text-align: justify;
-            font-size: 12.5px;
+            font-size: 11px;
             line-height: 1.45;
         }
         .undertaking-p1 .value-field, .undertaking-p2 .value-field {
@@ -94,14 +95,20 @@
         }
         .signature-left {
             display: table-cell;
-            width: 100%;
+            width: 50%;
+            vertical-align: top;
+            text-align: center;
+        }
+        .signature-right {
+            display: table-cell;
+            width: 50%;
             vertical-align: top;
             text-align: center;
         }
         .signature-label {
             font-weight: 700;
             display: block;
-            font-size: 12px;
+            font-size: 11px;
             margin-top: 4px;
             margin-bottom: 0;
             text-align: center;
@@ -113,14 +120,14 @@
         .signature-name {
             display: block;
             margin-top: 0;
-            font-size: 12px;
+            font-size: 11px;
             text-align: center;
             font-weight: 700;
         }
         .guarantee-text {
             margin: 12px 0 14px 0;
             text-align: justify;
-            font-size: 12.5px;
+            font-size: 11px;
             line-height: 1.5;
         }
         .guarantee-text .value-field {
@@ -134,6 +141,7 @@
         .aadhar-number-text {
             font-weight: 700;
             margin: 6px 0 10px 0;
+            font-size: 11px;
         }
         .aadhar-number-text .value-field {
             font-weight: 700;
@@ -161,15 +169,6 @@
         }
         .fixed-value {
             font-weight: 700;
-        }
-        .note-text {
-            font-size: 8pt;
-            margin-top: 6px;
-            color: #2c3e50;
-        }
-        .note-text ul {
-            margin-left: 20px;
-            padding-left: 5px;
         }
         @media print {
             body { padding: 0; margin: 0; }
@@ -322,15 +321,6 @@
             </tr>
         </table>
 
-        <div class="note-text">
-            <strong>Note:</strong>
-            <ul>
-                <li>All measurements are as per MNRE standards</li>
-                <li>Warranty applicable from date of commissioning</li>
-                <li>System performance guaranteed as per specifications</li>
-            </ul>
-        </div>
-
         <div class="undertaking-p1">
             <p>We <span th:if="${vendorName != null and vendorName != ''}" th:text="${vendorName}"></span><span th:if="${vendorName == null or vendorName == ''}" class="value-missing">Value Missing</span> &amp; <span th:if="${name != null and name != ''}" th:text="${name}"></span><span th:if="${name == null or name == ''}" class="value-missing">Value Missing</span> bearing Consumer Number <span th:if="${consumerNumber != null and consumerNumber != ''}" th:text="${consumerNumber}"></span><span th:if="${consumerNumber == null or consumerNumber == ''}" class="value-missing">Value Missing</span>. Ensured structural stability of installed solar power plant and obtained requisite permissions from the concerned authority. If in future, by virtue of any means due to collapsing or damage to installed solar power plant, MSEDCL will not be held responsible for any loss to property or human life, if any.</p>
         </div>
@@ -339,14 +329,14 @@
         </div>
 
         <div class="signature-row">
-            <div class="signature-left" style="width: 50%; display: table-cell; text-align: center;">
+            <div class="signature-left">
                 <div class="signature-space">
                     <img th:if="${not #lists.isEmpty(vendorSignature)}" th:src="${vendorSignature[0]}" style="max-height:60px; max-width:200px; object-fit:contain;"/>
                 </div>
                 <span class="signature-label">Signature [Vendor]</span>
                 <span class="signature-name">(<span th:if="${vendorName != null and vendorName != ''}" th:text="${vendorName}"></span><span th:if="${vendorName == null or vendorName == ''}" class="value-missing">Value Missing</span>)</span>
             </div>
-            <div class="signature-right" style="width: 50%; display: table-cell; text-align: center;">
+            <div class="signature-right">
                 <div class="signature-space">
                     <img th:if="${not #lists.isEmpty(consumerSignature)}" th:src="${consumerSignature[0]}" style="max-height:60px; max-width:200px; object-fit:contain;"/>
                 </div>
@@ -382,7 +372,7 @@
     </div>
 
     <div class="aadhar-block">
-        <p style="font-size: 12px; font-weight: 700; margin-bottom: 6px;">Identity Details of Consumer: -</p>
+        <p style="font-size: 11px; font-weight: 700; margin-bottom: 6px;">Identity Details of Consumer: -</p>
         <div class="aadhar-number-text">
             <span class="bold">Aadhar Number:</span>
             <span th:if="${aadharNumber != null and aadharNumber != ''}" th:text="${aadharNumber}"></span><span th:if="${aadharNumber == null or aadharNumber == ''}" class="value-missing">Value Missing</span>
@@ -403,10 +393,6 @@
 
         <p class="text-right" style="margin-top: 8px;"><span class="bold">[SELF ATTESTED]</span></p>
         <p style="font-size: 9px; margin-top: 5px; text-align: center;">I hereby confirm that the above Aadhar details are correct and authentic.</p>
-    </div>
-
-    <div class="note-text" style="margin-top: 15px; border-top: 1px solid #ccc; padding-top: 8px;">
-        <p><strong>Declaration:</strong> The information provided in this document is true and correct to the best of my knowledge. Any false information may lead to cancellation of the solar plant registration and legal action as per applicable laws.</p>
     </div>
 
 </div>
