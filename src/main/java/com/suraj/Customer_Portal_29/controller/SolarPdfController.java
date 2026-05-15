@@ -193,6 +193,13 @@ public class SolarPdfController {
         data.put("defaultArihantHeader", "/Arihant_Header.jpeg");
         data.put("defaultMsedclHeader", "/MSEDCL_Header.jpeg");
 
+// DEBUG LOGS - Check header paths
+        System.out.println("=== HEADER DEBUG ===");
+        System.out.println("defaultArihantHeader: " + data.get("defaultArihantHeader"));
+        System.out.println("defaultMsedclHeader: " + data.get("defaultMsedclHeader"));
+        System.out.println("headerLogo from record: " + record.getHeaderLogo());
+        System.out.println("=== END DEBUG ===");
+
         // Aadhar Images
         List<String> aadharImageUrls = new ArrayList<>();
         if (record.getAadharImages() != null && !record.getAadharImages().isEmpty()) {
