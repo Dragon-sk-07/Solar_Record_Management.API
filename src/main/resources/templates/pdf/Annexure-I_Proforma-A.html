@@ -341,20 +341,20 @@
         <p>The above RTS installation has been inspected by me for Pre-Commissioning Testing of Roof Top Solar Connection on dt. <span th:if="${installationDate != null and installationDate != ''}" th:text="${installationDate}"></span><span th:if="${installationDate == null or installationDate == ''}" class="value-missing">Value Missing</span> as per guidelines issued by the office of The Chief Engineer vide letter no 21653 on dt. 18.08.2022 and found in order for commissioning.</p>
     </div>
 
-    <div class="msedcl-section">
-        <div class="signature-space">
+    <div class="msedcl-section" style="text-align: left; width: 100%;">
+        <div class="signature-space" style="text-align: left;">
             <img th:if="${not #lists.isEmpty(msedclSignature)}" th:src="${msedclSignature[0]}" style="max-height:55px; max-width:180px; object-fit:contain;"/>
         </div>
-        <div class="msedcl-label">Signature of the MSEDCL Officer</div>
-        <div class="msedcl-row">
+        <div class="msedcl-label" style="text-align: left; display: block;">Signature of the MSEDCL Officer</div>
+        <div class="msedcl-row" style="display: block; text-align: left;">
             <div class="msedcl-item">
-                <div class="msedcl-label">Name: </div>
+                <div class="msedcl-label" style="display: inline-block;">Name: </div>
             </div>
-            <div class="msedcl-item">
+            <div class="msedcl-item" style="margin-top: 5px;">
                 <div class="msedcl-label">Designation: <span class="value-text">Executive Engineer</span></div>
             </div>
         </div>
-        <div class="msedcl-label">Date and seal: <span th:if="${installationDate != null and installationDate != ''}" th:text="${installationDate}" class="value-text"></span><span th:if="${installationDate == null or installationDate == ''}" class="value-missing">Value Missing</span></div>
+        <div class="msedcl-label" style="margin-top: 8px;">Date and seal: <span th:if="${installationDate != null and installationDate != ''}" th:text="${installationDate}" class="value-text"></span><span th:if="${installationDate == null or installationDate == ''}" class="value-missing">Value Missing</span></div>
     </div>
 
 </div>
