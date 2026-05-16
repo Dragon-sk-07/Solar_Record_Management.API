@@ -207,8 +207,10 @@
 <!-- PAGE 1: LETTER FORMAT -->
 <!-- ============================================ -->
 <div class="page">
-    <div class="header">
-        <img th:src="${defaultMsedclHeader}" alt="MSEDCL Header"/>
+
+    <div style="text-align: center; margin-bottom: 15px; padding-bottom: 8px; border-bottom: 1px solid #000;">
+        <img th:if="${not #lists.isEmpty(headerLogo)}" th:src="${headerLogo[0]}" style="max-width: 100%; max-height: 80px; object-fit: contain;" alt="Vendor Header"/>
+        <img th:if="${#lists.isEmpty(headerLogo)}" th:src="${defaultArihantHeader}" style="max-width: 100%; max-height: 80px; object-fit: contain;" alt="Arihant Electricals Header"/>
     </div>
 
     <div class="letter-date">
@@ -262,8 +264,10 @@
 <!-- PAGE 2: TAX INVOICE -->
 <!-- ============================================ -->
 <div class="page">
-    <div class="header">
-        <img th:src="${defaultMsedclHeader}" alt="MSEDCL Header"/>
+
+    <div style="text-align: center; margin-bottom: 15px; padding-bottom: 8px; border-bottom: 1px solid #000;">
+        <img th:if="${not #lists.isEmpty(headerLogo)}" th:src="${headerLogo[0]}" style="max-width: 100%; max-height: 80px; object-fit: contain;" alt="Vendor Header"/>
+        <img th:if="${#lists.isEmpty(headerLogo)}" th:src="${defaultArihantHeader}" style="max-width: 100%; max-height: 80px; object-fit: contain;" alt="Arihant Electricals Header"/>
     </div>
 
     <div class="tax-invoice-title">TAX INVOICE</div>

@@ -190,8 +190,8 @@ public class SolarPdfController {
         data.put("witnessSignature", record.getWitnessSignature());
         data.put("netMeteringStamp", record.getNetMeteringStamp());
         data.put("annexureTwoStamp", record.getAnnexureTwoStamp());
-        data.put("defaultArihantHeader", convertImageToBase64("/Arihant_Header.jpeg"));
-        data.put("defaultMsedclHeader", convertImageToBase64("/MSEDCL_Header.jpeg"));
+        data.put("defaultArihantHeader", convertImageToBase64("/Arihant_Header.png"));
+        data.put("defaultMsedclHeader", convertImageToBase64("/MSEDCL_Header.png"));
 
 // DEBUG LOGS - Check header paths
         System.out.println("=== HEADER DEBUG ===");
