@@ -204,15 +204,16 @@ public class SolarRecordService {
         entity.setNetMeterNumber(req.getNetMeterNumber());
         entity.setInvoiceNumber(req.getInvoiceNumber());
         entity.setYearOfManufacturing(req.getYearOfManufacturing());
-        entity.setHeaderLogo(mergeImageLists(req.getExistingHeaderLogo(), req.getHeaderLogo(), "headerLogos"));
-        entity.setVendorSignature(mergeImageLists(req.getExistingVendorSignature(), req.getVendorSignature(), "vendorSignatures"));
-        entity.setConsumerSignature(mergeImageLists(req.getExistingConsumerSignature(), req.getConsumerSignature(), "consumerSignatures"));
-        entity.setMsedclSignature(mergeImageLists(req.getExistingMsedclSignature(), req.getMsedclSignature(), "msedclSignatures"));
-        entity.setWitnessSignature(mergeImageLists(req.getExistingWitnessSignature(), req.getWitnessSignature(), "witnessSignatures"));
-        entity.setAadharImages(mergeImageLists(req.getExistingAadharImages(), req.getAadharImages(), "aadharImages"));
-        entity.setSitePhotos(mergeImageLists(req.getExistingSitePhotos(), req.getSitePhotos(), "sitePhotos"));
-        entity.setNetMeteringStamp(mergeImageLists(req.getExistingNetMeteringStamp(), req.getNetMeteringStamp(), "netMeteringStamps"));
-        entity.setAnnexureTwoStamp(mergeImageLists(req.getExistingAnnexureTwoStamp(), req.getAnnexureTwoStamp(), "annexureTwoStamps"));
+
+        entity.setHeaderLogo(syncImages(entity.getHeaderLogo(), req.getHeaderLogo(), req.getExistingHeaderLogo(), "headerLogos"));
+        entity.setVendorSignature(syncImages(entity.getVendorSignature(), req.getVendorSignature(), req.getExistingVendorSignature(), "vendorSignatures"));
+        entity.setConsumerSignature(syncImages(entity.getConsumerSignature(), req.getConsumerSignature(), req.getExistingConsumerSignature(), "consumerSignatures"));
+        entity.setMsedclSignature(syncImages(entity.getMsedclSignature(), req.getMsedclSignature(), req.getExistingMsedclSignature(), "msedclSignatures"));
+        entity.setWitnessSignature(syncImages(entity.getWitnessSignature(), req.getWitnessSignature(), req.getExistingWitnessSignature(), "witnessSignatures"));
+        entity.setAadharImages(syncImages(entity.getAadharImages(), req.getAadharImages(), req.getExistingAadharImages(), "aadharImages"));
+        entity.setSitePhotos(syncImages(entity.getSitePhotos(), req.getSitePhotos(), req.getExistingSitePhotos(), "sitePhotos"));
+        entity.setNetMeteringStamp(syncImages(entity.getNetMeteringStamp(), req.getNetMeteringStamp(), req.getExistingNetMeteringStamp(), "netMeteringStamps"));
+        entity.setAnnexureTwoStamp(syncImages(entity.getAnnexureTwoStamp(), req.getAnnexureTwoStamp(), req.getExistingAnnexureTwoStamp(), "annexureTwoStamps"));
     }
 
     private SolarRecordResponseDto mapToResponse(SolarRecord entity) {
@@ -250,5 +251,16 @@ public class SolarRecordService {
         if (existing != null && !existing.isEmpty()) result.addAll(existing);
         if (newFiles != null && !newFiles.isEmpty()) result.addAll(uploadImagesWithCompression(newFiles, folder));
         return result;
+    }
+
+    private List<String> syncImages(List<String> existingImages, List<MultipartFile> newFiles, List<String> existingUrlsFromRequest, String folder) {
+        List<String> finalUrls = new ArrayList<>();
+        if (existingUrlsFromRequest != null) finalUrls.addAll(existingUrlsFromRequest);
+        if (newFiles != null && !newFiles.isEmpty()) finalUrls.addAll(uploadImagesWithCompression(newFiles, folder));
+        if (existingImages != null && !existingImages.isEmpty()) {
+            List<String> urlsToDelete = existingImages.stream().filter(url -> !finalUrls.contains(url)).collect(Collectors.toList());
+            if (!urlsToDelete.isEmpty()) cloudinaryService.deleteFiles(urlsToDelete);
+        }
+        return finalUrls;
     }
 }
