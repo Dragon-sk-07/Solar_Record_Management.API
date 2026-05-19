@@ -240,6 +240,7 @@ public class SolarPdfController {
             case "SOLAR_PROPOSAL_11KW": return "11KW_Solar_Proposal.pdf";
             case "METER_TESTING_REQUEST": return "Meter_Testing_Request.pdf";
             case "PM_SURYA_GHAR_AGREEMENT": return "PM_Surya_Ghar_Agreement.pdf";
+            case "FrontSix": return "Pre_Commissioning_Report_FrontSix.pdf";
             default: return "document_" + System.currentTimeMillis() + ".pdf";
         }
     }
