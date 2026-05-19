@@ -11,57 +11,56 @@
         }
         @page {
             size: A4;
-            margin: 10mm 12mm;
+            margin: 8mm 10mm;
         }
         body {
             font-family: 'Times New Roman', Times, serif;
             background: white;
             color: black;
             font-size: 10pt;
-            line-height: 1.3;
+            line-height: 1.25;
             padding: 0;
             margin: 0;
         }
         .page {
             page-break-after: always;
             margin-bottom: 0;
-            min-height: 277mm;
-            position: relative;
+            padding-bottom: 0;
         }
         .page:last-child {
             page-break-after: avoid;
         }
         .header {
             text-align: center;
-            margin-bottom: 10px;
-            padding-bottom: 5px;
+            margin-bottom: 8px;
+            padding-bottom: 4px;
             border-bottom: 1px solid #000;
         }
         .header img {
             max-width: 100%;
-            max-height: 70px;
+            max-height: 60px;
             object-fit: contain;
         }
         .letter-date {
             text-align: right;
-            margin: 5px 0 8px 0;
+            margin: 4px 0 6px 0;
         }
         .subject {
             font-weight: bold;
-            margin: 8px 0 5px 0;
+            margin: 6px 0 4px 0;
             text-decoration: underline;
         }
         .ref-line {
-            margin: 2px 0;
+            margin: 1px 0;
         }
         .ref-line strong {
             font-weight: 700;
         }
         .meter-details {
-            margin: 8px 0 8px 0;
+            margin: 6px 0 6px 0;
         }
         .meter-details div {
-            margin: 3px 0;
+            margin: 2px 0;
         }
         .meter-label {
             font-weight: 700;
@@ -71,27 +70,27 @@
         .wcr-table {
             width: 100%;
             border-collapse: collapse;
-            margin: 4px 0;
-            font-size: 9pt;
+            margin: 2px 0;
+            font-size: 8.5pt;
             border: 1px solid #000;
         }
         .wcr-table th, .wcr-table td {
             border: 1px solid #000;
-            padding: 4px 5px;
+            padding: 3px 4px;
             vertical-align: top;
         }
         .wcr-table th {
             background-color: #e3e3e3;
             font-weight: 700;
             text-align: center;
-            font-size: 9pt;
+            font-size: 8.5pt;
         }
         .wcr-table th:first-child, .wcr-table td:first-child {
-            width: 8%;
+            width: 7%;
             text-align: center;
         }
         .wcr-table th:nth-child(2), .wcr-table td:nth-child(2) {
-            width: 52%;
+            width: 53%;
         }
         .wcr-table th:nth-child(3), .wcr-table td:nth-child(3) {
             width: 40%;
@@ -99,13 +98,13 @@
         .invoice-table {
             width: 100%;
             border-collapse: collapse;
-            font-size: 9.5pt;
+            font-size: 9pt;
             border: 1px solid #000;
-            margin: 8px 0;
+            margin: 6px 0;
         }
         .invoice-table th, .invoice-table td {
             border: 1px solid #000;
-            padding: 5px 4px;
+            padding: 4px 4px;
         }
         .invoice-table th {
             background-color: #e3e3e3;
@@ -120,14 +119,14 @@
         }
         .section-title {
             font-weight: bold;
-            font-size: 10pt;
-            margin: 6px 0 3px 0;
+            font-size: 9.5pt;
+            margin: 4px 0 2px 0;
             background: #e9ecef;
-            padding: 3px 6px;
+            padding: 2px 4px;
             text-align: center;
         }
         .signature-row {
-            margin: 10px 0 8px;
+            margin: 8px 0 6px;
         }
         .signature-table {
             width: 100%;
@@ -137,56 +136,56 @@
             border: none;
             width: 50%;
             text-align: center;
-            padding: 0 10px;
+            padding: 0 8px;
             vertical-align: top;
         }
         .sign-line {
-            margin-top: 20px;
+            margin-top: 15px;
             border-top: 1px solid #000;
             width: 70%;
             margin-left: auto;
             margin-right: auto;
         }
         .sign-img {
-            max-height: 45px;
-            max-width: 140px;
+            max-height: 40px;
+            max-width: 130px;
         }
         .remarks-box {
-            margin-top: 8px;
-            padding: 6px 8px;
+            margin-top: 6px;
+            padding: 4px 6px;
             background: #fef9e6;
             border-left: 3px solid #b8860b;
-            font-size: 8pt;
+            font-size: 7.5pt;
         }
         .note-text {
-            font-size: 7.5pt;
-            margin-top: 3px;
-            margin-bottom: 4px;
+            font-size: 7pt;
+            margin-top: 2px;
+            margin-bottom: 2px;
             color: #2c3e50;
         }
         .note-text ul {
-            margin-left: 18px;
+            margin-left: 15px;
             padding-left: 3px;
         }
         .tax-invoice-title {
-            font-size: 15px;
+            font-size: 14px;
             font-weight: bold;
             text-align: center;
-            margin: 10px 0 8px 0;
+            margin: 6px 0 6px 0;
         }
         .invoice-info {
-            margin-bottom: 8px;
+            margin-bottom: 6px;
         }
         .declaration {
-            margin-top: 8px;
+            margin-top: 6px;
             font-style: italic;
         }
         p {
-            margin: 4px 0;
+            margin: 2px 0;
         }
         .to-address {
-            margin: 6px 0;
-            line-height: 1.4;
+            margin: 4px 0;
+            line-height: 1.3;
         }
         .blank-value {
             color: #999;
@@ -194,26 +193,31 @@
         }
         .page-number {
             text-align: center;
-            font-size: 8pt;
-            margin-top: 5px;
+            font-size: 7pt;
+            margin-top: 3px;
             color: #666;
+        }
+        hr {
+            display: none;
+        }
+        .no-break {
+            page-break-inside: avoid;
+            break-inside: avoid;
         }
     </style>
 </head>
 <body>
 
 <!-- ============================================ -->
-<!-- PAGE 1: LETTER FORMAT (as per PDF) -->
+<!-- PAGE 1: LETTER FORMAT -->
 <!-- ============================================ -->
 <div class="page">
     <div class="header">
-        <img th:if="${not #lists.isEmpty(headerLogo)}" th:src="${headerLogo[0]}" style="max-width: 100%; max-height: 70px; object-fit: contain;" alt="Vendor Header"/>
-        <img th:if="${#lists.isEmpty(headerLogo)}" th:src="${defaultArihantHeader}" style="max-width: 100%; max-height: 70px; object-fit: contain;" alt="Arihant Electricals Header"/>
+        <img th:if="${not #lists.isEmpty(headerLogo)}" th:src="${headerLogo[0]}" style="max-width: 100%; max-height: 60px; object-fit: contain;" alt="Vendor Header"/>
+        <img th:if="${#lists.isEmpty(headerLogo)}" th:src="${defaultArihantHeader}" style="max-width: 100%; max-height: 60px; object-fit: contain;" alt="Arihant Electricals Header"/>
     </div>
 
-    <div class="letter-date">
-        Date: 2026-10-21
-    </div>
+    <div class="letter-date">Date: 2026-10-21</div>
 
     <div class="to-address">
         To,<br/>
@@ -221,9 +225,7 @@
         Latur
     </div>
 
-    <div class="subject">
-        Subject: Regarding Generation meter testing.
-    </div>
+    <div class="subject">Subject: Regarding Generation meter testing.</div>
 
     <div>
         <div class="ref-line"><strong>Ref:</strong> 1. Consumer name: Pooja Desai</div>
@@ -246,15 +248,9 @@
     <p>Thanking you.</p>
     <p>Yours Faithfully,</p>
 
-    <div style="margin-top: 25px;">
-        <div>
-            <img th:if="${not #lists.isEmpty(vendorSignature)}" th:src="${vendorSignature[0]}" class="sign-img" alt="Vendor Signature"/>
-            <div th:if="${#lists.isEmpty(vendorSignature)}" style="border-bottom: 1px solid #000; width: 200px; height: 25px;"></div>
-        </div>
-        <div style="margin-top: 3px;">
-            <strong>Arihant Electricals</strong><br/>
-            A/p Ashta Near- Rammandeer, Ashta
-        </div>
+    <div style="margin-top: 20px;">
+        <div><img th:if="${not #lists.isEmpty(vendorSignature)}" th:src="${vendorSignature[0]}" class="sign-img" alt="Vendor Signature"/><div th:if="${#lists.isEmpty(vendorSignature)}" style="border-bottom: 1px solid #000; width: 180px; height: 20px;"></div></div>
+        <div style="margin-top: 2px;"><strong>Arihant Electricals</strong><br/>A/p Ashta Near-Rammandeer, Ashta</div>
     </div>
     <div class="page-number">Page 1</div>
 </div>
@@ -264,8 +260,8 @@
 <!-- ============================================ -->
 <div class="page">
     <div class="header">
-        <img th:if="${not #lists.isEmpty(headerLogo)}" th:src="${headerLogo[0]}" style="max-width: 100%; max-height: 70px; object-fit: contain;" alt="Vendor Header"/>
-        <img th:if="${#lists.isEmpty(headerLogo)}" th:src="${defaultArihantHeader}" style="max-width: 100%; max-height: 70px; object-fit: contain;" alt="Arihant Electricals Header"/>
+        <img th:if="${not #lists.isEmpty(headerLogo)}" th:src="${headerLogo[0]}" style="max-width: 100%; max-height: 60px; object-fit: contain;" alt="Vendor Header"/>
+        <img th:if="${#lists.isEmpty(headerLogo)}" th:src="${defaultArihantHeader}" style="max-width: 100%; max-height: 60px; object-fit: contain;" alt="Arihant Electricals Header"/>
     </div>
 
     <div class="tax-invoice-title">TAX INVOICE</div>
@@ -278,34 +274,25 @@
     </div>
 
     <table class="invoice-table">
-        <thead>
-        <tr><th>ITEM</th><th style="width:8%">QTY</th><th style="width:10%">GST</th><th style="width:12%">PRICE</th><th style="width:12%">TOTAL</th></tr>
-        </thead>
+        <thead><tr><th>ITEM</th><th style="width:8%">QTY</th><th style="width:10%">GST</th><th style="width:12%">PRICE</th><th style="width:12%">TOTAL</th></tr></thead>
         <tbody>
         <tr><td class="invoice-left">Generation Meter-1 Phase,5-30A Sr.No.-MTR-73960</td><td style="text-align:center">1</td><td style="text-align:center">18%</td><td style="text-align:right">2100</td><td style="text-align:right">2478</td></tr>
         </tbody>
-        <tfoot>
-        <tr style="font-weight: bold;"><td colspan="4" style="text-align:right">Total</td><td style="text-align:right">2478</td></tr>
-        </tfoot>
+        <tfoot><tr style="font-weight: bold;"><td colspan="4" style="text-align:right">Total</td><td style="text-align:right">2478</td></tr></tfoot>
     </table>
 
-    <div class="declaration">
-        I declare that the above information mentioned is true to the best of my knowledge.
-    </div>
+    <div class="declaration">I declare that the above information mentioned is true to the best of my knowledge.</div>
 
-    <div style="margin-top: 40px;">
+    <div style="margin-top: 35px;">
         <strong>For Arihant Electricals</strong><br/><br/>
-        <div>
-            <img th:if="${not #lists.isEmpty(vendorSignature)}" th:src="${vendorSignature[0]}" class="sign-img" alt="Vendor Signature"/>
-            <div th:if="${#lists.isEmpty(vendorSignature)}" style="border-bottom: 1px solid #000; width: 200px; height: 25px;"></div>
-        </div>
+        <div><img th:if="${not #lists.isEmpty(vendorSignature)}" th:src="${vendorSignature[0]}" class="sign-img" alt="Vendor Signature"/><div th:if="${#lists.isEmpty(vendorSignature)}" style="border-bottom: 1px solid #000; width: 180px; height: 20px;"></div></div>
         <div><strong>Authorized Signatory</strong></div>
     </div>
     <div class="page-number">Page 2</div>
 </div>
 
 <!-- ============================================ -->
-<!-- PAGE 3: ELIGIBILITY CRITERIA & EARTHING (Sr.No.1-16) -->
+<!-- PAGE 3: ELIGIBILITY CRITERIA (Sr.No.1-11) -->
 <!-- ============================================ -->
 <div class="page">
     <div class="section-title">1) Checking of Eligibility Criteria</div>
@@ -363,7 +350,7 @@
 </div>
 
 <!-- ============================================ -->
-<!-- PAGE 4: PROTECTION SWITCHGEAR & METERING DETAILS (Sr.No.17-46) -->
+<!-- PAGE 4: PROTECTION SWITCHGEAR (Sr.No.17-26) -->
 <!-- ============================================ -->
 <div class="page">
     <div class="section-title">Checking of Protection Switchgear</div>
@@ -421,7 +408,7 @@
 </div>
 
 <!-- ============================================ -->
-<!-- PAGE 5: SOLAR EQUIPMENT & OVERALL OBSERVATION (Sr.No.47-59) + SIGNATURES -->
+<!-- PAGE 5: SOLAR EQUIPMENT (Sr.No.47-53) -->
 <!-- ============================================ -->
 <div class="page">
     <div class="section-title">Solar System Equipment Details</div>
@@ -435,6 +422,13 @@
         <tr><td>51</td><td>PV Module serial Nos</td><td>SN-MOD-96851, SN-MOD-52506, SN-MOD-15539, SN-MOD-34019, SN-MOD-74685, SN-MOD-13358, SN-MOD-89647, SN-MOD-47784, SN-MOD-86023, SN-MOD-66114</td></tr>
         <tr><td>52</td><td>No. of strings:</td><td>1</td></tr>
         <tr><td>53</td><td>Rating of Each PV modules &amp; total Capacity</td><td>599.0 watt / 25.76 kW</td></tr>
+        </tbody>
+    </table>
+
+    <div class="section-title">Checking of connection of Meter &amp; Overall Observation</div>
+    <table class="wcr-table">
+        <thead><tr><th>Sr.No.</th><th>Points to be checked</th><th>Observation</th></tr></thead>
+        <tbody>
         <tr><td>54</td><td>Generation Meter connection</td><td>Correct</td></tr>
         <tr><td>55</td><td>Net Meter connection</td><td>Correct</td></tr>
         <tr><td>56</td><td>Found that inverter is working in Healthy condition (Yes/No)</td><td>Yes</td></tr>
@@ -460,14 +454,20 @@
             </tr>
         </table>
     </div>
+    <div class="page-number">Page 5</div>
+</div>
 
+<!-- ============================================ -->
+<!-- PAGE 6: REMARKS ONLY -->
+<!-- ============================================ -->
+<div class="page">
     <div class="remarks-box">
         <p><strong>Remarks:-</strong></p>
         <p>In the presence of backup inverter an arrangement should be made in such way that the backup inverter supply should never be synchronised with solar inverter to avoid any electrical accident due to back feeding. If Islanding is not working satisfactory then connection should not be released by AE(QC) and agency should be instructed to solve the islanding issue.</p>
         <p>In case of DG synchronisation, synchronised panel protection, uv and frequency should be verified</p>
         <p>Please refer "Sample detailed specification of typical rooftop photovoltaic system" and MSEDCL commercial circular No- 322 dated 21-01-2019 regarding "connectivity to the Distribution network of MSEDCL for eligible consumers installing Rooftop Renewable Energy Generating Systems in his premises under MERC (Grid Interactive Rooftop Renewable Energy Generating Systems) Regulations, 2019 - Procedure for Application, methodology for Metering &amp; Billing, etc."</p>
     </div>
-    <div class="page-number">Page 5</div>
+    <div class="page-number">Page 6</div>
 </div>
 
 </body>
