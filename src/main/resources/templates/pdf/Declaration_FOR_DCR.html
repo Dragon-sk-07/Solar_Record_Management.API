@@ -31,19 +31,21 @@
         }
 
         .main-heading {
-            font-size: 18px;
+            font-family: 'Times New Roman', Times, serif;
+            font-size: 20px;
             font-weight: 800;
             text-align: center;
             text-transform: uppercase;
             margin-top: 8px;
             margin-bottom: 4px;
+            letter-spacing: 0.5px;
         }
 
         .sub-heading {
-            font-size: 15px;
+            font-family: 'Times New Roman', Times, serif;
+            font-size: 16px;
             font-weight: 700;
             text-align: center;
-            text-transform: uppercase;
             text-decoration: underline;
             margin-bottom: 22px;
         }
@@ -55,6 +57,7 @@
 
         .paragraph p {
             margin: 0;
+            font-family: 'Times New Roman', Times, serif;
             font-size: 14px;
             line-height: 1.5;
         }
@@ -73,6 +76,7 @@
         }
 
         .detail-label {
+            font-family: 'Times New Roman', Times, serif;
             font-weight: 700;
             display: inline-block;
             min-width: 180px;
@@ -118,6 +122,7 @@
         }
 
         .signature-seal-text {
+            font-family: 'Times New Roman', Times, serif;
             font-size: 11px;
             font-weight: 600;
             margin-bottom: 12px;
@@ -134,6 +139,7 @@
         }
 
         .signature-label {
+            font-family: 'Times New Roman', Times, serif;
             font-weight: 700;
             display: inline-block;
             width: 105px;
@@ -147,8 +153,13 @@
         }
 
         .signature-value {
+            font-family: 'Times New Roman', Times, serif;
             font-weight: 500;
             word-break: break-word;
+        }
+
+        .signature-value-bold {
+            font-weight: 700;
         }
 
         .value-missing {
@@ -158,9 +169,8 @@
             letter-spacing: 1px;
         }
 
-        .bracket-text {
-            font-weight: 400;
-            color: #555;
+        .value-bold {
+            font-weight: 700;
         }
 
         .footer-note {
@@ -170,6 +180,7 @@
             color: #555;
             border-top: 1px solid #eee;
             padding-top: 10px;
+            font-family: 'Times New Roman', Times, serif;
         }
 
         @media print {
@@ -186,33 +197,32 @@
 
     <!-- Title Block -->
     <div class="main-heading">UNDERTAKING / SELF-DECLARATION</div>
-    <div class="main-heading" style="font-size:16px; margin-top:-3px;">FOR DOMESTIC CONTENT REQUIREMENT</div>
+    <div class="main-heading" style="font-size:18px; margin-top:-3px;">FOR DOMESTIC CONTENT REQUIREMENT</div>
     <div class="sub-heading">(ON A PLAIN PAPER)</div>
 
     <!-- Point 1 -->
     <div class="paragraph">
         <p>
             <span class="bold">1.</span> This is to certify that M/S.
-            <span th:if="${vendorName != null and vendorName != ''}" th:text="${vendorName}" class="bold"></span>
+            <span th:if="${vendorName != null and vendorName != ''}" th:text="${vendorName}" class="value-bold"></span>
             <span th:if="${vendorName == null or vendorName == ''}">_________________________</span>
             has installed
-            <span th:if="${installedCapacity != null}" th:text="${installedCapacity}" class="bold"></span>
+            <span th:if="${installedCapacity != null}" th:text="${installedCapacity}" class="value-bold"></span>
             <span th:if="${installedCapacity == null}">_________________________</span>
-            KW <span class="bracket-text">[Capacity]</span> Grid Connected Rooftop Solar Plant for
-            <span th:if="${name != null and name != ''}" th:text="${name}" class="bold"></span>
+            KW Grid Connected Rooftop Solar Plant for
+            <span th:if="${name != null and name != ''}" th:text="${name}" class="value-bold"></span>
             <span th:if="${name == null or name == ''}">_________________________</span>
-            <span class="bracket-text">[Consumer Name]</span> at
+            at
             <span th:if="${siteAddress != null and siteAddress != ''}" th:text="${siteAddress}"></span>
             <span th:if="${siteAddress == null or siteAddress == ''}">_________________________</span>
-            <span class="bracket-text">[Address]</span> under application number
+            under application number
             <span th:if="${applicationNumber != null and applicationNumber != ''}" th:text="${applicationNumber}"></span>
             <span th:if="${applicationNumber == null or applicationNumber == ''}">_________________________</span>
             dated
             <span th:if="${applicationDate != null and applicationDate != ''}" th:text="${applicationDate}"></span>
             <span th:if="${applicationDate == null or applicationDate == ''}">_________________________</span>
-            <span class="bracket-text">[date of application]</span> under
-            <span class="bold">MSEDCL</span>
-            <span class="bracket-text">[DISCOM Name]</span>.
+            under
+            <span class="value-bold">MSEDCL</span>.
         </p>
     </div>
 
@@ -227,32 +237,32 @@
     <div class="module-details">
         <div class="detail-line">
             <span class="detail-label">1. PV Module Capacity</span>
-            <span th:if="${wattagePerModule != null}" th:text="${wattagePerModule}"></span>
+            <span th:if="${wattagePerModule != null}" th:text="${wattagePerModule}" class="value-bold"></span>
             <span th:if="${wattagePerModule == null}">_________________________</span>
         </div>
         <div class="detail-line">
             <span class="detail-label">2. Number of PV Modules</span>
-            <span th:if="${numberOfModules != null}" th:text="${numberOfModules}"></span>
+            <span th:if="${numberOfModules != null}" th:text="${numberOfModules}" class="value-bold"></span>
             <span th:if="${numberOfModules == null}">_________________________</span>
         </div>
         <div class="detail-line">
             <span class="detail-label">3. Sr No of PV Module</span>
-            <span th:if="${moduleSerialNumbers != null and moduleSerialNumbers != ''}" th:text="${moduleSerialNumbers}"></span>
+            <span th:if="${moduleSerialNumbers != null and moduleSerialNumbers != ''}" th:text="${moduleSerialNumbers}" class="value-bold"></span>
             <span th:if="${moduleSerialNumbers == null or moduleSerialNumbers == ''}">_________________________</span>
         </div>
         <div class="detail-line">
             <span class="detail-label">4. PV Module Make</span>
-            <span th:if="${moduleMake != null and moduleMake != ''}" th:text="${moduleMake}"></span>
+            <span th:if="${moduleMake != null and moduleMake != ''}" th:text="${moduleMake}" class="value-bold"></span>
             <span th:if="${moduleMake == null or moduleMake == ''}">_________________________</span>
         </div>
         <div class="detail-line">
             <span class="detail-label">5. Cell manufacturer's name</span>
-            <span th:if="${cellManufacturerName != null and cellManufacturerName != ''}" th:text="${cellManufacturerName}"></span>
+            <span th:if="${cellManufacturerName != null and cellManufacturerName != ''}" th:text="${cellManufacturerName}" class="value-bold"></span>
             <span th:if="${cellManufacturerName == null or cellManufacturerName == ''}">_________________________</span>
         </div>
         <div class="detail-line">
             <span class="detail-label">6. Cell GST invoice No</span>
-            <span th:if="${cellGSTInvoiceNo != null and cellGSTInvoiceNo != ''}" th:text="${cellGSTInvoiceNo}"></span>
+            <span th:if="${cellGSTInvoiceNo != null and cellGSTInvoiceNo != ''}" th:text="${cellGSTInvoiceNo}" class="value-bold"></span>
             <span th:if="${cellGSTInvoiceNo == null or cellGSTInvoiceNo == ''}">_________________________</span>
         </div>
     </div>
@@ -268,12 +278,12 @@
     <div class="paragraph">
         <p>
             <span class="bold">4.</span> I,
-            <span th:if="${authorizedPersonName != null and authorizedPersonName != ''}" th:text="${authorizedPersonName}"></span>
+            <span th:if="${authorizedPersonName != null and authorizedPersonName != ''}" th:text="${authorizedPersonName}" class="value-bold"></span>
             <span th:if="${authorizedPersonName == null or authorizedPersonName == ''}">_________________________</span>
             on behalf of M/S.
-            <span th:if="${vendorName != null and vendorName != ''}" th:text="${vendorName}"></span>
+            <span th:if="${vendorName != null and vendorName != ''}" th:text="${vendorName}" class="value-bold"></span>
             <span th:if="${vendorName == null or vendorName == ''}">_________________________</span>
-            <span class="bracket-text">[Company Name]</span> further declare that the information given above is true and correct and nothing has been concealed therein. If anything is found incorrect at any stage, then REC/MNRE may take any appropriate action against my company for wrong declaration. Supporting documents and proof of the above information will be provided as and when requested by MNRE.
+            further declare that the information given above is true and correct and nothing has been concealed therein. If anything is found incorrect at any stage, then REC/MNRE may take any appropriate action against my company for wrong declaration. Supporting documents and proof of the above information will be provided as and when requested by MNRE.
         </p>
     </div>
 
@@ -293,12 +303,12 @@
             <div class="signature-details">
                 <div class="signature-row">
                     <span class="signature-label">For</span>
-                    <span class="signature-value" th:if="${vendorName != null and vendorName != ''}" th:text="${vendorName}"></span>
+                    <span class="signature-value" th:if="${vendorName != null and vendorName != ''}" th:text="${vendorName}" class="value-bold"></span>
                     <span th:if="${vendorName == null or vendorName == ''}">_________________________</span>
                 </div>
                 <div class="signature-row">
                     <span class="signature-label">Name</span>
-                    <span class="signature-value" th:if="${authorizedPersonName != null and authorizedPersonName != ''}" th:text="${authorizedPersonName}"></span>
+                    <span class="signature-value" th:if="${authorizedPersonName != null and authorizedPersonName != ''}" th:text="${authorizedPersonName}" class="value-bold"></span>
                     <span th:if="${authorizedPersonName == null or authorizedPersonName == ''}">_________________________</span>
                 </div>
                 <div class="signature-row">
@@ -307,12 +317,12 @@
                 </div>
                 <div class="signature-row">
                     <span class="signature-label">Phone</span>
-                    <span class="signature-value" th:if="${vendorMobile != null and vendorMobile != ''}" th:text="${vendorMobile}"></span>
+                    <span class="signature-value" th:if="${vendorMobile != null and vendorMobile != ''}" th:text="${vendorMobile}" class="value-bold"></span>
                     <span th:if="${vendorMobile == null or vendorMobile == ''}">_________________________</span>
                 </div>
                 <div class="signature-row">
                     <span class="signature-label">Email</span>
-                    <span class="signature-value" th:if="${vendorEmail != null and vendorEmail != ''}" th:text="${vendorEmail}" style="text-transform: lowercase;"></span>
+                    <span class="signature-value" th:if="${vendorEmail != null and vendorEmail != ''}" th:text="${vendorEmail}" class="value-bold" style="text-transform: lowercase;"></span>
                     <span th:if="${vendorEmail == null or vendorEmail == ''}">_________________________</span>
                 </div>
             </div>
