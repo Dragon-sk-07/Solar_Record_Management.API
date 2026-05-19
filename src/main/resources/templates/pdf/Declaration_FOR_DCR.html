@@ -21,7 +21,7 @@
             color: #000;
             padding: 8px 12px;
             font-family: 'Times New Roman', Times, serif;
-            font-size: 12px;
+            font-size: 14px;
             line-height: 1.5;
         }
 
@@ -32,7 +32,7 @@
 
         /* Title styling - only bold, normal weight */
         .main-heading {
-            font-size: 18px;
+            font-size: 20px;
             font-weight: 700;
             text-align: center;
             text-transform: uppercase;
@@ -41,7 +41,7 @@
         }
 
         .sub-heading {
-            font-size: 15px;
+            font-size: 17px;
             font-weight: 700;
             text-align: center;
             text-transform: uppercase;
@@ -56,7 +56,7 @@
 
         .paragraph p {
             margin: 0;
-            font-size: 12px;
+            font-size: 14px;
             line-height: 1.5;
         }
 
@@ -119,7 +119,7 @@
         }
 
         .signature-seal-text {
-            font-size: 11px;
+            font-size: 12px;
             font-weight: 600;
             margin-bottom: 12px;
         }
@@ -159,11 +159,6 @@
             letter-spacing: 1px;
         }
 
-        .bracket-text {
-            font-weight: 400;
-            color: #555;
-        }
-
         .footer-note {
             margin-top: 20px;
             font-size: 10px;
@@ -187,7 +182,7 @@
 
     <!-- Title Block -->
     <div class="main-heading">UNDERTAKING / SELF-DECLARATION</div>
-    <div class="main-heading" style="font-size:16px; margin-top:-3px;">FOR DOMESTIC CONTENT REQUIREMENT</div>
+    <div class="main-heading" style="font-size:18px; margin-top:-3px;">FOR DOMESTIC CONTENT REQUIREMENT</div>
     <div class="sub-heading">(ON A PLAIN PAPER)</div>
 
     <!-- Point 1 -->
@@ -199,21 +194,20 @@
             has installed
             <span th:if="${installedCapacity != null}" th:text="${installedCapacity}" class="bold"></span>
             <span th:if="${installedCapacity == null}" class="value-placeholder">_________________________</span>
-            KW <span class="bracket-text">[Capacity]</span> Grid Connected Rooftop Solar Plant for
+            KW Grid Connected Rooftop Solar Plant for
             <span th:if="${name != null and name != ''}" th:text="${name}" class="bold"></span>
             <span th:if="${name == null or name == ''}" class="value-placeholder">_________________________</span>
-            <span class="bracket-text">[Consumer Name]</span> at
+            at
             <span th:if="${siteAddress != null and siteAddress != ''}" th:text="${siteAddress}" class="bold"></span>
             <span th:if="${siteAddress == null or siteAddress == ''}" class="value-placeholder">_________________________</span>
-            <span class="bracket-text">[Address]</span> under application number
+            under application number
             <span th:if="${applicationNumber != null and applicationNumber != ''}" th:text="${applicationNumber}" class="bold"></span>
             <span th:if="${applicationNumber == null or applicationNumber == ''}" class="value-placeholder">_________________________</span>
             dated
             <span th:if="${applicationDate != null and applicationDate != ''}" th:text="${applicationDate}" class="bold"></span>
             <span th:if="${applicationDate == null or applicationDate == ''}" class="value-placeholder">_________________________</span>
-            <span class="bracket-text">[date of application]</span> under
-            <span class="bold">MSEDCL</span>
-            <span class="bracket-text">[DISCOM Name]</span>.
+            under
+            <span class="bold">MSEDCL</span>.
         </p>
     </div>
 
@@ -274,7 +268,7 @@
             on behalf of M/S.
             <span th:if="${vendorName != null and vendorName != ''}" th:text="${vendorName}" class="bold"></span>
             <span th:if="${vendorName == null or vendorName == ''}" class="value-placeholder">_________________________</span>
-            <span class="bracket-text">[Company Name]</span> further declare that the information given above is true and correct and nothing has been concealed therein. If anything is found incorrect at any stage, then REC/MNRE may take any appropriate action against my company for wrong declaration. Supporting documents and proof of the above information will be provided as and when requested by MNRE.
+            further declare that the information given above is true and correct and nothing has been concealed therein. If anything is found incorrect at any stage, then REC/MNRE may take any appropriate action against my company for wrong declaration. Supporting documents and proof of the above information will be provided as and when requested by MNRE.
         </p>
     </div>
 
