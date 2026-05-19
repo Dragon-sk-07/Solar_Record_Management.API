@@ -11,42 +11,44 @@
         }
         @page {
             size: A4;
-            margin: 8mm 10mm;
+            margin: 10mm 12mm;
         }
         body {
             font-family: 'Times New Roman', Times, serif;
             background: white;
             color: black;
-            font-size: 11pt;
-            line-height: 1.35;
+            font-size: 10pt;
+            line-height: 1.3;
             padding: 0;
             margin: 0;
         }
         .page {
             page-break-after: always;
             margin-bottom: 0;
+            min-height: 277mm;
+            position: relative;
         }
         .page:last-child {
             page-break-after: avoid;
         }
         .header {
             text-align: center;
-            margin-bottom: 15px;
-            padding-bottom: 8px;
+            margin-bottom: 10px;
+            padding-bottom: 5px;
             border-bottom: 1px solid #000;
         }
         .header img {
             max-width: 100%;
-            max-height: 80px;
+            max-height: 70px;
             object-fit: contain;
         }
         .letter-date {
             text-align: right;
-            margin: 10px 0 12px 0;
+            margin: 5px 0 8px 0;
         }
         .subject {
             font-weight: bold;
-            margin: 10px 0 8px 0;
+            margin: 8px 0 5px 0;
             text-decoration: underline;
         }
         .ref-line {
@@ -56,43 +58,40 @@
             font-weight: 700;
         }
         .meter-details {
-            margin: 12px 0 10px 0;
+            margin: 8px 0 8px 0;
         }
         .meter-details div {
-            margin: 4px 0;
+            margin: 3px 0;
         }
         .meter-label {
             font-weight: 700;
             display: inline-block;
-            width: 100px;
-        }
-        .meter-value {
-            font-weight: 700;
+            width: 90px;
         }
         .wcr-table {
             width: 100%;
             border-collapse: collapse;
-            margin: 6px 0;
+            margin: 4px 0;
             font-size: 9pt;
             border: 1px solid #000;
         }
         .wcr-table th, .wcr-table td {
             border: 1px solid #000;
-            padding: 5px 6px;
+            padding: 4px 5px;
             vertical-align: top;
         }
         .wcr-table th {
             background-color: #e3e3e3;
             font-weight: 700;
             text-align: center;
-            font-size: 9.5pt;
+            font-size: 9pt;
         }
         .wcr-table th:first-child, .wcr-table td:first-child {
-            width: 7%;
+            width: 8%;
             text-align: center;
         }
         .wcr-table th:nth-child(2), .wcr-table td:nth-child(2) {
-            width: 53%;
+            width: 52%;
         }
         .wcr-table th:nth-child(3), .wcr-table td:nth-child(3) {
             width: 40%;
@@ -102,11 +101,11 @@
             border-collapse: collapse;
             font-size: 9.5pt;
             border: 1px solid #000;
-            margin: 10px 0;
+            margin: 8px 0;
         }
         .invoice-table th, .invoice-table td {
             border: 1px solid #000;
-            padding: 6px 4px;
+            padding: 5px 4px;
         }
         .invoice-table th {
             background-color: #e3e3e3;
@@ -122,13 +121,13 @@
         .section-title {
             font-weight: bold;
             font-size: 10pt;
-            margin: 8px 0 4px 0;
+            margin: 6px 0 3px 0;
             background: #e9ecef;
-            padding: 4px 8px;
+            padding: 3px 6px;
             text-align: center;
         }
         .signature-row {
-            margin: 15px 0 10px;
+            margin: 10px 0 8px;
         }
         .signature-table {
             width: 100%;
@@ -138,83 +137,88 @@
             border: none;
             width: 50%;
             text-align: center;
-            padding: 0 12px;
+            padding: 0 10px;
             vertical-align: top;
         }
         .sign-line {
-            margin-top: 25px;
+            margin-top: 20px;
             border-top: 1px solid #000;
             width: 70%;
             margin-left: auto;
             margin-right: auto;
         }
         .sign-img {
-            max-height: 50px;
-            max-width: 150px;
+            max-height: 45px;
+            max-width: 140px;
         }
         .remarks-box {
-            margin-top: 12px;
-            padding: 8px 10px;
+            margin-top: 8px;
+            padding: 6px 8px;
             background: #fef9e6;
             border-left: 3px solid #b8860b;
-            font-size: 8.5pt;
+            font-size: 8pt;
         }
         .note-text {
-            font-size: 8pt;
-            margin-top: 4px;
-            margin-bottom: 6px;
+            font-size: 7.5pt;
+            margin-top: 3px;
+            margin-bottom: 4px;
             color: #2c3e50;
         }
         .note-text ul {
-            margin-left: 20px;
-            padding-left: 5px;
+            margin-left: 18px;
+            padding-left: 3px;
         }
         .tax-invoice-title {
-            font-size: 16px;
+            font-size: 15px;
             font-weight: bold;
             text-align: center;
-            margin: 15px 0 10px 0;
+            margin: 10px 0 8px 0;
         }
         .invoice-info {
-            margin-bottom: 10px;
+            margin-bottom: 8px;
         }
         .declaration {
-            margin-top: 10px;
+            margin-top: 8px;
             font-style: italic;
         }
         p {
-            margin: 6px 0;
+            margin: 4px 0;
         }
         .to-address {
-            margin: 10px 0;
-            line-height: 1.5;
+            margin: 6px 0;
+            line-height: 1.4;
         }
         .blank-value {
             color: #999;
             font-style: italic;
+        }
+        .page-number {
+            text-align: center;
+            font-size: 8pt;
+            margin-top: 5px;
+            color: #666;
         }
     </style>
 </head>
 <body>
 
 <!-- ============================================ -->
-<!-- PAGE 1: LETTER FORMAT -->
+<!-- PAGE 1: LETTER FORMAT (as per PDF) -->
 <!-- ============================================ -->
 <div class="page">
-
-    <div style="text-align: center; margin-bottom: 15px; padding-bottom: 8px; border-bottom: 1px solid #000;">
-        <img th:if="${not #lists.isEmpty(headerLogo)}" th:src="${headerLogo[0]}" style="max-width: 100%; max-height: 80px; object-fit: contain;" alt="Vendor Header"/>
-        <img th:if="${#lists.isEmpty(headerLogo)}" th:src="${defaultArihantHeader}" style="max-width: 100%; max-height: 80px; object-fit: contain;" alt="Arihant Electricals Header"/>
+    <div class="header">
+        <img th:if="${not #lists.isEmpty(headerLogo)}" th:src="${headerLogo[0]}" style="max-width: 100%; max-height: 70px; object-fit: contain;" alt="Vendor Header"/>
+        <img th:if="${#lists.isEmpty(headerLogo)}" th:src="${defaultArihantHeader}" style="max-width: 100%; max-height: 70px; object-fit: contain;" alt="Arihant Electricals Header"/>
     </div>
 
     <div class="letter-date">
-        Date: <span th:if="${currentDate != null and currentDate != ''}" th:text="${currentDate}"></span><span th:if="${currentDate == null or currentDate == ''}" class="blank-value">_____________</span>
+        Date: 2026-10-21
     </div>
 
     <div class="to-address">
         To,<br/>
         Executive Engineer, M.S.E.D.C.Ltd,<br/>
-        <span th:if="${place != null and place != ''}" th:text="${place}"></span><span th:if="${place == null or place == ''}" class="blank-value">_____________</span>
+        Latur
     </div>
 
     <div class="subject">
@@ -222,9 +226,9 @@
     </div>
 
     <div>
-        <div class="ref-line"><strong>Ref:</strong> 1. Consumer name: <span th:if="${name != null and name != ''}" th:text="${name}"></span><span th:if="${name == null or name == ''}" class="blank-value">_____________</span></div>
-        <div class="ref-line">2. Consumer Number: <span th:if="${consumerNumber != null and consumerNumber != ''}" th:text="${consumerNumber}"></span><span th:if="${consumerNumber == null or consumerNumber == ''}" class="blank-value">_____________</span></div>
-        <div class="ref-line">3. Sanction Number: <span th:if="${sanctionNumber != null and sanctionNumber != ''}" th:text="${sanctionNumber}"></span><span th:if="${sanctionNumber == null or sanctionNumber == ''}" class="blank-value">_____________</span></div>
+        <div class="ref-line"><strong>Ref:</strong> 1. Consumer name: Pooja Desai</div>
+        <div class="ref-line">2. Consumer Number: MSEDCL/10/56/9309307</div>
+        <div class="ref-line">3. Sanction Number: MSEDCL/SAN/2024666</div>
         <div class="ref-line">4. Scheme name: PM Suryghar Muft Bijli Yojana</div>
     </div>
 
@@ -233,70 +237,55 @@
 
     <div class="meter-details">
         <div><span class="meter-label">Meter Details:</span></div>
-        <div><span class="meter-label">Make:</span> <span class="meter-value" th:if="${meterMake != null and meterMake != ''}" th:text="${meterMake}"></span><span th:if="${meterMake == null or meterMake == ''}" class="blank-value">_____________</span></div>
-        <div><span class="meter-label">Sr. No.:</span> <span class="meter-value" th:if="${meterNumber != null and meterNumber != ''}" th:text="${meterNumber}"></span><span th:if="${meterNumber == null or meterNumber == ''}" class="blank-value">_____________</span></div>
-        <div><span class="meter-label">Phase:</span> <span class="meter-value">1 Phase</span></div>
-        <div><span class="meter-label">Range:</span> <span class="meter-value">5-30A</span></div>
+        <div><span class="meter-label">Make:</span> Schneider</div>
+        <div><span class="meter-label">Sr. No.:</span> MTR-73960</div>
+        <div><span class="meter-label">Phase:</span> 1 Phase</div>
+        <div><span class="meter-label">Range:</span> 5-30A</div>
     </div>
 
     <p>Thanking you.</p>
     <p>Yours Faithfully,</p>
 
-    <div style="margin-top: 20px;">
+    <div style="margin-top: 25px;">
         <div>
             <img th:if="${not #lists.isEmpty(vendorSignature)}" th:src="${vendorSignature[0]}" class="sign-img" alt="Vendor Signature"/>
-            <div th:if="${#lists.isEmpty(vendorSignature)}" style="border-bottom: 1px solid #000; width: 200px; height: 30px;"></div>
+            <div th:if="${#lists.isEmpty(vendorSignature)}" style="border-bottom: 1px solid #000; width: 200px; height: 25px;"></div>
         </div>
-        <div style="margin-top: 5px;">
-            <strong><span th:if="${vendorName != null and vendorName != ''}" th:text="${vendorName}"></span><span th:if="${vendorName == null or vendorName == ''}" class="blank-value">_____________</span></strong><br/>
-            <span th:if="${vendorAddress != null and vendorAddress != ''}" th:text="${vendorAddress}"></span><span th:if="${vendorAddress == null or vendorAddress == ''}" class="blank-value">_____________</span>
+        <div style="margin-top: 3px;">
+            <strong>Arihant Electricals</strong><br/>
+            A/p Ashta Near- Rammandeer, Ashta
         </div>
     </div>
+    <div class="page-number">Page 1</div>
 </div>
 
 <!-- ============================================ -->
 <!-- PAGE 2: TAX INVOICE -->
 <!-- ============================================ -->
 <div class="page">
-
-    <div style="text-align: center; margin-bottom: 15px; padding-bottom: 8px; border-bottom: 1px solid #000;">
-        <img th:if="${not #lists.isEmpty(headerLogo)}" th:src="${headerLogo[0]}" style="max-width: 100%; max-height: 80px; object-fit: contain;" alt="Vendor Header"/>
-        <img th:if="${#lists.isEmpty(headerLogo)}" th:src="${defaultArihantHeader}" style="max-width: 100%; max-height: 80px; object-fit: contain;" alt="Arihant Electricals Header"/>
+    <div class="header">
+        <img th:if="${not #lists.isEmpty(headerLogo)}" th:src="${headerLogo[0]}" style="max-width: 100%; max-height: 70px; object-fit: contain;" alt="Vendor Header"/>
+        <img th:if="${#lists.isEmpty(headerLogo)}" th:src="${defaultArihantHeader}" style="max-width: 100%; max-height: 70px; object-fit: contain;" alt="Arihant Electricals Header"/>
     </div>
 
     <div class="tax-invoice-title">TAX INVOICE</div>
 
     <div class="invoice-info">
-        <strong>PREPARED FOR:</strong> <span th:if="${name != null and name != ''}" th:text="${name}"></span><span th:if="${name == null or name == ''}" class="blank-value">_____________</span><br/>
-        <span th:if="${siteAddress != null and siteAddress != ''}" th:text="${siteAddress}"></span><span th:if="${siteAddress == null or siteAddress == ''}" class="blank-value">_____________</span><br/>
-        <strong>PREPARED DATE:</strong> <span th:if="${currentDate != null and currentDate != ''}" th:text="${currentDate}"></span><span th:if="${currentDate == null or currentDate == ''}" class="blank-value">__/__/____</span><br/>
-        <strong>INVOICE NO:</strong> <span th:if="${invoiceNumber != null and invoiceNumber != ''}" th:text="${invoiceNumber}"></span><span th:if="${invoiceNumber == null or invoiceNumber == ''}" class="blank-value">_____________</span>
+        <strong>PREPARED FOR:</strong> Pooja Desai<br/>
+        H.No.7354, Near Shivaji Chowk, Shivaji Nagar, Thane - 400601, Maharashtra<br/>
+        <strong>PREPARED DATE:</strong> 2026-10-21<br/>
+        <strong>INVOICE NO:</strong> INV/2026-27/001
     </div>
 
     <table class="invoice-table">
         <thead>
-        <tr>
-            <th>ITEM</th>
-            <th style="width:8%">QTY</th>
-            <th style="width:10%">GST</th>
-            <th style="width:12%">PRICE</th>
-            <th style="width:12%">TOTAL</th>
-        </tr>
+        <tr><th>ITEM</th><th style="width:8%">QTY</th><th style="width:10%">GST</th><th style="width:12%">PRICE</th><th style="width:12%">TOTAL</th></tr>
         </thead>
         <tbody>
-        <tr>
-            <td class="invoice-left">Generation Meter-1 Phase,5-30A Sr.No.-<span th:if="${meterNumber != null and meterNumber != ''}" th:text="${meterNumber}"></span><span th:if="${meterNumber == null or meterNumber == ''}" class="blank-value">_____________</span></td>
-            <td style="text-align:center">1</td>
-            <td style="text-align:center">18%</td>
-            <td style="text-align:right">2100</td>
-            <td style="text-align:right">2478</td>
-        </tr>
+        <tr><td class="invoice-left">Generation Meter-1 Phase,5-30A Sr.No.-MTR-73960</td><td style="text-align:center">1</td><td style="text-align:center">18%</td><td style="text-align:right">2100</td><td style="text-align:right">2478</td></tr>
         </tbody>
         <tfoot>
-        <tr style="font-weight: bold;">
-            <td colspan="4" style="text-align:right">Total</td>
-            <td style="text-align:right">2478</td>
-        </tr>
+        <tr style="font-weight: bold;"><td colspan="4" style="text-align:right">Total</td><td style="text-align:right">2478</td></tr>
         </tfoot>
     </table>
 
@@ -304,28 +293,29 @@
         I declare that the above information mentioned is true to the best of my knowledge.
     </div>
 
-    <div style="margin-top: 30px;">
-        <strong>For <span th:if="${vendorName != null and vendorName != ''}" th:text="${vendorName}"></span><span th:if="${vendorName == null or vendorName == ''}" class="blank-value">_____________</span></strong><br/><br/>
+    <div style="margin-top: 40px;">
+        <strong>For Arihant Electricals</strong><br/><br/>
         <div>
             <img th:if="${not #lists.isEmpty(vendorSignature)}" th:src="${vendorSignature[0]}" class="sign-img" alt="Vendor Signature"/>
-            <div th:if="${#lists.isEmpty(vendorSignature)}" style="border-bottom: 1px solid #000; width: 200px; height: 30px;"></div>
+            <div th:if="${#lists.isEmpty(vendorSignature)}" style="border-bottom: 1px solid #000; width: 200px; height: 25px;"></div>
         </div>
         <div><strong>Authorized Signatory</strong></div>
     </div>
+    <div class="page-number">Page 2</div>
 </div>
 
 <!-- ============================================ -->
-<!-- PAGE 3: SECTION 1 - CHECKING OF ELIGIBILITY CRITERIA (SR.NO. 1 TO 11) -->
+<!-- PAGE 3: ELIGIBILITY CRITERIA & EARTHING (Sr.No.1-16) -->
 <!-- ============================================ -->
 <div class="page">
     <div class="section-title">1) Checking of Eligibility Criteria</div>
     <table class="wcr-table">
         <thead><tr><th>Sr.No.</th><th>Points to be checked</th><th>Observation</th></tr></thead>
         <tbody>
-        <tr><td>1</td><td>The Consumer sanctioned load shall be atleast 1 KW but not exceeding 20 KW</td><td><span th:if="${sanctionedCapacity != null and sanctionedCapacity != ''}" th:text="${sanctionedCapacity}"></span><span th:if="${sanctionedCapacity == null or sanctionedCapacity == ''}" class="blank-value"></span> (Connected/Sanction Load)</td></tr>
-        <tr><td>2</td><td>Nos of Solar Module Installed &amp; Capacity of each Module</td><td><span th:if="${numberOfModules != null and numberOfModules != ''}" th:text="${numberOfModules}"></span><span th:if="${numberOfModules == null or numberOfModules == ''}" class="blank-value"></span> Nos / <span th:if="${wattagePerModule != null and wattagePerModule != ''}" th:text="${wattagePerModule}"></span><span th:if="${wattagePerModule == null or wattagePerModule == ''}" class="blank-value"></span> Wp</td></tr>
-        <tr><td>3</td><td>The Solar Roof Top Capacity in DC</td><td><span th:if="${totalCapacityKWP != null and totalCapacityKWP != ''}" th:text="${totalCapacityKWP}"></span><span th:if="${totalCapacityKWP == null or totalCapacityKWP == ''}" class="blank-value"></span> KWp</td></tr>
-        <tr><td>4</td><td>Solar Roof Top Capacity in AC</td><td><span th:if="${totalCapacityKWP != null and totalCapacityKWP != ''}" th:text="${totalCapacityKWP}"></span><span th:if="${totalCapacityKWP == null or totalCapacityKWP == ''}" class="blank-value"></span> KW</td></tr>
+        <tr><td>1</td><td>The Consumer sanctioned load shall be atleast 1 KW but not exceeding 20 KW</td><td>25.76 (Connected/Sanction Load)</td></tr>
+        <tr><td>2</td><td>Nos of Solar Module Installed &amp; Capacity of each Module</td><td>43 Nos / 599.0 Wp</td></tr>
+        <tr><td>3</td><td>The Solar Roof Top Capacity in DC</td><td>25.76 KWp</td></tr>
+        <tr><td>4</td><td>Solar Roof Top Capacity in AC</td><td>25.76 KW</td></tr>
         <tr><td>5</td><td>Whether AC capacity less than equal to Sanctioned load</td><td>Yes</td></tr>
         <tr><td>6</td><td>Is consumer is in arrears</td><td>No</td></tr>
         <tr><td>7</td><td>Single line schematic diagrams in respect of its system facility</td><td>Submitted</td></tr>
@@ -345,21 +335,20 @@
     </div>
 
     <div class="section-title">Inspection Report on checking of Roof Top Solar System with Associated Equipment</div>
-
     <div class="section-title">CHECKING OF EARTHING SYSTEM</div>
     <table class="wcr-table">
         <thead><tr><th>Sr.No.</th><th>Points to be checked</th><th>Observation</th></tr></thead>
         <tbody>
-        <tr><td>1</td><td>Details of Inspecting Office (Name, Designation, Subdivision)</td><td><span th:if="${inspectingOffice != null and inspectingOffice != ''}" th:text="${inspectingOffice}"></span><span th:if="${inspectingOffice == null or inspectingOffice == ''}" class="blank-value"></span></td></tr>
-        <tr><td>2</td><td>Date and Time of Inspection</td><td><span th:if="${inspectionDate != null and inspectionDate != ''}" th:text="${inspectionDate}"></span><span th:if="${inspectionDate == null or inspectionDate == ''}" class="blank-value"></span></td></tr>
-        <tr><td>3</td><td>Name of the Consumer:</td><td><span th:if="${name != null and name != ''}" th:text="${name}"></span><span th:if="${name == null or name == ''}" class="blank-value"></span></td></tr>
-        <tr><td>4</td><td>Address of Consumer:</td><td><span th:if="${siteAddress != null and siteAddress != ''}" th:text="${siteAddress}"></span><span th:if="${siteAddress == null or siteAddress == ''}" class="blank-value"></span></td></tr>
-        <tr><td>5</td><td>Consumer No.:</td><td><span th:if="${consumerNumber != null and consumerNumber != ''}" th:text="${consumerNumber}"></span><span th:if="${consumerNumber == null or consumerNumber == ''}" class="blank-value"></span></td></tr>
-        <tr><td>5.A</td><td>Name of Billing Unit :</td><td><span th:if="${billingUnit != null and billingUnit != ''}" th:text="${billingUnit}"></span><span th:if="${billingUnit == null or billingUnit == ''}" class="blank-value"></span></td></tr>
-        <tr><td>6</td><td>MSEDCL Existing Sanction &amp; Connected Load(AC in Kw):</td><td><span th:if="${sanctionedCapacity != null and sanctionedCapacity != ''}" th:text="${sanctionedCapacity}"></span><span th:if="${sanctionedCapacity == null or sanctionedCapacity == ''}" class="blank-value"></span> kW</td></tr>
+        <tr><td>1</td><td>Details of Inspecting Office (Name, Designation, Subdivision)</td><td></td></tr>
+        <tr><td>2</td><td>Date and Time of Inspection</td><td>2026-10-21, 11:00 AM</td></tr>
+        <tr><td>3</td><td>Name of the Consumer:</td><td>Pooja Desai</td></tr>
+        <tr><td>4</td><td>Address of Consumer:</td><td>H.No.7354, Near Shivaji Chowk, Shivaji Nagar, Thane - 400601, Maharashtra</td></tr>
+        <tr><td>5</td><td>Consumer No.:</td><td>MSEDCL/10/56/9309307</td></tr>
+        <tr><td>5.A</td><td>Name of Billing Unit :</td><td>Unit C</td></tr>
+        <tr><td>6</td><td>MSEDCL Existing Sanction &amp; Connected Load(AC in Kw):</td><td>25.76 kW</td></tr>
         <tr><td>7</td><td>Type of connection (1Ph/3Ph)</td><td>1 Phase</td></tr>
         <tr><td>8</td><td>Consumer Tariff Category</td><td>Residential</td></tr>
-        <tr><td>9</td><td>Installed Solar Roof Top System(AC Cap):-</td><td><span th:if="${totalCapacityKWP != null and totalCapacityKWP != ''}" th:text="${totalCapacityKWP}"></span><span th:if="${totalCapacityKWP == null or totalCapacityKWP == ''}" class="blank-value"></span> kW</td></tr>
+        <tr><td>9</td><td>Installed Solar Roof Top System(AC Cap):-</td><td>25.76 kW</td></tr>
         <tr><td>9.A</td><td>Whether Point of Supply Drawing submitted</td><td>Submitted</td></tr>
         <tr><td>10</td><td>Separate Earthing provided for LA Earthing</td><td>Yes</td></tr>
         <tr><td>11</td><td>Separate Earthing provided for Solar Panel Structure</td><td>Yes</td></tr>
@@ -370,10 +359,11 @@
         <tr><td>16</td><td>All Metallic body Parts earthed</td><td>Yes</td></tr>
         </tbody>
     </table>
+    <div class="page-number">Page 3</div>
 </div>
 
 <!-- ============================================ -->
-<!-- PAGE 4: CHECKING OF PROTECTION SWITCHGEAR (SR.NO. 17 TO 25) -->
+<!-- PAGE 4: PROTECTION SWITCHGEAR & METERING DETAILS (Sr.No.17-46) -->
 <!-- ============================================ -->
 <div class="page">
     <div class="section-title">Checking of Protection Switchgear</div>
@@ -400,9 +390,9 @@
         <tbody>
         <tr><td>27</td><td>Net meter Installed in Grid/Network system at the time of Joint Inspection Yes/No</td><td>Yes</td></tr>
         <tr><td>28</td><td>Net meter is Tested at MSEDCL Testing Division Lab Yes/No , If Yes, Testing date &amp; Seal Nos</td><td>Yes</td></tr>
-        <tr><td>29</td><td>Meter make</td><td><span th:if="${meterMake != null and meterMake != ''}" th:text="${meterMake}"></span><span th:if="${meterMake == null or meterMake == ''}" class="blank-value"></span></td></tr>
+        <tr><td>29</td><td>Meter make</td><td>Schneider</td></tr>
         <tr><td>30</td><td>Meter Type DLMS, Genration Meter</td><td>DLMS, Generation Meter</td></tr>
-        <tr><td>31</td><td>Meter Serial No</td><td><span th:if="${netMeterNumber != null and netMeterNumber != ''}" th:text="${netMeterNumber}"></span><span th:if="${netMeterNumber == null or netMeterNumber == ''}" class="blank-value"></span></td></tr>
+        <tr><td>31</td><td>Meter Serial No</td><td>NET-75060</td></tr>
         <tr><td>32</td><td>Meter Class of Accuracy</td><td>Class 1.0</td></tr>
         <tr><td>33</td><td>Meter Capacity</td><td>5-30A</td></tr>
         <tr><td>34</td><td>Meter Constant</td><td>1600 imp/kWh</td></tr>
@@ -417,9 +407,9 @@
         <tbody>
         <tr><td>37</td><td>Generation meter Installed for recording Solar Generation Yes/No</td><td>Yes</td></tr>
         <tr><td>38</td><td>Meter is Tested at MSEDCL Testing Division Lab Yes/No , If Yes, Testing date &amp; Seal Nos</td><td>Yes</td></tr>
-        <tr><td>39</td><td>Meter make</td><td><span th:if="${meterMake != null and meterMake != ''}" th:text="${meterMake}"></span><span th:if="${meterMake == null or meterMake == ''}" class="blank-value"></span></td></tr>
+        <tr><td>39</td><td>Meter make</td><td>Schneider</td></tr>
         <tr><td>40</td><td>Meter Type DLMS, Genration Meter</td><td>DLMS, Generation Meter</td></tr>
-        <tr><td>41</td><td>Meter Serial No</td><td><span th:if="${meterNumber != null and meterNumber != ''}" th:text="${meterNumber}"></span><span th:if="${meterNumber == null or meterNumber == ''}" class="blank-value"></span></td></tr>
+        <tr><td>41</td><td>Meter Serial No</td><td>MTR-73960</td></tr>
         <tr><td>42</td><td>Meter Class of Accuracy</td><td>Class 1.0</td></tr>
         <tr><td>43</td><td>Meter Capacity</td><td>5-30A</td></tr>
         <tr><td>44</td><td>Meter Constant</td><td>1600 imp/kWh</td></tr>
@@ -427,23 +417,24 @@
         <tr><td>46</td><td>Location meter easily assessable for meter reading</td><td>Yes</td></tr>
         </tbody>
     </table>
+    <div class="page-number">Page 4</div>
 </div>
 
 <!-- ============================================ -->
-<!-- PAGE 5: SOLAR SYSTEM EQUIPMENT DETAILS & OVERALL OBSERVATION (SR.NO. 47 TO 57) -->
+<!-- PAGE 5: SOLAR EQUIPMENT & OVERALL OBSERVATION (Sr.No.47-59) + SIGNATURES -->
 <!-- ============================================ -->
 <div class="page">
     <div class="section-title">Solar System Equipment Details</div>
     <table class="wcr-table">
         <thead><tr><th>Sr.No.</th><th>Points to be checked</th><th>Observation</th></tr></thead>
         <tbody>
-        <tr><td>47</td><td>Grid Tie Inverter Make:</td><td><span th:if="${inverterMake != null and inverterMake != ''}" th:text="${inverterMake}"></span><span th:if="${inverterMake == null or inverterMake == ''}" class="blank-value"></span></td></tr>
-        <tr><td>48</td><td>Inverter Capacity(AC Kw/Kva)</td><td><span th:if="${inverterCapacity != null and inverterCapacity != ''}" th:text="${inverterCapacity}"></span><span th:if="${inverterCapacity == null or inverterCapacity == ''}" class="blank-value"></span></td></tr>
-        <tr><td>49</td><td>PV Module make:-</td><td><span th:if="${moduleMake != null and moduleMake != ''}" th:text="${moduleMake}"></span><span th:if="${moduleMake == null or moduleMake == ''}" class="blank-value"></span></td></tr>
-        <tr><td>50</td><td>PV Module Nos</td><td><span th:if="${numberOfModules != null and numberOfModules != ''}" th:text="${numberOfModules}"></span><span th:if="${numberOfModules == null or numberOfModules == ''}" class="blank-value"></span></td></tr>
-        <tr><td>51</td><td>PV Module serial Nos</td><td><span th:if="${moduleSerialNumbers != null and moduleSerialNumbers != ''}" th:text="${moduleSerialNumbers}"></span><span th:if="${moduleSerialNumbers == null or moduleSerialNumbers == ''}" class="blank-value"></span></td></tr>
+        <tr><td>47</td><td>Grid Tie Inverter Make:</td><td>Fronius</td></tr>
+        <tr><td>48</td><td>Inverter Capacity(AC Kw/Kva)</td><td>25.76</td></tr>
+        <tr><td>49</td><td>PV Module make:-</td><td>Jakson Group</td></tr>
+        <tr><td>50</td><td>PV Module Nos</td><td>43</td></tr>
+        <tr><td>51</td><td>PV Module serial Nos</td><td>SN-MOD-96851, SN-MOD-52506, SN-MOD-15539, SN-MOD-34019, SN-MOD-74685, SN-MOD-13358, SN-MOD-89647, SN-MOD-47784, SN-MOD-86023, SN-MOD-66114</td></tr>
         <tr><td>52</td><td>No. of strings:</td><td>1</td></tr>
-        <tr><td>53</td><td>Rating of Each PV modules &amp; total Capacity</td><td><span th:if="${wattagePerModule != null and wattagePerModule != ''}" th:text="${wattagePerModule}"></span><span th:if="${wattagePerModule == null or wattagePerModule == ''}" class="blank-value"></span> watt / <span th:if="${totalCapacityKWP != null and totalCapacityKWP != ''}" th:text="${totalCapacityKWP}"></span><span th:if="${totalCapacityKWP == null or totalCapacityKWP == ''}" class="blank-value"></span> kW</td></tr>
+        <tr><td>53</td><td>Rating of Each PV modules &amp; total Capacity</td><td>599.0 watt / 25.76 kW</td></tr>
         <tr><td>54</td><td>Generation Meter connection</td><td>Correct</td></tr>
         <tr><td>55</td><td>Net Meter connection</td><td>Correct</td></tr>
         <tr><td>56</td><td>Found that inverter is working in Healthy condition (Yes/No)</td><td>Yes</td></tr>
@@ -459,12 +450,12 @@
                 <td>
                     <div><img th:if="${consumerSignature != null and !#lists.isEmpty(consumerSignature)}" th:src="${consumerSignature[0]}" class="sign-img" alt="Consumer Signature"/><div th:if="${consumerSignature == null or #lists.isEmpty(consumerSignature)}" class="sign-line"></div></div>
                     <div><strong>Consumer representative</strong></div>
-                    <div>(<span th:if="${name != null and name != ''}" th:text="${name}"></span><span th:if="${name == null or name == ''}" class="blank-value"></span>)</div>
+                    <div>(Pooja Desai)</div>
                 </td>
                 <td>
                     <div><img th:if="${vendorSignature != null and !#lists.isEmpty(vendorSignature)}" th:src="${vendorSignature[0]}" class="sign-img" alt="Vendor Signature"/><div th:if="${vendorSignature == null or #lists.isEmpty(vendorSignature)}" class="sign-line"></div></div>
                     <div><strong>Contractor Representative</strong></div>
-                    <div>(<span th:if="${vendorName != null and vendorName != ''}" th:text="${vendorName}"></span><span th:if="${vendorName == null or vendorName == ''}" class="blank-value"></span>)</div>
+                    <div>(Arihant Electricals)</div>
                 </td>
             </tr>
         </table>
@@ -476,6 +467,7 @@
         <p>In case of DG synchronisation, synchronised panel protection, uv and frequency should be verified</p>
         <p>Please refer "Sample detailed specification of typical rooftop photovoltaic system" and MSEDCL commercial circular No- 322 dated 21-01-2019 regarding "connectivity to the Distribution network of MSEDCL for eligible consumers installing Rooftop Renewable Energy Generating Systems in his premises under MERC (Grid Interactive Rooftop Renewable Energy Generating Systems) Regulations, 2019 - Procedure for Application, methodology for Metering &amp; Billing, etc."</p>
     </div>
+    <div class="page-number">Page 5</div>
 </div>
 
 </body>
