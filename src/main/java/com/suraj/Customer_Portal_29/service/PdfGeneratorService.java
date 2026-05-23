@@ -83,8 +83,8 @@ public class PdfGeneratorService {
                 return "Declaration_FOR_DCR";
             case "agreement":
                 return "NET_METERING_CONNECTION_AGREEMENT";
-            case "indemnity":
-                return "INDEMNITY_BOND";
+//            case "indemnity":
+//                return "INDEMNITY_BOND";
             case "site-photos":
                 return "Site-photos";
             case "SOLAR_PROPOSAL_11KW":
@@ -92,7 +92,8 @@ public class PdfGeneratorService {
             case "METER_TESTING_REQUEST":
                 return "METER_TESTING_REQUEST";
             case "PM_SURYA_GHAR_AGREEMENT":
-                return "PM_SURYA_GHAR_AGREEMENT"; 
+                return "PM_SURYA_GHAR_AGREEMENT";
+
             default:
                 return type;
         }

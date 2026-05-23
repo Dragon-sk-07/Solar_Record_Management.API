@@ -65,7 +65,7 @@ public class SolarPdfController {
         try {
             Map<String, Object> data = buildData(id, true);
             List<byte[]> pdfs = new ArrayList<>();
-            String[] pdfTypes = {"FrontSix", "wcr", "proforma-a", "dcr", "agreement", "site-photos"};
+            String[] pdfTypes = {"METER_TESTING_REQUEST", "FrontSix", "wcr", "proforma-a", "dcr", "agreement", "site-photos"};
 
             for (String type : pdfTypes) {
                 try {
@@ -236,11 +236,12 @@ public class SolarPdfController {
             case "proforma-a": return "Annexure-I_Proforma-A.pdf";
             case "dcr": return "Declaration_FOR_DCR.pdf";
             case "agreement": return "NET_METERING_CONNECTION_AGREEMENT.pdf";
-            case "indemnity": return "INDEMNITY_BOND.pdf";
+//            case "indemnity": return "INDEMNITY_BOND.pdf";
             case "SOLAR_PROPOSAL_11KW": return "11KW_Solar_Proposal.pdf";
             case "METER_TESTING_REQUEST": return "Meter_Testing_Request.pdf";
             case "PM_SURYA_GHAR_AGREEMENT": return "PM_Surya_Ghar_Agreement.pdf";
             case "FrontSix": return "Pre_Commissioning_Report_FrontSix.pdf";
+            case "site-photos": return "Site_Photos.pdf";
             default: return "document_" + System.currentTimeMillis() + ".pdf";
         }
     }
