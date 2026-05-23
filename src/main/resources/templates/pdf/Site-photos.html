@@ -21,62 +21,70 @@
         background: white;
     }
 
-    /* Full page container */
+    /* Full page container - exactly one page per image */
     .page {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        width: 100%;
-        height: 100vh; /* Full viewport height for screen */
+        width: 210mm;  /* A4 exact width */
+        height: 297mm; /* A4 exact height */
+        display: table;
+        table-layout: fixed;
         page-break-after: always;
         break-after: page;
         background: white;
+        margin: 0;
+        padding: 0;
     }
 
-    @media print {
-        .page {
-            height: 297mm; /* A4 exact height */
-            width: 210mm;  /* A4 exact width */
-            page-break-after: always;
-            break-after: page;
-        }
-
-        body {
-            print-color-adjust: exact;
-            -webkit-print-color-adjust: exact;
-        }
-    }
-
-    .photo-image {
+    /* Image cell - centers content vertically and horizontally */
+    .photo-cell {
+        display: table-cell;
+        vertical-align: middle;
+        text-align: center;
         width: 100%;
         height: 100%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        background: white;
+        margin: 0;
+        padding: 0;
+    }
+
+    /* Image styling - centered, original size preserved */
+    .photo-image {
+        display: inline-block;
+        margin: 0 auto;
     }
 
     .photo-image img {
-        width: 100%;
-        height: 100%;
-        object-fit: contain; /* Keeps aspect ratio, fits entirely */
-        /* Use object-fit: cover; if you want to fill completely (may crop) */
+        max-width: 100%;
+        max-height: 100%;
+        width: auto;
+        height: auto;
+        display: block;
+        margin: 0 auto;
+    }
+
+    /* Print-specific styles */
+    @media print {
+        body {
+            margin: 0;
+            padding: 0;
+        }
+        .page {
+            page-break-after: always;
+            break-after: page;
+        }
     }
   </style>
 </head>
 <body>
 
-<!--<div style="text-align: center; margin-bottom: 15px; padding-bottom: 8px; border-bottom: 1px solid #000;">-->
-<!--  <img th:src="${defaultMsedclHeader}" style="max-width: 100%; max-height: 80px; object-fit: contain;" alt="MSEDCL Header"/>-->
-<!--</div>-->
-
-<!-- One photo per full blank A4 page -->
+<!-- One photo per full blank A4 page - perfectly centered -->
 <div th:each="photo : ${sitePhotos}" class="page">
-  <div class="photo-image">
-    <img th:src="${photo}" alt="Site Photo"/>
+  <div class="photo-cell">
+    <div class="photo-image">
+      <img th:src="${photo}" alt="Site Photo"/>
+    </div>
   </div>
 </div>
 
+<!-- No output when no photos exist -->
 <th:block th:if="${sitePhotos == null or sitePhotos.isEmpty()}">
 </th:block>
 
