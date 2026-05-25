@@ -24,9 +24,6 @@
             background: #fff;
         }
 
-        /* =========================
-           PAGE FIX
-           ========================= */
         .page {
             page-break-after: always;
             margin-bottom: 0;
@@ -58,7 +55,7 @@
         }
 
         h2 {
-            font-size: 16px;  /* increased font size slightly */
+            font-size: 16px;
             font-weight: bold;
             margin: 10px 0 4px 0;
             color: #1a237e;
@@ -102,9 +99,6 @@
             overflow-x: auto;
         }
 
-        /* =========================
-           TABLE STYLES
-           ========================= */
         table {
             width: 100%;
             border-collapse: collapse;
@@ -118,8 +112,7 @@
             page-break-after: auto;
         }
 
-        th,
-        td {
+        th, td {
             border: 1px solid #000;
             padding: 8px 10px;
             vertical-align: top;
@@ -131,14 +124,7 @@
             text-align: center;
         }
 
-        /* UPDATED: SCOPE TABLE - now column 1 (Sr), column 2 (Title) moves to column 3?
-           Actually requirement: "2nd column scope of work all as an title shift in the 3rd column"
-           So we reorder: Column1: Sr No, Column2: Description (will hold images & some text maybe), Column3: Title/Scope Title (bold)
-           To keep clarity: new structure: Sr No, Description (contains images + extra details), Scope Title (Bold heading)
-           But original had scope of work as second column, description third. We'll swap: Title becomes column3, images go column2.
-           However requirement says: images add in 2nd column instead of 3rd column, and 2nd column scope of work all as an title shift in the 3rd column.
-           So final: col1: Sr No, col2: Images + any extra details, col3: Title of scope (bolded).
-        */
+        /* Scope Table Styles */
         .scope-table th:first-child,
         .scope-table td:first-child {
             width: 10%;
@@ -147,16 +133,15 @@
         .scope-table th:nth-child(2),
         .scope-table td:nth-child(2) {
             width: 40%;
-            text-align: center;   /* image column */
+            text-align: center;
         }
         .scope-table th:nth-child(3),
         .scope-table td:nth-child(3) {
             width: 50%;
-            font-weight: bold;     /* title column */
+            font-weight: bold;
             text-align: left;
         }
 
-        /* images inside scope-table fixed size */
         .scope-table .fixed-img {
             width: 180px;
             height: 120px;
@@ -167,122 +152,124 @@
             box-shadow: 0 1px 3px rgba(0,0,0,0.2);
         }
 
-        /* material table unchanged */
+        /* Material Table */
         .material-table th:first-child,
         .material-table td:first-child {
             width: 8%;
             text-align: center;
         }
-
         .material-table th:nth-child(2),
         .material-table td:nth-child(2) {
             width: 40%;
         }
-
         .material-table th:nth-child(3),
         .material-table td:nth-child(3) {
             width: 12%;
             text-align: center;
         }
-
         .material-table th:nth-child(4),
         .material-table td:nth-child(4) {
             width: 22%;
         }
-
         .material-table th:nth-child(5),
         .material-table td:nth-child(5) {
             width: 18%;
             text-align: center;
         }
 
+        /* Quotation Table */
         .quotation-table th,
         .quotation-table td {
             text-align: right;
         }
-
         .quotation-table td:first-child,
         .quotation-table th:first-child {
             text-align: center;
             width: 8%;
         }
-
         .quotation-table td:nth-child(2),
         .quotation-table th:nth-child(2) {
             text-align: left;
             width: 42%;
         }
-
         .quotation-table td:nth-child(3),
         .quotation-table th:nth-child(3) {
             width: 15%;
             text-align: center;
         }
-
         .quotation-table td:nth-child(4),
         .quotation-table th:nth-child(4) {
             width: 15%;
             text-align: right;
         }
-
         .quotation-table td:nth-child(5),
         .quotation-table th:nth-child(5) {
             width: 8%;
             text-align: center;
         }
-
         .quotation-table td:nth-child(6),
         .quotation-table th:nth-child(6) {
             width: 12%;
             text-align: right;
         }
 
-        /* terms box - now soft background (very light greenish/orange) but not blue */
+        /* Main Title Row for Quotation Table */
+        .main-title-row {
+            background-color: #d9e1f2;
+            font-weight: bold;
+            text-align: center;
+            font-size: 12pt;
+        }
+        .main-title-row td {
+            text-align: center;
+            font-weight: bold;
+            background-color: #d9e1f2;
+        }
+
         .terms-box {
-            background: #FEF9E6;  /* very soft cream/orange undertone */
+            background: #FEF9E6;
             padding: 10px;
             margin: 10px 0;
             border-left: 4px solid #ffc107;
         }
 
-        /* bank + terms combined section with very soft background (light greenish) */
         .bank-terms-soft {
-            background: #F4F9F0;  /* extremely soft light green, not blueish */
+            background: #F4F9F0;
             padding: 12px;
             margin: 12px 0;
             border-radius: 6px;
         }
 
         .bank-details-soft {
-            background: #FFF4E6;  /* very soft orange/peach background */
+            background: #FFF4E6;
             padding: 12px;
             margin: 10px 0;
             border-radius: 6px;
         }
 
-        /* Signature styling: centered signature image/line and text as a block, horizontally centered within its container */
-        .signature-centered {
-            text-align: center;
+        /* ============================================ */
+        /* SIGNATURE STYLES - RIGHT CENTERED & LEFT CENTERED */
+        /* Right Centered Signature - used on pages 1,3,4 */
+        /* ============================================ */
+        .signature-right-centered {
+            text-align: right;
             margin-top: 25px;
             margin-bottom: 15px;
         }
-
-        .signature-centered .signature-inner {
+        .signature-right-centered .signature-inner {
             display: inline-block;
             text-align: center;
             width: auto;
             min-width: 200px;
         }
-
-        .signature-centered .signature-img {
+        .signature-right-centered .signature-img {
             max-height: 70px;
             max-width: 200px;
             object-fit: contain;
             display: block;
             margin: 0 auto;
         }
-
-        .signature-centered .line {
+        .signature-right-centered .line {
             margin-top: 3px;
             border-bottom: 1px solid #000;
             height: 15px;
@@ -291,19 +278,52 @@
             margin-right: auto;
         }
 
-        /* image styling for first page full-width increased */
-        .first-page-image {
-            text-align: center;
-            margin: 20px 0 10px 0;
-            width: 100%;
-            /* takes full width and available height without overlapping content */
+        /* Left Centered Signature - used on page 5 */
+        .signature-left-centered {
+            text-align: left;
+            margin-top: 25px;
+            margin-bottom: 15px;
         }
-        .first-page-image img {
-            width: 100%;
-            max-height: 340px;
+        .signature-left-centered .signature-inner {
+            display: inline-block;
+            text-align: center;
+            width: auto;
+            min-width: 200px;
+        }
+        .signature-left-centered .signature-img {
+            max-height: 70px;
+            max-width: 200px;
             object-fit: contain;
             display: block;
             margin: 0 auto;
+        }
+        .signature-left-centered .line {
+            margin-top: 3px;
+            border-bottom: 1px solid #000;
+            height: 15px;
+            width: 180px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* First Page Image - full width, centered, increased size */
+        .first-page-image {
+            text-align: center;
+            margin: 25px 0 10px 0;
+            width: 100%;
+        }
+        .first-page-image img {
+            width: 100%;
+            max-height: 380px;
+            object-fit: contain;
+            display: block;
+            margin: 0 auto;
+        }
+
+        /* Dynamic Value Bold Class */
+        .dynamic-value {
+            font-weight: 700;
+            color: #000;
         }
 
         .value-missing {
@@ -319,11 +339,6 @@
             margin-top: 5px;
         }
 
-        .bold-text {
-            font-weight: bold;
-        }
-
-        /* additional style for scope title bold */
         .scope-title-bold {
             font-weight: bold;
             font-size: 11pt;
@@ -338,58 +353,54 @@
                 -webkit-print-color-adjust: exact;
                 print-color-adjust: exact;
             }
-            .signature-centered {
-                text-align: center;
-            }
         }
     </style>
 </head>
 <body>
 
 <!-- ============================================ -->
-<!-- PAGE 1: HEADER + REF + SUBJECT + CONTENT + SIGNATURE (CENTERED) -->
+<!-- PAGE 1: HEADER + REF + SUBJECT + CONTENT + SIGNATURE (RIGHT CENTERED) -->
 <!-- ============================================ -->
 <div class="page">
-    <!-- HEADER SECTION -->
     <div class="header-section">
         <img th:if="${not #lists.isEmpty(headerLogo)}" th:src="${headerLogo[0]}" alt="Vendor Header"/>
         <img th:if="${#lists.isEmpty(headerLogo)}" th:src="${defaultArihantHeader}" alt="Arihant Electricals Header"/>
     </div>
 
     <div class="ref-no">
-        <p>REF NO.: <span th:if="${invoiceNumber != null and invoiceNumber != ''}" th:text="${invoiceNumber}"></span><span th:if="${invoiceNumber == null or invoiceNumber == ''}" class="fixed-value">PRO/2025/001</span></p>
-        <p>Date: <span th:text="${currentDate}"></span></p>
-        <p>To: <span th:if="${name != null and name != ''}" th:text="${name}"></span><span th:if="${name == null or name == ''}" class="value-missing">Value Missing</span></p>
+        <p>REF NO.: <span th:if="${invoiceNumber != null and invoiceNumber != ''}" th:text="${invoiceNumber}" class="dynamic-value"></span><span th:if="${invoiceNumber == null or invoiceNumber == ''}" class="fixed-value">PRO/2025/001</span></p>
+        <p>Date: <span th:text="${currentDate}" class="dynamic-value"></span></p>
+        <p>To: <span th:if="${name != null and name != ''}" th:text="${name}" class="dynamic-value"></span><span th:if="${name == null or name == ''}" class="value-missing">Value Missing</span></p>
     </div>
 
     <div class="subject">
-        <p>Subject: Proposal Of <span th:if="${installedCapacity != null and installedCapacity != ''}" th:text="${installedCapacity}"></span><span th:if="${installedCapacity == null or installedCapacity == ''}" class="fixed-value">11</span> KW Solar Power Plant with Structure.</p>
+        <p>Subject: Proposal Of <span th:if="${installedCapacity != null and installedCapacity != ''}" th:text="${installedCapacity}" class="dynamic-value"></span><span th:if="${installedCapacity == null or installedCapacity == ''}" class="fixed-value">11</span> KW Solar Power Plant with Structure.</p>
     </div>
 
     <div class="salutation">
         <p>Respected Sir,</p>
     </div>
 
-    <p>As discussed, we would like to express our best quotation for <span th:if="${installedCapacity != null and installedCapacity != ''}" th:text="${installedCapacity}"></span><span th:if="${installedCapacity == null or installedCapacity == ''}" class="fixed-value">11</span> Kwp on grid Solar Power Plant with structure work. All work will be done as per your geographical condition & under all MSEDCL terms. All work will be done within period of <span class="fixed-value">45</span> days.</p>
+    <p>As discussed, we would like to express our best quotation for <span th:if="${installedCapacity != null and installedCapacity != ''}" th:text="${installedCapacity}" class="dynamic-value"></span><span th:if="${installedCapacity == null or installedCapacity == ''}" class="fixed-value">11</span> Kwp on grid Solar Power Plant with structure work. All work will be done as per your geographical condition & under all MSEDCL terms. All work will be done within period of <span class="fixed-value">45</span> days.</p>
 
     <p class="mt8">If you have any query, please free to contact us.</p>
 
-    <!-- Signature on Page 1 - CENTERED (fully centered) -->
-    <div class="signature-centered">
+    <!-- Signature Page 1 - RIGHT CENTERED -->
+    <div class="signature-right-centered">
         <div class="signature-inner">
             <div><img th:if="${not #lists.isEmpty(vendorSignature)}" th:src="${vendorSignature[0]}" class="signature-img" alt="Vendor Signature"/><div th:if="${#lists.isEmpty(vendorSignature)}" class="line"></div></div>
-            <div style="margin-top: 5px;"><strong th:text="${vendorName}">Arihant Electricals</strong><br/>Proprietor</div>
+            <div style="margin-top: 5px;"><strong th:text="${vendorName}" class="dynamic-value">Arihant Electricals</strong><br/>Proprietor</div>
         </div>
     </div>
 
-    <!-- PAGE 1 BOTTOM IMAGE - increased width and height, full width without content merging -->
+    <!-- PAGE 1 BOTTOM IMAGE - Full width & height increased, centered -->
     <div class="first-page-image">
         <img th:src="${cotationFirstPageImage}" alt="Cotation 1st Page Image"/>
     </div>
 </div>
 
 <!-- ============================================ -->
-<!-- PAGE 2: HEADER + SCOPE OF WORK TABLE WITH IMAGES IN COLUMN 2 AND BOLD TITLES IN COLUMN 3, FIXED IMAGE SIZE -->
+<!-- PAGE 2: SCOPE OF WORK - IMAGES IN COLUMN 2, BOLD TITLES IN COLUMN 3 -->
 <!-- ============================================ -->
 <div class="page">
     <div class="header-section">
@@ -459,7 +470,7 @@
 </div>
 
 <!-- ============================================ -->
-<!-- PAGE 3: HEADER + QUOTATION TABLE + TERMS + SIGNATURE (CENTERED) -->
+<!-- PAGE 3: QUOTATION TABLE WITH MAIN TITLE ROW + TERMS + SIGNATURE (RIGHT CENTERED) -->
 <!-- ============================================ -->
 <div class="page">
     <div class="header-section">
@@ -472,6 +483,9 @@
     <div class="table-container">
         <table class="quotation-table">
             <thead>
+            <tr class="main-title-row">
+                <td colspan="6"><strong>🏭 Commercial / Residential Solar Quote</strong></td>
+            </tr>
             <tr>
                 <th>Sr No</th>
                 <th>Description</th>
@@ -484,26 +498,26 @@
             <tbody>
             <tr>
                 <td style="text-align:center">1</td>
-                <td>Design, Supply & Installation of <span th:if="${installedCapacity != null and installedCapacity != ''}" th:text="${installedCapacity}"></span><span th:if="${installedCapacity == null or installedCapacity == ''}" class="fixed-value">11</span> KW Solar system.</td>
+                <td>Design, Supply & Installation of <span th:if="${installedCapacity != null and installedCapacity != ''}" th:text="${installedCapacity}" class="dynamic-value"></span><span th:if="${installedCapacity == null or installedCapacity == ''}" class="fixed-value">11</span> KW Solar system.</td>
                 <td style="text-align:center">@ Rs PER/WATT</td>
                 <td style="text-align:right">-</td>
                 <td style="text-align:center">1 Units</td>
-                <td style="text-align:right"><span class="fixed-value">4,45,000</span>/-</td>
+                <td style="text-align:right"><span class="dynamic-value">4,45,000</span>/-</td>
             </tr>
             <tr>
                 <td style="text-align:center">2</td>
                 <td colspan="4">Total System Cost with GST 5%</td>
-                <td style="text-align:right"><span class="fixed-value">4,45,000</span>/-</td>
+                <td style="text-align:right"><span class="dynamic-value">4,45,000</span>/-</td>
             </tr>
             <tr>
                 <td style="text-align:center"></td>
                 <td colspan="4">Cleaning system will charge extra</td>
-                <td style="text-align:right">4,500/-</td>
+                <td style="text-align:right"><span class="dynamic-value">4,500</span>/-</td>
             </tr>
             <tr>
                 <td style="text-align:center"></td>
                 <td colspan="4"><strong>Total</strong></td>
-                <td style="text-align:right"><strong><span class="fixed-value">4,45,000</span>/-</strong></td>
+                <td style="text-align:right"><strong><span class="dynamic-value">4,45,000</span>/-</strong></td>
             </tr>
             </tbody>
         </table>
@@ -515,17 +529,17 @@
         <p>3. Load Extension work Inclusive Only Security Deposit/Demand will be Extra at actual.</p>
     </div>
 
-    <!-- Signature Page 3 - CENTERED -->
-    <div class="signature-centered">
+    <!-- Signature Page 3 - RIGHT CENTERED -->
+    <div class="signature-right-centered">
         <div class="signature-inner">
             <div><img th:if="${not #lists.isEmpty(vendorSignature)}" th:src="${vendorSignature[0]}" class="signature-img" alt="Vendor Signature"/><div th:if="${#lists.isEmpty(vendorSignature)}" class="line"></div></div>
-            <div style="margin-top: 5px;"><strong th:text="${vendorName}">Arihant Electricals</strong><br/>Proprietor</div>
+            <div style="margin-top: 5px;"><strong th:text="${vendorName}" class="dynamic-value">Arihant Electricals</strong><br/>Proprietor</div>
         </div>
     </div>
 </div>
 
 <!-- ============================================ -->
-<!-- PAGE 4: HEADER + SUPPLY OF MATERIAL TABLE + SIGNATURE (CENTERED) -->
+<!-- PAGE 4: SUPPLY OF MATERIAL TABLE + SIGNATURE (RIGHT CENTERED) -->
 <!-- ============================================ -->
 <div class="page">
     <div class="header-section">
@@ -547,30 +561,30 @@
             </tr>
             </thead>
             <tbody>
-            <tr><td style="text-align:center">1</td><td>Solar panel</td><td style="text-align:center">05-06 Nos.</td><td><span th:if="${moduleMake != null and moduleMake != ''}" th:text="${moduleMake}"></span><span th:if="${moduleMake == null or moduleMake == ''}" class="value-missing">Value Missing</span></td><td style="text-align:center">25 year warranty</td></tr>
-            <tr><td style="text-align:center">2</td><td>Inverter</td><td style="text-align:center">1 Nos.</td><td><span th:if="${inverterMake != null and inverterMake != ''}" th:text="${inverterMake}"></span><span th:if="${inverterMake == null or inverterMake == ''}" class="value-missing">Value Missing</span></td><td style="text-align:center">10 Years for Inverter</td></tr>
+            <tr><td style="text-align:center">1</td><td>Solar panel</td><td style="text-align:center"><span th:if="${numberOfModules != null}" th:text="${numberOfModules}" class="dynamic-value"></span><span th:if="${numberOfModules == null}">05-06</span> Nos.</td><td><span th:if="${moduleMake != null and moduleMake != ''}" th:text="${moduleMake}" class="dynamic-value"></span><span th:if="${moduleMake == null or moduleMake == ''}" class="value-missing">Value Missing</span></td><td style="text-align:center">25 year warranty</td></tr>
+            <tr><td style="text-align:center">2</td><td>Inverter</td><td style="text-align:center"><span th:if="${inverterCapacity != null}" th:text="${inverterCapacity}" class="dynamic-value"></span><span th:if="${inverterCapacity == null}">1</span> Nos.</td><td><span th:if="${inverterMake != null and inverterMake != ''}" th:text="${inverterMake}" class="dynamic-value"></span><span th:if="${inverterMake == null or inverterMake == ''}" class="value-missing">Value Missing</span></td><td style="text-align:center">10 Years for Inverter</td></tr>
             <tr><td style="text-align:center">3</td><td>DCDB</td><td style="text-align:center">1 Nos.</td><td>TATA/IP 65,1000V/15 Amp Fuse Link & 1000V/40K DC SPD</td><td style="text-align:center">5 Years</td></tr>
             <tr><td style="text-align:center">4</td><td>ACDB</td><td style="text-align:center">1 Nos.</td><td>TATA/IP 65,440V/63Amp MCCB Legrand Make with ACSPD 440v/20K</td><td style="text-align:center">5 Years</td></tr>
             <tr><td style="text-align:center">5</td><td>Wires</td><td style="text-align:center">METER Nos.</td><td>Pure copper, TATA approved, Polycab Only.</td><td style="text-align:center">5 Years</td></tr>
             <tr><td style="text-align:center">6</td><td>Earthing kit</td><td style="text-align:center">3 Nos.</td><td>Bentonite Chemical Earthing with Insulator/True Power/U-Protect with 25 X 3 mm HDG WIRE</td><td style="text-align:center">5 Years</td></tr>
             <tr><td style="text-align:center">7</td><td>Lightening Arrester</td><td style="text-align:center">1 Nos.</td><td>TATA Power</td><td style="text-align:center">5 Years</td></tr>
-            <tr><td style="text-align:center">8</td><td>Bi-Directional (Net) Meter & Generation Meter</td><td style="text-align:center">1 No. Each</td><td>Secure Make-200/40Amp</td><td style="text-align:center">5 Years</td></tr>
+            <tr><td style="text-align:center">8</td><td>Bi-Directional (Net) Meter & Generation Meter</td><td style="text-align:center">1 No. Each</td><td><span th:if="${meterMake != null and meterMake != ''}" th:text="${meterMake}" class="dynamic-value"></span><span th:if="${meterMake == null or meterMake == ''}">Secure Make-200/40Amp</span></td><td style="text-align:center">5 Years</td></tr>
             <tr><td style="text-align:center">9</td><td>LT Panel</td><td style="text-align:center">1 Nos.</td><td>MSEDCL Approved with Is Landing Protection using Auto Contactor Kit 150A</td><td style="text-align:center">5 Years</td></tr>
             </tbody>
         </table>
     </div>
 
-    <!-- Signature Page 4 - CENTERED -->
-    <div class="signature-centered">
+    <!-- Signature Page 4 - RIGHT CENTERED -->
+    <div class="signature-right-centered">
         <div class="signature-inner">
             <div><img th:if="${not #lists.isEmpty(vendorSignature)}" th:src="${vendorSignature[0]}" class="signature-img" alt="Vendor Signature"/><div th:if="${#lists.isEmpty(vendorSignature)}" class="line"></div></div>
-            <div style="margin-top: 5px;"><strong th:text="${vendorName}">Arihant Electricals</strong><br/>Proprietor</div>
+            <div style="margin-top: 5px;"><strong th:text="${vendorName}" class="dynamic-value">Arihant Electricals</strong><br/>Proprietor</div>
         </div>
     </div>
 </div>
 
 <!-- ============================================ -->
-<!-- PAGE 5: HEADER + BANK DETAILS & TERMS (SOFT BACKGROUND) + SIGNATURE CENTERED -->
+<!-- PAGE 5: BANK DETAILS & TERMS + SIGNATURE (LEFT CENTERED) -->
 <!-- ============================================ -->
 <div class="page">
     <div class="header-section">
@@ -580,7 +594,6 @@
 
     <h2>Bank Details and Commercial Terms</h2>
 
-    <!-- Combined soft background area for payment terms, taxes etc (very light greenish) -->
     <div class="bank-terms-soft">
         <p><strong>PAYMENT TERMS:</strong> 50% Advance along with technically and commercially clear order. 40% after PV Module & Structure Installation, 5% after Installation and commissioning of the work & Balance 5% after first bill generation with Solar Effect.</p>
         <p class="mt8"><strong>Taxes:</strong> GST 13.8%</p>
@@ -590,7 +603,6 @@
     </div>
 
     <h2>Bank Account Details</h2>
-    <!-- Very soft orange/peach background for bank details -->
     <div class="bank-details-soft">
         <p><strong>A/c Name :</strong> ME.ARIHANT SOLAR.</p>
         <p><strong>Bank Name :</strong> BANK OF MAHARASHTRA</p>
@@ -599,11 +611,11 @@
         <p><strong>IFSC Code :</strong> MAHB0001872</p>
     </div>
 
-    <!-- Signature on Page 5 - CENTERED (full center, not left or right) -->
-    <div class="signature-centered">
+    <!-- Signature Page 5 - LEFT CENTERED -->
+    <div class="signature-left-centered">
         <div class="signature-inner">
             <div><img th:if="${not #lists.isEmpty(vendorSignature)}" th:src="${vendorSignature[0]}" class="signature-img" alt="Vendor Signature"/><div th:if="${#lists.isEmpty(vendorSignature)}" class="line"></div></div>
-            <div style="margin-top: 5px;"><strong th:text="${vendorName}">Arihant Electricals</strong><br/>Proprietor</div>
+            <div style="margin-top: 5px;"><strong th:text="${vendorName}" class="dynamic-value">Arihant Electricals</strong><br/>Proprietor</div>
         </div>
     </div>
 </div>
