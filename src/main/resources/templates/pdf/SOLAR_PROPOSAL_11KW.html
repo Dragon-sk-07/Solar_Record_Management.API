@@ -162,27 +162,11 @@
             margin: 10px 0;
             border-radius: 5px;
         }
-        .signature-row {
-            display: flex;
-            width: 100%;
-            margin: 20px 0 10px 0;
-            gap: 40px;
-        }
-        .signature-left, .signature-right {
-            flex: 1;
-            vertical-align: top;
-        }
-        .signature-left {
-            text-align: left;
-        }
-        .signature-right {
-            text-align: left;
-        }
         .signature-space {
             height: 60px;
             margin: 5px 0;
             border-bottom: 1px solid #000;
-            width: 80%;
+            width: 200px;
         }
         .signature-img {
             max-height: 55px;
@@ -193,7 +177,7 @@
             margin-top: 3px;
             border-bottom: 1px solid #000;
             height: 15px;
-            width: 80%;
+            width: 200px;
         }
         .mt8 {
             margin-top: 5px;
@@ -210,15 +194,6 @@
             color: #666;
             margin-top: 5px;
         }
-        .image-cell {
-            text-align: center;
-        }
-        .image-cell img {
-            max-width: 100%;
-            max-height: 80px;
-            object-fit: contain;
-            margin: 5px 0;
-        }
         .first-page-image {
             text-align: center;
             margin: 15px 0;
@@ -228,12 +203,21 @@
             max-height: 200px;
             object-fit: contain;
         }
-        .signature-right-align {
+        .signature-right {
             text-align: right;
-            margin-top: 30px;
+            margin-top: 20px;
         }
-        .signature-right-align .signature-img {
-            display: inline-block;
+        .signature-left {
+            text-align: left;
+            margin-top: 20px;
+        }
+        .image-cell {
+            text-align: center;
+        }
+        .image-cell img {
+            max-width: 100%;
+            max-height: 80px;
+            object-fit: contain;
         }
         @media print {
             body {
@@ -250,7 +234,7 @@
 <body>
 
 <!-- ============================================ -->
-<!-- PAGE 1: HEADER + REF + SUBJECT + CONTENT + COTATION IMAGE + SIGNATURE -->
+<!-- PAGE 1: HEADER + REF + SUBJECT + CONTENT + SIGNATURE + COTATION IMAGE -->
 <!-- ============================================ -->
 <div class="page">
     <!-- HEADER SECTION -->
@@ -277,20 +261,20 @@
 
     <p class="mt8">If you have any query, please free to contact us.</p>
 
-    <!-- PAGE 1 BOTTOM IMAGE -->
-    <div class="first-page-image">
-        <img th:src="${cotationFirstPageImage}" alt="Cotation 1st Page Image"/>
+    <!-- Signature on Page 1 - Right Side -->
+    <div class="signature-right">
+        <div><img th:if="${not #lists.isEmpty(vendorSignature)}" th:src="${vendorSignature[0]}" class="signature-img" alt="Vendor Signature"/><div th:if="${#lists.isEmpty(vendorSignature)}" class="line"></div></div>
+        <div style="margin-top: 3px;"><strong th:text="${vendorName}">Arihant Electricals</strong><br/><span th:text="${vendorAddress}">A/p Ashta Near-Rammandeer, Ashta</span></div>
     </div>
 
-    <!-- Signature on Page 1 - Right Aligned -->
-    <div class="signature-right-align">
-        <div><img th:if="${not #lists.isEmpty(vendorSignature)}" th:src="${vendorSignature[0]}" class="signature-img" alt="Vendor Signature"/><div th:if="${#lists.isEmpty(vendorSignature)}" style="border-bottom: 1px solid #000; width: 180px; height: 22px; display: inline-block;"></div></div>
-        <div style="margin-top: 3px;"><strong th:text="${vendorName}">Arihant Electricals</strong><br/><span th:text="${vendorAddress}">A/p Ashta Near-Rammandeer, Ashta</span></div>
+    <!-- PAGE 1 BOTTOM IMAGE - Cotation Image at the end of page -->
+    <div class="first-page-image">
+        <img th:src="${cotationFirstPageImage}" alt="Cotation 1st Page Image"/>
     </div>
 </div>
 
 <!-- ============================================ -->
-<!-- PAGE 2: HEADER + SCOPE OF WORK TABLE -->
+<!-- PAGE 2: HEADER + SCOPE OF WORK TABLE WITH IMAGES IN EACH ROW -->
 <!-- ============================================ -->
 <div class="page">
     <!-- HEADER SECTION -->
@@ -314,26 +298,38 @@
             <tr>
                 <td style="text-align:center">1</td>
                 <td>Module mounting structure</td>
-                <td>· Design and installation of Galvanized, Structure with heavy support<br>· Proper grouting and calming to secure structure against stormy wind.</td>
+                <td>
+                    - Design and installation of Galvanized, Structure with heavy support<br>
+                    - Proper grouting and calming to secure structure against stormy wind.<br><br>
+                    <div class="image-cell"><img th:src="${secondPageFirstImage}" alt="Installation Image 1"/></div>
+                </td>
             </tr>
             <tr>
                 <td style="text-align:center">2</td>
                 <td>Design of i/p & o/p of electricity</td>
-                <td>· Inverter installation<br>· Wiring as per safety terms of MSEDCL.<br>· Synchronization with Grid<br>· Proper earthing.</td>
+                <td>
+                    - Inverter installation<br>
+                    - Wiring as per safety terms of MSEDCL.<br>
+                    - Synchronization with Grid<br>
+                    - Proper earthing.<br><br>
+                    <div class="image-cell"><img th:src="${secondPageSecondImage}" alt="Installation Image 2"/></div>
+                </td>
             </tr>
             <tr>
                 <td style="text-align:center">3</td>
                 <td>Cleaning System</td>
-                <td>· An efficient sprinkle system is provided with 3 to 5 hp pump to protect generation from dust.<br><br>
-                    <img th:src="${secondPageFirstImage}" alt="Installation Image 1" style="max-width: 100%; max-height: 80px; object-fit: contain; margin: 5px 0;"/><br>
-                    <img th:src="${secondPageSecondImage}" alt="Installation Image 2" style="max-width: 100%; max-height: 80px; object-fit: contain; margin: 5px 0;"/><br>
-                    <img th:src="${secondPageThirdImage}" alt="Installation Image 3" style="max-width: 100%; max-height: 80px; object-fit: contain; margin: 5px 0;"/><br>
-                    <img th:src="${secondPageFourthImage}" alt="Installation Image 4" style="max-width: 100%; max-height: 80px; object-fit: contain; margin: 5px 0;"/></td>
+                <td>
+                    - An efficient sprinkle system is provided with 3 to 5 hp pump to protect generation from dust.<br><br>
+                    <div class="image-cell"><img th:src="${secondPageThirdImage}" alt="Installation Image 3"/></div>
+                </td>
             </tr>
             <tr>
                 <td style="text-align:center">4</td>
                 <td>Performance Testing unit</td>
-                <td>· Our testing unit help you to detect if any of our solar panel is lagging in generation.</td>
+                <td>
+                    - Our testing unit help you to detect if any of our solar panel is lagging in generation.<br><br>
+                    <div class="image-cell"><img th:src="${secondPageFourthImage}" alt="Installation Image 4"/></div>
+                </td>
             </tr>
             </tbody>
         </table>
@@ -341,7 +337,7 @@
 </div>
 
 <!-- ============================================ -->
-<!-- PAGE 3: HEADER + QUOTATION TABLE + TERMS + SIGNATURES -->
+<!-- PAGE 3: HEADER + QUOTATION TABLE + TERMS + SIGNATURE -->
 <!-- ============================================ -->
 <div class="page">
     <!-- HEADER SECTION -->
@@ -398,34 +394,15 @@
         <p>3. Load Extension work Inclusive Only Security Deposit/Demand will be Extra at actual.</p>
     </div>
 
-    <!-- Signatures on Page 3 - Side by Side -->
-    <div class="signature-row">
-        <div class="signature-left">
-            <p class="bold">For ARIHANT ELECTRICALS</p>
-            <div class="signature-space">
-                <img th:if="${not #lists.isEmpty(vendorSignature)}" th:src="${vendorSignature[0]}" class="signature-img" alt="Vendor Signature"/>
-            </div>
-            <div class="line" th:if="${#lists.isEmpty(vendorSignature)}"></div>
-            <p>Authorized Signatory</p>
-            <p class="mt8">Name: <span th:if="${authorizedPersonName != null and authorizedPersonName != ''}" th:text="${authorizedPersonName}"></span><span th:if="${authorizedPersonName == null or authorizedPersonName == ''}" class="value-missing">Value Missing</span></p>
-            <p>Designation: Authorized Signatory</p>
-            <p>Date: <span th:text="${currentDate}"></span></p>
-        </div>
-        <div class="signature-right">
-            <p class="bold">Accepted by Customer</p>
-            <div class="signature-space">
-                <img th:if="${not #lists.isEmpty(consumerSignature)}" th:src="${consumerSignature[0]}" class="signature-img" alt="Consumer Signature"/>
-            </div>
-            <div class="line" th:if="${#lists.isEmpty(consumerSignature)}"></div>
-            <p>Signature:</p>
-            <p class="mt8">Name: <span th:if="${name != null and name != ''}" th:text="${name}"></span><span th:if="${name == null or name == ''}" class="value-missing">Value Missing</span></p>
-            <p>Date: <span th:text="${currentDate}"></span></p>
-        </div>
+    <!-- Signature on Page 3 - Right Side -->
+    <div class="signature-right">
+        <div><img th:if="${not #lists.isEmpty(vendorSignature)}" th:src="${vendorSignature[0]}" class="signature-img" alt="Vendor Signature"/><div th:if="${#lists.isEmpty(vendorSignature)}" class="line"></div></div>
+        <div style="margin-top: 3px;"><strong th:text="${vendorName}">Arihant Electricals</strong><br/>Authorized Signatory</div>
     </div>
 </div>
 
 <!-- ============================================ -->
-<!-- PAGE 4: HEADER + SUPPLY OF MATERIAL TABLE -->
+<!-- PAGE 4: HEADER + SUPPLY OF MATERIAL TABLE + SIGNATURE -->
 <!-- ============================================ -->
 <div class="page">
     <!-- HEADER SECTION -->
@@ -515,34 +492,15 @@
         </table>
     </div>
 
-    <!-- Signatures on Page 4 - Side by Side -->
-    <div class="signature-row">
-        <div class="signature-left">
-            <p class="bold">For ARIHANT ELECTRICALS</p>
-            <div class="signature-space">
-                <img th:if="${not #lists.isEmpty(vendorSignature)}" th:src="${vendorSignature[0]}" class="signature-img" alt="Vendor Signature"/>
-            </div>
-            <div class="line" th:if="${#lists.isEmpty(vendorSignature)}"></div>
-            <p>Authorized Signatory</p>
-            <p class="mt8">Name: <span th:if="${authorizedPersonName != null and authorizedPersonName != ''}" th:text="${authorizedPersonName}"></span><span th:if="${authorizedPersonName == null or authorizedPersonName == ''}" class="value-missing">Value Missing</span></p>
-            <p>Designation: Authorized Signatory</p>
-            <p>Date: <span th:text="${currentDate}"></span></p>
-        </div>
-        <div class="signature-right">
-            <p class="bold">Accepted by Customer</p>
-            <div class="signature-space">
-                <img th:if="${not #lists.isEmpty(consumerSignature)}" th:src="${consumerSignature[0]}" class="signature-img" alt="Consumer Signature"/>
-            </div>
-            <div class="line" th:if="${#lists.isEmpty(consumerSignature)}"></div>
-            <p>Signature:</p>
-            <p class="mt8">Name: <span th:if="${name != null and name != ''}" th:text="${name}"></span><span th:if="${name == null or name == ''}" class="value-missing">Value Missing</span></p>
-            <p>Date: <span th:text="${currentDate}"></span></p>
-        </div>
+    <!-- Signature on Page 4 - Right Side -->
+    <div class="signature-right">
+        <div><img th:if="${not #lists.isEmpty(vendorSignature)}" th:src="${vendorSignature[0]}" class="signature-img" alt="Vendor Signature"/><div th:if="${#lists.isEmpty(vendorSignature)}" class="line"></div></div>
+        <div style="margin-top: 3px;"><strong th:text="${vendorName}">Arihant Electricals</strong><br/>Authorized Signatory</div>
     </div>
 </div>
 
 <!-- ============================================ -->
-<!-- PAGE 5: HEADER + BANK DETAILS + TERMS + SIGNATURES -->
+<!-- PAGE 5: HEADER + BANK DETAILS + TERMS + SIGNATURE -->
 <!-- ============================================ -->
 <div class="page">
     <!-- HEADER SECTION -->
@@ -571,30 +529,15 @@
         <p><strong>IFSC Code:</strong> MAHB0001872</p>
     </div>
 
-    <!-- Signatures on Page 5 -->
-    <div class="signature-row">
-        <div class="signature-left">
-            <p class="bold">For ARIHANT ELECTRICALS</p>
-            <div class="signature-space">
-                <img th:if="${not #lists.isEmpty(vendorSignature)}" th:src="${vendorSignature[0]}" class="signature-img" alt="Vendor Signature"/>
-            </div>
-            <div class="line" th:if="${#lists.isEmpty(vendorSignature)}"></div>
-            <p>Authorized Signatory</p>
-            <p class="mt8">Name: <span th:if="${authorizedPersonName != null and authorizedPersonName != ''}" th:text="${authorizedPersonName}"></span><span th:if="${authorizedPersonName == null or authorizedPersonName == ''}" class="value-missing">Value Missing</span></p>
-            <p>Designation: Authorized Signatory</p>
-            <p>Date: <span th:text="${currentDate}"></span></p>
-        </div>
-        <div class="signature-right">
-            <p class="bold">Accepted by Customer</p>
-            <div class="signature-space">
-                <img th:if="${not #lists.isEmpty(consumerSignature)}" th:src="${consumerSignature[0]}" class="signature-img" alt="Consumer Signature"/>
-            </div>
-            <div class="line" th:if="${#lists.isEmpty(consumerSignature)}"></div>
-            <p>Signature:</p>
-            <p class="mt8">Name: <span th:if="${name != null and name != ''}" th:text="${name}"></span><span th:if="${name == null or name == ''}" class="value-missing">Value Missing</span></p>
-            <p>Date: <span th:text="${currentDate}"></span></p>
-        </div>
+    <!-- Signature on Page 5 - Left Side -->
+    <div class="signature-left">
+        <div><img th:if="${not #lists.isEmpty(vendorSignature)}" th:src="${vendorSignature[0]}" class="signature-img" alt="Vendor Signature"/><div th:if="${#lists.isEmpty(vendorSignature)}" class="line"></div></div>
+        <div style="margin-top: 3px;"><strong th:text="${vendorName}">Arihant Electricals</strong><br/>Authorized Signatory</div>
+        <p class="mt8">Name: <span th:if="${authorizedPersonName != null and authorizedPersonName != ''}" th:text="${authorizedPersonName}"></span><span th:if="${authorizedPersonName == null or authorizedPersonName == ''}" class="value-missing">Value Missing</span></p>
+        <p>Date: <span th:text="${currentDate}"></span></p>
     </div>
+
+
 </div>
 
 </body>
