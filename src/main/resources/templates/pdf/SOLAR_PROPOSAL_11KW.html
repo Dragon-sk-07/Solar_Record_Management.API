@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Solar Power Plant Proposal | Arihant Electricals</title>
+    <title>Solar Power Plant Proposal</title>
     <style>
         * {
             margin: 0;
@@ -12,15 +12,15 @@
         }
 
         @page {
-            margin: 8mm 12mm;
+            margin: 6mm 10mm;
         }
 
         body {
             font-family: 'Times New Roman', Times, serif;
-            font-size: 12pt;
-            line-height: 1.4;
+            font-size: 11pt;
+            line-height: 1.35;
             color: #000;
-            padding: 12px 18px;
+            padding: 10px 15px;
             background: #fff;
         }
 
@@ -32,13 +32,12 @@
             margin-bottom: 0;
             padding-bottom: 0;
             border: 1px solid #2c3e50;
-            padding: 18px 20px;
+            padding: 15px;
             background: #fff;
             min-height: 277mm;
             width: 100%;
             position: relative;
             box-sizing: border-box;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
         }
 
         .page:last-child {
@@ -46,7 +45,7 @@
         }
 
         p {
-            margin: 0 0 5px 0;
+            margin: 0 0 3px 0;
             text-align: justify;
         }
 
@@ -58,56 +57,47 @@
             font-weight: bold;
         }
 
-        /* Bigger & Colorful Titles */
         h2 {
-            font-size: 18px;
-            font-weight: 800;
-            margin: 15px 0 8px 0;
-            color: #0b2f6c;
-            background: linear-gradient(90deg, #e0e7ff, #ffffff);
-            padding: 8px 15px;
-            border-left: 6px solid #f39c12;
-            border-radius: 0 8px 8px 0;
-            letter-spacing: 0.5px;
+            font-size: 16px;  /* increased font size slightly */
+            font-weight: bold;
+            margin: 10px 0 4px 0;
+            color: #1a237e;
+            background: #e8eaf6;
+            padding: 5px 10px;
+            border-left: 4px solid #1a237e;
         }
 
         .header-section {
             text-align: center;
-            margin-bottom: 20px;
-            padding-bottom: 10px;
-            border-bottom: 2px solid #1e3a8a;
+            margin-bottom: 15px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #000;
         }
 
         .header-section img {
             max-width: 100%;
-            max-height: 95px;
+            max-height: 80px;
             object-fit: contain;
         }
 
         .ref-no {
-            margin-top: 18px;
+            margin-top: 15px;
             text-align: right;
-            font-size: 11pt;
-            background: #f8fafc;
-            padding: 8px 12px;
-            border-radius: 8px;
+            font-size: 10pt;
         }
 
         .subject {
-            margin-top: 15px;
+            margin-top: 10px;
             font-weight: bold;
             text-decoration: underline;
-            font-size: 14pt;
-            color: #1e3a8a;
         }
 
         .salutation {
-            margin-top: 12px;
-            font-size: 12pt;
+            margin-top: 10px;
         }
 
         .table-container {
-            margin-top: 18px;
+            margin-top: 15px;
             width: 100%;
             overflow-x: auto;
         }
@@ -118,8 +108,8 @@
         table {
             width: 100%;
             border-collapse: collapse;
-            margin: 12px 0;
-            font-size: 11pt;
+            margin: 10px 0;
+            font-size: 10pt;
             page-break-inside: auto;
         }
 
@@ -130,34 +120,54 @@
 
         th,
         td {
-            border: 1px solid #2c3e50;
-            padding: 10px 12px;
+            border: 1px solid #000;
+            padding: 8px 10px;
             vertical-align: top;
         }
 
         th {
-            background: #d9e6f5;
-            font-weight: 800;
+            background: #e8eaf6;
+            font-weight: bold;
             text-align: center;
-            font-size: 12pt;
         }
 
+        /* UPDATED: SCOPE TABLE - now column 1 (Sr), column 2 (Title) moves to column 3?
+           Actually requirement: "2nd column scope of work all as an title shift in the 3rd column"
+           So we reorder: Column1: Sr No, Column2: Description (will hold images & some text maybe), Column3: Title/Scope Title (bold)
+           To keep clarity: new structure: Sr No, Description (contains images + extra details), Scope Title (Bold heading)
+           But original had scope of work as second column, description third. We'll swap: Title becomes column3, images go column2.
+           However requirement says: images add in 2nd column instead of 3rd column, and 2nd column scope of work all as an title shift in the 3rd column.
+           So final: col1: Sr No, col2: Images + any extra details, col3: Title of scope (bolded).
+        */
         .scope-table th:first-child,
         .scope-table td:first-child {
-            width: 8%;
+            width: 10%;
             text-align: center;
         }
-
         .scope-table th:nth-child(2),
         .scope-table td:nth-child(2) {
-            width: 27%;
+            width: 40%;
+            text-align: center;   /* image column */
         }
-
         .scope-table th:nth-child(3),
         .scope-table td:nth-child(3) {
-            width: 65%;
+            width: 50%;
+            font-weight: bold;     /* title column */
+            text-align: left;
         }
 
+        /* images inside scope-table fixed size */
+        .scope-table .fixed-img {
+            width: 180px;
+            height: 120px;
+            object-fit: cover;
+            display: block;
+            margin: 8px auto;
+            border-radius: 4px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+        }
+
+        /* material table unchanged */
         .material-table th:first-child,
         .material-table td:first-child {
             width: 8%;
@@ -201,7 +211,6 @@
         .quotation-table th:nth-child(2) {
             text-align: left;
             width: 42%;
-            font-weight: 500;
         }
 
         .quotation-table td:nth-child(3),
@@ -226,173 +235,98 @@
         .quotation-table th:nth-child(6) {
             width: 12%;
             text-align: right;
-            font-weight: bold;
         }
 
+        /* terms box - now soft background (very light greenish/orange) but not blue */
         .terms-box {
-            background: #fef9e6;
-            padding: 14px 18px;
-            margin: 15px 0;
-            border-left: 5px solid #f39c12;
-            border-radius: 6px;
-            font-size: 11pt;
+            background: #FEF9E6;  /* very soft cream/orange undertone */
+            padding: 10px;
+            margin: 10px 0;
+            border-left: 4px solid #ffc107;
         }
 
-        .bank-box {
-            background: #eef2ff;
-            padding: 14px 18px;
+        /* bank + terms combined section with very soft background (light greenish) */
+        .bank-terms-soft {
+            background: #F4F9F0;  /* extremely soft light green, not blueish */
+            padding: 12px;
             margin: 12px 0;
-            border-radius: 10px;
-            font-size: 11pt;
+            border-radius: 6px;
         }
 
-        /* =========================
-           SIGNATURE STYLES - CENTERED IMAGES inside block
-           ========================= */
-        .signature-right {
-            text-align: right;
-            margin-top: 30px;
+        .bank-details-soft {
+            background: #FFF4E6;  /* very soft orange/peach background */
+            padding: 12px;
+            margin: 10px 0;
+            border-radius: 6px;
+        }
+
+        /* Signature styling: centered signature image/line and text as a block, horizontally centered within its container */
+        .signature-centered {
+            text-align: center;
+            margin-top: 25px;
             margin-bottom: 15px;
         }
 
-        .signature-right .signature-inner {
+        .signature-centered .signature-inner {
             display: inline-block;
             text-align: center;
             width: auto;
-            min-width: 220px;
+            min-width: 200px;
         }
 
-        .signature-right .signature-img,
-        .signature-right .line {
-            margin-left: auto;
-            margin-right: auto;
-            display: block;
-        }
-
-        .signature-right .signature-img {
+        .signature-centered .signature-img {
             max-height: 70px;
-            max-width: 210px;
+            max-width: 200px;
             object-fit: contain;
-            margin-bottom: 5px;
-        }
-
-        .signature-right .line {
-            margin-top: 5px;
-            border-bottom: 1.5px solid #000;
-            height: 18px;
-            width: 200px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        .signature-left {
-            text-align: left;
-            margin-top: 30px;
-            margin-bottom: 15px;
-        }
-
-        .signature-left .signature-inner {
-            display: inline-block;
-            text-align: center;
-            width: auto;
-            min-width: 220px;
-        }
-
-        .signature-left .signature-img,
-        .signature-left .line {
-            margin-left: 0;
-            margin-right: auto;
             display: block;
+            margin: 0 auto;
         }
 
-        .signature-left .signature-img {
-            max-height: 70px;
-            max-width: 210px;
-            object-fit: contain;
-            margin-bottom: 5px;
-        }
-
-        .signature-left .line {
-            margin-top: 5px;
-            border-bottom: 1.5px solid #000;
-            height: 18px;
-            width: 200px;
-        }
-
-        /* IMAGE CELL IN SCOPE TABLE: Centered and larger fixed size */
-        .image-cell {
-            text-align: center;
-            margin-top: 12px;
-        }
-
-        .image-cell img {
+        .signature-centered .line {
+            margin-top: 3px;
+            border-bottom: 1px solid #000;
+            height: 15px;
             width: 180px;
-            height: 130px;
-            object-fit: cover;
-            display: inline-block;
-            margin: 8px auto;
-            border-radius: 12px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-            border: 1px solid #ccc;
-            transition: transform 0.2s;
+            margin-left: auto;
+            margin-right: auto;
         }
 
-        .image-cell img:hover {
-            transform: scale(1.02);
-        }
-
-        /* First Page Bottom Image - Bigger size */
+        /* image styling for first page full-width increased */
         .first-page-image {
             text-align: center;
-            margin: 25px 0 15px 0;
+            margin: 20px 0 10px 0;
+            width: 100%;
+            /* takes full width and available height without overlapping content */
         }
-
         .first-page-image img {
-            max-width: 90%;
-            width: auto;
-            max-height: 380px;
+            width: 100%;
+            max-height: 340px;
             object-fit: contain;
-            border-radius: 16px;
-            box-shadow: 0 6px 14px rgba(0,0,0,0.15);
-            border: 1px solid #bbb;
-        }
-
-        /* Dynamic values bold */
-        .dynamic-bold {
-            font-weight: 800;
-            color: #0b3b5f;
+            display: block;
+            margin: 0 auto;
         }
 
         .value-missing {
-            color: #b91c1c;
+            color: #999;
             font-style: italic;
-            font-weight: 500;
         }
 
         .fixed-value {
-            font-weight: 800;
-            color: #1e4620;
+            font-weight: 700;
         }
 
         .mt8 {
-            margin-top: 8px;
-        }
-
-        /* Text readability */
-        .intro-text {
-            font-size: 12pt;
-            line-height: 1.5;
-        }
-
-        .signature-name-text {
-            font-weight: 800;
             margin-top: 5px;
         }
 
-        /* Colorful headings inside tables */
-        .section-title {
-            background: #fdebd0;
-            font-weight: 800;
+        .bold-text {
+            font-weight: bold;
+        }
+
+        /* additional style for scope title bold */
+        .scope-title-bold {
+            font-weight: bold;
+            font-size: 11pt;
         }
 
         @media print {
@@ -404,9 +338,8 @@
                 -webkit-print-color-adjust: exact;
                 print-color-adjust: exact;
             }
-            .image-cell img {
-                break-inside: avoid;
-                page-break-inside: avoid;
+            .signature-centered {
+                text-align: center;
             }
         }
     </style>
@@ -414,48 +347,49 @@
 <body>
 
 <!-- ============================================ -->
-<!-- PAGE 1: HEADER + REF + SUBJECT + SIGNATURE (RIGHT, IMAGE CENTERED) + BIG IMAGE -->
+<!-- PAGE 1: HEADER + REF + SUBJECT + CONTENT + SIGNATURE (CENTERED) -->
 <!-- ============================================ -->
 <div class="page">
+    <!-- HEADER SECTION -->
     <div class="header-section">
         <img th:if="${not #lists.isEmpty(headerLogo)}" th:src="${headerLogo[0]}" alt="Vendor Header"/>
         <img th:if="${#lists.isEmpty(headerLogo)}" th:src="${defaultArihantHeader}" alt="Arihant Electricals Header"/>
     </div>
 
     <div class="ref-no">
-        <p><span class="dynamic-bold">REF NO.:</span> <span th:if="${invoiceNumber != null and invoiceNumber != ''}" th:text="${invoiceNumber}" class="dynamic-bold"></span><span th:if="${invoiceNumber == null or invoiceNumber == ''}" class="fixed-value">PRO/2025/001</span></p>
-        <p><span class="dynamic-bold">Date:</span> <span th:text="${currentDate}" class="dynamic-bold"></span></p>
-        <p><span class="dynamic-bold">To:</span> <span th:if="${name != null and name != ''}" th:text="${name}" class="dynamic-bold"></span><span th:if="${name == null or name == ''}" class="value-missing">Value Missing</span></p>
+        <p>REF NO.: <span th:if="${invoiceNumber != null and invoiceNumber != ''}" th:text="${invoiceNumber}"></span><span th:if="${invoiceNumber == null or invoiceNumber == ''}" class="fixed-value">PRO/2025/001</span></p>
+        <p>Date: <span th:text="${currentDate}"></span></p>
+        <p>To: <span th:if="${name != null and name != ''}" th:text="${name}"></span><span th:if="${name == null or name == ''}" class="value-missing">Value Missing</span></p>
     </div>
 
     <div class="subject">
-        <p>📄 Subject: Proposal Of <span th:if="${installedCapacity != null and installedCapacity != ''}" th:text="${installedCapacity}" class="dynamic-bold"></span><span th:if="${installedCapacity == null or installedCapacity == ''}" class="fixed-value">11</span> KW Solar Power Plant with Structure.</p>
+        <p>Subject: Proposal Of <span th:if="${installedCapacity != null and installedCapacity != ''}" th:text="${installedCapacity}"></span><span th:if="${installedCapacity == null or installedCapacity == ''}" class="fixed-value">11</span> KW Solar Power Plant with Structure.</p>
     </div>
 
     <div class="salutation">
         <p>Respected Sir,</p>
     </div>
 
-    <p class="intro-text">As discussed, we would like to express our best quotation for <span th:if="${installedCapacity != null and installedCapacity != ''}" th:text="${installedCapacity}" class="dynamic-bold"></span><span th:if="${installedCapacity == null or installedCapacity == ''}" class="fixed-value">11</span> Kwp on grid Solar Power Plant with structure work. All work will be done as per your geographical condition & under all MSEDCL terms. All work will be done within period of <span class="fixed-value">45</span> days.</p>
+    <p>As discussed, we would like to express our best quotation for <span th:if="${installedCapacity != null and installedCapacity != ''}" th:text="${installedCapacity}"></span><span th:if="${installedCapacity == null or installedCapacity == ''}" class="fixed-value">11</span> Kwp on grid Solar Power Plant with structure work. All work will be done as per your geographical condition & under all MSEDCL terms. All work will be done within period of <span class="fixed-value">45</span> days.</p>
 
-    <p class="mt8 intro-text">If you have any query, please feel free to contact us.</p>
+    <p class="mt8">If you have any query, please free to contact us.</p>
 
-    <!-- Signature Page 1 - RIGHT aligned, image centered inside block -->
-    <div class="signature-right">
+    <!-- Signature on Page 1 - CENTERED (fully centered) -->
+    <div class="signature-centered">
         <div class="signature-inner">
             <div><img th:if="${not #lists.isEmpty(vendorSignature)}" th:src="${vendorSignature[0]}" class="signature-img" alt="Vendor Signature"/><div th:if="${#lists.isEmpty(vendorSignature)}" class="line"></div></div>
-            <div class="signature-name-text"><strong th:text="${vendorName}">Arihant Electricals</strong><br/>Proprietor</div>
+            <div style="margin-top: 5px;"><strong th:text="${vendorName}">Arihant Electricals</strong><br/>Proprietor</div>
         </div>
     </div>
 
-    <!-- PAGE 1 BOTTOM BIG IMAGE (increased size) -->
+    <!-- PAGE 1 BOTTOM IMAGE - increased width and height, full width without content merging -->
     <div class="first-page-image">
-        <img th:src="${cotationFirstPageImage}" alt="Solar Plant Cotation Image"/>
+        <img th:src="${cotationFirstPageImage}" alt="Cotation 1st Page Image"/>
     </div>
 </div>
 
 <!-- ============================================ -->
-<!-- PAGE 2: SCOPE OF WORK WITH LARGER FIXED CENTERED IMAGES -->
+<!-- PAGE 2: HEADER + SCOPE OF WORK TABLE WITH IMAGES IN COLUMN 2 AND BOLD TITLES IN COLUMN 3, FIXED IMAGE SIZE -->
 <!-- ============================================ -->
 <div class="page">
     <div class="header-section">
@@ -463,52 +397,60 @@
         <img th:if="${#lists.isEmpty(headerLogo)}" th:src="${defaultArihantHeader}" alt="Arihant Electricals Header"/>
     </div>
 
-    <h2>🔧 Scope Of Work</h2>
+    <h2>Scope Of Work</h2>
 
     <div class="table-container">
         <table class="scope-table">
             <thead>
             <tr>
                 <th>Sr No</th>
-                <th>Scope of Work</th>
-                <th>Description</th>
+                <th>Illustration / Details</th>
+                <th>Scope Title & Description</th>
             </tr>
             </thead>
             <tbody>
             <tr>
-                <td style="text-align:center">1</td>
-                <td><strong>Module mounting structure</strong></td>
-                <td>
-                    - Design and installation of Galvanized, Structure with heavy support<br>
-                    - Proper grouting and calming to secure structure against stormy wind.<br><br>
-                    <div class="image-cell"><img th:src="${secondPageFirstImage}" alt="Structure Installation"/></div>
+                <td style="text-align:center; font-weight:bold;">1</td>
+                <td style="text-align:center;">
+                    <img th:src="${secondPageFirstImage}" class="fixed-img" alt="Installation Image 1"/>
+                    <div style="margin-top:6px; font-size:9px;">Structure mounting reference</div>
+                </td>
+                <td class="scope-title-bold">Module mounting structure<br/>
+                    <span style="font-weight:normal;">- Design and installation of Galvanized, Structure with heavy support<br>
+                    - Proper grouting and calming to secure structure against stormy wind.</span>
                 </td>
             </tr>
             <tr>
-                <td style="text-align:center">2</td>
-                <td><strong>Design of i/p & o/p of electricity</strong></td>
-                <td>
-                    - Inverter installation<br>
+                <td style="text-align:center; font-weight:bold;">2</td>
+                <td style="text-align:center;">
+                    <img th:src="${secondPageSecondImage}" class="fixed-img" alt="Installation Image 2"/>
+                    <div style="margin-top:6px; font-size:9px;">Electrical i/p & o/p design</div>
+                </td>
+                <td class="scope-title-bold">Design of i/p & o/p of electricity<br/>
+                    <span style="font-weight:normal;">- Inverter installation<br>
                     - Wiring as per safety terms of MSEDCL.<br>
                     - Synchronization with Grid<br>
-                    - Proper earthing.<br><br>
-                    <div class="image-cell"><img th:src="${secondPageSecondImage}" alt="Electrical Design"/></div>
+                    - Proper earthing.</span>
                 </td>
             </tr>
             <tr>
-                <td style="text-align:center">3</td>
-                <td><strong>Cleaning System</strong></td>
-                <td>
-                    - An efficient sprinkle system is provided with 3 to 5 hp pump to protect generation from dust.<br><br>
-                    <div class="image-cell"><img th:src="${secondPageThirdImage}" alt="Cleaning System"/></div>
+                <td style="text-align:center; font-weight:bold;">3</td>
+                <td style="text-align:center;">
+                    <img th:src="${secondPageThirdImage}" class="fixed-img" alt="Installation Image 3"/>
+                    <div style="margin-top:6px; font-size:9px;">Sprinkler cleaning system</div>
+                </td>
+                <td class="scope-title-bold">Cleaning System<br/>
+                    <span style="font-weight:normal;">- An efficient sprinkle system is provided with 3 to 5 hp pump to protect generation from dust.</span>
                 </td>
             </tr>
             <tr>
-                <td style="text-align:center">4</td>
-                <td><strong>Performance Testing unit</strong></td>
-                <td>
-                    - Our testing unit help you to detect if any of our solar panel is lagging in generation.<br><br>
-                    <div class="image-cell"><img th:src="${secondPageFourthImage}" alt="Performance Testing"/></div>
+                <td style="text-align:center; font-weight:bold;">4</td>
+                <td style="text-align:center;">
+                    <img th:src="${secondPageFourthImage}" class="fixed-img" alt="Installation Image 4"/>
+                    <div style="margin-top:6px; font-size:9px;">Performance testing unit</div>
+                </td>
+                <td class="scope-title-bold">Performance Testing unit<br/>
+                    <span style="font-weight:normal;">- Our testing unit help you to detect if any of our solar panel is lagging in generation.</span>
                 </td>
             </tr>
             </tbody>
@@ -517,7 +459,7 @@
 </div>
 
 <!-- ============================================ -->
-<!-- PAGE 3: QUOTATION TABLE + TERMS + SIGNATURE (RIGHT) -->
+<!-- PAGE 3: HEADER + QUOTATION TABLE + TERMS + SIGNATURE (CENTERED) -->
 <!-- ============================================ -->
 <div class="page">
     <div class="header-section">
@@ -525,7 +467,7 @@
         <img th:if="${#lists.isEmpty(headerLogo)}" th:src="${defaultArihantHeader}" alt="Arihant Electricals Header"/>
     </div>
 
-    <h2>💰 Financial Quotation</h2>
+    <h2>Quotation</h2>
 
     <div class="table-container">
         <table class="quotation-table">
@@ -534,18 +476,18 @@
                 <th>Sr No</th>
                 <th>Description</th>
                 <th>Unit</th>
-                <th>Rate (₹)</th>
+                <th>Rate (In Rs)</th>
                 <th>Qty</th>
-                <th>Total (₹)</th>
+                <th>Total (In Rs)</th>
             </tr>
             </thead>
             <tbody>
             <tr>
                 <td style="text-align:center">1</td>
-                <td>Design, Supply & Installation of <span th:if="${installedCapacity != null and installedCapacity != ''}" th:text="${installedCapacity}" class="dynamic-bold"></span><span th:if="${installedCapacity == null or installedCapacity == ''}" class="fixed-value">11</span> KW Solar system.</td>
+                <td>Design, Supply & Installation of <span th:if="${installedCapacity != null and installedCapacity != ''}" th:text="${installedCapacity}"></span><span th:if="${installedCapacity == null or installedCapacity == ''}" class="fixed-value">11</span> KW Solar system.</td>
                 <td style="text-align:center">@ Rs PER/WATT</td>
                 <td style="text-align:right">-</td>
-                <td style="text-align:center">1 Unit</td>
+                <td style="text-align:center">1 Units</td>
                 <td style="text-align:right"><span class="fixed-value">4,45,000</span>/-</td>
             </tr>
             <tr>
@@ -555,12 +497,12 @@
             </tr>
             <tr>
                 <td style="text-align:center"></td>
-                <td colspan="4">Cleaning system will be charged extra</td>
+                <td colspan="4">Cleaning system will charge extra</td>
                 <td style="text-align:right">4,500/-</td>
             </tr>
             <tr>
                 <td style="text-align:center"></td>
-                <td colspan="4"><strong>Grand Total</strong></td>
+                <td colspan="4"><strong>Total</strong></td>
                 <td style="text-align:right"><strong><span class="fixed-value">4,45,000</span>/-</strong></td>
             </tr>
             </tbody>
@@ -568,21 +510,22 @@
     </div>
 
     <div class="terms-box">
-        <p>✅ 1. The prices quoted by us are Inclusive of P&F, Transit Insurance, Transportation including Installation & Commissioning. (All Inclusive offer)</p>
-        <p>✅ 2. GST Inclusive.</p>
-        <p>✅ 3. Load Extension work Inclusive Only Security Deposit/Demand will be Extra at actual.</p>
+        <p>1. The prices quoted by us are Inclusive of P&F, Transit Insurance, Transportation including Installation & Commissioning. (All Inclusive offer)</p>
+        <p>2. GST Inclusive.</p>
+        <p>3. Load Extension work Inclusive Only Security Deposit/Demand will be Extra at actual.</p>
     </div>
 
-    <div class="signature-right">
+    <!-- Signature Page 3 - CENTERED -->
+    <div class="signature-centered">
         <div class="signature-inner">
             <div><img th:if="${not #lists.isEmpty(vendorSignature)}" th:src="${vendorSignature[0]}" class="signature-img" alt="Vendor Signature"/><div th:if="${#lists.isEmpty(vendorSignature)}" class="line"></div></div>
-            <div class="signature-name-text"><strong th:text="${vendorName}">Arihant Electricals</strong><br/>Proprietor</div>
+            <div style="margin-top: 5px;"><strong th:text="${vendorName}">Arihant Electricals</strong><br/>Proprietor</div>
         </div>
     </div>
 </div>
 
 <!-- ============================================ -->
-<!-- PAGE 4: SUPPLY OF MATERIAL & WARRANTY + SIGNATURE (RIGHT) -->
+<!-- PAGE 4: HEADER + SUPPLY OF MATERIAL TABLE + SIGNATURE (CENTERED) -->
 <!-- ============================================ -->
 <div class="page">
     <div class="header-section">
@@ -590,7 +533,7 @@
         <img th:if="${#lists.isEmpty(headerLogo)}" th:src="${defaultArihantHeader}" alt="Arihant Electricals Header"/>
     </div>
 
-    <h2>📦 Supply of Material & Warranty</h2>
+    <h2>Supply of material and warranty</h2>
 
     <div class="table-container">
         <table class="material-table">
@@ -599,13 +542,13 @@
                 <th>Sr No.</th>
                 <th>Description</th>
                 <th>Units</th>
-                <th>Make / Specification</th>
+                <th>Make</th>
                 <th>Warranty</th>
             </tr>
             </thead>
             <tbody>
-            <tr><td style="text-align:center">1</td><td>Solar panel</td><td style="text-align:center">05-06 Nos.</td><td><span th:if="${moduleMake != null and moduleMake != ''}" th:text="${moduleMake}" class="dynamic-bold"></span><span th:if="${moduleMake == null or moduleMake == ''}" class="value-missing">Value Missing</span></td><td style="text-align:center">25 year warranty</td></tr>
-            <tr><td style="text-align:center">2</td><td>Inverter</td><td style="text-align:center">1 Nos.</td><td><span th:if="${inverterMake != null and inverterMake != ''}" th:text="${inverterMake}" class="dynamic-bold"></span><span th:if="${inverterMake == null or inverterMake == ''}" class="value-missing">Value Missing</span></td><td style="text-align:center">10 Years for Inverter</td></tr>
+            <tr><td style="text-align:center">1</td><td>Solar panel</td><td style="text-align:center">05-06 Nos.</td><td><span th:if="${moduleMake != null and moduleMake != ''}" th:text="${moduleMake}"></span><span th:if="${moduleMake == null or moduleMake == ''}" class="value-missing">Value Missing</span></td><td style="text-align:center">25 year warranty</td></tr>
+            <tr><td style="text-align:center">2</td><td>Inverter</td><td style="text-align:center">1 Nos.</td><td><span th:if="${inverterMake != null and inverterMake != ''}" th:text="${inverterMake}"></span><span th:if="${inverterMake == null or inverterMake == ''}" class="value-missing">Value Missing</span></td><td style="text-align:center">10 Years for Inverter</td></tr>
             <tr><td style="text-align:center">3</td><td>DCDB</td><td style="text-align:center">1 Nos.</td><td>TATA/IP 65,1000V/15 Amp Fuse Link & 1000V/40K DC SPD</td><td style="text-align:center">5 Years</td></tr>
             <tr><td style="text-align:center">4</td><td>ACDB</td><td style="text-align:center">1 Nos.</td><td>TATA/IP 65,440V/63Amp MCCB Legrand Make with ACSPD 440v/20K</td><td style="text-align:center">5 Years</td></tr>
             <tr><td style="text-align:center">5</td><td>Wires</td><td style="text-align:center">METER Nos.</td><td>Pure copper, TATA approved, Polycab Only.</td><td style="text-align:center">5 Years</td></tr>
@@ -617,16 +560,17 @@
         </table>
     </div>
 
-    <div class="signature-right">
+    <!-- Signature Page 4 - CENTERED -->
+    <div class="signature-centered">
         <div class="signature-inner">
             <div><img th:if="${not #lists.isEmpty(vendorSignature)}" th:src="${vendorSignature[0]}" class="signature-img" alt="Vendor Signature"/><div th:if="${#lists.isEmpty(vendorSignature)}" class="line"></div></div>
-            <div class="signature-name-text"><strong th:text="${vendorName}">Arihant Electricals</strong><br/>Proprietor</div>
+            <div style="margin-top: 5px;"><strong th:text="${vendorName}">Arihant Electricals</strong><br/>Proprietor</div>
         </div>
     </div>
 </div>
 
 <!-- ============================================ -->
-<!-- PAGE 5: BANK DETAILS & TERMS + SIGNATURE (LEFT - centered image inside left block) -->
+<!-- PAGE 5: HEADER + BANK DETAILS & TERMS (SOFT BACKGROUND) + SIGNATURE CENTERED -->
 <!-- ============================================ -->
 <div class="page">
     <div class="header-section">
@@ -634,19 +578,20 @@
         <img th:if="${#lists.isEmpty(headerLogo)}" th:src="${defaultArihantHeader}" alt="Arihant Electricals Header"/>
     </div>
 
-    <h2>🏦 Bank Details & Commercial Terms</h2>
+    <h2>Bank Details and Commercial Terms</h2>
 
-    <div class="bank-box">
-        <p><strong>💵 PAYMENT TERMS:</strong> 50% Advance along with technically and commercially clear order. 40% after PV Module & Structure Installation, 5% after Installation and commissioning of the work & Balance 5% after first bill generation with Solar Effect.</p>
-        <p class="mt8"><strong>📊 Taxes:</strong> GST 13.8%</p>
-        <p class="mt8"><strong>⚠️ PRICE VARIATION:</strong> Price agreed upon contract signing shall be firm during the agreed execution period. However, Project cost escalation due to delay in clearances beyond agreed period shall be charged extra.</p>
-        <p class="mt8"><strong>🛡️ WARRANTY:</strong> 5 Years from Date of Installation for the Solar Plant & 27 Years Performance Guaranty for Solar Panels & 10 Year Warranty for the Solar Inverter.</p>
-        <p class="mt8"><strong>📅 PROJECT COMPLETION DATE:</strong> Approx. 60 Days for Installation & Commissioning of the Solar Plant & MSEDCL Net metering with Solar Bill Effect 3 Months from the Application.</p>
+    <!-- Combined soft background area for payment terms, taxes etc (very light greenish) -->
+    <div class="bank-terms-soft">
+        <p><strong>PAYMENT TERMS:</strong> 50% Advance along with technically and commercially clear order. 40% after PV Module & Structure Installation, 5% after Installation and commissioning of the work & Balance 5% after first bill generation with Solar Effect.</p>
+        <p class="mt8"><strong>Taxes:</strong> GST 13.8%</p>
+        <p class="mt8"><strong>PRICE VARIATION:</strong> Price agreed upon contract signing shall be firm during the agreed execution period. However, Project cost escalation due to delay in clearances beyond agreed period shall be charged extra.</p>
+        <p class="mt8"><strong>WARRANTY:</strong> 5 Years from Date of Installation for the Solar Plant & 27 Years Performance Guaranty for Solar Panels & 10 Year Warranty for the Solar Inverter.</p>
+        <p class="mt8"><strong>PROJECT COMPLETION DATE:</strong> Approx. 60 Days for Installation & Commissioning of the Solar Plant & MSEDCL Net metering with Solar Bill Effect 3 Months from the Application.</p>
     </div>
 
-    <h2>🏧 Bank Account Details</h2>
-
-    <div class="bank-box" style="background: #fff6e5;">
+    <h2>Bank Account Details</h2>
+    <!-- Very soft orange/peach background for bank details -->
+    <div class="bank-details-soft">
         <p><strong>A/c Name :</strong> ME.ARIHANT SOLAR.</p>
         <p><strong>Bank Name :</strong> BANK OF MAHARASHTRA</p>
         <p><strong>A/c Number :</strong> 60520906312</p>
@@ -654,11 +599,11 @@
         <p><strong>IFSC Code :</strong> MAHB0001872</p>
     </div>
 
-    <!-- Left aligned signature with centered image inside (like WCR left style) -->
-    <div class="signature-left">
+    <!-- Signature on Page 5 - CENTERED (full center, not left or right) -->
+    <div class="signature-centered">
         <div class="signature-inner">
             <div><img th:if="${not #lists.isEmpty(vendorSignature)}" th:src="${vendorSignature[0]}" class="signature-img" alt="Vendor Signature"/><div th:if="${#lists.isEmpty(vendorSignature)}" class="line"></div></div>
-            <div class="signature-name-text"><strong th:text="${vendorName}">Arihant Electricals</strong><br/>Proprietor</div>
+            <div style="margin-top: 5px;"><strong th:text="${vendorName}">Arihant Electricals</strong><br/>Proprietor</div>
         </div>
     </div>
 </div>
