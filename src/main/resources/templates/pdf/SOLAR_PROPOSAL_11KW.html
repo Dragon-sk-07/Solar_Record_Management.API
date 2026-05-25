@@ -23,16 +23,19 @@
             margin: 0;
             background: #fff;
         }
-        .page {
-            page-break-after: always;
-            margin-bottom: 0;
-            padding-bottom: 0;
-            border: 1px solid #2c3e50;
-            padding: 15px;
-            background: #fff;
-            min-height: 277mm;
-            position: relative;
-        }
+       .page {
+    page-break-after: always;
+    margin-bottom: 0;
+    padding-bottom: 0;
+    border: 1px solid #2c3e50;
+    padding: 15px;
+    background: #fff;
+    height: 277mm;
+    width: 100%;
+    position: relative;
+    box-sizing: border-box;
+    page-break-inside: avoid;
+}
         .page:last-child {
             page-break-after: avoid;
         }
