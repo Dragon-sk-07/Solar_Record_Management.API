@@ -29,6 +29,8 @@ public class SolarPdfController {
     private static final String IMAGE_SECOND_PAGE_THIRD = "SecondPageThirdImage.png";
     private static final String IMAGE_SECOND_PAGE_FOURTH = "SecondPageFourthImage.png";
 
+
+
     public SolarPdfController(SolarRecordService solarService,
                               PdfGeneratorService pdfService,
                               WordGeneratorService wordService,
@@ -209,6 +211,14 @@ public class SolarPdfController {
         System.out.println("defaultArihantHeader: " + data.get("defaultArihantHeader"));
         System.out.println("defaultMsedclHeader: " + data.get("defaultMsedclHeader"));
         System.out.println("headerLogo from record: " + record.getHeaderLogo());
+
+        System.out.println("=== COTATION IMAGE DEBUG ===");
+        System.out.println("cotationFirstPageImage: " + (data.get("cotationFirstPageImage") != null ? "Loaded" : "Not Loaded"));
+        System.out.println("secondPageFirstImage: " + (data.get("secondPageFirstImage") != null ? "Loaded" : "Not Loaded"));
+        System.out.println("secondPageSecondImage: " + (data.get("secondPageSecondImage") != null ? "Loaded" : "Not Loaded"));
+        System.out.println("secondPageThirdImage: " + (data.get("secondPageThirdImage") != null ? "Loaded" : "Not Loaded"));
+        System.out.println("secondPageFourthImage: " + (data.get("secondPageFourthImage") != null ? "Loaded" : "Not Loaded"));
+        System.out.println("=== END COTATION DEBUG ===");
         System.out.println("=== END DEBUG ===");
 
         // Aadhar Images
