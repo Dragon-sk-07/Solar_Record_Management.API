@@ -10,9 +10,11 @@
             padding: 0;
             box-sizing: border-box;
         }
+
         @page {
             margin: 6mm 10mm;
         }
+
         body {
             font-family: 'Times New Roman', Times, serif;
             font-size: 11pt;
@@ -21,32 +23,40 @@
             padding: 10px 15px;
             background: #fff;
         }
-       .page {
-    page-break-after: always;
-    margin-bottom: 0;
-    padding-bottom: 0;
-    border: 1px solid #2c3e50;
-    padding: 15px;
-    background: #fff;
-    height: 277mm;
-    width: 100%;
-    position: relative;
-    box-sizing: border-box;
-    page-break-inside: avoid;
-}
+
+        /* =========================
+           PAGE FIX
+           ========================= */
+        .page {
+            page-break-after: always;
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border: 1px solid #2c3e50;
+            padding: 15px;
+            background: #fff;
+            min-height: 277mm;
+            width: 100%;
+            position: relative;
+            box-sizing: border-box;
+        }
+
         .page:last-child {
             page-break-after: avoid;
         }
+
         p {
             margin: 0 0 3px 0;
             text-align: justify;
         }
+
         .center {
             text-align: center;
         }
+
         .bold {
             font-weight: bold;
         }
+
         h2 {
             font-size: 14px;
             font-weight: bold;
@@ -56,175 +66,281 @@
             padding: 5px 10px;
             border-left: 4px solid #1a237e;
         }
+
         .header-section {
             text-align: center;
             margin-bottom: 15px;
             padding-bottom: 8px;
             border-bottom: 1px solid #000;
         }
+
         .header-section img {
             max-width: 100%;
             max-height: 80px;
             object-fit: contain;
         }
+
         .ref-no {
             margin-top: 15px;
             text-align: right;
             font-size: 10pt;
         }
+
         .subject {
             margin-top: 10px;
             font-weight: bold;
             text-decoration: underline;
         }
+
         .salutation {
             margin-top: 10px;
         }
+
         .table-container {
             margin-top: 15px;
             width: 100%;
             overflow-x: auto;
         }
+
+        /* =========================
+           TABLE STYLES
+           ========================= */
         table {
             width: 100%;
             border-collapse: collapse;
             margin: 10px 0;
             font-size: 10pt;
+            page-break-inside: auto;
         }
-        th, td {
+
+        tr {
+            page-break-inside: avoid;
+            page-break-after: auto;
+        }
+
+        th,
+        td {
             border: 1px solid #000;
             padding: 8px 10px;
             vertical-align: top;
         }
+
         th {
             background: #e8eaf6;
             font-weight: bold;
             text-align: center;
         }
-        .scope-table th:first-child, .scope-table td:first-child {
+
+        .scope-table th:first-child,
+        .scope-table td:first-child {
             width: 8%;
             text-align: center;
         }
-        .scope-table th:nth-child(2), .scope-table td:nth-child(2) {
+
+        .scope-table th:nth-child(2),
+        .scope-table td:nth-child(2) {
             width: 27%;
         }
-        .scope-table th:nth-child(3), .scope-table td:nth-child(3) {
+
+        .scope-table th:nth-child(3),
+        .scope-table td:nth-child(3) {
             width: 65%;
         }
-        .material-table th:first-child, .material-table td:first-child {
+
+        .material-table th:first-child,
+        .material-table td:first-child {
             width: 8%;
             text-align: center;
         }
-        .material-table th:nth-child(2), .material-table td:nth-child(2) {
+
+        .material-table th:nth-child(2),
+        .material-table td:nth-child(2) {
             width: 40%;
         }
-        .material-table th:nth-child(3), .material-table td:nth-child(3) {
+
+        .material-table th:nth-child(3),
+        .material-table td:nth-child(3) {
             width: 12%;
             text-align: center;
         }
-        .material-table th:nth-child(4), .material-table td:nth-child(4) {
+
+        .material-table th:nth-child(4),
+        .material-table td:nth-child(4) {
             width: 22%;
         }
-        .material-table th:nth-child(5), .material-table td:nth-child(5) {
+
+        .material-table th:nth-child(5),
+        .material-table td:nth-child(5) {
             width: 18%;
             text-align: center;
         }
-        .quotation-table th, .quotation-table td {
+
+        .quotation-table th,
+        .quotation-table td {
             text-align: right;
         }
-        .quotation-table td:first-child, .quotation-table th:first-child {
+
+        .quotation-table td:first-child,
+        .quotation-table th:first-child {
             text-align: center;
             width: 8%;
         }
-        .quotation-table td:nth-child(2), .quotation-table th:nth-child(2) {
+
+        .quotation-table td:nth-child(2),
+        .quotation-table th:nth-child(2) {
             text-align: left;
             width: 42%;
         }
-        .quotation-table td:nth-child(3), .quotation-table th:nth-child(3) {
+
+        .quotation-table td:nth-child(3),
+        .quotation-table th:nth-child(3) {
             width: 15%;
             text-align: center;
         }
-        .quotation-table td:nth-child(4), .quotation-table th:nth-child(4) {
+
+        .quotation-table td:nth-child(4),
+        .quotation-table th:nth-child(4) {
             width: 15%;
             text-align: right;
         }
-        .quotation-table td:nth-child(5), .quotation-table th:nth-child(5) {
+
+        .quotation-table td:nth-child(5),
+        .quotation-table th:nth-child(5) {
             width: 8%;
             text-align: center;
         }
-        .quotation-table td:nth-child(6), .quotation-table th:nth-child(6) {
+
+        .quotation-table td:nth-child(6),
+        .quotation-table th:nth-child(6) {
             width: 12%;
             text-align: right;
         }
+
         .terms-box {
             background: #f5f5f5;
             padding: 10px;
             margin: 10px 0;
             border-left: 4px solid #ffc107;
         }
+
         .bank-box {
             background: #e8eaf6;
             padding: 10px;
             margin: 10px 0;
             border-radius: 5px;
         }
-        .signature-space {
-            height: 60px;
-            margin: 5px 0;
-            border-bottom: 1px solid #000;
-            width: 200px;
+
+        /* =========================
+           SIGNATURE STYLES - EXACTLY LIKE WCR LOGIC
+           For right aligned signature (pages 1,3,4)
+           For left aligned signature (page 5)
+           ========================= */
+
+        /* Right aligned signature container - pushes content to right side, inner content centered */
+        .signature-right {
+            text-align: right;
+            margin-top: 25px;
+            margin-bottom: 10px;
         }
-        .signature-img {
-            max-height: 55px;
-            max-width: 180px;
+
+        .signature-right .signature-inner {
+            display: inline-block;
+            text-align: center;
+            width: auto;
+            min-width: 200px;
+        }
+
+        .signature-right .signature-img,
+        .signature-right .line {
+            margin-left: auto;
+            margin-right: 0;
+            display: block;
+        }
+
+        .signature-right .signature-img {
+            max-height: 60px;
+            max-width: 200px;
             object-fit: contain;
         }
-        .line {
+
+        .signature-right .line {
             margin-top: 3px;
             border-bottom: 1px solid #000;
             height: 15px;
-            width: 200px;
+            width: 180px;
         }
-        .mt8 {
-            margin-top: 5px;
+
+        /* Left aligned signature container - pushes content to left side, inner content centered */
+        .signature-left {
+            text-align: left;
+            margin-top: 25px;
+            margin-bottom: 10px;
         }
-        .value-missing {
-            color: #999;
-            font-style: italic;
+
+        .signature-left .signature-inner {
+            display: inline-block;
+            text-align: center;
+            width: auto;
+            min-width: 200px;
         }
-        .fixed-value {
-            font-weight: 700;
+
+        .signature-left .signature-img,
+        .signature-left .line {
+            margin-left: 0;
+            margin-right: auto;
+            display: block;
         }
-        .warning-text {
-            font-size: 9pt;
-            color: #666;
-            margin-top: 5px;
+
+        .signature-left .signature-img {
+            max-height: 60px;
+            max-width: 200px;
+            object-fit: contain;
         }
+
+        .signature-left .line {
+            margin-top: 3px;
+            border-bottom: 1px solid #000;
+            height: 15px;
+            width: 180px;
+        }
+
+        .image-cell {
+            text-align: center;
+        }
+
+        .image-cell img {
+            max-width: 100%;
+            max-height: 70px;
+            object-fit: contain;
+            display: block;
+            margin: 5px auto;
+            page-break-inside: avoid;
+        }
+
         .first-page-image {
             text-align: center;
             margin: 15px 0;
         }
+
         .first-page-image img {
             max-width: 100%;
             max-height: 300px;
             object-fit: contain;
         }
-        .signature-right {
-            text-align: right;
-            margin-top: 20px;
+
+        .value-missing {
+            color: #999;
+            font-style: italic;
         }
-        .signature-left {
-            text-align: left;
-            margin-top: 20px;
+
+        .fixed-value {
+            font-weight: 700;
         }
-        .image-cell {
-            text-align: center;
+
+        .mt8 {
+            margin-top: 5px;
         }
-        .image-cell img {
-            max-width: 100%;
-            max-height: 80px;
-            object-fit: contain;
-        }
+
         @media print {
             body {
                 padding: 0;
@@ -234,13 +350,19 @@
                 -webkit-print-color-adjust: exact;
                 print-color-adjust: exact;
             }
+            .signature-right {
+                text-align: right;
+            }
+            .signature-left {
+                text-align: left;
+            }
         }
     </style>
 </head>
 <body>
 
 <!-- ============================================ -->
-<!-- PAGE 1: HEADER + REF + SUBJECT + CONTENT + SIGNATURE + COTATION IMAGE -->
+<!-- PAGE 1: HEADER + REF + SUBJECT + CONTENT + SIGNATURE (RIGHT ALIGNED - same as WCR right side) -->
 <!-- ============================================ -->
 <div class="page">
     <!-- HEADER SECTION -->
@@ -267,23 +389,24 @@
 
     <p class="mt8">If you have any query, please free to contact us.</p>
 
-    <!-- Signature on Page 1 - Right Side -->
+    <!-- Signature on Page 1 - RIGHT SIDE aligned (exactly like WCR right side signature logic) -->
     <div class="signature-right">
-        <div><img th:if="${not #lists.isEmpty(vendorSignature)}" th:src="${vendorSignature[0]}" class="signature-img" alt="Vendor Signature"/><div th:if="${#lists.isEmpty(vendorSignature)}" class="line"></div></div>
-        <div style="margin-top: 3px;"><strong th:text="${vendorName}">Arihant Electricals</strong><br/>Proprietor</div>
+        <div class="signature-inner">
+            <div><img th:if="${not #lists.isEmpty(vendorSignature)}" th:src="${vendorSignature[0]}" class="signature-img" alt="Vendor Signature"/><div th:if="${#lists.isEmpty(vendorSignature)}" class="line"></div></div>
+            <div style="margin-top: 3px;"><strong th:text="${vendorName}">Arihant Electricals</strong><br/>Proprietor</div>
+        </div>
     </div>
 
-    <!-- PAGE 1 BOTTOM IMAGE - Cotation Image at the end of page -->
+    <!-- PAGE 1 BOTTOM IMAGE -->
     <div class="first-page-image">
         <img th:src="${cotationFirstPageImage}" alt="Cotation 1st Page Image"/>
     </div>
 </div>
 
 <!-- ============================================ -->
-<!-- PAGE 2: HEADER + SCOPE OF WORK TABLE WITH IMAGES IN EACH ROW -->
+<!-- PAGE 2: HEADER + SCOPE OF WORK TABLE WITH IMAGES -->
 <!-- ============================================ -->
 <div class="page">
-    <!-- HEADER SECTION -->
     <div class="header-section">
         <img th:if="${not #lists.isEmpty(headerLogo)}" th:src="${headerLogo[0]}" alt="Vendor Header"/>
         <img th:if="${#lists.isEmpty(headerLogo)}" th:src="${defaultArihantHeader}" alt="Arihant Electricals Header"/>
@@ -343,10 +466,9 @@
 </div>
 
 <!-- ============================================ -->
-<!-- PAGE 3: HEADER + QUOTATION TABLE + TERMS + SIGNATURE -->
+<!-- PAGE 3: HEADER + QUOTATION TABLE + TERMS + SIGNATURE (RIGHT ALIGNED) -->
 <!-- ============================================ -->
 <div class="page">
-    <!-- HEADER SECTION -->
     <div class="header-section">
         <img th:if="${not #lists.isEmpty(headerLogo)}" th:src="${headerLogo[0]}" alt="Vendor Header"/>
         <img th:if="${#lists.isEmpty(headerLogo)}" th:src="${defaultArihantHeader}" alt="Arihant Electricals Header"/>
@@ -400,18 +522,19 @@
         <p>3. Load Extension work Inclusive Only Security Deposit/Demand will be Extra at actual.</p>
     </div>
 
-    <!-- Signature on Page 3 - Right Side -->
+    <!-- Signature on Page 3 - RIGHT SIDE aligned (same WCR right side logic) -->
     <div class="signature-right">
-        <div><img th:if="${not #lists.isEmpty(vendorSignature)}" th:src="${vendorSignature[0]}" class="signature-img" alt="Vendor Signature"/><div th:if="${#lists.isEmpty(vendorSignature)}" class="line"></div></div>
-        <div style="margin-top: 3px;"><strong th:text="${vendorName}">Arihant Electricals</strong><br/>Proprietor</div>
+        <div class="signature-inner">
+            <div><img th:if="${not #lists.isEmpty(vendorSignature)}" th:src="${vendorSignature[0]}" class="signature-img" alt="Vendor Signature"/><div th:if="${#lists.isEmpty(vendorSignature)}" class="line"></div></div>
+            <div style="margin-top: 3px;"><strong th:text="${vendorName}">Arihant Electricals</strong><br/>Proprietor</div>
+        </div>
     </div>
 </div>
 
 <!-- ============================================ -->
-<!-- PAGE 4: HEADER + SUPPLY OF MATERIAL TABLE + SIGNATURE -->
+<!-- PAGE 4: HEADER + SUPPLY OF MATERIAL TABLE + SIGNATURE (RIGHT ALIGNED) -->
 <!-- ============================================ -->
 <div class="page">
-    <!-- HEADER SECTION -->
     <div class="header-section">
         <img th:if="${not #lists.isEmpty(headerLogo)}" th:src="${headerLogo[0]}" alt="Vendor Header"/>
         <img th:if="${#lists.isEmpty(headerLogo)}" th:src="${defaultArihantHeader}" alt="Arihant Electricals Header"/>
@@ -498,18 +621,19 @@
         </table>
     </div>
 
-    <!-- Signature on Page 4 - Right Side -->
+    <!-- Signature on Page 4 - RIGHT SIDE aligned (same WCR right side logic) -->
     <div class="signature-right">
-        <div><img th:if="${not #lists.isEmpty(vendorSignature)}" th:src="${vendorSignature[0]}" class="signature-img" alt="Vendor Signature"/><div th:if="${#lists.isEmpty(vendorSignature)}" class="line"></div></div>
-        <div style="margin-top: 3px;"><strong th:text="${vendorName}">Arihant Electricals</strong><br/>Proprietor</div>
+        <div class="signature-inner">
+            <div><img th:if="${not #lists.isEmpty(vendorSignature)}" th:src="${vendorSignature[0]}" class="signature-img" alt="Vendor Signature"/><div th:if="${#lists.isEmpty(vendorSignature)}" class="line"></div></div>
+            <div style="margin-top: 3px;"><strong th:text="${vendorName}">Arihant Electricals</strong><br/>Proprietor</div>
+        </div>
     </div>
 </div>
 
 <!-- ============================================ -->
-<!-- PAGE 5: HEADER + BANK DETAILS + TERMS + SIGNATURE -->
+<!-- PAGE 5: HEADER + BANK DETAILS + TERMS + SIGNATURE (LEFT ALIGNED - as per WCR left side logic) -->
 <!-- ============================================ -->
 <div class="page">
-    <!-- HEADER SECTION -->
     <div class="header-section">
         <img th:if="${not #lists.isEmpty(headerLogo)}" th:src="${headerLogo[0]}" alt="Vendor Header"/>
         <img th:if="${#lists.isEmpty(headerLogo)}" th:src="${defaultArihantHeader}" alt="Arihant Electricals Header"/>
@@ -535,13 +659,13 @@
         <p><strong>IFSC Code:</strong> MAHB0001872</p>
     </div>
 
-    <!-- Signature on Page 5 - Left Side -->
+    <!-- Signature on Page 5 - LEFT SIDE aligned (exactly like WCR left side signature logic, not fully centered on page, just left-aligned block) -->
     <div class="signature-left">
-        <div><img th:if="${not #lists.isEmpty(vendorSignature)}" th:src="${vendorSignature[0]}" class="signature-img" alt="Vendor Signature"/><div th:if="${#lists.isEmpty(vendorSignature)}" class="line"></div></div>
-        <div style="margin-top: 3px;"><strong th:text="${vendorName}">Arihant Electricals</strong><br/>Proprietor</div>
+        <div class="signature-inner">
+            <div><img th:if="${not #lists.isEmpty(vendorSignature)}" th:src="${vendorSignature[0]}" class="signature-img" alt="Vendor Signature"/><div th:if="${#lists.isEmpty(vendorSignature)}" class="line"></div></div>
+            <div style="margin-top: 3px;"><strong th:text="${vendorName}">Arihant Electricals</strong><br/>Proprietor</div>
+        </div>
     </div>
-
-
 </div>
 
 </body>
