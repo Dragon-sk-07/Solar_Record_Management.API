@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Solar Power Plant Proposal</title>
+    <title>Arihant Electricals - Solar Power Plant Proposal</title>
     <style>
         * {
             margin: 0;
@@ -12,35 +12,55 @@
         }
         @page {
             size: A4;
-            margin: 8mm 10mm;
+            margin: 12mm 12mm;
         }
         body {
             font-family: 'Times New Roman', Times, serif;
             font-size: 11pt;
             line-height: 1.4;
-            color: #000;
-            padding: 0;
-            margin: 0;
-            background: #fff;
+            color: #000000;
+            background: #e2e8f0;
+            padding: 12px;
         }
-       .page {
-    page-break-after: always;
-    margin-bottom: 0;
-    padding-bottom: 0;
-    border: 1px solid #2c3e50;
-    padding: 15px;
-    background: #fff;
-    height: 277mm;
-    width: 100%;
-    position: relative;
-    box-sizing: border-box;
-    page-break-inside: avoid;
-}
+        /* Page container for print-like separation */
+        .page {
+            background: white;
+            width: 100%;
+            max-width: 210mm;
+            margin: 0 auto 20px auto;
+            padding: 12px 16px 18px 16px;
+            box-shadow: 0 6px 14px rgba(0,0,0,0.1);
+            page-break-after: always;
+            break-inside: avoid;
+            box-sizing: border-box;
+            border-radius: 4px;
+        }
         .page:last-child {
-            page-break-after: avoid;
+            page-break-after: auto;
+            margin-bottom: 0;
         }
+        /* ensure content stays within print margins */
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+                margin: 0;
+            }
+            .page {
+                box-shadow: none;
+                margin: 0;
+                padding: 8px 12px;
+                page-break-after: always;
+            }
+            th {
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+        }
+
+        /* typography */
         p {
-            margin: 0 0 3px 0;
+            margin: 0 0 4px 0;
             text-align: justify;
         }
         .center {
@@ -52,77 +72,86 @@
         h2 {
             font-size: 18px;
             font-weight: bold;
-            margin: 15px 0 10px 0;
-            color: #ffffff;
-            background: linear-gradient(135deg, #1a237e 0%, #283593 100%);
-            padding: 8px 12px;
-            border-left: 5px solid #ffc107;
-            border-radius: 0 8px 8px 0;
+            margin: 12px 0 10px 0;
+            color: white;
+            background: linear-gradient(135deg, #0b2b5c 0%, #1e3a6f 100%);
+            padding: 6px 12px;
+            border-left: 5px solid #f4b942;
+            border-radius: 0 6px 6px 0;
+            letter-spacing: 0.5px;
         }
         .header-section {
             text-align: center;
-            margin-bottom: 15px;
-            padding-bottom: 10px;
-            border-bottom: 2px solid #1a237e;
+            margin-bottom: 12px;
+            padding-bottom: 6px;
+            border-bottom: 2px solid #0b2b5c;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
         }
         .header-section img {
-            max-width: 100%;
-            max-height: 90px;
+            max-width: 280px;
+            max-height: 70px;
             object-fit: contain;
         }
         .ref-no {
-            margin-top: 15px;
+            margin-top: 8px;
             text-align: right;
             font-size: 10pt;
+            border-bottom: 1px dashed #ccc;
+            padding-bottom: 4px;
         }
         .subject {
-            margin-top: 10px;
+            margin: 10px 0 8px 0;
             font-weight: bold;
             text-decoration: underline;
-            font-size: 12pt;
-            color: #1a237e;
+            font-size: 13pt;
+            color: #0b2b5c;
         }
         .salutation {
-            margin-top: 10px;
+            margin: 6px 0 4px 0;
         }
         .table-container {
-            margin-top: 15px;
+            margin: 12px 0;
             width: 100%;
             overflow-x: auto;
         }
         table {
             width: 100%;
             border-collapse: collapse;
-            margin: 10px 0;
+            margin: 8px 0;
             font-size: 10pt;
         }
         th, td {
-            border: 1px solid #1a237e;
-            padding: 8px 10px;
+            border: 1px solid #1f3a6b;
+            padding: 8px 8px;
             vertical-align: top;
         }
         th {
-            background: linear-gradient(135deg, #1a237e 0%, #283593 100%);
+            background: linear-gradient(135deg, #102b4e 0%, #1e3a6f 100%);
             color: white;
             font-weight: bold;
             text-align: center;
         }
+        /* Scope table columns */
         .scope-table th:first-child, .scope-table td:first-child {
             width: 8%;
             text-align: center;
         }
         .scope-table th:nth-child(2), .scope-table td:nth-child(2) {
-            width: 27%;
+            width: 25%;
         }
         .scope-table th:nth-child(3), .scope-table td:nth-child(3) {
-            width: 65%;
+            width: 67%;
         }
+        /* Material table */
         .material-table th:first-child, .material-table td:first-child {
             width: 8%;
             text-align: center;
         }
         .material-table th:nth-child(2), .material-table td:nth-child(2) {
-            width: 40%;
+            width: 42%;
         }
         .material-table th:nth-child(3), .material-table td:nth-child(3) {
             width: 12%;
@@ -132,9 +161,10 @@
             width: 22%;
         }
         .material-table th:nth-child(5), .material-table td:nth-child(5) {
-            width: 18%;
+            width: 16%;
             text-align: center;
         }
+        /* Quotation table */
         .quotation-table th, .quotation-table td {
             text-align: right;
         }
@@ -144,14 +174,14 @@
         }
         .quotation-table td:nth-child(2), .quotation-table th:nth-child(2) {
             text-align: left;
-            width: 42%;
+            width: 45%;
         }
         .quotation-table td:nth-child(3), .quotation-table th:nth-child(3) {
-            width: 15%;
+            width: 12%;
             text-align: center;
         }
         .quotation-table td:nth-child(4), .quotation-table th:nth-child(4) {
-            width: 15%;
+            width: 12%;
             text-align: right;
         }
         .quotation-table td:nth-child(5), .quotation-table th:nth-child(5) {
@@ -159,7 +189,7 @@
             text-align: center;
         }
         .quotation-table td:nth-child(6), .quotation-table th:nth-child(6) {
-            width: 12%;
+            width: 15%;
             text-align: right;
         }
         .terms-box {
@@ -211,6 +241,8 @@
             max-width: 90%;
             max-height: 280px;
             object-fit: contain;
+            border: 1px solid #ddd;
+            border-radius: 6px;
         }
         .signature-right {
             text-align: right;
@@ -222,25 +254,57 @@
         }
         .image-cell {
             text-align: center;
+            margin-top: 8px;
         }
         .image-cell img {
             max-width: 100%;
             max-height: 100px;
             object-fit: contain;
             border-radius: 5px;
+            border: 1px solid #e2e8f0;
+            background: #f9f9f9;
+        }
+        .no-image-placeholder {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: #f1f5f9;
+            color: #475569;
+            font-size: 10pt;
+            font-style: italic;
+            padding: 6px 12px;
+            border-radius: 6px;
+            border: 1px dashed #94a3b8;
+            width: 100%;
+            min-height: 55px;
+            text-align: center;
+            font-weight: normal;
+        }
+        .header-image-placeholder {
+            background: #f8fafc;
+            color: #475569;
+            font-size: 11px;
+            padding: 6px 16px;
+            border-radius: 20px;
+            display: inline-block;
+            border: 1px solid #cbd5e1;
+        }
+        .sign-placeholder {
+            width: 200px;
+            background: #f1f5f9;
+            text-align: center;
+            padding: 6px;
+            font-size: 10px;
+            color: #334155;
+            border-radius: 8px;
+            border: 1px dashed #64748b;
         }
         @media print {
-            body {
-                padding: 0;
-                margin: 0;
-            }
-            th {
+            .no-image-placeholder, .header-image-placeholder, .sign-placeholder {
+                border: 1px solid #ccc;
+                background: #fefefe;
                 -webkit-print-color-adjust: exact;
                 print-color-adjust: exact;
-            }
-            .page {
-                page-break-after: always;
-                min-height: 0;
             }
         }
     </style>
@@ -252,49 +316,69 @@
 <!-- ============================================ -->
 <div class="page">
     <div class="header-section">
-        <img th:if="${not #lists.isEmpty(headerLogo)}" th:src="${headerLogo[0]}" alt="Vendor Header"/>
-        <img th:if="${#lists.isEmpty(headerLogo)}" th:src="${defaultArihantHeader}" alt="Arihant Electricals Header"/>
+        <!-- Logo handling with proper No Image found text -->
+        <div th:if="${not #lists.isEmpty(headerLogo)}">
+            <img th:src="${headerLogo[0]}" alt="Vendor Header Logo" style="max-width:260px;"/>
+        </div>
+        <div th:if="${#lists.isEmpty(headerLogo)}" class="header-image-placeholder">
+            ⚡ No Image found (Header Logo)
+        </div>
     </div>
 
     <div class="ref-no">
-        <p><strong>REF NO.:</strong> <span th:if="${invoiceNumber != null and invoiceNumber != ''}" th:text="${invoiceNumber}" class="fixed-value"></span><span th:if="${invoiceNumber == null or invoiceNumber == ''}" class="fixed-value">PRO/2025/001</span></p>
-        <p><strong>Date:</strong> <span th:text="${currentDate}" class="fixed-value"></span></p>
-        <p><strong>To:</strong> <span th:if="${name != null and name != ''}" th:text="${name}" class="fixed-value"></span><span th:if="${name == null or name == ''}" class="value-missing">Value Missing</span></p>
+        <p><strong>REF NO.:</strong> <span th:if="${invoiceNumber != null and invoiceNumber != ''}" th:text="${invoiceNumber}" class="fixed-value"></span><span th:if="${invoiceNumber == null or invoiceNumber == ''}" class="fixed-value">INV/9682/2026</span></p>
+        <p><strong>Date:</strong> <span th:text="${currentDate}" class="fixed-value">25/05/2026</span></p>
+        <p><strong>To:</strong> <span th:if="${name != null and name != ''}" th:text="${name}" class="fixed-value"></span><span th:if="${name == null or name == ''}" class="value-missing">Laksh Nair</span></p>
     </div>
 
     <div class="subject">
-        <p>Subject: Proposal Of <span th:if="${installedCapacity != null and installedCapacity != ''}" th:text="${installedCapacity}"></span><span th:if="${installedCapacity == null or installedCapacity == ''}" class="fixed-value">11</span> KW Solar Power Plant with Structure.</p>
+        <p>Subject: Proposal Of <span th:if="${installedCapacity != null and installedCapacity != ''}" th:text="${installedCapacity}"></span><span th:if="${installedCapacity == null or installedCapacity == ''}" class="fixed-value">6.58</span> KW Solar Power Plant with Structure.</p>
     </div>
 
     <div class="salutation">
         <p>Respected Sir,</p>
     </div>
 
-    <p>As discussed, we would like to express our best quotation for <span th:if="${installedCapacity != null and installedCapacity != ''}" th:text="${installedCapacity}" class="fixed-value"></span><span th:if="${installedCapacity == null or installedCapacity == ''}" class="fixed-value">11</span> Kwp on grid Solar Power Plant with structure work. All work will be done as per your geographical condition & under all MSEDCL terms. All work will be done within period of <span class="fixed-value">45</span> days.</p>
+    <p>As discussed, we would like to express our best quotation for <span th:if="${installedCapacity != null and installedCapacity != ''}" th:text="${installedCapacity}" class="fixed-value"></span><span th:if="${installedCapacity == null or installedCapacity == ''}" class="fixed-value">6.58</span> Kwp on grid Solar Power Plant with structure work. All work will be done as per your geographical condition & under all MSEDCL terms. All work will be done within period of <span class="fixed-value">45</span> days.</p>
 
     <p class="mt8">If you have any query, please free to contact us.</p>
 
     <!-- Signature on Page 1 - Right Side -->
     <div class="signature-right">
-        <div><img th:if="${not #lists.isEmpty(vendorSignature)}" th:src="${vendorSignature[0]}" class="signature-img" alt="Vendor Signature"/><div th:if="${#lists.isEmpty(vendorSignature)}" class="line"></div></div>
+        <div>
+            <div th:if="${not #lists.isEmpty(vendorSignature)}">
+                <img th:src="${vendorSignature[0]}" class="signature-img" alt="Vendor Signature"/>
+            </div>
+            <div th:if="${#lists.isEmpty(vendorSignature)}" class="sign-placeholder">
+                ✍️ No Image found (Signature)
+            </div>
+        </div>
         <div style="margin-top: 3px;"><strong th:text="${vendorName}">Arihant Electricals</strong></div>
         <div style="margin-top: 5px;"><strong>Proprietor</strong></div>
     </div>
 
-    <!-- PAGE 1 BOTTOM IMAGE -->
+    <!-- PAGE 1 BOTTOM IMAGE (as per PDF reference) -->
     <div class="first-page-image">
-        <img th:if="${cotationFirstPageImage != null and cotationFirstPageImage != ''}" th:src="${cotationFirstPageImage}" alt="Cotation 1st Page Image"/>
-        <div th:if="${cotationFirstPageImage == null or cotationFirstPageImage == ''}" style="height: 200px; background: #f0f0f0; display: flex; align-items: center; justify-content: center;">Image Placeholder</div>
+        <div th:if="${cotationFirstPageImage != null and cotationFirstPageImage != ''}">
+            <img th:src="${cotationFirstPageImage}" alt="Cotation 1st Page Image"/>
+        </div>
+        <div th:if="${cotationFirstPageImage == null or cotationFirstPageImage == ''}" class="no-image-placeholder">
+            📷 No Image found (First page illustration)
+        </div>
     </div>
 </div>
 
 <!-- ============================================ -->
-<!-- PAGE 2: HEADER + SCOPE OF WORK TABLE WITH 4 IMAGES -->
+<!-- PAGE 2: HEADER + SCOPE OF WORK TABLE WITH 4 IMAGES (each row has images) -->
 <!-- ============================================ -->
 <div class="page">
     <div class="header-section">
-        <img th:if="${not #lists.isEmpty(headerLogo)}" th:src="${headerLogo[0]}" alt="Vendor Header"/>
-        <img th:if="${#lists.isEmpty(headerLogo)}" th:src="${defaultArihantHeader}" alt="Arihant Electricals Header"/>
+        <div th:if="${not #lists.isEmpty(headerLogo)}">
+            <img th:src="${headerLogo[0]}" alt="Vendor Header Logo"/>
+        </div>
+        <div th:if="${#lists.isEmpty(headerLogo)}" class="header-image-placeholder">
+            ⚡ No Image found (Header Logo)
+        </div>
     </div>
 
     <h2>Scope Of Work</h2>
@@ -317,8 +401,12 @@
                     ✓ Design and installation of Galvanized, Structure with heavy support<br>
                     ✓ Proper grouting and calming to secure structure against stormy wind.<br><br>
                     <div class="image-cell">
-                        <img th:if="${secondPageFirstImage != null and secondPageFirstImage != ''}" th:src="${secondPageFirstImage}" alt="Installation Image 1"/>
-                        <div th:if="${secondPageFirstImage == null or secondPageFirstImage == ''}" style="height: 80px; background: #f0f0f0; display: flex; align-items: center; justify-content: center;">Image 1</div>
+                        <div th:if="${secondPageFirstImage != null and secondPageFirstImage != ''}">
+                            <img th:src="${secondPageFirstImage}" alt="Installation Image 1"/>
+                        </div>
+                        <div th:if="${secondPageFirstImage == null or secondPageFirstImage == ''}" class="no-image-placeholder">
+                            🖼️ No Image found
+                        </div>
                     </div>
                 </td>
             </tr>
@@ -332,8 +420,12 @@
                     ✓ Synchronization with Grid<br>
                     ✓ Proper earthing<br><br>
                     <div class="image-cell">
-                        <img th:if="${secondPageSecondImage != null and secondPageSecondImage != ''}" th:src="${secondPageSecondImage}" alt="Installation Image 2"/>
-                        <div th:if="${secondPageSecondImage == null or secondPageSecondImage == ''}" style="height: 80px; background: #f0f0f0; display: flex; align-items: center; justify-content: center;">Image 2</div>
+                        <div th:if="${secondPageSecondImage != null and secondPageSecondImage != ''}">
+                            <img th:src="${secondPageSecondImage}" alt="Installation Image 2"/>
+                        </div>
+                        <div th:if="${secondPageSecondImage == null or secondPageSecondImage == ''}" class="no-image-placeholder">
+                            🖼️ No Image found
+                        </div>
                     </div>
                 </td>
             </tr>
@@ -344,8 +436,12 @@
                 <td>
                     ✓ An efficient sprinkle system is provided with 3 to 5 hp pump to protect generation from dust.<br><br>
                     <div class="image-cell">
-                        <img th:if="${secondPageThirdImage != null and secondPageThirdImage != ''}" th:src="${secondPageThirdImage}" alt="Installation Image 3"/>
-                        <div th:if="${secondPageThirdImage == null or secondPageThirdImage == ''}" style="height: 80px; background: #f0f0f0; display: flex; align-items: center; justify-content: center;">Image 3</div>
+                        <div th:if="${secondPageThirdImage != null and secondPageThirdImage != ''}">
+                            <img th:src="${secondPageThirdImage}" alt="Installation Image 3"/>
+                        </div>
+                        <div th:if="${secondPageThirdImage == null or secondPageThirdImage == ''}" class="no-image-placeholder">
+                            🖼️ No Image found
+                        </div>
                     </div>
                 </td>
             </tr>
@@ -356,8 +452,12 @@
                 <td>
                     ✓ Our testing unit help you to detect if any of our solar panel is lagging in generation.<br><br>
                     <div class="image-cell">
-                        <img th:if="${secondPageFourthImage != null and secondPageFourthImage != ''}" th:src="${secondPageFourthImage}" alt="Installation Image 4"/>
-                        <div th:if="${secondPageFourthImage == null or secondPageFourthImage == ''}" style="height: 80px; background: #f0f0f0; display: flex; align-items: center; justify-content: center;">Image 4</div>
+                        <div th:if="${secondPageFourthImage != null and secondPageFourthImage != ''}">
+                            <img th:src="${secondPageFourthImage}" alt="Installation Image 4"/>
+                        </div>
+                        <div th:if="${secondPageFourthImage == null or secondPageFourthImage == ''}" class="no-image-placeholder">
+                            🖼️ No Image found
+                        </div>
                     </div>
                 </td>
             </tr>
@@ -371,8 +471,12 @@
 <!-- ============================================ -->
 <div class="page">
     <div class="header-section">
-        <img th:if="${not #lists.isEmpty(headerLogo)}" th:src="${headerLogo[0]}" alt="Vendor Header"/>
-        <img th:if="${#lists.isEmpty(headerLogo)}" th:src="${defaultArihantHeader}" alt="Arihant Electricals Header"/>
+        <div th:if="${not #lists.isEmpty(headerLogo)}">
+            <img th:src="${headerLogo[0]}" alt="Vendor Header Logo"/>
+        </div>
+        <div th:if="${#lists.isEmpty(headerLogo)}" class="header-image-placeholder">
+            ⚡ No Image found (Header Logo)
+        </div>
     </div>
 
     <h2>Quotation</h2>
@@ -392,16 +496,16 @@
             <tbody>
             <tr>
                 <td style="text-align:center; font-weight:bold;">1</td>
-                <td>Design, Supply & Installation of <span th:if="${installedCapacity != null and installedCapacity != ''}" th:text="${installedCapacity}"></span><span th:if="${installedCapacity == null or installedCapacity == ''}" class="fixed-value">11</span> KW Solar system.</td>
+                <td>Design, Supply & Installation of <span th:if="${installedCapacity != null and installedCapacity != ''}" th:text="${installedCapacity}"></span><span th:if="${installedCapacity == null or installedCapacity == ''}" class="fixed-value">6.58</span> KW Solar system.</td>
                 <td style="text-align:center">@ Rs PER/WATT</td>
                 <td style="text-align:right">-</td>
                 <td style="text-align:center">1 Units</td>
-                <td style="text-align:right; font-weight:bold;"><span class="fixed-value">4,45,000</span>/-</td>
+                <td style="text-align:right; font-weight:bold;">4,45,000/-</td>
             </tr>
             <tr>
                 <td style="text-align:center; font-weight:bold;">2</td>
                 <td colspan="4">Total System Cost with GST 5%</td>
-                <td style="text-align:right; font-weight:bold;"><span class="fixed-value">4,45,000</span>/-</td>
+                <td style="text-align:right; font-weight:bold;">4,45,000/-</td>
             </tr>
             <tr>
                 <td style="text-align:center;"></td>
@@ -411,7 +515,7 @@
             <tr>
                 <td style="text-align:center;"></td>
                 <td colspan="4"><strong>Total</strong></td>
-                <td style="text-align:right; font-size:12pt;"><strong><span class="fixed-value">4,49,500</span>/-</strong></td>
+                <td style="text-align:right; font-size:12pt;"><strong>4,49,500/-</strong></td>
             </tr>
             </tbody>
         </table>
@@ -426,19 +530,30 @@
 
     <!-- Signature on Page 3 - Right Side -->
     <div class="signature-right">
-        <div><img th:if="${not #lists.isEmpty(vendorSignature)}" th:src="${vendorSignature[0]}" class="signature-img" alt="Vendor Signature"/><div th:if="${#lists.isEmpty(vendorSignature)}" class="line"></div></div>
+        <div>
+            <div th:if="${not #lists.isEmpty(vendorSignature)}">
+                <img th:src="${vendorSignature[0]}" class="signature-img" alt="Vendor Signature"/>
+            </div>
+            <div th:if="${#lists.isEmpty(vendorSignature)}" class="sign-placeholder">
+                ✍️ No Image found (Signature)
+            </div>
+        </div>
         <div style="margin-top: 3px;"><strong th:text="${vendorName}">Arihant Electricals</strong></div>
         <div style="margin-top: 5px;"><strong>Proprietor</strong></div>
     </div>
 </div>
 
 <!-- ============================================ -->
-<!-- PAGE 4: HEADER + SUPPLY OF MATERIAL TABLE + SIGNATURE -->
+<!-- PAGE 4: HEADER + SUPPLY OF MATERIAL TABLE (enhanced with warranty columns) + SIGNATURE -->
 <!-- ============================================ -->
 <div class="page">
     <div class="header-section">
-        <img th:if="${not #lists.isEmpty(headerLogo)}" th:src="${headerLogo[0]}" alt="Vendor Header"/>
-        <img th:if="${#lists.isEmpty(headerLogo)}" th:src="${defaultArihantHeader}" alt="Arihant Electricals Header"/>
+        <div th:if="${not #lists.isEmpty(headerLogo)}">
+            <img th:src="${headerLogo[0]}" alt="Vendor Header Logo"/>
+        </div>
+        <div th:if="${#lists.isEmpty(headerLogo)}" class="header-image-placeholder">
+            ⚡ No Image found (Header Logo)
+        </div>
     </div>
 
     <h2>Supply of material and warranty</h2>
@@ -450,81 +565,34 @@
                 <th>Sr No.</th>
                 <th>Description</th>
                 <th>Units</th>
-                <th>Make</th>
+                <th>Make / Specification</th>
                 <th>Warranty</th>
             </tr>
             </thead>
             <tbody>
-            <tr>
-                <td style="text-align:center; font-weight:bold;">1</td>
-                <td>Solar panel</td>
-                <td style="text-align:center">05-06 Nos.</td>
-                <td><span th:if="${moduleMake != null and moduleMake != ''}" th:text="${moduleMake}" class="fixed-value"></span><span th:if="${moduleMake == null or moduleMake == ''}" class="value-missing">Value Missing</span></td>
-                <td style="text-align:center"><strong>25 year warranty</strong></td>
-            </tr>
-            <tr>
-                <td style="text-align:center; font-weight:bold;">2</td>
-                <td>Inverter</td>
-                <td style="text-align:center">1 Nos.</td>
-                <td><span th:if="${inverterMake != null and inverterMake != ''}" th:text="${inverterMake}" class="fixed-value"></span><span th:if="${inverterMake == null or inverterMake == ''}" class="value-missing">Value Missing</span></td>
-                <td style="text-align:center"><strong>10 Years for Inverter</strong></td>
-            </tr>
-            <tr>
-                <td style="text-align:center; font-weight:bold;">3</td>
-                <td>DCDB</td>
-                <td style="text-align:center">1 Nos.</td>
-                <td>TATA/IP 65,1000V/15 Amp Fuse Link & 1000V/40K DC SPD</td>
-                <td style="text-align:center"><strong>5 Years</strong></td>
-            </tr>
-            <tr>
-                <td style="text-align:center; font-weight:bold;">4</td>
-                <td>ACDB</td>
-                <td style="text-align:center">1 Nos.</td>
-                <td>TATA/IP 65,440V/63Amp MCCB Legrand Make with ACSPD 440v/20K</td>
-                <td style="text-align:center"><strong>5 Years</strong></td>
-            </tr>
-            <tr>
-                <td style="text-align:center; font-weight:bold;">5</td>
-                <td>Wires</td>
-                <td style="text-align:center">METER Nos.</td>
-                <td>Pure copper, TATA approved, Polycab Only.</td>
-                <td style="text-align:center"><strong>5 Years</strong></td>
-            </tr>
-            <tr>
-                <td style="text-align:center; font-weight:bold;">6</td>
-                <td>Earthing kit</td>
-                <td style="text-align:center">3 Nos.</td>
-                <td>Bentonite Chemical Earthing with Insulator/True Power/U-Protect with 25 X 3 mm HDG WIRE</td>
-                <td style="text-align:center"><strong>5 Years</strong></td>
-            </tr>
-            <tr>
-                <td style="text-align:center; font-weight:bold;">7</td>
-                <td>Lightening Arrester</td>
-                <td style="text-align:center">1 Nos.</td>
-                <td>TATA Power</td>
-                <td style="text-align:center"><strong>5 Years</strong></td>
-            </tr>
-            <tr>
-                <td style="text-align:center; font-weight:bold;">8</td>
-                <td>Bi-Directional (Net) Meter & Generation Meter</td>
-                <td style="text-align:center">1 No. Each</td>
-                <td>Secure Make-200/40Amp</td>
-                <td style="text-align:center"><strong>5 Years</strong></td>
-            </tr>
-            <tr>
-                <td style="text-align:center; font-weight:bold;">9</td>
-                <td>LT Panel</td>
-                <td style="text-align:center">1 Nos.</td>
-                <td>MSEDCL Approved with Is Landing Protection using Auto Contactor Kit 150A</td>
-                <td style="text-align:center"><strong>5 Years</strong></td>
-            </tr>
+            <tr><td style="text-align:center;">1</td><td>Solar panel</td><td style="text-align:center">05-06 Nos.</td><td><span th:if="${moduleMake != null and moduleMake != ''}" th:text="${moduleMake}"></span><span th:if="${moduleMake == null or moduleMake == ''}">SolarWorld / Tier-1</span></td><td style="text-align:center"><strong>25 year warranty</strong></td></tr>
+            <tr><td style="text-align:center;">2</td><td>Inverter</td><td style="text-align:center">1 Nos.</td><td><span th:if="${inverterMake != null and inverterMake != ''}" th:text="${inverterMake}"></span><span th:if="${inverterMake == null or inverterMake == ''}">Siemens / Growatt</span></td><td style="text-align:center"><strong>10 Years for Inverter</strong></td></tr>
+            <tr><td style="text-align:center;">3</td><td>DCDB</td><td style="text-align:center">1 Nos.</td><td>TATA/IP 65,1000V/15 Amp Fuse Link & 1000V/40K DC SPD</td><td style="text-align:center"><strong>5 Years</strong></td></tr>
+            <tr><td style="text-align:center;">4</td><td>ACDB</td><td style="text-align:center">1 Nos.</td><td>TATA/IP 65,440V/63Amp MCCB Legrand Make with ACSPD 440v/20K</td><td style="text-align:center"><strong>5 Years</strong></td></tr>
+            <tr><td style="text-align:center;">5</td><td>Wires (Solar & Power)</td><td style="text-align:center">As per std.</td><td>Pure copper, TATA approved, Polycab Only.</td><td style="text-align:center"><strong>5 Years</strong></td></tr>
+            <tr><td style="text-align:center;">6</td><td>Earthing kit</td><td style="text-align:center">3 Nos.</td><td>Bentonite Chemical Earthing with Insulator/True Power/U-Protect with 25 X 3 mm HDG WIRE</td><td style="text-align:center"><strong>5 Years</strong></td></tr>
+            <tr><td style="text-align:center;">7</td><td>Lightening Arrester</td><td style="text-align:center">1 Nos.</td><td>TATA Power</td><td style="text-align:center"><strong>5 Years</strong></td></tr>
+            <tr><td style="text-align:center;">8</td><td>Bi-Directional (Net) Meter & Generation Meter</td><td style="text-align:center">1 No. Each</td><td>Secure Make-200/40Amp, MSEDCL approved</td><td style="text-align:center"><strong>5 Years</strong></td></tr>
+            <tr><td style="text-align:center;">9</td><td>LT Panel with Protection</td><td style="text-align:center">1 Nos.</td><td>MSEDCL Approved with Is Landing Protection using Auto Contactor Kit 150A</td><td style="text-align:center"><strong>5 Years</strong></td></tr>
             </tbody>
         </table>
     </div>
 
     <!-- Signature on Page 4 - Right Side -->
     <div class="signature-right">
-        <div><img th:if="${not #lists.isEmpty(vendorSignature)}" th:src="${vendorSignature[0]}" class="signature-img" alt="Vendor Signature"/><div th:if="${#lists.isEmpty(vendorSignature)}" class="line"></div></div>
+        <div>
+            <div th:if="${not #lists.isEmpty(vendorSignature)}">
+                <img th:src="${vendorSignature[0]}" class="signature-img" alt="Vendor Signature"/>
+            </div>
+            <div th:if="${#lists.isEmpty(vendorSignature)}" class="sign-placeholder">
+                ✍️ No Image found (Signature)
+            </div>
+        </div>
         <div style="margin-top: 3px;"><strong th:text="${vendorName}">Arihant Electricals</strong></div>
         <div style="margin-top: 5px;"><strong>Proprietor</strong></div>
     </div>
@@ -535,36 +603,47 @@
 <!-- ============================================ -->
 <div class="page">
     <div class="header-section">
-        <img th:if="${not #lists.isEmpty(headerLogo)}" th:src="${headerLogo[0]}" alt="Vendor Header"/>
-        <img th:if="${#lists.isEmpty(headerLogo)}" th:src="${defaultArihantHeader}" alt="Arihant Electricals Header"/>
+        <div th:if="${not #lists.isEmpty(headerLogo)}">
+            <img th:src="${headerLogo[0]}" alt="Vendor Header Logo"/>
+        </div>
+        <div th:if="${#lists.isEmpty(headerLogo)}" class="header-image-placeholder">
+            ⚡ No Image found (Header Logo)
+        </div>
     </div>
 
-    <h2>Bank details and Terms</h2>
+    <h2>Financial & Commercial Terms</h2>
 
     <div class="bank-box">
-        <p><strong>PAYMENT TERMS:</strong> 50% Advance along with technically and commercially clear order. 40% after PV Module & Structure Installation 5% after Installation and commissioning of the work & Balance 5% after first bill generation with Solar Effect.</p>
-        <p class="mt8"><strong>Taxes:</strong> GST 13.8%</p>
+        <p><strong>PAYMENT TERMS:</strong> 50% Advance along with technically and commercially clear order. 40% after PV Module & Structure Installation. 5% after Installation and commissioning of the work & Balance 5% after first bill generation with Solar Effect.</p>
+        <p class="mt8"><strong>Taxes:</strong> GST 13.8% (as per applicable rates; 5% inclusive in quote as per page-3)</p>
         <p class="mt8"><strong>PRICE VARIATION:</strong> Price agreed upon contract signing shall be firm during the agreed execution period. However, Project cost escalation due to delay in clearances beyond agreed period shall be charged extra.</p>
         <p class="mt8"><strong>WARRANTY:</strong> 5 Years from Date of Installation for the Solar Plant & 27 Years Performance Guaranty for Solar Panels & 10 Year Warranty for the Solar Inverter.</p>
         <p class="mt8"><strong>PROJECT COMPLETION DATE:</strong> Approx. 60 Days for Installation & Commissioning of the Solar Plant & MSEDCL Net metering with Solar Bill Effect 3 Months from the Application.</p>
     </div>
 
     <h2>Bank Details</h2>
-
     <div class="bank-box" style="background: #fff3e0;">
-        <p><strong>A/c NO -</strong> ME.ARIHANT SOLAR.</p>
-        <p><strong>BANK AC -</strong> BANK OF MAHARASHTRA</p>
+        <p><strong>A/c Name :</strong> ME.ARIHANT SOLAR</p>
+        <p><strong>Bank :</strong> BANK OF MAHARASHTRA</p>
         <p><strong>A/c No.:</strong> 60520906312</p>
-        <p><strong>Branch:</strong> NRUSINHAWADI</p>
-        <p><strong>IFSC Code:</strong> MAHB0001872</p>
+        <p><strong>Branch :</strong> NRUSINHAWADI</p>
+        <p><strong>IFSC Code :</strong> MAHB0001872</p>
     </div>
 
-    <!-- Signature on Page 5 - Left Side -->
+    <!-- Signature on Page 5 - Left side as per proposal style -->
     <div class="signature-left">
-        <div><img th:if="${not #lists.isEmpty(vendorSignature)}" th:src="${vendorSignature[0]}" class="signature-img" alt="Vendor Signature"/><div th:if="${#lists.isEmpty(vendorSignature)}" class="line"></div></div>
+        <div>
+            <div th:if="${not #lists.isEmpty(vendorSignature)}">
+                <img th:src="${vendorSignature[0]}" class="signature-img" alt="Vendor Signature"/>
+            </div>
+            <div th:if="${#lists.isEmpty(vendorSignature)}" class="sign-placeholder">
+                ✍️ No Image found (Signature)
+            </div>
+        </div>
         <div style="margin-top: 3px;"><strong th:text="${vendorName}">Arihant Electricals</strong></div>
         <div style="margin-top: 5px;"><strong>Proprietor</strong></div>
     </div>
+
 </div>
 
 </body>
