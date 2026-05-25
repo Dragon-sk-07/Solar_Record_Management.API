@@ -38,11 +38,9 @@
         }
         h1 {
             text-align: center;
-            font-size: 16px;
+            font-size: 18px;
             font-weight: bold;
-            margin: 4px 0 8px 0;
-            text-transform: uppercase;
-            color: #1a237e;
+            margin: 5px 0;
         }
         h2 {
             font-size: 14px;
@@ -56,38 +54,13 @@
         .header-section {
             text-align: center;
             margin-bottom: 15px;
-            padding: 10px;
-            background: linear-gradient(135deg, #1a237e 0%, #283593 100%);
-            color: white;
-            border-radius: 5px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #000;
         }
-        .company-name-main {
-            font-size: 24px;
-            font-weight: bold;
-            margin: 0;
-            padding: 0;
-            letter-spacing: 2px;
-        }
-        .company-tagline {
-            font-size: 11px;
-            margin: 5px 0;
-            letter-spacing: 1px;
-        }
-        .company-services {
-            font-size: 9px;
-            margin: 5px 0;
-            background: rgba(255,255,255,0.2);
-            padding: 5px;
-            border-radius: 3px;
-        }
-        .company-address {
-            font-size: 9px;
-            margin: 5px 0;
-        }
-        .header-line {
-            border-top: 2px solid #ffc107;
-            margin-top: 8px;
-            width: 100%;
+        .header-section img {
+            max-width: 100%;
+            max-height: 80px;
+            object-fit: contain;
         }
         .ref-no {
             margin-top: 15px;
@@ -98,7 +71,6 @@
             margin-top: 10px;
             font-weight: bold;
             text-decoration: underline;
-            color: #1a237e;
         }
         .salutation {
             margin-top: 10px;
@@ -120,8 +92,7 @@
             vertical-align: top;
         }
         th {
-            background: linear-gradient(135deg, #1a237e 0%, #283593 100%);
-            color: white;
+            background: #e8eaf6;
             font-weight: bold;
             text-align: center;
         }
@@ -166,23 +137,20 @@
             border-radius: 5px;
         }
         .signature-row {
-            display: table;
+            display: flex;
             width: 100%;
-            table-layout: fixed;
             margin: 20px 0 10px 0;
+            gap: 40px;
         }
         .signature-left, .signature-right {
-            display: table-cell;
-            width: 50%;
+            flex: 1;
             vertical-align: top;
         }
         .signature-left {
             text-align: left;
-            padding-right: 20px;
         }
         .signature-right {
             text-align: left;
-            padding-left: 20px;
         }
         .signature-space {
             height: 60px;
@@ -204,12 +172,6 @@
         .mt8 {
             margin-top: 5px;
         }
-        .mt12 {
-            margin-top: 8px;
-        }
-        .mt18 {
-            margin-top: 10px;
-        }
         .value-missing {
             color: #999;
             font-style: italic;
@@ -222,14 +184,27 @@
             color: #666;
             margin-top: 5px;
         }
+        .image-cell {
+            text-align: center;
+        }
+        .image-cell img {
+            max-width: 100%;
+            max-height: 100px;
+            object-fit: contain;
+        }
+        .first-page-image {
+            text-align: center;
+            margin: 15px 0;
+        }
+        .first-page-image img {
+            max-width: 100%;
+            max-height: 200px;
+            object-fit: contain;
+        }
         @media print {
             body {
                 padding: 0;
                 margin: 0;
-            }
-            .header-section {
-                -webkit-print-color-adjust: exact;
-                print-color-adjust: exact;
             }
             th {
                 -webkit-print-color-adjust: exact;
@@ -240,32 +215,33 @@
 </head>
 <body>
 
-<!-- SINGLE HEADER - Removed duplicate -->
-<div class="header-section">
-    <div class="company-name-main">ARIHANT ELECTRICALS</div>
-    <div class="company-tagline">A Govt. Licenced Contractor & Industrial Solar</div>
-    <div class="company-services">PM SURYA GHAR SOLAR SYSTEM | SOUR KRUSHI PUMP | MSEDCL | PWD | GOVT. | RESIDENTIAL | COMMERCIAL | INDUSTRIAL | ALL TYPE ON GRID & OFF GRID SOLAR</div>
-    <div class="company-address">A/p- NEAR SIDDHIVINAYAK HOSPITAL KURUNDWAD, MOB NO- 7774855501, 9767334454</div>
-    <div class="company-address">Email ID: arihantele159@gmail.com</div>
-    <div class="header-line"></div>
-</div>
-
 <div class="document">
 
+    <!-- HEADER SECTION - Only Header Image -->
+    <div class="header-section">
+        <img th:if="${not #lists.isEmpty(headerLogo)}" th:src="${headerLogo[0]}" alt="Vendor Header"/>
+        <img th:if="${#lists.isEmpty(headerLogo)}" th:src="${defaultArihantHeader}" alt="Arihant Electricals Header"/>
+    </div>
+
+    <!-- PAGE 1 BOTTOM IMAGE - Cotation_1stPage Image -->
+    <div class="first-page-image">
+        <img th:src="${cotationFirstPageImage}" alt="Cotation 1st Page Image"/>
+    </div>
+
     <div class="ref-no">
-        <p>REF NO.: <span class="fixed-value">PRO/2025/001</span></p>
+        <p>REF NO.: <span th:if="${invoiceNumber != null and invoiceNumber != ''}" th:text="${invoiceNumber}"></span><span th:if="${invoiceNumber == null or invoiceNumber == ''}" class="fixed-value">PRO/2025/001</span></p>
         <p>To: <span th:if="${name != null and name != ''}" th:text="${name}"></span><span th:if="${name == null or name == ''}" class="value-missing">Value Missing</span></p>
     </div>
 
     <div class="subject">
-        <p>Subject: Proposal Of <span class="fixed-value">11</span> KW Solar Power Plant with Structure.</p>
+        <p>Subject: Proposal Of <span th:if="${installedCapacity != null and installedCapacity != ''}" th:text="${installedCapacity}"></span><span th:if="${installedCapacity == null or installedCapacity == ''}" class="fixed-value">11</span> KW Solar Power Plant with Structure.</p>
     </div>
 
     <div class="salutation">
         <p>Respected Sir,</p>
     </div>
 
-    <p>As discussed, we would like to express our best quotation for <span class="fixed-value">11</span> Kwp on grid Solar Power Plant with structure work. All work will be done as per your geographical condition & under all MSEDCL terms. All work will be done within period of <span class="fixed-value">45</span> days.</p>
+    <p>As discussed, we would like to express our best quotation for <span th:if="${installedCapacity != null and installedCapacity != ''}" th:text="${installedCapacity}"></span><span th:if="${installedCapacity == null or installedCapacity == ''}" class="fixed-value">11</span> Kwp on grid Solar Power Plant with structure work. All work will be done as per your geographical condition & under all MSEDCL terms. All work will be done within period of <span class="fixed-value">45</span> days.</p>
 
     <p class="mt8">If you have any query, please free to contact us.</p>
 
@@ -294,7 +270,7 @@
             <tr>
                 <td style="text-align:center">3</td>
                 <td>Cleaning System</td>
-                <td>· An efficient sprinkle system is provided with <span class="fixed-value">3 to 5</span> hp pump to protect generation from dust.</td>
+                <td>· An efficient sprinkle system is provided with 3 to 5 hp pump to protect generation from dust.</td>
             </tr>
             <tr>
                 <td style="text-align:center">4</td>
@@ -328,57 +304,57 @@
             <tr>
                 <td style="text-align:center">1</td>
                 <td>Solar panel</td>
-                <td style="text-align:center"><span class="fixed-value">05-06</span> Nos.</td>
+                <td style="text-align:center">05-06 Nos.</td>
                 <td><span th:if="${moduleMake != null and moduleMake != ''}" th:text="${moduleMake}"></span><span th:if="${moduleMake == null or moduleMake == ''}" class="value-missing">Value Missing</span></td>
-                <td style="text-align:center"><span class="fixed-value">25 year warranty</span></td>
+                <td style="text-align:center">25 year warranty</td>
             </tr>
             <tr>
                 <td style="text-align:center">2</td>
                 <td>Inverter</td>
                 <td style="text-align:center">1 Nos.</td>
                 <td><span th:if="${inverterMake != null and inverterMake != ''}" th:text="${inverterMake}"></span><span th:if="${inverterMake == null or inverterMake == ''}" class="value-missing">Value Missing</span></td>
-                <td style="text-align:center"><span class="fixed-value">10 Years for Inverter</span></td>
+                <td style="text-align:center">10 Years for Inverter</td>
             </tr>
             <tr>
                 <td style="text-align:center">3</td>
                 <td>DCBD</td>
                 <td style="text-align:center">1 Nos.</td>
-                <td><span class="fixed-value">TATA/IP 65</span></td>
+                <td>TATA/IP 65</td>
                 <td style="text-align:center">5 Years</td>
             </tr>
             <tr>
                 <td style="text-align:center">4</td>
                 <td>ACDB</td>
                 <td style="text-align:center">1 Nos.</td>
-                <td><span class="fixed-value">TATA/IP 65</span></td>
+                <td>TATA/IP 65</td>
                 <td style="text-align:center">5 Years</td>
             </tr>
             <tr>
                 <td style="text-align:center">5</td>
                 <td>Wires</td>
                 <td style="text-align:center">METER Nos.</td>
-                <td><span class="fixed-value">Pure copper, Polycab Only</span></td>
+                <td>Pure copper, Polycab Only</td>
                 <td style="text-align:center">5 Years</td>
             </tr>
             <tr>
                 <td style="text-align:center">6</td>
                 <td>Earthing kit</td>
                 <td style="text-align:center">3 Nos.</td>
-                <td><span class="fixed-value">Bentonite Chemical Earthing</span></td>
+                <td>Bentonite Chemical Earthing</td>
                 <td style="text-align:center">5 Years</td>
             </tr>
             <tr>
                 <td style="text-align:center">7</td>
                 <td>Lightening Arrester</td>
                 <td style="text-align:center">1 Nos.</td>
-                <td><span class="fixed-value">TATA Power</span></td>
+                <td>TATA Power</td>
                 <td style="text-align:center">5 Years</td>
             </tr>
             <tr>
                 <td style="text-align:center">8</td>
                 <td>Bi-Directional (Net) Meter & Generation Meter</td>
                 <td style="text-align:center">1 No. Each</td>
-                <td><span class="fixed-value">Secure Make</span></td>
+                <td>Secure Make</td>
                 <td style="text-align:center">5 Years</td>
             </tr>
             <tr>
@@ -392,24 +368,55 @@
         </table>
     </div>
 
+    <!-- PAGE 2 - FOUR IMAGES INSIDE TABLE (Vertically aligned, one per row after the material table) -->
+    <table class="material-table">
+        <thead>
+        <tr>
+            <th colspan="5" style="text-align:center">Installation Images</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td style="text-align:center">1</td>
+            <td colspan="3" class="image-cell"><img th:src="${secondPageFirstImage}" alt="Installation Image 1"/></td>
+            <td class="image-cell">Solar Panel Installation</td>
+        </tr>
+        <tr>
+            <td style="text-align:center">2</td>
+            <td colspan="3" class="image-cell"><img th:src="${secondPageSecondImage}" alt="Installation Image 2"/></td>
+            <td class="image-cell">Inverter Setup</td>
+        </tr>
+        <tr>
+            <td style="text-align:center">3</td>
+            <td colspan="3" class="image-cell"><img th:src="${secondPageThirdImage}" alt="Installation Image 3"/></td>
+            <td class="image-cell">Metering System</td>
+        </tr>
+        <tr>
+            <td style="text-align:center">4</td>
+            <td colspan="3" class="image-cell"><img th:src="${secondPageFourthImage}" alt="Installation Image 4"/></td>
+            <td class="image-cell">Complete Installation</td>
+        </tr>
+        </tbody>
+    </table>
+
     <h2>Bank details and Terms</h2>
 
     <div class="bank-box">
-        <p><strong>PAYMENT TERMS:</strong> <span class="fixed-value">50% Advance along with technically and commercially clear order. 40% after PV Module & Structure Installation 5% after Installation and commissioning of the work & Balance 5% after first bill generation with Solar Effect</span></p>
-        <p class="mt8"><strong>Taxes:</strong> GST <span class="fixed-value">13.8</span>%</p>
+        <p><strong>PAYMENT TERMS:</strong> 50% Advance along with technically and commercially clear order. 40% after PV Module & Structure Installation 5% after Installation and commissioning of the work & Balance 5% after first bill generation with Solar Effect.</p>
+        <p class="mt8"><strong>Taxes:</strong> GST 13.8%</p>
         <p class="mt8"><strong>PRICE VARIATION:</strong> Price agreed upon contract signing shall be firm during the agreed execution period. However, Project cost escalation due to delay in clearances beyond agreed period shall be charged extra.</p>
-        <p class="mt8"><strong>WARRANTY:</strong> <span class="fixed-value">5 Years</span> from Date of Installation for the Solar Plant & <span class="fixed-value">27 Years Performance Guaranty</span> for Solar Panels & <span class="fixed-value">10 Year Warranty</span> for the Solar Inverter.</p>
-        <p class="mt8"><strong>PROJECT COMPLETION DATE:</strong> Approx. <span class="fixed-value">60</span> Days for Installation & Commissioning of the Solar Plant & MSEDCL Net metering with Solar Bill Effect 3 Months from the Application.</p>
+        <p class="mt8"><strong>WARRANTY:</strong> 5 Years from Date of Installation for the Solar Plant & 27 Years Performance Guaranty for Solar Panels & 10 Year Warranty for the Solar Inverter.</p>
+        <p class="mt8"><strong>PROJECT COMPLETION DATE:</strong> Approx. 60 Days for Installation & Commissioning of the Solar Plant & MSEDCL Net metering with Solar Bill Effect 3 Months from the Application.</p>
     </div>
 
     <h2>Bank Details</h2>
 
     <div class="bank-box" style="background: #fff3e0;">
-        <p><strong>A/c NO -</strong> <span class="fixed-value">ME.ARIHANT SOLAR</span></p>
-        <p><strong>BANK AC -</strong> <span class="fixed-value">BANK OF MAHARASHTRA</span></p>
-        <p><strong>A/c No.:</strong> <span class="fixed-value">60520906312</span></p>
-        <p><strong>Branch:</strong> <span class="fixed-value">NRUSINHAWADI</span></p>
-        <p><strong>IFSC Code:</strong> <span class="fixed-value">MAHB0001872</span></p>
+        <p><strong>A/c NO -</strong> ME.ARIHANT SOLAR.</p>
+        <p><strong>BANK AC -</strong> BANK OF MAHARASHTRA</p>
+        <p><strong>A/c No.:</strong> 60520906312</p>
+        <p><strong>Branch:</strong> NRUSINHAWADI</p>
+        <p><strong>IFSC Code:</strong> MAHB0001872</p>
     </div>
 
     <div class="signature-row">
@@ -421,7 +428,7 @@
             <div class="line" th:if="${#lists.isEmpty(vendorSignature)}"></div>
             <p>Authorized Signatory</p>
             <p class="mt8">Name: <span th:if="${authorizedPersonName != null and authorizedPersonName != ''}" th:text="${authorizedPersonName}"></span><span th:if="${authorizedPersonName == null or authorizedPersonName == ''}" class="value-missing">Value Missing</span></p>
-            <p>Designation: <span class="fixed-value">Authorized Signatory</span></p>
+            <p>Designation: Authorized Signatory</p>
             <p>Date: <span th:if="${currentDate != null and currentDate != ''}" th:text="${currentDate}"></span><span th:if="${currentDate == null or currentDate == ''}" class="value-missing">Value Missing</span></p>
         </div>
         <div class="signature-right">

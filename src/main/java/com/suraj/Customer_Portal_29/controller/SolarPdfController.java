@@ -23,6 +23,12 @@ public class SolarPdfController {
     private final PdfMergerService pdfMergerService;
     private final OwnerRepository ownerRepository;
 
+    private static final String IMAGE_COTATION_1ST_PAGE = "Cotation_1stPage Image.png";
+    private static final String IMAGE_SECOND_PAGE_FIRST = "SecondPageFirst Image.png";
+    private static final String IMAGE_SECOND_PAGE_SECOND = "SecondPageSecond Image.png";
+    private static final String IMAGE_SECOND_PAGE_THIRD = "SecondPageThird Image.png";
+    private static final String IMAGE_SECOND_PAGE_FOURTH = "SecondPageFourth Image.png";
+
     public SolarPdfController(SolarRecordService solarService,
                               PdfGeneratorService pdfService,
                               WordGeneratorService wordService,
@@ -192,6 +198,11 @@ public class SolarPdfController {
         data.put("annexureTwoStamp", record.getAnnexureTwoStamp());
         data.put("defaultArihantHeader", convertImageToBase64("/Arihant_Header.png"));
         data.put("defaultMsedclHeader", convertImageToBase64("/MSEDCL_Header.png"));
+        data.put("cotationFirstPageImage", convertImageToBase64("/images/" + IMAGE_COTATION_1ST_PAGE));
+        data.put("secondPageFirstImage", convertImageToBase64("/images/" + IMAGE_SECOND_PAGE_FIRST));
+        data.put("secondPageSecondImage", convertImageToBase64("/images/" + IMAGE_SECOND_PAGE_SECOND));
+        data.put("secondPageThirdImage", convertImageToBase64("/images/" + IMAGE_SECOND_PAGE_THIRD));
+        data.put("secondPageFourthImage", convertImageToBase64("/images/" + IMAGE_SECOND_PAGE_FOURTH));
 
 // DEBUG LOGS - Check header paths
         System.out.println("=== HEADER DEBUG ===");
