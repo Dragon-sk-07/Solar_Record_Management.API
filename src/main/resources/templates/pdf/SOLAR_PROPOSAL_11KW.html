@@ -50,10 +50,10 @@
             font-size: 18px;
             font-weight: bold;
             margin: 15px 0 10px 0;
-            color: #1a237e;
-            background: linear-gradient(135deg, #e8eaf6 0%, #c5cae9 100%);
+            color: #ffffff;
+            background: linear-gradient(135deg, #1a237e 0%, #283593 100%);
             padding: 8px 12px;
-            border-left: 5px solid #1a237e;
+            border-left: 5px solid #ffc107;
             border-radius: 0 8px 8px 0;
         }
         .header-section {
@@ -274,12 +274,14 @@
     <!-- Signature on Page 1 - Right Side -->
     <div class="signature-right">
         <div><img th:if="${not #lists.isEmpty(vendorSignature)}" th:src="${vendorSignature[0]}" class="signature-img" alt="Vendor Signature"/><div th:if="${#lists.isEmpty(vendorSignature)}" class="line"></div></div>
+        <div style="margin-top: 3px;"><strong th:text="${vendorName}">Arihant Electricals</strong></div>
         <div style="margin-top: 5px;"><strong>Proprietor</strong></div>
     </div>
 
     <!-- PAGE 1 BOTTOM IMAGE -->
     <div class="first-page-image">
-        <img th:src="${cotationFirstPageImage}" alt="Cotation 1st Page Image"/>
+        <img th:if="${cotationFirstPageImage != null and cotationFirstPageImage != ''}" th:src="${cotationFirstPageImage}" alt="Cotation 1st Page Image"/>
+        <div th:if="${cotationFirstPageImage == null or cotationFirstPageImage == ''}" style="height: 200px; background: #f0f0f0; display: flex; align-items: center; justify-content: center;">Image Placeholder</div>
     </div>
 </div>
 
@@ -311,7 +313,10 @@
                 <td>
                     ✓ Design and installation of Galvanized, Structure with heavy support<br>
                     ✓ Proper grouting and calming to secure structure against stormy wind.<br><br>
-                    <div class="image-cell"><img th:src="${secondPageFirstImage}" alt="Installation Image 1"/></div>
+                    <div class="image-cell">
+                        <img th:if="${secondPageFirstImage != null and secondPageFirstImage != ''}" th:src="${secondPageFirstImage}" alt="Installation Image 1"/>
+                        <div th:if="${secondPageFirstImage == null or secondPageFirstImage == ''}" style="height: 80px; background: #f0f0f0; display: flex; align-items: center; justify-content: center;">Image 1</div>
+                    </div>
                 </td>
             </tr>
             <!-- ROW 2 with IMAGE 2 -->
@@ -323,7 +328,10 @@
                     ✓ Wiring as per safety terms of MSEDCL<br>
                     ✓ Synchronization with Grid<br>
                     ✓ Proper earthing<br><br>
-                    <div class="image-cell"><img th:src="${secondPageSecondImage}" alt="Installation Image 2"/></div>
+                    <div class="image-cell">
+                        <img th:if="${secondPageSecondImage != null and secondPageSecondImage != ''}" th:src="${secondPageSecondImage}" alt="Installation Image 2"/>
+                        <div th:if="${secondPageSecondImage == null or secondPageSecondImage == ''}" style="height: 80px; background: #f0f0f0; display: flex; align-items: center; justify-content: center;">Image 2</div>
+                    </div>
                 </td>
             </tr>
             <!-- ROW 3 with IMAGE 3 -->
@@ -332,7 +340,10 @@
                 <td>Cleaning System</td>
                 <td>
                     ✓ An efficient sprinkle system is provided with 3 to 5 hp pump to protect generation from dust.<br><br>
-                    <div class="image-cell"><img th:src="${secondPageThirdImage}" alt="Installation Image 3"/></div>
+                    <div class="image-cell">
+                        <img th:if="${secondPageThirdImage != null and secondPageThirdImage != ''}" th:src="${secondPageThirdImage}" alt="Installation Image 3"/>
+                        <div th:if="${secondPageThirdImage == null or secondPageThirdImage == ''}" style="height: 80px; background: #f0f0f0; display: flex; align-items: center; justify-content: center;">Image 3</div>
+                    </div>
                 </td>
             </tr>
             <!-- ROW 4 with IMAGE 4 -->
@@ -341,7 +352,10 @@
                 <td>Performance Testing unit</td>
                 <td>
                     ✓ Our testing unit help you to detect if any of our solar panel is lagging in generation.<br><br>
-                    <div class="image-cell"><img th:src="${secondPageFourthImage}" alt="Installation Image 4"/></div>
+                    <div class="image-cell">
+                        <img th:if="${secondPageFourthImage != null and secondPageFourthImage != ''}" th:src="${secondPageFourthImage}" alt="Installation Image 4"/>
+                        <div th:if="${secondPageFourthImage == null or secondPageFourthImage == ''}" style="height: 80px; background: #f0f0f0; display: flex; align-items: center; justify-content: center;">Image 4</div>
+                    </div>
                 </td>
             </tr>
             </tbody>
@@ -410,6 +424,7 @@
     <!-- Signature on Page 3 - Right Side -->
     <div class="signature-right">
         <div><img th:if="${not #lists.isEmpty(vendorSignature)}" th:src="${vendorSignature[0]}" class="signature-img" alt="Vendor Signature"/><div th:if="${#lists.isEmpty(vendorSignature)}" class="line"></div></div>
+        <div style="margin-top: 3px;"><strong th:text="${vendorName}">Arihant Electricals</strong></div>
         <div style="margin-top: 5px;"><strong>Proprietor</strong></div>
     </div>
 </div>
@@ -507,6 +522,7 @@
     <!-- Signature on Page 4 - Right Side -->
     <div class="signature-right">
         <div><img th:if="${not #lists.isEmpty(vendorSignature)}" th:src="${vendorSignature[0]}" class="signature-img" alt="Vendor Signature"/><div th:if="${#lists.isEmpty(vendorSignature)}" class="line"></div></div>
+        <div style="margin-top: 3px;"><strong th:text="${vendorName}">Arihant Electricals</strong></div>
         <div style="margin-top: 5px;"><strong>Proprietor</strong></div>
     </div>
 </div>
@@ -540,9 +556,10 @@
         <p><strong>IFSC Code:</strong> MAHB0001872</p>
     </div>
 
-    <!-- Signature on Page 5 - Left Side (Only Signature + Proprietor, No Name/Date) -->
+    <!-- Signature on Page 5 - Left Side -->
     <div class="signature-left">
         <div><img th:if="${not #lists.isEmpty(vendorSignature)}" th:src="${vendorSignature[0]}" class="signature-img" alt="Vendor Signature"/><div th:if="${#lists.isEmpty(vendorSignature)}" class="line"></div></div>
+        <div style="margin-top: 3px;"><strong th:text="${vendorName}">Arihant Electricals</strong></div>
         <div style="margin-top: 5px;"><strong>Proprietor</strong></div>
     </div>
 </div>
