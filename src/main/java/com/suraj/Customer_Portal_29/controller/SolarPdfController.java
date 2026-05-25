@@ -23,11 +23,11 @@ public class SolarPdfController {
     private final PdfMergerService pdfMergerService;
     private final OwnerRepository ownerRepository;
 
-    private static final String IMAGE_COTATION_1ST_PAGE = "Cotation_1stPage Image.png";
-    private static final String IMAGE_SECOND_PAGE_FIRST = "SecondPageFirst Image.png";
-    private static final String IMAGE_SECOND_PAGE_SECOND = "SecondPageSecond Image.png";
-    private static final String IMAGE_SECOND_PAGE_THIRD = "SecondPageThird Image.png";
-    private static final String IMAGE_SECOND_PAGE_FOURTH = "SecondPageFourth Image.png";
+    private static final String IMAGE_COTATION_1ST_PAGE = "CotationFirstPageImage.png";
+    private static final String IMAGE_SECOND_PAGE_FIRST = "SecondPageFirstImage.png";
+    private static final String IMAGE_SECOND_PAGE_SECOND = "SecondPageSecondImage.png";
+    private static final String IMAGE_SECOND_PAGE_THIRD = "SecondPageThirdImage.png";
+    private static final String IMAGE_SECOND_PAGE_FOURTH = "SecondPageFourthImage.png";
 
     public SolarPdfController(SolarRecordService solarService,
                               PdfGeneratorService pdfService,
