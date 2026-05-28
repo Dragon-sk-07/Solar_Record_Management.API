@@ -11,6 +11,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
+
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -60,76 +61,86 @@ public class UserManagementService {
                             MultipartFile witness1Signature,
                             MultipartFile witness2Signature) {
 
-        System.out.println("=== UserManagementService.updateUser ===");
+        System.out.println("=== UserManagementService.updateUser START ===");
         System.out.println("User ID: " + userId);
+        System.out.println("Request vendorAddress: " + request.getVendorAddress());
+        System.out.println("Request witness1Name: " + request.getWitness1Name());
+        System.out.println("Request authorizedPersonName: " + request.getAuthorizedPersonName());
 
         Owner user = ownerRepository.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));
+        System.out.println("Found user: " + user.getName() + " (ID: " + user.getId() + ")");
 
+        // Update Vendor Details
         if (request.getVendorAddress() != null) {
             user.setVendorAddress(request.getVendorAddress());
-            System.out.println("Set vendorAddress: " + request.getVendorAddress());
+            System.out.println("Set vendorAddress to: " + request.getVendorAddress());
         }
         if (request.getAuthorizedPersonName() != null) {
             user.setAuthorizedPersonName(request.getAuthorizedPersonName());
-            System.out.println("Set authorizedPersonName: " + request.getAuthorizedPersonName());
+            System.out.println("Set authorizedPersonName to: " + request.getAuthorizedPersonName());
         }
         if (request.getWitness1Name() != null) {
             user.setWitness1Name(request.getWitness1Name());
-            System.out.println("Set witness1Name: " + request.getWitness1Name());
+            System.out.println("Set witness1Name to: " + request.getWitness1Name());
         }
         if (request.getWitness1Address() != null) {
             user.setWitness1Address(request.getWitness1Address());
-            System.out.println("Set witness1Address: " + request.getWitness1Address());
+            System.out.println("Set witness1Address to: " + request.getWitness1Address());
         }
         if (request.getWitness2Name() != null) {
             user.setWitness2Name(request.getWitness2Name());
-            System.out.println("Set witness2Name: " + request.getWitness2Name());
+            System.out.println("Set witness2Name to: " + request.getWitness2Name());
         }
         if (request.getWitness2Address() != null) {
             user.setWitness2Address(request.getWitness2Address());
-            System.out.println("Set witness2Address: " + request.getWitness2Address());
+            System.out.println("Set witness2Address to: " + request.getWitness2Address());
         }
         if (request.getVendorMobile() != null) {
             user.setVendorMobile(request.getVendorMobile());
-            System.out.println("Set vendorMobile: " + request.getVendorMobile());
+            System.out.println("Set vendorMobile to: " + request.getVendorMobile());
         }
         if (request.getVendorEmail() != null) {
             user.setVendorEmail(request.getVendorEmail());
-            System.out.println("Set vendorEmail: " + request.getVendorEmail());
+            System.out.println("Set vendorEmail to: " + request.getVendorEmail());
         }
+
+        // Update Bank Details
         if (request.getBankAccountName() != null) {
             user.setBankAccountName(request.getBankAccountName());
-            System.out.println("Set bankAccountName: " + request.getBankAccountName());
+            System.out.println("Set bankAccountName to: " + request.getBankAccountName());
         }
         if (request.getBankAccountNumber() != null) {
             user.setBankAccountNumber(request.getBankAccountNumber());
-            System.out.println("Set bankAccountNumber: " + request.getBankAccountNumber());
+            System.out.println("Set bankAccountNumber to: " + request.getBankAccountNumber());
         }
         if (request.getBankName() != null) {
             user.setBankName(request.getBankName());
-            System.out.println("Set bankName: " + request.getBankName());
+            System.out.println("Set bankName to: " + request.getBankName());
         }
         if (request.getBankIfscCode() != null) {
             user.setBankIfscCode(request.getBankIfscCode());
-            System.out.println("Set bankIfscCode: " + request.getBankIfscCode());
+            System.out.println("Set bankIfscCode to: " + request.getBankIfscCode());
         }
         if (request.getBranchName() != null) {
             user.setBranchName(request.getBranchName());
-            System.out.println("Set branchName: " + request.getBranchName());
+            System.out.println("Set branchName to: " + request.getBranchName());
         }
         if (request.getDesignation() != null) {
             user.setDesignation(request.getDesignation());
-            System.out.println("Set designation: " + request.getDesignation());
+            System.out.println("Set designation to: " + request.getDesignation());
         }
 
+        // Update Images
         user.setHeaderLogoUrl(syncImage(user.getHeaderLogoUrl(), headerLogo, request.getExistingHeaderLogo(), "userHeaderLogos"));
         user.setVendorSignatureUrl(syncImage(user.getVendorSignatureUrl(), vendorSignature, request.getExistingVendorSignature(), "userVendorSignatures"));
         user.setWitness1SignatureUrl(syncImage(user.getWitness1SignatureUrl(), witness1Signature, request.getExistingWitness1Signature(), "userWitnessSignatures"));
         user.setWitness2SignatureUrl(syncImage(user.getWitness2SignatureUrl(), witness2Signature, request.getExistingWitness2Signature(), "userWitnessSignatures"));
 
         Owner savedUser = ownerRepository.save(user);
-        System.out.println("User saved successfully. VendorAddress: " + savedUser.getVendorAddress());
-        System.out.println("Witness1Name: " + savedUser.getWitness1Name());
+        System.out.println("=== User saved successfully ===");
+        System.out.println("Final vendorAddress: " + savedUser.getVendorAddress());
+        System.out.println("Final witness1Name: " + savedUser.getWitness1Name());
+        System.out.println("=== UserManagementService.updateUser END ===");
 
         return savedUser;
     }
@@ -153,25 +164,6 @@ public class UserManagementService {
         }
 
         return finalUrl;
-    }
-
-    private List<String> uploadImagesWithCompression(List<MultipartFile> files, String folder) {
-        if (files == null || files.isEmpty()) return Collections.emptyList();
-        return files.stream()
-                .filter(Objects::nonNull)
-                .map(file -> cloudinaryService.uploadFile(file, folder))
-                .collect(Collectors.toList());
-    }
-
-    private List<String> syncImages(List<String> existingImages, List<MultipartFile> newFiles, List<String> existingUrlsFromRequest, String folder) {
-        List<String> finalUrls = new ArrayList<>();
-        if (existingUrlsFromRequest != null) finalUrls.addAll(existingUrlsFromRequest);
-        if (newFiles != null && !newFiles.isEmpty()) finalUrls.addAll(uploadImagesWithCompression(newFiles, folder));
-        if (existingImages != null && !existingImages.isEmpty()) {
-            List<String> urlsToDelete = existingImages.stream().filter(url -> !finalUrls.contains(url)).collect(Collectors.toList());
-            if (!urlsToDelete.isEmpty()) cloudinaryService.deleteFiles(urlsToDelete);
-        }
-        return finalUrls;
     }
 
     public Owner updateUserPermissions(Long userId, Set<Permission> permissions) {

@@ -150,19 +150,11 @@ public class SolarPdfController {
         System.out.println("Record ID: " + id);
         System.out.println("Include Complete Data: " + includeCompleteData);
 
-        // Fetch Solar Record
         SolarRecordResponseDto record = solarService.findById(id);
         System.out.println("\n--- SOLAR RECORD DATA ---");
         System.out.println("Consumer Name: " + record.getName());
         System.out.println("Consumer Number: " + record.getConsumerNumber());
-        System.out.println("Mobile: " + record.getMobileNumber());
-        System.out.println("Email: " + record.getEmail());
-        System.out.println("Site Address: " + record.getSiteAddress());
-        System.out.println("Place: " + record.getPlace());
-        System.out.println("Installed Capacity: " + record.getInstalledCapacity());
-        System.out.println("Consumer Signature: " + (record.getConsumerSignature() != null ? record.getConsumerSignature().size() + " file(s)" : "null"));
 
-        // Fetch Current Logged-in User (Vendor)
         Owner currentUser = getCurrentUser();
 
         Map<String, Object> data = new HashMap<>();
@@ -171,10 +163,7 @@ public class SolarPdfController {
         DateTimeFormatter monthFormatter = DateTimeFormatter.ofPattern("MMMM");
         DateTimeFormatter installDateFormatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
 
-        // ============================================
-        // 1. CONSUMER DETAILS (from SolarRecord)
-        // ============================================
-        System.out.println("\n--- ADDING CONSUMER DETAILS ---");
+        // 1. CONSUMER DETAILS
         data.put("name", getValueOrDefault(record.getName(), ""));
         data.put("consumerNumber", getValueOrDefault(record.getConsumerNumber(), ""));
         data.put("consumerName", getValueOrDefault(record.getName(), ""));
@@ -238,11 +227,7 @@ public class SolarPdfController {
         data.put("baseAmount", baseAmount);
         data.put("gstAmount", gstAmount);
 
-        // ============================================
-        // 2. VENDOR DETAILS (from Logged-in User Profile)
-        // ============================================
-        System.out.println("\n--- ADDING VENDOR DETAILS FROM PROFILE ---");
-
+        // 2. VENDOR DETAILS from Profile
         String vendorName = getValueOrDefault(currentUser.getName(), "");
         String vendorAddress = getValueOrDefault(currentUser.getVendorAddress(), "");
         String vendorMobile = getValueOrDefault(currentUser.getVendorMobile(), "");
@@ -252,10 +237,7 @@ public class SolarPdfController {
 
         System.out.println("Vendor Name from Profile: '" + vendorName + "'");
         System.out.println("Vendor Address from Profile: '" + vendorAddress + "'");
-        System.out.println("Vendor Mobile from Profile: '" + vendorMobile + "'");
-        System.out.println("Vendor Email from Profile: '" + vendorEmail + "'");
         System.out.println("Authorized Person Name: '" + authorizedPersonName + "'");
-        System.out.println("Designation: '" + designation + "'");
 
         data.put("vendorName", vendorName);
         data.put("vendorAddress", vendorAddress);
@@ -264,42 +246,23 @@ public class SolarPdfController {
         data.put("authorizedPersonName", authorizedPersonName);
         data.put("designation", designation);
 
-        // ============================================
-        // 3. WITNESS DETAILS (from Logged-in User Profile)
-        // ============================================
-        System.out.println("\n--- ADDING WITNESS DETAILS FROM PROFILE ---");
-
+        // 3. WITNESS DETAILS
         String witness1Name = getValueOrDefault(currentUser.getWitness1Name(), "");
         String witness1Address = getValueOrDefault(currentUser.getWitness1Address(), "");
         String witness2Name = getValueOrDefault(currentUser.getWitness2Name(), "");
         String witness2Address = getValueOrDefault(currentUser.getWitness2Address(), "");
-
-        System.out.println("Witness 1 Name: '" + witness1Name + "'");
-        System.out.println("Witness 1 Address: '" + witness1Address + "'");
-        System.out.println("Witness 2 Name: '" + witness2Name + "'");
-        System.out.println("Witness 2 Address: '" + witness2Address + "'");
 
         data.put("witness1Name", witness1Name);
         data.put("witness1Address", witness1Address);
         data.put("witness2Name", witness2Name);
         data.put("witness2Address", witness2Address);
 
-        // ============================================
-        // 4. BANK DETAILS (from Logged-in User Profile)
-        // ============================================
-        System.out.println("\n--- ADDING BANK DETAILS FROM PROFILE ---");
-
+        // 4. BANK DETAILS
         String bankAccountName = getValueOrDefault(currentUser.getBankAccountName(), "");
         String bankAccountNumber = getValueOrDefault(currentUser.getBankAccountNumber(), "");
         String bankName = getValueOrDefault(currentUser.getBankName(), "");
         String bankIfscCode = getValueOrDefault(currentUser.getBankIfscCode(), "");
         String branchName = getValueOrDefault(currentUser.getBranchName(), "");
-
-        System.out.println("Bank Account Name: '" + bankAccountName + "'");
-        System.out.println("Bank Account Number: '" + bankAccountNumber + "'");
-        System.out.println("Bank Name: '" + bankName + "'");
-        System.out.println("IFSC Code: '" + bankIfscCode + "'");
-        System.out.println("Branch Name: '" + branchName + "'");
 
         data.put("bankAccountName", bankAccountName);
         data.put("bankAccountNumber", bankAccountNumber);
@@ -307,133 +270,66 @@ public class SolarPdfController {
         data.put("bankIfscCode", bankIfscCode);
         data.put("branchName", branchName);
 
-        // ============================================
-        // 5. IMAGES & SIGNATURES (from Profile)
-        // ============================================
-        System.out.println("\n--- ADDING IMAGES & SIGNATURES FROM PROFILE ---");
-
-        // Header Logo
+        // 5. IMAGES & SIGNATURES
         String headerLogoUrl = getValueOrDefault(currentUser.getHeaderLogoUrl(), "");
         List<String> headerLogoList = new ArrayList<>();
         if (headerLogoUrl != null && !headerLogoUrl.isEmpty()) {
             headerLogoList.add(headerLogoUrl);
             System.out.println("Header Logo URL: '" + headerLogoUrl + "'");
-        } else {
-            System.out.println("Header Logo URL: EMPTY - using default");
         }
         data.put("headerLogo", headerLogoList);
 
-        // Vendor Signature
         String vendorSignatureUrl = getValueOrDefault(currentUser.getVendorSignatureUrl(), "");
         List<String> vendorSignatureList = new ArrayList<>();
         if (vendorSignatureUrl != null && !vendorSignatureUrl.isEmpty()) {
             vendorSignatureList.add(vendorSignatureUrl);
             System.out.println("Vendor Signature URL: '" + vendorSignatureUrl + "'");
-        } else {
-            System.out.println("Vendor Signature URL: EMPTY");
         }
         data.put("vendorSignature", vendorSignatureList);
 
-        // Witness 1 Signature
         String witness1SignatureUrl = getValueOrDefault(currentUser.getWitness1SignatureUrl(), "");
-        System.out.println("Witness 1 Signature URL: '" + witness1SignatureUrl + "'");
         data.put("witness1Signature", witness1SignatureUrl);
 
-        // Witness 2 Signature
         String witness2SignatureUrl = getValueOrDefault(currentUser.getWitness2SignatureUrl(), "");
-        System.out.println("Witness 2 Signature URL: '" + witness2SignatureUrl + "'");
         data.put("witness2Signature", witness2SignatureUrl);
 
-        // Consumer Signature from SolarRecord
         List<String> consumerSignatureList = record.getConsumerSignature();
-        if (consumerSignatureList != null && !consumerSignatureList.isEmpty()) {
-            System.out.println("Consumer Signature URLs: " + consumerSignatureList.size() + " file(s)");
-            for (int i = 0; i < consumerSignatureList.size(); i++) {
-                System.out.println("  Consumer Signature [" + i + "]: " + consumerSignatureList.get(i));
-            }
-        } else {
-            System.out.println("Consumer Signature: EMPTY");
-        }
         data.put("consumerSignature", consumerSignatureList != null ? consumerSignatureList : Collections.emptyList());
 
-        // ============================================
-        // 6. STAMPS (from SolarRecord)
-        // ============================================
-        System.out.println("\n--- ADDING STAMPS FROM SOLAR RECORD ---");
-
+        // 6. STAMPS
         List<String> netMeteringStampList = record.getNetMeteringStamp();
-        System.out.println("Net Metering Stamp: " + (netMeteringStampList != null && !netMeteringStampList.isEmpty() ? netMeteringStampList.get(0) : "EMPTY"));
         data.put("netMeteringStamp", netMeteringStampList != null ? netMeteringStampList : Collections.emptyList());
 
         List<String> annexureTwoStampList = record.getAnnexureTwoStamp();
-        System.out.println("Annexure II Stamp: " + (annexureTwoStampList != null && !annexureTwoStampList.isEmpty() ? annexureTwoStampList.get(0) : "EMPTY"));
         data.put("annexureTwoStamp", annexureTwoStampList != null ? annexureTwoStampList : Collections.emptyList());
 
-        // ============================================
-        // 7. AADHAR IMAGES (from SolarRecord)
-        // ============================================
-        System.out.println("\n--- ADDING AADHAR IMAGES FROM SOLAR RECORD ---");
-
-        List<String> aadharImageUrls = new ArrayList<>();
-        if (record.getAadharImages() != null && !record.getAadharImages().isEmpty()) {
-            System.out.println("Aadhar Images count: " + record.getAadharImages().size());
-            for (String imageUrl : record.getAadharImages()) {
-                if (imageUrl != null) {
-                    aadharImageUrls.add(imageUrl);
-                    System.out.println("  Aadhar Image: " + imageUrl);
-                }
-            }
-        } else {
-            System.out.println("Aadhar Images: EMPTY");
-        }
-        data.put("aadharImageUrls", aadharImageUrls);
+        // 7. AADHAR IMAGES
         data.put("aadharImages", record.getAadharImages() != null ? record.getAadharImages() : Collections.emptyList());
 
-        // ============================================
-        // 8. SITE PHOTOS (from SolarRecord)
-        // ============================================
-        System.out.println("\n--- ADDING SITE PHOTOS FROM SOLAR RECORD ---");
-
+        // 8. SITE PHOTOS
         List<String> processedSitePhotos = new ArrayList<>();
         if (record.getSitePhotos() != null) {
-            System.out.println("Site Photos count: " + record.getSitePhotos().size());
             for (String photo : record.getSitePhotos()) {
                 if (photo != null) {
                     String photoUrl = photo.startsWith("http") ? photo : "/api/uploads/" + photo;
                     processedSitePhotos.add(photoUrl);
-                    System.out.println("  Site Photo: " + photoUrl);
                 }
             }
-        } else {
-            System.out.println("Site Photos: EMPTY");
         }
         data.put("sitePhotos", processedSitePhotos);
 
-        // ============================================
         // 9. DATES
-        // ============================================
-        System.out.println("\n--- ADDING DATES ---");
-
         String currentDate = now.format(dateFormatter);
         String day = String.valueOf(now.getDayOfMonth());
         String month = now.format(monthFormatter);
         String year = String.valueOf(now.getYear());
-
-        System.out.println("Current Date: " + currentDate);
-        System.out.println("Day: " + day);
-        System.out.println("Month: " + month);
-        System.out.println("Year: " + year);
 
         data.put("currentDate", currentDate);
         data.put("day", day);
         data.put("month", month);
         data.put("year", year);
 
-        // ============================================
-        // 10. DEFAULT IMAGES (Base64 encoded)
-        // ============================================
-        System.out.println("\n--- ADDING DEFAULT IMAGES ---");
-
+        // 10. DEFAULT IMAGES
         String defaultArihantHeader = convertImageToBase64("/Arihant_Header.png");
         String defaultMsedclHeader = convertImageToBase64("/MSEDCL_Header.png");
         String cotationFirstPageImage = convertImageToBase64("/CotationFirstPageImage.png");
@@ -441,10 +337,6 @@ public class SolarPdfController {
         String secondPageSecondImage = convertImageToBase64("/SecondPageSecondImage.png");
         String secondPageThirdImage = convertImageToBase64("/SecondPageThirdImage.png");
         String secondPageFourthImage = convertImageToBase64("/SecondPageFourthImage.png");
-
-        System.out.println("Default Arihant Header: " + (defaultArihantHeader != null && !defaultArihantHeader.isEmpty() ? "LOADED" : "NOT LOADED"));
-        System.out.println("Default MSEDCL Header: " + (defaultMsedclHeader != null && !defaultMsedclHeader.isEmpty() ? "LOADED" : "NOT LOADED"));
-        System.out.println("Cotation Images: " + (cotationFirstPageImage != null && !cotationFirstPageImage.isEmpty() ? "LOADED" : "NOT LOADED"));
 
         data.put("defaultArihantHeader", defaultArihantHeader);
         data.put("defaultMsedclHeader", defaultMsedclHeader);
@@ -454,21 +346,11 @@ public class SolarPdfController {
         data.put("secondPageThirdImage", secondPageThirdImage);
         data.put("secondPageFourthImage", secondPageFourthImage);
 
-        // ============================================
-        // 11. FINAL DATA MAP SUMMARY
-        // ============================================
         System.out.println("\n========== BUILD DATA SUMMARY ==========");
         System.out.println("Total fields in data map: " + data.size());
-        System.out.println("\n--- CRITICAL FIELDS CHECK ---");
         System.out.println("vendorName: '" + data.get("vendorName") + "'");
         System.out.println("vendorAddress: '" + data.get("vendorAddress") + "'");
         System.out.println("vendorSignature: " + (data.get("vendorSignature") != null ? ((List<?>)data.get("vendorSignature")).size() + " item(s)" : "null"));
-        System.out.println("witness1Signature: '" + data.get("witness1Signature") + "'");
-        System.out.println("witness2Signature: '" + data.get("witness2Signature") + "'");
-        System.out.println("witness1Name: '" + data.get("witness1Name") + "'");
-        System.out.println("witness2Name: '" + data.get("witness2Name") + "'");
-        System.out.println("headerLogo: " + (data.get("headerLogo") != null ? ((List<?>)data.get("headerLogo")).size() + " item(s)" : "null"));
-        System.out.println("consumerSignature: " + (data.get("consumerSignature") != null ? ((List<?>)data.get("consumerSignature")).size() + " item(s)" : "null"));
         System.out.println("========== BUILD DATA END ==========\n");
 
         return data;

@@ -13,6 +13,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+
 import java.util.HashSet;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -110,57 +111,41 @@ public class UserManagementController {
         String email = SecurityContextHolder.getContext().getAuthentication().getName();
         Owner currentUser = ownerRepository.findByEmail(email).orElseThrow(() -> new RuntimeException("User not found"));
         System.out.println("=== GET CURRENT USER PROFILE ===");
+        System.out.println("User ID: " + currentUser.getId());
         System.out.println("Vendor Address: " + currentUser.getVendorAddress());
         System.out.println("Witness1 Name: " + currentUser.getWitness1Name());
+        System.out.println("Header Logo URL: " + currentUser.getHeaderLogoUrl());
         return ResponseEntity.ok(new ApiResponseDto<>("User fetched successfully", mapToResponse(currentUser)));
     }
 
     @PutMapping(value = "/me", consumes = {"multipart/form-data"})
     @Transactional
     public ResponseEntity<ApiResponseDto<UserResponseDto>> updateCurrentUserProfile(
-            @RequestParam(required = false) String vendorAddress,
-            @RequestParam(required = false) String authorizedPersonName,
-            @RequestParam(required = false) String witness1Name,
-            @RequestParam(required = false) String witness1Address,
-            @RequestParam(required = false) String witness2Name,
-            @RequestParam(required = false) String witness2Address,
-            @RequestParam(required = false) String vendorMobile,
-            @RequestParam(required = false) String vendorEmail,
-            @RequestParam(required = false) String bankAccountName,
-            @RequestParam(required = false) String bankAccountNumber,
-            @RequestParam(required = false) String bankName,
-            @RequestParam(required = false) String bankIfscCode,
-            @RequestParam(required = false) String branchName,
-            @RequestParam(required = false) String designation,
+            @ModelAttribute UserRequestDto request,
             @RequestParam(required = false) MultipartFile headerLogo,
             @RequestParam(required = false) MultipartFile vendorSignature,
             @RequestParam(required = false) MultipartFile witness1Signature,
             @RequestParam(required = false) MultipartFile witness2Signature) {
 
         System.out.println("=== UPDATE CURRENT USER PROFILE ===");
-        System.out.println("Received vendorAddress: " + vendorAddress);
-        System.out.println("Received witness1Name: " + witness1Name);
+        System.out.println("Received vendorAddress: " + request.getVendorAddress());
+        System.out.println("Received witness1Name: " + request.getWitness1Name());
+        System.out.println("Received authorizedPersonName: " + request.getAuthorizedPersonName());
+        System.out.println("Received designation: " + request.getDesignation());
+        System.out.println("Received bankAccountName: " + request.getBankAccountName());
+        System.out.println("Received bankAccountNumber: " + request.getBankAccountNumber());
+        System.out.println("Received bankName: " + request.getBankName());
+        System.out.println("Received bankIfscCode: " + request.getBankIfscCode());
+        System.out.println("Received branchName: " + request.getBranchName());
 
         Owner currentUser = getLoggedInUser();
-
-        UserRequestDto request = new UserRequestDto();
-        request.setVendorAddress(vendorAddress);
-        request.setAuthorizedPersonName(authorizedPersonName);
-        request.setWitness1Name(witness1Name);
-        request.setWitness1Address(witness1Address);
-        request.setWitness2Name(witness2Name);
-        request.setWitness2Address(witness2Address);
-        request.setVendorMobile(vendorMobile);
-        request.setVendorEmail(vendorEmail);
-        request.setBankAccountName(bankAccountName);
-        request.setBankAccountNumber(bankAccountNumber);
-        request.setBankName(bankName);
-        request.setBankIfscCode(bankIfscCode);
-        request.setBranchName(branchName);
-        request.setDesignation(designation);
+        System.out.println("Current user ID: " + currentUser.getId());
 
         Owner user = userManagementService.updateUser(currentUser.getId(), request,
                 headerLogo, vendorSignature, witness1Signature, witness2Signature);
+
+        System.out.println("After update - Vendor Address: " + user.getVendorAddress());
+        System.out.println("After update - Witness1 Name: " + user.getWitness1Name());
 
         return ResponseEntity.ok(new ApiResponseDto<>("Profile updated successfully", mapToResponse(user)));
     }
