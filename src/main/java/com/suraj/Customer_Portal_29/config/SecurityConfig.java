@@ -42,6 +42,8 @@ public class SecurityConfig {
                                 "/MSEDCL_Header.jpeg",
                                 "/static/**"
                         ).permitAll()
+                        .requestMatchers("/api/admin/users/me").authenticated()
+                        .requestMatchers("/api/admin/users/**").hasRole("SUPER_ADMIN")
                         .anyRequest().authenticated()
                 )
 
