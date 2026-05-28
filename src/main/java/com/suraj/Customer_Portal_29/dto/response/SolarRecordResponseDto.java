@@ -50,10 +50,11 @@ public class SolarRecordResponseDto {
     private String witness1Address;
     private String witness2Name;
     private String witness2Address;
+    private Double totalAmountIncludingGST;
 
     private List<String> vendorSignature;
     private List<String> consumerSignature;
-    private List<String> msedclSignature;
+//    private List<String> msedclSignature;
     private List<String> witnessSignature;
     private List<String> aadharImages;
     private List<String> sitePhotos;

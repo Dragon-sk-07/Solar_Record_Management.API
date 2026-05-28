@@ -10,183 +10,286 @@
         padding: 0;
         box-sizing: border-box;
     }
+
     @page {
-        margin: 6mm 10mm;
+        size: A4;
+        margin: 15mm 12mm;
     }
+
     body {
         font-family: 'Times New Roman', Times, serif;
         font-size: 11pt;
-        line-height: 1.35;
-        color: #000;
-        padding: 10px 15px;
+        line-height: 1.4;
+        color: #000000;
+        background: #ffffff;
     }
+
     .document {
         width: 100%;
+        max-width: 100%;
     }
+
     p {
-        margin: 0 0 3px 0;
+        margin: 0 0 4px 0;
         text-align: justify;
     }
+
     .center {
         text-align: center;
     }
+
     .bold {
         font-weight: bold;
     }
+
     h1 {
         text-align: center;
-        font-size: 14px;
+        font-size: 14pt;
         font-weight: bold;
-        margin: 4px 0 8px 0;
+        margin: 8px 0 12px 0;
         text-transform: uppercase;
         letter-spacing: 0.5px;
+        line-height: 1.3;
     }
+
     h2 {
-        font-size: 13px;
+        font-size: 12pt;
         font-weight: bold;
-        margin: 10px 0 4px 0;
+        margin: 12px 0 6px 0;
         text-align: center;
+        text-decoration: underline;
     }
+
     .annexure-title {
         text-align: center;
-        margin-bottom: 5px;
+        margin-bottom: 8px;
         font-weight: bold;
+        font-size: 12pt;
     }
+
     .execution-date {
-        margin: 10px 0;
+        margin: 15px 0;
         text-align: center;
+        font-style: italic;
     }
+
     .party-section {
-        margin: 10px 0;
+        margin: 15px 0;
         text-align: center;
     }
+
     .party-section p {
         text-align: center;
     }
+
+    .centered-content {
+        text-align: center;
+    }
+
     .clause {
-        margin: 8px 0;
+        margin: 10px 0;
         text-align: center;
     }
+
     .sub-clause {
-        margin-left: 20px;
-        margin-top: 3px;
+        margin-left: 25px;
+        margin-top: 5px;
+        margin-bottom: 5px;
         text-align: left;
+        text-indent: -20px;
+        padding-left: 20px;
     }
+
     .list-item {
-        margin-left: 30px;
-        margin-top: 3px;
+        margin-left: 40px;
+        margin-top: 5px;
         text-align: left;
     }
+
     .signature-row {
-        display: table;
+        display: flex;
         width: 100%;
-        table-layout: fixed;
-        margin: 12px 0 8px 0;
+        margin: 25px 0 15px 0;
+        gap: 30px;
     }
-    .signature-left, .signature-right {
-        display: table-cell;
-        width: 50%;
-        vertical-align: top;
-    }
+
     .signature-left {
+        flex: 1;
         text-align: left;
-        padding-right: 15px;
     }
+
     .signature-right {
+        flex: 1;
         text-align: left;
-        padding-left: 15px;
     }
+
     .signature-space {
-        height: 50px;
-        margin: 3px 0;
-    }
-    .line {
-        margin-top: 3px;
-        border-bottom: 1px solid #000;
-        height: 15px;
+        height: 60px;
+        margin: 8px 0;
+        border-bottom: 1px solid #000000;
         width: 100%;
     }
+
+    .signature-space img {
+        max-height: 55px;
+        max-width: 200px;
+        object-fit: contain;
+        display: block;
+    }
+
+    .line {
+        margin-top: 5px;
+        border-bottom: 1px solid #000000;
+        height: 1px;
+        width: 100%;
+    }
+
     .disclaimer {
-        margin-top: 15px;
-        font-size: 9px;
+        margin-top: 20px;
+        font-size: 9pt;
         font-style: italic;
         text-align: center;
+        border-top: 1px solid #cccccc;
+        padding-top: 12px;
     }
+
     .value-missing {
-        color: #999;
+        color: #999999;
         font-style: italic;
     }
+
     .fixed-value {
         font-weight: 700;
     }
+
     .section-heading {
         text-align: center;
         font-weight: bold;
-        font-size: 13px;
-        margin: 15px 0 10px 0;
+        font-size: 12pt;
+        margin: 20px 0 12px 0;
+        background-color: #f0f0f0;
+        padding: 6px;
     }
+
     .mt8 {
-        margin-top: 5px;
-    }
-    .mt12 {
         margin-top: 8px;
     }
-    .mt18 {
-        margin-top: 10px;
-    }
-    .mt25 {
+
+    .mt12 {
         margin-top: 12px;
     }
-    .mt30 {
-        margin-top: 15px;
+
+    .mt18 {
+        margin-top: 18px;
     }
+
+    .mt25 {
+        margin-top: 25px;
+    }
+
+    .mt30 {
+        margin-top: 30px;
+    }
+
     .page-break {
         page-break-before: always;
+    }
+
+    .stamp-page {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 90vh;
+        page-break-after: always;
+    }
+
+    .stamp-page img {
+        width: 100%;
+        height: 85vh;
+        object-fit: contain;
+    }
+
+    /* Numbered list styling */
+    .numbered-list {
+        margin: 8px 0;
+    }
+
+    /* Better spacing for clauses */
+    .sub-clause:first-of-type {
+        margin-top: 5px;
+    }
+
+    /* Party section styling */
+    .party-section p:first-child {
+        font-size: 12pt;
+        margin-bottom: 8px;
+    }
+
+    /* Underline for empty fields */
+    .empty-field {
+        text-decoration: underline;
+        display: inline-block;
+        min-width: 150px;
+    }
+
+    /* Print optimization */
+    @media print {
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        .page-break {
+            page-break-before: always;
+        }
+
+        .section-heading {
+            background-color: #f0f0f0;
+            -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
+        }
     }
   </style>
 </head>
 <body>
 
-<!--<div style="text-align: center; margin-bottom: 15px; padding-bottom: 8px; border-bottom: 1px solid #000;">-->
-<!--  <img th:src="${defaultMsedclHeader}" style="max-width: 100%; max-height: 80px; object-fit: contain;" alt="MSEDCL Header"/>-->
-<!--</div>-->
-
 <!-- If Stamp Uploaded: Show Stamp on Page 1 -->
 <div th:if="${not #lists.isEmpty(annexureTwoStamp)}">
-  <div style="text-align: center; margin-top: 30px;">
-    <img th:src="${annexureTwoStamp[0]}" style="max-width: 80%; max-height: 500px; object-fit: contain; border: 1px solid #ccc; padding: 10px;" alt="Annexure-II Stamp"/>
+  <div class="stamp-page">
+    <img th:src="${annexureTwoStamp[0]}" alt="Annexure II Stamp"/>
   </div>
-  <!-- Force page break before content -->
-  <div class="page-break"></div>
 </div>
 
-<!-- Main Content (appears on Page 2 if stamp uploaded, otherwise Page 1) -->
+<!-- Main Content -->
 <div class="document">
   <div class="annexure-title">Annexure 2</div>
-  <h1>MODEL DRAFT AGREEMENT BETWEEN CONSUMER & VENDOR FOR<br/>INSTALLATION OF GRID CONNECTED ROOFTOP SOLAR (RTS) PROJECT<br/>UNDER PM - SURYA GHAR: MUFT BIJLI YOJANA</h1>
+
+  <h1>Model Draft Agreement between Consumer & Vendor for installation of grid connected rooftop solar (RTS) project under PM – Surya Ghar: Muft Bijli Yojana</h1>
 
   <p class="execution-date">
     This agreement is executed on
-    <span th:if="${installationDate != null and installationDate != ''}" th:text="${installationDate}"></span><span th:if="${installationDate == null or installationDate == ''}" class="value-missing">Value Missing</span>
+    <span th:text="${day}"></span><span th:if="${day == null or day == ''}">__________</span> (Day)
+    <span th:text="${month}"></span><span th:if="${month == null or month == ''}">__________</span> (Month)
+    <span th:text="${year}"></span><span th:if="${year == null or year == ''}">__________</span> (Year)
     for design, supply, installation, commissioning and 5-year comprehensive maintenance of RTS project/system along with warranty under PM Surya Ghar: Muft Bijli Yojana.
   </p>
 
   <div class="party-section">
     <p><strong>Between</strong></p>
     <p class="mt8">
-      <span th:if="${name != null and name != ''}" th:text="${name}"></span><span th:if="${name == null or name == ''}" class="value-missing">Value Missing</span>
-      having address at
-      <span th:if="${siteAddress != null and siteAddress != ''}" th:text="${siteAddress}"></span><span th:if="${siteAddress == null or siteAddress == ''}" class="value-missing">Value Missing</span>
-      (hereinafter referred to as first Party i.e. Consumer/purchaser/owner of system).
+      <span th:text="${name}"></span><span th:if="${name == null or name == ''}">________________________</span>
+      S/o, D/o, W/o ________________________, having address at
+      <span th:text="${siteAddress}"></span><span th:if="${siteAddress == null or siteAddress == ''}">________________________</span>
+      (hereinafter referred to as first Party i.e. consumer/purchaser/owner of system).
     </p>
   </div>
 
   <div class="party-section">
     <p><strong>And</strong></p>
     <p class="mt8">
-      <span th:if="${vendorName != null and vendorName != ''}" th:text="${vendorName}"></span><span th:if="${vendorName == null or vendorName == ''}" class="value-missing">Value Missing</span>
+      M/s <span th:text="${vendorName}"></span><span th:if="${vendorName == null or vendorName == ''}">________________________</span>
       having registered office at
-      <span th:if="${vendorAddress != null and vendorAddress != ''}" th:text="${vendorAddress}"></span><span th:if="${vendorAddress == null or vendorAddress == ''}" class="value-missing">Value Missing</span>
+      <span th:text="${vendorAddress}"></span><span th:if="${vendorAddress == null or vendorAddress == ''}">________________________</span>
       (hereinafter referred to as second Party i.e. Vendor/contractor/System Integrator).
     </p>
   </div>
@@ -198,11 +301,11 @@
 
   <div class="centered-content">
     <h2>And whereas</h2>
-    <p class="clause">Second Party has verified availability of appropriate roof and found it feasible to install a Grid Connected Roof Top Solar plant and that the second party is willing to design, supply, install, test, commission and carry out Operation & Maintenance of the Rooftop Solar plant for 5 year period</p>
+    <p class="clause">Second Party has verified availability of appropriate roof and found it feasible to install a Grid Connected Roof Top Solar plant and that the second party is willing to design, supply, install, test, commission and carry out Operation & Maintenance of the Rooftop Solar plant for 5 year period.</p>
   </div>
 
   <div class="centered-content">
-    <p class="mt12">On this day, the First Party and Second Party agree to the following:</p>
+    <p class="mt12"><strong>On this day, the First Party and Second Party agree to the following:</strong></p>
   </div>
 
   <div class="section-heading">The First Party hereby undertakes to perform the following activities:</div>
@@ -216,7 +319,7 @@
 
   <div class="section-heading">The Second Party hereby undertakes to perform the following activities:</div>
 
-  <div class="sub-clause">1. The Vendor must follow all the standards and safety guidelines prescribed under state regulations and technical standards prescribed by MNRE for RTS projects, failing which the vendor is liable for blacklisting from participation in the govt. project/ scheme and other penal actions in accordance with the law. The responsibility of supply, installation and commissioning of the rooftop solar project/system in complete compliance with MNRE scheme guidelines lies with the Vendor.</div>
+  <div class="sub-clause">1. The Vendor must follow all the standards and safety guidelines prescribed under state regulations and technical standards prescribed by MNRE for RTS projects, failing which the vendor is liable for blacklisting from participation in the govt. project/scheme and other penal actions in accordance with the law. The responsibility of supply, installation and commissioning of the rooftop solar project/system in complete compliance with MNRE scheme guidelines lies with the Vendor.</div>
   <div class="sub-clause">2. Site Survey: Site visit, survey and development of detailed project report for installation of RTS system. This also includes, feasibility study of roof, strength of roof and shadow free area. If any additional work or customization is involved for the plant installation as per site condition and requirement of the consumer building, the Vendor shall prepare an estimate and can raise separate invoice including GST in addition to the amount towards standard plant cost. The consumer shall pay the amount for such additional work directly to the Vendor.</div>
   <div class="sub-clause">3. Design & Engineering: Design of plant along with drawings and selection of components as per standard provided by the DISCOM/SERC/MNRE for best performance and safety of the plant.</div>
   <div class="sub-clause">4. Module and Inverter: The solar modules, including the solar cells, should be manufactured in India. Both the solar modules and inverters shall conform to the relevant standards and specifications prescribed by MNRE. Any other requirement, viz. star labelling (solar modules), quality control orders and standards & labelling (inverters) etc., shall also be complied.</div>
@@ -236,40 +339,36 @@
   <div class="sub-clause">18. Performance of Plant: The Performance Ratio (PR) of Plant must be 75% at the time of commissioning of the project by DISCOM or its authorised agency. Vendor must provide (returnable basis) radiation sensor with valid calibration certificate of any NABL / International laboratory at the time of commissioning / testing of the plant. Vendor must maintain the PR of the plant till warranty of project i.e. 5 years from the date of commissioning.</div>
 
   <div class="section-heading">19. Mutually Agreed Terms of Payment</div>
-  <p class="sub-clause" style="text-align: center;">The payment terms shall be as mutually agreed between the parties:</p>
-  <p class="list-item">• Advance Payment: <span class="fixed-value">30</span>% of total contract value</p>
-  <p class="list-item">• Milestone 1 (Structure Installation): <span class="fixed-value">25</span>%</p>
-  <p class="list-item">• Milestone 2 (Module Installation): <span class="fixed-value">25</span>%</p>
-  <p class="list-item">• Milestone 3 (Commissioning): <span class="fixed-value">15</span>%</p>
-  <p class="list-item">• Retention Amount: <span class="fixed-value">5</span>%</p>
+  <div class="sub-clause">The payment terms shall be as mutually agreed between the parties. The consumer may opt for milestone-based payment to the vendor.</div>
 
-  <div class="signature-row mt30">
+  <div class="signature-row">
     <div class="signature-left">
       <p class="bold">First Party</p>
-      <p>Name: <span th:if="${name != null and name != ''}" th:text="${name}"></span><span th:if="${name == null or name == ''}" class="value-missing">Value Missing</span></p>
-      <p>Address: <span th:if="${siteAddress != null and siteAddress != ''}" th:text="${siteAddress}"></span><span th:if="${siteAddress == null or siteAddress == ''}" class="value-missing">Value Missing</span></p>
+      <p>Name: <span th:text="${name}"></span><span th:if="${name == null or name == ''}">________________________</span></p>
+      <p>Address: <span th:text="${siteAddress}"></span><span th:if="${siteAddress == null or siteAddress == ''}">________________________</span></p>
       <div class="signature-space">
-        <img th:if="${not #lists.isEmpty(consumerSignature)}" th:src="${consumerSignature[0]}" style="max-height:60px; max-width:200px; object-fit:contain;"/>
+        <img th:if="${not #lists.isEmpty(consumerSignature)}" th:src="${consumerSignature[0]}" alt="Consumer Signature"/>
       </div>
       <div class="line" th:if="${#lists.isEmpty(consumerSignature)}"></div>
-      <p>Signature:</p>
-      <p class="mt8">Date: <span th:if="${installationDate != null and installationDate != ''}" th:text="${installationDate}"></span><span th:if="${installationDate == null or installationDate == ''}" class="value-missing">Value Missing</span></p>
+      <p>Signature: ________________________</p>
+      <p class="mt8">Date: <span th:text="${installationDate}"></span><span th:if="${installationDate == null or installationDate == ''}">________________________</span></p>
     </div>
+
     <div class="signature-right">
       <p class="bold">Second Party</p>
-      <p>Name: <span th:if="${authorizedPersonName != null and authorizedPersonName != ''}" th:text="${authorizedPersonName}"></span><span th:if="${authorizedPersonName == null or authorizedPersonName == ''}" class="value-missing">Value Missing</span></p>
-      <p>Address: <span th:if="${vendorAddress != null and vendorAddress != ''}" th:text="${vendorAddress}"></span><span th:if="${vendorAddress == null or vendorAddress == ''}" class="value-missing">Value Missing</span></p>
+      <p>Name: <span th:text="${authorizedPersonName}"></span><span th:if="${authorizedPersonName == null or authorizedPersonName == ''}">________________________</span></p>
+      <p>Address: <span th:text="${vendorAddress}"></span><span th:if="${vendorAddress == null or vendorAddress == ''}">________________________</span></p>
       <div class="signature-space">
-        <img th:if="${not #lists.isEmpty(vendorSignature)}" th:src="${vendorSignature[0]}" style="max-height:60px; max-width:200px; object-fit:contain;"/>
+        <img th:if="${not #lists.isEmpty(vendorSignature)}" th:src="${vendorSignature[0]}" alt="Vendor Signature"/>
       </div>
       <div class="line" th:if="${#lists.isEmpty(vendorSignature)}"></div>
-      <p>Signature:</p>
-      <p class="mt8">Date: <span th:if="${installationDate != null and installationDate != ''}" th:text="${installationDate}"></span><span th:if="${installationDate == null or installationDate == ''}" class="value-missing">Value Missing</span></p>
+      <p>Signature: ________________________</p>
+      <p class="mt8">Date: <span th:text="${installationDate}"></span><span th:if="${installationDate == null or installationDate == ''}">________________________</span></p>
     </div>
   </div>
 
   <div class="disclaimer">
-    Disclaimer: This agreement is between vendor and consumer and any dispute related to the same shall not involve any third party including MNRE and Distribution Utilities.
+    <strong>Disclaimer:</strong> This agreement is between vendor and consumer and any dispute related to the same shall not involve any third party including MNRE and Distribution Utilities.
   </div>
 </div>
 

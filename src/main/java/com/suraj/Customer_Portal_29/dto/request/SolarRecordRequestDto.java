@@ -101,9 +101,11 @@ public class SolarRecordRequestDto {
     @Size(max = 1000, message = "Witness 2 address must not exceed 1000 characters")
     private String witness2Address;
 
+    private Double totalAmountIncludingGST;
+
     private List<MultipartFile> vendorSignature;
     private List<MultipartFile> consumerSignature;
-    private List<MultipartFile> msedclSignature;
+//    private List<MultipartFile> msedclSignature;
     private List<MultipartFile> witnessSignature;
     private List<MultipartFile> aadharImages;
     private List<MultipartFile> sitePhotos;
@@ -112,7 +114,7 @@ public class SolarRecordRequestDto {
 
     private List<String> existingVendorSignature;
     private List<String> existingConsumerSignature;
-    private List<String> existingMsedclSignature;
+//    private List<String> existingMsedclSignature;
     private List<String> existingWitnessSignature;
     private List<String> existingSitePhotos;
     private List<String> existingPhotos;

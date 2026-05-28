@@ -105,6 +105,9 @@ public class SolarRecord {
     @Column(name = "witness2_address", length = 1000)
     private String witness2Address;
 
+    @Column(name = "total_amount_including_gst")
+    private Double totalAmountIncludingGST;
+
     // File Uploads
     @ElementCollection
     @CollectionTable(name = "solar_vendor_signatures", joinColumns = @JoinColumn(name = "solar_record_id"))
@@ -116,10 +119,10 @@ public class SolarRecord {
     @Column(name = "signature", columnDefinition = "TEXT")
     private List<String> consumerSignature = new ArrayList<>();
 
-    @ElementCollection
-    @CollectionTable(name = "solar_msedcl_signatures", joinColumns = @JoinColumn(name = "solar_record_id"))
-    @Column(name = "signature", columnDefinition = "TEXT")
-    private List<String> msedclSignature = new ArrayList<>();
+//    @ElementCollection
+//    @CollectionTable(name = "solar_msedcl_signatures", joinColumns = @JoinColumn(name = "solar_record_id"))
+//    @Column(name = "signature", columnDefinition = "TEXT")
+//    private List<String> msedclSignature = new ArrayList<>();
 
 
 

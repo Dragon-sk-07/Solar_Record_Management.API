@@ -95,7 +95,7 @@ public class SolarRecordService {
                 entity.getSitePhotos(), entity.getAadharImages(),
                 entity.getVendorSignature(), entity.getConsumerSignature(),
                 entity.getWitnessSignature(), entity.getNetMeteringStamp(),
-                entity.getMsedclSignature(),
+//                entity.getMsedclSignature(),
                 entity.getHeaderLogo(),
                 entity.getAnnexureTwoStamp()
         );
@@ -149,11 +149,12 @@ public class SolarRecordService {
         entity.setMeterNumber(req.getMeterNumber());
         entity.setNetMeterNumber(req.getNetMeterNumber());
         entity.setInvoiceNumber(req.getInvoiceNumber());
+        entity.setTotalAmountIncludingGST(req.getTotalAmountIncludingGST());
         entity.setYearOfManufacturing(req.getYearOfManufacturing());
         entity.setHeaderLogo(mergeImageLists(null, req.getHeaderLogo(), "headerLogos"));
         entity.setVendorSignature(mergeImageLists(null, req.getVendorSignature(), "vendorSignatures"));
         entity.setConsumerSignature(mergeImageLists(null, req.getConsumerSignature(), "consumerSignatures"));
-        entity.setMsedclSignature(mergeImageLists(null, req.getMsedclSignature(), "msedclSignatures"));
+//        entity.setMsedclSignature(mergeImageLists(null, req.getMsedclSignature(), "msedclSignatures"));
         entity.setWitnessSignature(mergeImageLists(null, req.getWitnessSignature(), "witnessSignatures"));
         entity.setAadharImages(mergeImageLists(null, req.getAadharImages(), "aadharImages"));
         entity.setSitePhotos(mergeImageLists(null, req.getSitePhotos(), "sitePhotos"));
@@ -192,6 +193,7 @@ public class SolarRecordService {
         entity.setVendorMobile(req.getVendorMobile());
         entity.setVendorEmail(req.getVendorEmail());
         entity.setAuthorizedPersonName(req.getAuthorizedPersonName());
+        entity.setTotalAmountIncludingGST(req.getTotalAmountIncludingGST());
         entity.setMsedclOfficerName(req.getMsedclOfficerName());
         entity.setWitness1Name(req.getWitness1Name());
         entity.setWitness1Address(req.getWitness1Address());
@@ -208,7 +210,7 @@ public class SolarRecordService {
         entity.setHeaderLogo(syncImages(entity.getHeaderLogo(), req.getHeaderLogo(), req.getExistingHeaderLogo(), "headerLogos"));
         entity.setVendorSignature(syncImages(entity.getVendorSignature(), req.getVendorSignature(), req.getExistingVendorSignature(), "vendorSignatures"));
         entity.setConsumerSignature(syncImages(entity.getConsumerSignature(), req.getConsumerSignature(), req.getExistingConsumerSignature(), "consumerSignatures"));
-        entity.setMsedclSignature(syncImages(entity.getMsedclSignature(), req.getMsedclSignature(), req.getExistingMsedclSignature(), "msedclSignatures"));
+//        entity.setMsedclSignature(syncImages(entity.getMsedclSignature(), req.getMsedclSignature(), req.getExistingMsedclSignature(), "msedclSignatures"));
         entity.setWitnessSignature(syncImages(entity.getWitnessSignature(), req.getWitnessSignature(), req.getExistingWitnessSignature(), "witnessSignatures"));
         entity.setAadharImages(syncImages(entity.getAadharImages(), req.getAadharImages(), req.getExistingAadharImages(), "aadharImages"));
         entity.setSitePhotos(syncImages(entity.getSitePhotos(), req.getSitePhotos(), req.getExistingSitePhotos(), "sitePhotos"));
@@ -223,7 +225,7 @@ public class SolarRecordService {
         response.setSitePhotos(entity.getSitePhotos());
         response.setVendorSignature(entity.getVendorSignature());
         response.setConsumerSignature(entity.getConsumerSignature());
-        response.setMsedclSignature(entity.getMsedclSignature());
+//        response.setMsedclSignature(entity.getMsedclSignature());
         response.setWitnessSignature(entity.getWitnessSignature());
         response.setNetMeteringStamp(entity.getNetMeteringStamp());
         response.setAnnexureTwoStamp(entity.getAnnexureTwoStamp());

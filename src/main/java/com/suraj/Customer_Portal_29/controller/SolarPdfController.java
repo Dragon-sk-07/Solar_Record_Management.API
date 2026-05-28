@@ -172,6 +172,7 @@ public class SolarPdfController {
         data.put("inverterMake", getValueOrDefault(record.getInverterMake(), ""));
         data.put("inverterModelNumber", getValueOrDefault(record.getInverterModelNumber(), ""));
         data.put("inverterCapacity", getValueOrDefault(record.getInverterCapacity(), ""));
+        data.put("totalAmountIncludingGST", getValueOrDefault(record.getTotalAmountIncludingGST(), ""));
 
         // Vendor & Witness Information
         data.put("vendorName", getValueOrDefault(record.getVendorName(), ""));
@@ -194,7 +195,7 @@ public class SolarPdfController {
         // File Uploads
         data.put("vendorSignature", record.getVendorSignature());
         data.put("consumerSignature", record.getConsumerSignature());
-        data.put("msedclSignature", record.getMsedclSignature());
+//        data.put("msedclSignature", record.getMsedclSignature());
         data.put("witnessSignature", record.getWitnessSignature());
         data.put("netMeteringStamp", record.getNetMeteringStamp());
         data.put("annexureTwoStamp", record.getAnnexureTwoStamp());
