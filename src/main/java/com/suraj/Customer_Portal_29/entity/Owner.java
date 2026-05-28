@@ -25,6 +25,7 @@ public class Owner {
     @Column(nullable = false)
     private boolean isActive = true;
     private LocalDateTime createdAt;
+
     @ElementCollection
     @Enumerated(EnumType.STRING)
     @CollectionTable(name = "user_permissions", joinColumns = @JoinColumn(name = "user_id"))
@@ -46,10 +47,17 @@ public class Owner {
     private String bankAccountNumber;
     private String bankName;
     private String bankIfscCode;
+    private String branchName;
+    private String designation;
+
     @Column(length = 1000)
     private String headerLogoUrl;
     @Column(length = 1000)
     private String vendorSignatureUrl;
+    @Column(length = 1000)
+    private String witness1SignatureUrl;
+    @Column(length = 1000)
+    private String witness2SignatureUrl;
 
     @PrePersist
     protected void onCreate() {

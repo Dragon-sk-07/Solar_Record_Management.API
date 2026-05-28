@@ -7,7 +7,6 @@ import com.suraj.Customer_Portal_29.dto.response.UserResponseDto;
 import com.suraj.Customer_Portal_29.entity.Owner;
 import com.suraj.Customer_Portal_29.entity.UserRole;
 import com.suraj.Customer_Portal_29.repository.OwnerRepository;
-import com.suraj.Customer_Portal_29.service.CloudinaryService;
 import com.suraj.Customer_Portal_29.service.UserManagementService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -21,12 +20,10 @@ import java.util.stream.Collectors;
 public class UserManagementController {
     private final UserManagementService userManagementService;
     private final OwnerRepository ownerRepository;
-    private final CloudinaryService cloudinaryService;
 
-    public UserManagementController(UserManagementService userManagementService, OwnerRepository ownerRepository, CloudinaryService cloudinaryService) {
+    public UserManagementController(UserManagementService userManagementService, OwnerRepository ownerRepository) {
         this.userManagementService = userManagementService;
         this.ownerRepository = ownerRepository;
-        this.cloudinaryService = cloudinaryService;
     }
 
     private void checkSuperAdmin() {
@@ -66,11 +63,11 @@ public class UserManagementController {
             @PathVariable Long userId,
             @ModelAttribute UserRequestDto request,
             @RequestParam(required = false) MultipartFile headerLogo,
-            @RequestParam(required = false) MultipartFile vendorSignature) {
+            @RequestParam(required = false) MultipartFile vendorSignature,
+            @RequestParam(required = false) MultipartFile witness1Signature,
+            @RequestParam(required = false) MultipartFile witness2Signature) {
         checkSuperAdmin();
-        if (headerLogo != null && !headerLogo.isEmpty()) request.setHeaderLogoUrl(cloudinaryService.uploadFile(headerLogo, "vendorLogos"));
-        if (vendorSignature != null && !vendorSignature.isEmpty()) request.setVendorSignatureUrl(cloudinaryService.uploadFile(vendorSignature, "vendorSignatures"));
-        Owner user = userManagementService.updateUser(userId, request);
+        Owner user = userManagementService.updateUser(userId, request, headerLogo, vendorSignature, witness1Signature, witness2Signature);
         return ResponseEntity.ok(new ApiResponseDto<>("User updated successfully", mapToResponse(user)));
     }
 
@@ -105,11 +102,11 @@ public class UserManagementController {
     public ResponseEntity<ApiResponseDto<UserResponseDto>> updateCurrentUserProfile(
             @ModelAttribute UserRequestDto request,
             @RequestParam(required = false) MultipartFile headerLogo,
-            @RequestParam(required = false) MultipartFile vendorSignature) {
+            @RequestParam(required = false) MultipartFile vendorSignature,
+            @RequestParam(required = false) MultipartFile witness1Signature,
+            @RequestParam(required = false) MultipartFile witness2Signature) {
         Owner currentUser = getLoggedInUser();
-        if (headerLogo != null && !headerLogo.isEmpty()) request.setHeaderLogoUrl(cloudinaryService.uploadFile(headerLogo, "vendorLogos"));
-        if (vendorSignature != null && !vendorSignature.isEmpty()) request.setVendorSignatureUrl(cloudinaryService.uploadFile(vendorSignature, "vendorSignatures"));
-        Owner user = userManagementService.updateUser(currentUser.getId(), request);
+        Owner user = userManagementService.updateUser(currentUser.getId(), request, headerLogo, vendorSignature, witness1Signature, witness2Signature);
         return ResponseEntity.ok(new ApiResponseDto<>("Profile updated successfully", mapToResponse(user)));
     }
 
@@ -135,8 +132,12 @@ public class UserManagementController {
         dto.setBankAccountNumber(user.getBankAccountNumber());
         dto.setBankName(user.getBankName());
         dto.setBankIfscCode(user.getBankIfscCode());
+        dto.setBranchName(user.getBranchName());
+        dto.setDesignation(user.getDesignation());
         dto.setHeaderLogoUrl(user.getHeaderLogoUrl());
         dto.setVendorSignatureUrl(user.getVendorSignatureUrl());
+        dto.setWitness1SignatureUrl(user.getWitness1SignatureUrl());
+        dto.setWitness2SignatureUrl(user.getWitness2SignatureUrl());
         return dto;
     }
 }

@@ -25,6 +25,10 @@ public class UserRequestDto {
     private String bankAccountNumber;
     private String bankName;
     private String bankIfscCode;
-    private String headerLogoUrl;
-    private String vendorSignatureUrl;
+    private String branchName;
+    private String designation;
+    private String existingHeaderLogo;
+    private String existingVendorSignature;
+    private String existingWitness1Signature;
+    private String existingWitness2Signature;
 }

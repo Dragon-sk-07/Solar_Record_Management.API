@@ -7,11 +7,11 @@ import com.suraj.Customer_Portal_29.entity.UserRole;
 import com.suraj.Customer_Portal_29.service.*;
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.security.core.context.SecurityContextHolder;
-import com.suraj.Customer_Portal_29.repository.OwnerRepository;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
+import com.suraj.Customer_Portal_29.repository.OwnerRepository;
+import org.springframework.security.core.context.SecurityContextHolder;
 
 @RestController
 @RequestMapping("/api/solar/pdf")
@@ -38,7 +38,9 @@ public class SolarPdfController {
     private void checkDownloadPermission(String format) {
         Owner currentUser = getCurrentUser();
         if (currentUser.getRole() == UserRole.SUPER_ADMIN) return;
-        if (!currentUser.getPermissions().contains(Permission.DOWNLOAD)) throw new RuntimeException("You don't have permission to download documents");
+        if (!currentUser.getPermissions().contains(Permission.DOWNLOAD)) {
+            throw new RuntimeException("You don't have permission to download documents");
+        }
     }
 
     private String getValueOrDefault(Object value, String defaultValue) {
@@ -64,7 +66,10 @@ public class SolarPdfController {
         checkDownloadPermission("word");
         Map<String, Object> data = buildData(id, false);
         byte[] wordDoc = wordService.generateWord(type, data);
-        return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + type + ".doc").contentType(MediaType.TEXT_HTML).body(wordDoc);
+        return ResponseEntity.ok()
+                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + type + ".doc")
+                .contentType(MediaType.TEXT_HTML)
+                .body(wordDoc);
     }
 
     @GetMapping("/{id}/{type}")
@@ -72,7 +77,10 @@ public class SolarPdfController {
         checkDownloadPermission("pdf");
         Map<String, Object> data = buildData(id, true);
         byte[] pdf = pdfService.generatePdfAsync(type, data).join();
-        return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + getPdfFilename(type)).contentType(MediaType.APPLICATION_PDF).body(pdf);
+        return ResponseEntity.ok()
+                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + getPdfFilename(type))
+                .contentType(MediaType.APPLICATION_PDF)
+                .body(pdf);
     }
 
     @GetMapping("/{id}/all-in-one")
@@ -85,15 +93,30 @@ public class SolarPdfController {
             for (String type : pdfTypes) {
                 try {
                     byte[] pdf = pdfService.generatePdf(type, data);
-                    if (pdf != null && pdf.length > 500) pdfs.add(pdf);
-                } catch (Exception e) { System.err.println("Failed: " + type + " - " + e.getMessage()); }
+                    if (pdf != null && pdf.length > 500) {
+                        pdfs.add(pdf);
+                    }
+                } catch (Exception e) {
+                    System.err.println("Failed: " + type + " - " + e.getMessage());
+                }
             }
-            if (!pdfs.isEmpty()) return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=All_In_One.pdf").contentType(MediaType.APPLICATION_PDF).body(pdfMergerService.mergePdfs(pdfs));
+            if (!pdfs.isEmpty()) {
+                return ResponseEntity.ok()
+                        .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=All_In_One.pdf")
+                        .contentType(MediaType.APPLICATION_PDF)
+                        .body(pdfMergerService.mergePdfs(pdfs));
+            }
             byte[] wordDoc = wordService.generateCombinedWord(data);
-            return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=All_In_One.doc").contentType(MediaType.APPLICATION_OCTET_STREAM).body(wordDoc);
+            return ResponseEntity.ok()
+                    .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=All_In_One.doc")
+                    .contentType(MediaType.APPLICATION_OCTET_STREAM)
+                    .body(wordDoc);
         } catch (Exception e) {
             byte[] wordDoc = wordService.generateCombinedWord(buildData(id, true));
-            return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=All_In_One.doc").contentType(MediaType.APPLICATION_OCTET_STREAM).body(wordDoc);
+            return ResponseEntity.ok()
+                    .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=All_In_One.doc")
+                    .contentType(MediaType.APPLICATION_OCTET_STREAM)
+                    .body(wordDoc);
         }
     }
 
@@ -102,7 +125,10 @@ public class SolarPdfController {
         checkDownloadPermission("word");
         Map<String, Object> data = buildData(id, true);
         byte[] wordDoc = wordService.generateCombinedWord(data);
-        return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=All_In_One.doc").contentType(MediaType.APPLICATION_OCTET_STREAM).body(wordDoc);
+        return ResponseEntity.ok()
+                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=All_In_One.doc")
+                .contentType(MediaType.APPLICATION_OCTET_STREAM)
+                .body(wordDoc);
     }
 
     private Map<String, Object> buildData(String id, boolean includeCompleteData) {
@@ -113,6 +139,7 @@ public class SolarPdfController {
         DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         DateTimeFormatter monthFormatter = DateTimeFormatter.ofPattern("MMMM");
 
+        // Consumer Details from SolarRecord
         data.put("name", getValueOrDefault(record.getName(), ""));
         data.put("consumerNumber", getValueOrDefault(record.getConsumerNumber(), ""));
         data.put("consumerName", getValueOrDefault(record.getName(), ""));
@@ -147,6 +174,7 @@ public class SolarPdfController {
         data.put("inverterCapacity", getValueOrDefault(record.getInverterCapacity(), ""));
         data.put("totalAmountIncludingGST", getValueOrDefault(record.getTotalAmountIncludingGST(), ""));
 
+        // Calculation fields
         Double totalAmount = record.getTotalAmountIncludingGST();
         Double installedCap = record.getInstalledCapacity();
         String ratePerWatt = "", baseAmount = "", gstAmount = "";
@@ -159,31 +187,57 @@ public class SolarPdfController {
         data.put("baseAmount", baseAmount);
         data.put("gstAmount", gstAmount);
 
+        // Vendor Details from Logged-in User
         data.put("vendorName", getValueOrDefault(currentUser.getName(), ""));
         data.put("vendorAddress", getValueOrDefault(currentUser.getVendorAddress(), ""));
         data.put("vendorMobile", getValueOrDefault(currentUser.getVendorMobile(), ""));
         data.put("vendorEmail", getValueOrDefault(currentUser.getVendorEmail(), ""));
         data.put("authorizedPersonName", getValueOrDefault(currentUser.getAuthorizedPersonName(), ""));
+
+        // Witness 1 Details
         data.put("witness1Name", getValueOrDefault(currentUser.getWitness1Name(), ""));
         data.put("witness1Address", getValueOrDefault(currentUser.getWitness1Address(), ""));
+        data.put("witness1Signature", getValueOrDefault(currentUser.getWitness1SignatureUrl(), ""));
+
+        // Witness 2 Details
         data.put("witness2Name", getValueOrDefault(currentUser.getWitness2Name(), ""));
         data.put("witness2Address", getValueOrDefault(currentUser.getWitness2Address(), ""));
+        data.put("witness2Signature", getValueOrDefault(currentUser.getWitness2SignatureUrl(), ""));
+
+        // Bank Details
         data.put("bankAccountName", getValueOrDefault(currentUser.getBankAccountName(), ""));
         data.put("bankAccountNumber", getValueOrDefault(currentUser.getBankAccountNumber(), ""));
         data.put("bankName", getValueOrDefault(currentUser.getBankName(), ""));
         data.put("bankIfscCode", getValueOrDefault(currentUser.getBankIfscCode(), ""));
+        data.put("branchName", getValueOrDefault(currentUser.getBranchName(), ""));
+        data.put("designation", getValueOrDefault(currentUser.getDesignation(), "Proprietor"));
 
+        // Dates
         data.put("currentDate", now.format(dateFormatter));
         data.put("day", String.valueOf(now.getDayOfMonth()));
         data.put("month", now.format(monthFormatter));
         data.put("year", String.valueOf(now.getYear()));
 
-        data.put("vendorSignature", currentUser.getVendorSignatureUrl() != null ? List.of(currentUser.getVendorSignatureUrl()) : Collections.emptyList());
-        data.put("consumerSignature", record.getConsumerSignature());
-        data.put("witnessSignature", record.getWitnessSignature());
-        data.put("headerLogo", currentUser.getHeaderLogoUrl() != null ? List.of(currentUser.getHeaderLogoUrl()) : Collections.emptyList());
-        data.put("netMeteringStamp", record.getNetMeteringStamp());
-        data.put("annexureTwoStamp", record.getAnnexureTwoStamp());
+        // Header Logo
+        String headerLogo = getValueOrDefault(currentUser.getHeaderLogoUrl(), "");
+        data.put("headerLogo", headerLogo.isEmpty() ? Collections.emptyList() : Collections.singletonList(headerLogo));
+
+        // Vendor Signature
+        String vendorSignature = getValueOrDefault(currentUser.getVendorSignatureUrl(), "");
+        data.put("vendorSignature", vendorSignature.isEmpty() ? Collections.emptyList() : Collections.singletonList(vendorSignature));
+
+        // Consumer Signature from SolarRecord
+        List<String> consumerSignatureList = record.getConsumerSignature();
+        data.put("consumerSignature", consumerSignatureList != null ? consumerSignatureList : Collections.emptyList());
+
+        // Stamps
+        List<String> netMeteringStampList = record.getNetMeteringStamp();
+        data.put("netMeteringStamp", netMeteringStampList != null ? netMeteringStampList : Collections.emptyList());
+
+        List<String> annexureTwoStampList = record.getAnnexureTwoStamp();
+        data.put("annexureTwoStamp", annexureTwoStampList != null ? annexureTwoStampList : Collections.emptyList());
+
+        // Default Images
         data.put("defaultArihantHeader", convertImageToBase64("/Arihant_Header.png"));
         data.put("defaultMsedclHeader", convertImageToBase64("/MSEDCL_Header.png"));
         data.put("cotationFirstPageImage", convertImageToBase64("/CotationFirstPageImage.png"));
@@ -192,18 +246,29 @@ public class SolarPdfController {
         data.put("secondPageThirdImage", convertImageToBase64("/SecondPageThirdImage.png"));
         data.put("secondPageFourthImage", convertImageToBase64("/SecondPageFourthImage.png"));
 
+        // Aadhar Images
         List<String> aadharImageUrls = new ArrayList<>();
         if (record.getAadharImages() != null && !record.getAadharImages().isEmpty()) {
-            for (String imageUrl : record.getAadharImages()) if (imageUrl != null && imageUrl.startsWith("http")) aadharImageUrls.add(imageUrl);
+            for (String imageUrl : record.getAadharImages()) {
+                if (imageUrl != null && imageUrl.startsWith("http")) {
+                    aadharImageUrls.add(imageUrl);
+                }
+            }
         }
         data.put("aadharImageUrls", aadharImageUrls);
-        data.put("aadharImages", record.getAadharImages());
+        data.put("aadharImages", record.getAadharImages() != null ? record.getAadharImages() : Collections.emptyList());
 
+        // Site Photos
         List<String> processedSitePhotos = new ArrayList<>();
         if (record.getSitePhotos() != null) {
-            for (String photo : record.getSitePhotos()) processedSitePhotos.add(photo != null ? (photo.startsWith("http") ? photo : "/api/uploads/" + photo) : "");
+            for (String photo : record.getSitePhotos()) {
+                if (photo != null) {
+                    processedSitePhotos.add(photo.startsWith("http") ? photo : "/api/uploads/" + photo);
+                }
+            }
         }
         data.put("sitePhotos", processedSitePhotos);
+
         return data;
     }
 

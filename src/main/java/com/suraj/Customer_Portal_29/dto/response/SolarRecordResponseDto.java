@@ -39,27 +39,14 @@ public class SolarRecordResponseDto {
     private String inverterModelNumber;
     private Double inverterCapacity;
 
-    private String vendorName;
-    private String vendorAddress;
-    private String vendorMobile;
-    private String vendorEmail;
-    private String authorizedPersonName;
-    private String msedclOfficerName;
-
-    private String witness1Name;
-    private String witness1Address;
-    private String witness2Name;
-    private String witness2Address;
     private Double totalAmountIncludingGST;
 
-    private List<String> vendorSignature;
     private List<String> consumerSignature;
-//    private List<String> msedclSignature;
-    private List<String> witnessSignature;
     private List<String> aadharImages;
     private List<String> sitePhotos;
     private List<String> netMeteringStamp;
     private List<String> annexureTwoStamp;
+
     private String cellManufacturerName;
     private String cellGSTInvoiceNo;
     private String meterMake;
@@ -67,5 +54,4 @@ public class SolarRecordResponseDto {
     private String netMeterNumber;
     private String invoiceNumber;
     private Integer yearOfManufacturing;
-    private List<String> headerLogo;
 }

@@ -4,7 +4,6 @@ import com.suraj.Customer_Portal_29.dto.request.SolarRecordRequestDto;
 import com.suraj.Customer_Portal_29.dto.response.SolarRecordResponseDto;
 import com.suraj.Customer_Portal_29.entity.SolarRecord;
 import com.suraj.Customer_Portal_29.entity.Owner;
-import com.suraj.Customer_Portal_29.entity.UserRole;
 import com.suraj.Customer_Portal_29.repository.SolarRecordRepository;
 import com.suraj.Customer_Portal_29.repository.OwnerRepository;
 import org.springframework.cache.annotation.CacheEvict;
@@ -58,7 +57,9 @@ public class SolarRecordService {
     public SolarRecordResponseDto update(String id, SolarRecordRequestDto request) {
         Owner currentUser = getCurrentUser();
         SolarRecord existing = findEntityById(id);
-        if (!existing.getCreatedByUserEmail().equals(currentUser.getEmail())) throw new RuntimeException("No permission to update this record");
+        if (!existing.getCreatedByUserEmail().equals(currentUser.getEmail())) {
+            throw new RuntimeException("No permission to update this record");
+        }
         updateEntity(existing, request);
         return mapToResponse(repository.save(existing));
     }
@@ -66,13 +67,21 @@ public class SolarRecordService {
     public void delete(String id) {
         Owner currentUser = getCurrentUser();
         SolarRecord entity = findEntityById(id);
-        if (!entity.getCreatedByUserEmail().equals(currentUser.getEmail())) throw new RuntimeException("No permission to delete this record");
+        if (!entity.getCreatedByUserEmail().equals(currentUser.getEmail())) {
+            throw new RuntimeException("No permission to delete this record");
+        }
         deleteCloudinaryFiles(entity);
         repository.delete(entity);
     }
 
     private void deleteCloudinaryFiles(SolarRecord entity) {
-        List<List<String>> fileLists = Arrays.asList(entity.getSitePhotos(), entity.getAadharImages(), entity.getConsumerSignature(), entity.getWitnessSignature(), entity.getNetMeteringStamp(), entity.getHeaderLogo(), entity.getAnnexureTwoStamp());
+        List<List<String>> fileLists = Arrays.asList(
+                entity.getSitePhotos(),
+                entity.getAadharImages(),
+                entity.getConsumerSignature(),
+                entity.getNetMeteringStamp(),
+                entity.getAnnexureTwoStamp()
+        );
         fileLists.stream().filter(Objects::nonNull).forEach(cloudinaryService::deleteFiles);
     }
 
@@ -114,12 +123,11 @@ public class SolarRecordService {
         entity.setInvoiceNumber(req.getInvoiceNumber());
         entity.setTotalAmountIncludingGST(req.getTotalAmountIncludingGST());
         entity.setYearOfManufacturing(req.getYearOfManufacturing());
-        entity.setConsumerSignature(mergeImageLists(null, req.getConsumerSignature(), "consumerSignatures"));
-        entity.setWitnessSignature(mergeImageLists(null, req.getWitnessSignature(), "witnessSignatures"));
-        entity.setAadharImages(mergeImageLists(null, req.getAadharImages(), "aadharImages"));
-        entity.setSitePhotos(mergeImageLists(null, req.getSitePhotos(), "sitePhotos"));
-        entity.setNetMeteringStamp(mergeImageLists(null, req.getNetMeteringStamp(), "netMeteringStamps"));
-        entity.setAnnexureTwoStamp(mergeImageLists(null, req.getAnnexureTwoStamp(), "annexureTwoStamps"));
+        entity.setConsumerSignature(uploadImages(req.getConsumerSignature(), "consumerSignatures"));
+        entity.setAadharImages(uploadImages(req.getAadharImages(), "aadharImages"));
+        entity.setSitePhotos(uploadImages(req.getSitePhotos(), "sitePhotos"));
+        entity.setNetMeteringStamp(uploadImages(req.getNetMeteringStamp(), "netMeteringStamps"));
+        entity.setAnnexureTwoStamp(uploadImages(req.getAnnexureTwoStamp(), "annexureTwoStamps"));
         return entity;
     }
 
@@ -157,7 +165,6 @@ public class SolarRecordService {
         entity.setTotalAmountIncludingGST(req.getTotalAmountIncludingGST());
         entity.setYearOfManufacturing(req.getYearOfManufacturing());
         entity.setConsumerSignature(syncImages(entity.getConsumerSignature(), req.getConsumerSignature(), req.getExistingConsumerSignature(), "consumerSignatures"));
-        entity.setWitnessSignature(syncImages(entity.getWitnessSignature(), req.getWitnessSignature(), req.getExistingWitnessSignature(), "witnessSignatures"));
         entity.setAadharImages(syncImages(entity.getAadharImages(), req.getAadharImages(), req.getExistingAadharImages(), "aadharImages"));
         entity.setSitePhotos(syncImages(entity.getSitePhotos(), req.getSitePhotos(), req.getExistingSitePhotos(), "sitePhotos"));
         entity.setNetMeteringStamp(syncImages(entity.getNetMeteringStamp(), req.getNetMeteringStamp(), req.getExistingNetMeteringStamp(), "netMeteringStamps"));
@@ -170,22 +177,15 @@ public class SolarRecordService {
         return response;
     }
 
-    private List<String> uploadImagesWithCompression(List<MultipartFile> files, String folder) {
+    private List<String> uploadImages(List<MultipartFile> files, String folder) {
         if (files == null || files.isEmpty()) return Collections.emptyList();
         return files.stream().filter(Objects::nonNull).map(file -> cloudinaryService.uploadFile(file, folder)).collect(Collectors.toList());
-    }
-
-    private List<String> mergeImageLists(List<String> existing, List<MultipartFile> newFiles, String folder) {
-        List<String> result = new ArrayList<>();
-        if (existing != null && !existing.isEmpty()) result.addAll(existing);
-        if (newFiles != null && !newFiles.isEmpty()) result.addAll(uploadImagesWithCompression(newFiles, folder));
-        return result;
     }
 
     private List<String> syncImages(List<String> existingImages, List<MultipartFile> newFiles, List<String> existingUrlsFromRequest, String folder) {
         List<String> finalUrls = new ArrayList<>();
         if (existingUrlsFromRequest != null) finalUrls.addAll(existingUrlsFromRequest);
-        if (newFiles != null && !newFiles.isEmpty()) finalUrls.addAll(uploadImagesWithCompression(newFiles, folder));
+        if (newFiles != null && !newFiles.isEmpty()) finalUrls.addAll(uploadImages(newFiles, folder));
         if (existingImages != null && !existingImages.isEmpty()) {
             List<String> urlsToDelete = existingImages.stream().filter(url -> !finalUrls.contains(url)).collect(Collectors.toList());
             if (!urlsToDelete.isEmpty()) cloudinaryService.deleteFiles(urlsToDelete);

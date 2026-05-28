@@ -56,7 +56,6 @@ public class SolarRecordRequestDto {
 
     private String moduleMake;
 
-
     @NotNull(message = "Wattage per module is required")
     private Double wattagePerModule;
 
@@ -77,50 +76,20 @@ public class SolarRecordRequestDto {
 
     private Double inverterCapacity;
 
-
-    private String vendorName;
-
-    @Size(max = 1000, message = "Vendor address must not exceed 1000 characters")
-    private String vendorAddress;
-
-    private String vendorMobile;
-
-    private String vendorEmail;
-
-    private String authorizedPersonName;
-
-    private String msedclOfficerName;
-
-    private String witness1Name;
-
-    @Size(max = 1000, message = "Witness 1 address must not exceed 1000 characters")
-    private String witness1Address;
-
-    private String witness2Name;
-
-    @Size(max = 1000, message = "Witness 2 address must not exceed 1000 characters")
-    private String witness2Address;
-
     private Double totalAmountIncludingGST;
 
-    private List<MultipartFile> vendorSignature;
     private List<MultipartFile> consumerSignature;
-//    private List<MultipartFile> msedclSignature;
-    private List<MultipartFile> witnessSignature;
     private List<MultipartFile> aadharImages;
     private List<MultipartFile> sitePhotos;
     private List<MultipartFile> netMeteringStamp;
     private List<MultipartFile> annexureTwoStamp;
 
-    private List<String> existingVendorSignature;
     private List<String> existingConsumerSignature;
-//    private List<String> existingMsedclSignature;
-    private List<String> existingWitnessSignature;
-    private List<String> existingSitePhotos;
-    private List<String> existingPhotos;
     private List<String> existingAadharImages;
+    private List<String> existingSitePhotos;
     private List<String> existingNetMeteringStamp;
     private List<String> existingAnnexureTwoStamp;
+
     private String cellManufacturerName;
     private String cellGSTInvoiceNo;
     private String meterMake;
@@ -128,6 +97,4 @@ public class SolarRecordRequestDto {
     private String netMeterNumber;
     private String invoiceNumber;
     private Integer yearOfManufacturing;
-    private List<MultipartFile> headerLogo;
-    private List<String> existingHeaderLogo;
 }

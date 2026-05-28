@@ -27,6 +27,10 @@ public class UserResponseDto {
     private String bankAccountNumber;
     private String bankName;
     private String bankIfscCode;
+    private String branchName;
+    private String designation;
     private String headerLogoUrl;
     private String vendorSignatureUrl;
+    private String witness1SignatureUrl;
+    private String witness2SignatureUrl;
 }

@@ -337,19 +337,20 @@
             <p>Name: <span th:if="${witness1Name != null and witness1Name != ''}" th:text="${witness1Name}"></span><span th:if="${witness1Name == null or witness1Name == ''}" class="value-missing">Value Missing</span></p>
             <p>Address: <span th:if="${witness1Address != null and witness1Address != ''}" th:text="${witness1Address}"></span><span th:if="${witness1Address == null or witness1Address == ''}" class="value-missing">Value Missing</span></p>
             <div class="signature-space">
-                <img th:if="${not #lists.isEmpty(witnessSignature) and #lists.size(witnessSignature) >= 1}" th:src="${witnessSignature[0]}" style="max-height:60px; max-width:200px; object-fit:contain;"/>
+                <img th:if="${witness1Signature != null and witness1Signature != ''}" th:src="${witness1Signature}" style="max-height:60px; max-width:200px; object-fit:contain;"/>
+                <div th:if="${witness1Signature == null or witness1Signature == ''}" class="line"></div>
             </div>
-            <div class="line" th:if="${#lists.isEmpty(witnessSignature) or #lists.size(witnessSignature) < 1}"></div>
             <p>Signature:</p>
         </div>
+
         <div class="witness-right">
             <p class="bold">Witness 2</p>
             <p>Name: <span th:if="${witness2Name != null and witness2Name != ''}" th:text="${witness2Name}"></span><span th:if="${witness2Name == null or witness2Name == ''}" class="value-missing">Value Missing</span></p>
             <p>Address: <span th:if="${witness2Address != null and witness2Address != ''}" th:text="${witness2Address}"></span><span th:if="${witness2Address == null or witness2Address == ''}" class="value-missing">Value Missing</span></p>
             <div class="signature-space">
-                <img th:if="${not #lists.isEmpty(witnessSignature) and #lists.size(witnessSignature) >= 2}" th:src="${witnessSignature[1]}" style="max-height:60px; max-width:200px; object-fit:contain;"/>
+                <img th:if="${witness2Signature != null and witness2Signature != ''}" th:src="${witness2Signature}" style="max-height:60px; max-width:200px; object-fit:contain;"/>
+                <div th:if="${witness2Signature == null or witness2Signature == ''}" class="line"></div>
             </div>
-            <div class="line" th:if="${#lists.isEmpty(witnessSignature) or #lists.size(witnessSignature) < 2}"></div>
             <p>Signature:</p>
         </div>
     </div>
