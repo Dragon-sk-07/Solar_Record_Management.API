@@ -7,8 +7,10 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Getter @Setter
-@NoArgsConstructor @AllArgsConstructor
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "app_user")
 public class Owner {
 

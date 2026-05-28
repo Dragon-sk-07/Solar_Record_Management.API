@@ -30,7 +30,6 @@ public class UserManagementService {
         this.cloudinaryService = cloudinaryService;
     }
 
-    // CREATE - uses same DTO
     public Owner createUser(UserRequestDto request) {
         if (ownerRepository.existsByEmail(request.getEmail())) {
             throw new RuntimeException("User already exists");
@@ -51,7 +50,6 @@ public class UserManagementService {
         return ownerRepository.save(user);
     }
 
-    // UPDATE - with image handling
     public Owner updateUser(Long userId,
                             UserRequestDto request,
                             MultipartFile headerLogo,
@@ -59,38 +57,79 @@ public class UserManagementService {
                             MultipartFile witness1Signature,
                             MultipartFile witness2Signature) {
 
+        System.out.println("=== UserManagementService.updateUser ===");
+        System.out.println("User ID: " + userId);
+
         Owner user = ownerRepository.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));
 
         // Update text fields
-        if (request.getName() != null) user.setName(request.getName());
-        if (request.getVendorAddress() != null) user.setVendorAddress(request.getVendorAddress());
-        if (request.getAuthorizedPersonName() != null) user.setAuthorizedPersonName(request.getAuthorizedPersonName());
-        if (request.getWitness1Name() != null) user.setWitness1Name(request.getWitness1Name());
-        if (request.getWitness1Address() != null) user.setWitness1Address(request.getWitness1Address());
-        if (request.getWitness2Name() != null) user.setWitness2Name(request.getWitness2Name());
-        if (request.getWitness2Address() != null) user.setWitness2Address(request.getWitness2Address());
-        if (request.getVendorMobile() != null) user.setVendorMobile(request.getVendorMobile());
-        if (request.getVendorEmail() != null) user.setVendorEmail(request.getVendorEmail());
-        if (request.getBankAccountName() != null) user.setBankAccountName(request.getBankAccountName());
-        if (request.getBankAccountNumber() != null) user.setBankAccountNumber(request.getBankAccountNumber());
-        if (request.getBankName() != null) user.setBankName(request.getBankName());
-        if (request.getBankIfscCode() != null) user.setBankIfscCode(request.getBankIfscCode());
-        if (request.getBranchName() != null) user.setBranchName(request.getBranchName());
-        if (request.getDesignation() != null) user.setDesignation(request.getDesignation());
+        if (request.getVendorAddress() != null) {
+            user.setVendorAddress(request.getVendorAddress());
+            System.out.println("Set vendorAddress: " + request.getVendorAddress());
+        }
+        if (request.getAuthorizedPersonName() != null) {
+            user.setAuthorizedPersonName(request.getAuthorizedPersonName());
+            System.out.println("Set authorizedPersonName: " + request.getAuthorizedPersonName());
+        }
+        if (request.getWitness1Name() != null) {
+            user.setWitness1Name(request.getWitness1Name());
+            System.out.println("Set witness1Name: " + request.getWitness1Name());
+        }
+        if (request.getWitness1Address() != null) {
+            user.setWitness1Address(request.getWitness1Address());
+            System.out.println("Set witness1Address: " + request.getWitness1Address());
+        }
+        if (request.getWitness2Name() != null) {
+            user.setWitness2Name(request.getWitness2Name());
+            System.out.println("Set witness2Name: " + request.getWitness2Name());
+        }
+        if (request.getWitness2Address() != null) {
+            user.setWitness2Address(request.getWitness2Address());
+            System.out.println("Set witness2Address: " + request.getWitness2Address());
+        }
+        if (request.getVendorMobile() != null) {
+            user.setVendorMobile(request.getVendorMobile());
+            System.out.println("Set vendorMobile: " + request.getVendorMobile());
+        }
+        if (request.getVendorEmail() != null) {
+            user.setVendorEmail(request.getVendorEmail());
+            System.out.println("Set vendorEmail: " + request.getVendorEmail());
+        }
+        if (request.getBankAccountName() != null) {
+            user.setBankAccountName(request.getBankAccountName());
+            System.out.println("Set bankAccountName: " + request.getBankAccountName());
+        }
+        if (request.getBankAccountNumber() != null) {
+            user.setBankAccountNumber(request.getBankAccountNumber());
+            System.out.println("Set bankAccountNumber: " + request.getBankAccountNumber());
+        }
+        if (request.getBankName() != null) {
+            user.setBankName(request.getBankName());
+            System.out.println("Set bankName: " + request.getBankName());
+        }
+        if (request.getBankIfscCode() != null) {
+            user.setBankIfscCode(request.getBankIfscCode());
+            System.out.println("Set bankIfscCode: " + request.getBankIfscCode());
+        }
+        if (request.getBranchName() != null) {
+            user.setBranchName(request.getBranchName());
+            System.out.println("Set branchName: " + request.getBranchName());
+        }
+        if (request.getDesignation() != null) {
+            user.setDesignation(request.getDesignation());
+            System.out.println("Set designation: " + request.getDesignation());
+        }
 
         // Update password if provided
         if (request.getPassword() != null && !request.getPassword().isEmpty()) {
             user.setPassword(passwordEncoder.encode(request.getPassword()));
+            System.out.println("Password updated");
         }
 
         // Update status if provided
         if (request.getIsActive() != null) {
             user.setActive(request.getIsActive());
-        }
-
-        // Update permissions if provided and not SUPER_ADMIN
-        if (request.getPermissions() != null && user.getRole() != UserRole.SUPER_ADMIN) {
-            user.setPermissions(request.getPermissions());
+            System.out.println("Set isActive: " + request.getIsActive());
         }
 
         // Update images with existing logic
@@ -99,7 +138,9 @@ public class UserManagementService {
         user.setWitness1SignatureUrl(syncImage(user.getWitness1SignatureUrl(), witness1Signature, request.getExistingWitness1Signature(), "userWitnessSignatures"));
         user.setWitness2SignatureUrl(syncImage(user.getWitness2SignatureUrl(), witness2Signature, request.getExistingWitness2Signature(), "userWitnessSignatures"));
 
-        return ownerRepository.save(user);
+        Owner savedUser = ownerRepository.save(user);
+        System.out.println("User saved successfully. VendorAddress in DB: " + savedUser.getVendorAddress());
+        return savedUser;
     }
 
     private String syncImage(String existingUrl, MultipartFile newFile, String existingUrlFromRequest, String folder) {
@@ -108,15 +149,18 @@ public class UserManagementService {
         // If existing URL from request is provided, use it (keeps existing image)
         if (existingUrlFromRequest != null && !existingUrlFromRequest.isEmpty()) {
             finalUrl = existingUrlFromRequest;
+            System.out.println("Keeping existing image: " + finalUrl);
         }
 
         // If new file is uploaded, replace/upload new one
         if (newFile != null && !newFile.isEmpty()) {
-            // Delete old file if it exists and is different from the kept one
+            System.out.println("Uploading new image to folder: " + folder);
             if (existingUrl != null && !existingUrl.equals(finalUrl)) {
                 cloudinaryService.deleteFile(existingUrl);
+                System.out.println("Deleted old image: " + existingUrl);
             }
             finalUrl = cloudinaryService.uploadFile(newFile, folder);
+            System.out.println("Uploaded new image: " + finalUrl);
         }
 
         return finalUrl;
@@ -151,13 +195,11 @@ public class UserManagementService {
             throw new RuntimeException("Cannot delete SUPER_ADMIN");
         }
 
-        // Delete associated images from Cloudinary
         if (user.getHeaderLogoUrl() != null) cloudinaryService.deleteFile(user.getHeaderLogoUrl());
         if (user.getVendorSignatureUrl() != null) cloudinaryService.deleteFile(user.getVendorSignatureUrl());
         if (user.getWitness1SignatureUrl() != null) cloudinaryService.deleteFile(user.getWitness1SignatureUrl());
         if (user.getWitness2SignatureUrl() != null) cloudinaryService.deleteFile(user.getWitness2SignatureUrl());
 
-        // Delete all solar records created by this user
         List<SolarRecord> userRecords = solarRecordRepository.findByCreatedByUserEmail(user.getEmail());
         if (!userRecords.isEmpty()) {
             solarRecordRepository.deleteAll(userRecords);

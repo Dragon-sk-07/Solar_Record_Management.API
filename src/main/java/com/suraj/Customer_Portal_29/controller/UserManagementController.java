@@ -105,6 +105,9 @@ public class UserManagementController {
     @GetMapping("/me")
     public ResponseEntity<ApiResponseDto<UserResponseDto>> getCurrentUserProfile() {
         Owner currentUser = getLoggedInUser();
+        System.out.println("=== GET CURRENT USER PROFILE ===");
+        System.out.println("Vendor Address: " + currentUser.getVendorAddress());
+        System.out.println("Witness1 Name: " + currentUser.getWitness1Name());
         return ResponseEntity.ok(new ApiResponseDto<>("User fetched successfully", mapToResponse(currentUser)));
     }
 
@@ -115,8 +118,21 @@ public class UserManagementController {
             @RequestParam(required = false) MultipartFile vendorSignature,
             @RequestParam(required = false) MultipartFile witness1Signature,
             @RequestParam(required = false) MultipartFile witness2Signature) {
+
         Owner currentUser = getLoggedInUser();
-        Owner user = userManagementService.updateUser(currentUser.getId(), request, headerLogo, vendorSignature, witness1Signature, witness2Signature);
+
+        System.out.println("=== UPDATE CURRENT USER PROFILE ===");
+        System.out.println("Received vendorAddress: " + request.getVendorAddress());
+        System.out.println("Received witness1Name: " + request.getWitness1Name());
+        System.out.println("Received witness2Name: " + request.getWitness2Name());
+        System.out.println("Received bankAccountName: " + request.getBankAccountName());
+        System.out.println("Received designation: " + request.getDesignation());
+
+        Owner user = userManagementService.updateUser(currentUser.getId(), request,
+                headerLogo, vendorSignature, witness1Signature, witness2Signature);
+
+        System.out.println("After update - vendorAddress in DB: " + user.getVendorAddress());
+
         return ResponseEntity.ok(new ApiResponseDto<>("Profile updated successfully", mapToResponse(user)));
     }
 
