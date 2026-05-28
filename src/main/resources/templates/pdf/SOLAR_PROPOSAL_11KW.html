@@ -260,12 +260,6 @@
             object-fit: contain;
             display: block;
             margin: 0 auto;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        .signature-right-centered .signature-inner div:first-child {
-            text-align: center;
         }
         .signature-right-centered .line {
             margin-top: 3px;
@@ -293,12 +287,6 @@
             object-fit: contain;
             display: block;
             margin: 0 auto;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        .signature-left-centered .signature-inner div:first-child {
-            text-align: center;
         }
         .signature-left-centered .line {
             margin-top: 3px;
@@ -325,15 +313,6 @@
         .dynamic-value {
             font-weight: 700;
             color: #000;
-        }
-
-        .value-missing {
-            color: #999;
-            font-style: italic;
-        }
-
-        .fixed-value {
-            font-weight: 700;
         }
 
         .mt8 {
@@ -366,20 +345,20 @@
     </div>
 
     <div class="ref-no">
-        <p>REF NO.: <span th:text="${invoiceNumber}" class="dynamic-value"></span></p>
-        <p>Date: <span th:text="${currentDate}" class="dynamic-value"></span></p>
-        <p>To: <span th:text="${name}" class="dynamic-value"></span></p>
+        <p>REF NO.: <span th:text="${invoiceNumber}" class="dynamic-value">____________</span></p>
+        <p>Date: <span th:text="${currentDate}" class="dynamic-value">____________</span></p>
+        <p>To: <span th:text="${name}" class="dynamic-value">____________</span></p>
     </div>
 
     <div class="subject">
-        <p>Subject: Proposal Of <span th:text="${installedCapacity}" class="dynamic-value"></span> KW Solar Power Plant with Structure.</p>
+        <p>Subject: Proposal Of <span th:text="${installedCapacity}" class="dynamic-value">____________</span> KW Solar Power Plant with Structure.</p>
     </div>
 
     <div class="salutation">
         <p>Respected Sir,</p>
     </div>
 
-    <p>As discussed, we would like to express our best quotation for <span th:text="${installedCapacity}" class="dynamic-value"></span> Kwp on grid Solar Power Plant with structure work. All work will be done as per your geographical condition & under all MSEDCL terms. All work will be done within period of 45 days.</p>
+    <p>As discussed, we would like to express our best quotation for <span th:text="${installedCapacity}" class="dynamic-value">____________</span> Kwp on grid Solar Power Plant with structure work. All work will be done as per your geographical condition & under all MSEDCL terms. All work will be done within period of 45 days.</p>
 
     <p class="mt8">If you have any query, please free to contact us.</p>
 
@@ -488,18 +467,18 @@
             <tbody>
             <tr>
                 <td style="text-align:center">1</td>
-                <td>Design, Supply & Installation of <span th:text="${installedCapacity}" class="dynamic-value"></span> KW Solar system.</td>
+                <td>Design, Supply & Installation of <span th:text="${installedCapacity}" class="dynamic-value">____________</span> KW Solar system.</td>
                 <td style="text-align:center">@ Rs PER/WATT</td>
                 <td style="text-align:right">
-                        <span th:if="${totalAmountIncludingGST != null and installedCapacity != null}">
-                            <span th:text="${#numbers.formatDecimal(totalAmountIncludingGST / (installedCapacity * 1000), 1, 2, 'COMMA')}"></span>
+                        <span th:with="rate=${totalAmountIncludingGST != null and installedCapacity != null ? totalAmountIncludingGST / (installedCapacity * 1000) : null}">
+                            <span th:if="${rate != null}" th:text="${#numbers.formatDecimal(rate, 1, 2, 'COMMA')}">____________</span>
+                            <span th:unless="${rate != null}">____________</span>
                         </span>
                 </td>
                 <td style="text-align:center">1 Unit</td>
                 <td style="text-align:right">
-                        <span th:if="${totalAmountIncludingGST != null}">
-                            <span th:text="${#numbers.formatDecimal(totalAmountIncludingGST, 0, 'COMMA')}"></span>
-                        </span>/-
+                    <span th:if="${totalAmountIncludingGST != null}" th:text="${#numbers.formatDecimal(totalAmountIncludingGST, 0, 'COMMA')}">____________</span>
+                    <span th:unless="${totalAmountIncludingGST != null}">____________</span>/-
                 </td>
             </tr>
             <tr>
@@ -507,8 +486,9 @@
                 <td colspan="4"><strong>Rate per Watt (Calculated)</strong></td>
                 <td style="text-align:right">
                     <strong>
-                            <span th:if="${totalAmountIncludingGST != null and installedCapacity != null}">
-                                ₹ <span th:text="${#numbers.formatDecimal(totalAmountIncludingGST / (installedCapacity * 1000), 1, 2, 'COMMA')}"></span>/Watt
+                            <span th:with="rate=${totalAmountIncludingGST != null and installedCapacity != null ? totalAmountIncludingGST / (installedCapacity * 1000) : null}">
+                                <span th:if="${rate != null}">₹ <span th:text="${#numbers.formatDecimal(rate, 1, 2, 'COMMA')}"></span>/Watt</span>
+                                <span th:unless="${rate != null}">₹ ____________/Watt</span>
                             </span>
                     </strong>
                 </td>
@@ -518,8 +498,9 @@
                 <td colspan="4">Base Amount (Excluding GST)</td>
                 <td style="text-align:right">
                         <span th:if="${totalAmountIncludingGST != null}">
-                            ₹ <span th:text="${#numbers.formatDecimal(totalAmountIncludingGST * 100 / 105, 0, 'COMMA')}"></span>/-
+                            ₹ <span th:text="${#numbers.formatDecimal(totalAmountIncludingGST * 100 / 105, 0, 'COMMA')}">____________</span>/-
                         </span>
+                    <span th:unless="${totalAmountIncludingGST != null}">₹ ____________/-</span>
                 </td>
             </tr>
             <tr>
@@ -527,8 +508,9 @@
                 <td colspan="4">GST Amount (5%)</td>
                 <td style="text-align:right">
                         <span th:if="${totalAmountIncludingGST != null}">
-                            ₹ <span th:text="${#numbers.formatDecimal(totalAmountIncludingGST * 5 / 105, 0, 'COMMA')}"></span>/-
+                            ₹ <span th:text="${#numbers.formatDecimal(totalAmountIncludingGST * 5 / 105, 0, 'COMMA')}">____________</span>/-
                         </span>
+                    <span th:unless="${totalAmountIncludingGST != null}">₹ ____________/-</span>
                 </td>
             </tr>
             <tr>
@@ -536,8 +518,9 @@
                 <td colspan="4">Total System Cost (Including GST 5%)</td>
                 <td style="text-align:right">
                         <span th:if="${totalAmountIncludingGST != null}">
-                            ₹ <span th:text="${#numbers.formatDecimal(totalAmountIncludingGST, 0, 'COMMA')}"></span>/-
+                            ₹ <span th:text="${#numbers.formatDecimal(totalAmountIncludingGST, 0, 'COMMA')}">____________</span>/-
                         </span>
+                    <span th:unless="${totalAmountIncludingGST != null}">₹ ____________/-</span>
                 </td>
             </tr>
             <tr>
@@ -551,9 +534,9 @@
                 <td style="text-align:right">
                     <strong>
                             <span th:if="${totalAmountIncludingGST != null}">
-                                ₹ <span th:text="${#numbers.formatDecimal(totalAmountIncludingGST, 0, 'COMMA')}"></span>/-
+                                ₹ <span th:text="${#numbers.formatDecimal(totalAmountIncludingGST, 0, 'COMMA')}">____________</span>/-
                             </span>
-                        <span th:if="${totalAmountIncludingGST == null}">₹ 0/-</span>
+                        <span th:unless="${totalAmountIncludingGST != null}">₹ ____________/-</span>
                     </strong>
                 </td>
             </tr>
@@ -595,14 +578,14 @@
             </tr>
             </thead>
             <tbody>
-            <tr><td style="text-align:center">1</td><td>Solar panel</td><td style="text-align:center"><span th:text="${numberOfModules}" class="dynamic-value"></span> Nos.</td><td><span th:text="${moduleMake}" class="dynamic-value"></span></td><td style="text-align:center">25 year warranty</td></tr>
-            <tr><td style="text-align:center">2</td><td>Inverter</td><td style="text-align:center"><span th:text="${inverterCapacity}" class="dynamic-value"></span> Nos.</td><td><span th:text="${inverterMake}" class="dynamic-value"></span></td><td style="text-align:center">10 Years for Inverter</td></tr>
+            <tr><td style="text-align:center">1</td><td>Solar panel</td><td style="text-align:center"><span th:text="${numberOfModules}" class="dynamic-value">____________</span> Nos.</td><td><span th:text="${moduleMake}" class="dynamic-value">____________</span></td><td style="text-align:center">25 year warranty</td></tr>
+            <tr><td style="text-align:center">2</td><td>Inverter</td><td style="text-align:center"><span th:text="${inverterCapacity}" class="dynamic-value">____________</span> Nos.</td><td><span th:text="${inverterMake}" class="dynamic-value">____________</span></td><td style="text-align:center">10 Years for Inverter</td></tr>
             <tr><td style="text-align:center">3</td><td>DCDB</td><td style="text-align:center">1 Nos.</td><td>TATA/IP 65,1000V/15 Amp Fuse Link & 1000V/40K DC SPD</td><td style="text-align:center">5 Years</td></tr>
             <tr><td style="text-align:center">4</td><td>ACDB</td><td style="text-align:center">1 Nos.</td><td>TATA/IP 65,440V/63Amp MCCB Legrand Make with ACSPD 440v/20K</td><td style="text-align:center">5 Years</td></tr>
             <tr><td style="text-align:center">5</td><td>Wires</td><td style="text-align:center">METER Nos.</td><td>Pure copper, TATA approved, Polycab Only.</td><td style="text-align:center">5 Years</td></tr>
             <tr><td style="text-align:center">6</td><td>Earthing kit</td><td style="text-align:center">3 Nos.</td><td>Bentonite Chemical Earthing with Insulator/True Power/U-Protect with 25 X 3 mm HDG WIRE</td><td style="text-align:center">5 Years</td></tr>
             <tr><td style="text-align:center">7</td><td>Lightening Arrester</td><td style="text-align:center">1 Nos.</td><td>TATA Power</td><td style="text-align:center">5 Years</td></tr>
-            <tr><td style="text-align:center">8</td><td>Bi-Directional (Net) Meter & Generation Meter</td><td style="text-align:center">1 No. Each</td><td><span th:text="${meterMake}" class="dynamic-value"></span></td><td style="text-align:center">5 Years</td></tr>
+            <tr><td style="text-align:center">8</td><td>Bi-Directional (Net) Meter & Generation Meter</td><td style="text-align:center">1 No. Each</td><td><span th:text="${meterMake}" class="dynamic-value">____________</span></td><td style="text-align:center">5 Years</td></tr>
             <tr><td style="text-align:center">9</td><td>LT Panel</td><td style="text-align:center">1 Nos.</td><td>MSEDCL Approved with Is Landing Protection using Auto Contactor Kit 150A</td><td style="text-align:center">5 Years</td></tr>
             </tbody>
         </table>
