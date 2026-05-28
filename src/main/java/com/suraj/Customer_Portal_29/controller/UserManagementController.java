@@ -113,7 +113,6 @@ public class UserManagementController {
         System.out.println("=== GET CURRENT USER PROFILE ===");
         System.out.println("Vendor Address: " + currentUser.getVendorAddress());
         System.out.println("Witness1 Name: " + currentUser.getWitness1Name());
-        System.out.println("Bank Account Name: " + currentUser.getBankAccountName());
 
         return ResponseEntity.ok(new ApiResponseDto<>("User fetched successfully", mapToResponse(currentUser)));
     }
@@ -127,14 +126,11 @@ public class UserManagementController {
             @RequestParam(required = false) MultipartFile witness1Signature,
             @RequestParam(required = false) MultipartFile witness2Signature) {
 
-        Owner currentUser = getLoggedInUser();
-
         System.out.println("=== UPDATE CURRENT USER PROFILE ===");
         System.out.println("Received vendorAddress: " + request.getVendorAddress());
         System.out.println("Received witness1Name: " + request.getWitness1Name());
-        System.out.println("Received bankAccountName: " + request.getBankAccountName());
-        System.out.println("Received designation: " + request.getDesignation());
 
+        Owner currentUser = getLoggedInUser();
         Owner user = userManagementService.updateUser(currentUser.getId(), request,
                 headerLogo, vendorSignature, witness1Signature, witness2Signature);
 

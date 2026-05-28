@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -64,6 +65,7 @@ public class UserManagementService {
 
         Owner user = ownerRepository.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));
 
+        // Update text fields
         if (request.getVendorAddress() != null) {
             user.setVendorAddress(request.getVendorAddress());
             System.out.println("Set vendorAddress: " + request.getVendorAddress());
@@ -87,6 +89,14 @@ public class UserManagementService {
         if (request.getWitness2Address() != null) {
             user.setWitness2Address(request.getWitness2Address());
             System.out.println("Set witness2Address: " + request.getWitness2Address());
+        }
+        if (request.getVendorMobile() != null) {
+            user.setVendorMobile(request.getVendorMobile());
+            System.out.println("Set vendorMobile: " + request.getVendorMobile());
+        }
+        if (request.getVendorEmail() != null) {
+            user.setVendorEmail(request.getVendorEmail());
+            System.out.println("Set vendorEmail: " + request.getVendorEmail());
         }
         if (request.getBankAccountName() != null) {
             user.setBankAccountName(request.getBankAccountName());
@@ -117,6 +127,7 @@ public class UserManagementService {
             System.out.println("Password updated");
         }
 
+        // Update images using syncImage pattern (same as SolarRecordService)
         user.setHeaderLogoUrl(syncImage(user.getHeaderLogoUrl(), headerLogo, request.getExistingHeaderLogo(), "userHeaderLogos"));
         user.setVendorSignatureUrl(syncImage(user.getVendorSignatureUrl(), vendorSignature, request.getExistingVendorSignature(), "userVendorSignatures"));
         user.setWitness1SignatureUrl(syncImage(user.getWitness1SignatureUrl(), witness1Signature, request.getExistingWitness1Signature(), "userWitnessSignatures"));
@@ -126,19 +137,21 @@ public class UserManagementService {
 
         System.out.println("User saved successfully. VendorAddress: " + savedUser.getVendorAddress());
         System.out.println("Witness1Name: " + savedUser.getWitness1Name());
-        System.out.println("BankAccountName: " + savedUser.getBankAccountName());
 
         return savedUser;
     }
 
+    // Same syncImage logic as SolarRecordService
     private String syncImage(String existingUrl, MultipartFile newFile, String existingUrlFromRequest, String folder) {
         String finalUrl = null;
 
+        // If existing URL from request is provided, use it (keeps existing image)
         if (existingUrlFromRequest != null && !existingUrlFromRequest.isEmpty()) {
             finalUrl = existingUrlFromRequest;
             System.out.println("Keeping existing image: " + finalUrl);
         }
 
+        // If new file is uploaded, upload new one and delete old
         if (newFile != null && !newFile.isEmpty()) {
             System.out.println("Uploading new image to folder: " + folder);
             if (existingUrl != null && !existingUrl.equals(finalUrl)) {
@@ -150,6 +163,27 @@ public class UserManagementService {
         }
 
         return finalUrl;
+    }
+
+    // Same uploadImagesWithCompression logic as SolarRecordService
+    private List<String> uploadImagesWithCompression(List<MultipartFile> files, String folder) {
+        if (files == null || files.isEmpty()) return Collections.emptyList();
+        return files.stream()
+                .filter(Objects::nonNull)
+                .map(file -> cloudinaryService.uploadFile(file, folder))
+                .collect(Collectors.toList());
+    }
+
+    // Same syncImages logic as SolarRecordService (for multiple images if needed)
+    private List<String> syncImages(List<String> existingImages, List<MultipartFile> newFiles, List<String> existingUrlsFromRequest, String folder) {
+        List<String> finalUrls = new ArrayList<>();
+        if (existingUrlsFromRequest != null) finalUrls.addAll(existingUrlsFromRequest);
+        if (newFiles != null && !newFiles.isEmpty()) finalUrls.addAll(uploadImagesWithCompression(newFiles, folder));
+        if (existingImages != null && !existingImages.isEmpty()) {
+            List<String> urlsToDelete = existingImages.stream().filter(url -> !finalUrls.contains(url)).collect(Collectors.toList());
+            if (!urlsToDelete.isEmpty()) cloudinaryService.deleteFiles(urlsToDelete);
+        }
+        return finalUrls;
     }
 
     public Owner updateUserPermissions(Long userId, Set<Permission> permissions) {
