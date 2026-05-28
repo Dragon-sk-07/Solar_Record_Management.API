@@ -1,20 +1,18 @@
-package com.suraj.Customer_Portal_29.dto.response;
+package com.suraj.Customer_Portal_29.dto.request;
 
 import com.suraj.Customer_Portal_29.entity.Permission;
 import lombok.Data;
-import java.time.LocalDateTime;
 import java.util.Set;
 
 @Data
-public class UserResponseDto {
+public class UserRequestDto {
     private Long id;
-    private String name;
     private String email;
+    private String name;
     private String mobile;
-    private String role;
-    private boolean isActive;
+    private String password;
     private Set<Permission> permissions;
-    private LocalDateTime createdAt;
+    private Boolean isActive;
     private String vendorAddress;
     private String authorizedPersonName;
     private String witness1Name;

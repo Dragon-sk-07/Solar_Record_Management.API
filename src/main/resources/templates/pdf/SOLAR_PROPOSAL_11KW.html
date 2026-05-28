@@ -592,11 +592,11 @@
 
     <h2>Bank Account Details</h2>
     <div class="bank-details-soft">
-        <p><strong>A/c Name :</strong> ME.ARIHANT SOLAR.</p>
-        <p><strong>Bank Name :</strong> BANK OF MAHARASHTRA</p>
-        <p><strong>A/c Number :</strong> 60520906312</p>
-        <p><strong>Branch :</strong> NRUSINHAWADI</p>
-        <p><strong>IFSC Code :</strong> MAHB0001872</p>
+        <p><strong>A/c Name :</strong> <span th:text="${bankAccountName != null ? bankAccountName : 'ME.ARIHANT SOLAR'}">ME.ARIHANT SOLAR</span></p>
+        <p><strong>Bank Name :</strong> <span th:text="${bankName != null ? bankName : 'BANK OF MAHARASHTRA'}">BANK OF MAHARASHTRA</span></p>
+        <p><strong>A/c Number :</strong> <span th:text="${bankAccountNumber != null ? bankAccountNumber : '60520906312'}">60520906312</span></p>
+        <p><strong>Branch :</strong> <span th:text="${branchName != null ? branchName : 'NRUSINHAWADI'}">NRUSINHAWADI</span></p>
+        <p><strong>IFSC Code :</strong> <span th:text="${bankIfscCode != null ? bankIfscCode : 'MAHB0001872'}">MAHB0001872</span></p>
     </div>
 
     <div class="signature-left-centered">
