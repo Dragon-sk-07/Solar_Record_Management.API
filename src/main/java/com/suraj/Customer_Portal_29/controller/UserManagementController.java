@@ -12,6 +12,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -21,6 +23,9 @@ public class UserManagementController {
 
     private final UserManagementService userManagementService;
     private final OwnerRepository ownerRepository;
+
+    @PersistenceContext
+    private EntityManager entityManager;
 
     public UserManagementController(UserManagementService userManagementService, OwnerRepository ownerRepository) {
         this.userManagementService = userManagementService;
@@ -104,10 +109,21 @@ public class UserManagementController {
 
     @GetMapping("/me")
     public ResponseEntity<ApiResponseDto<UserResponseDto>> getCurrentUserProfile() {
-        Owner currentUser = getLoggedInUser();
+        String email = SecurityContextHolder.getContext().getAuthentication().getName();
+
+        // Clear entity manager cache to force fresh read
+        entityManager.clear();
+
+        Owner currentUser = ownerRepository.findByEmail(email).orElseThrow(() -> new RuntimeException("User not found"));
+
+        // Force refresh from database
+        entityManager.refresh(currentUser);
+
         System.out.println("=== GET CURRENT USER PROFILE ===");
         System.out.println("Vendor Address: " + currentUser.getVendorAddress());
         System.out.println("Witness1 Name: " + currentUser.getWitness1Name());
+        System.out.println("Bank Account Name: " + currentUser.getBankAccountName());
+
         return ResponseEntity.ok(new ApiResponseDto<>("User fetched successfully", mapToResponse(currentUser)));
     }
 
@@ -124,14 +140,16 @@ public class UserManagementController {
         System.out.println("=== UPDATE CURRENT USER PROFILE ===");
         System.out.println("Received vendorAddress: " + request.getVendorAddress());
         System.out.println("Received witness1Name: " + request.getWitness1Name());
-        System.out.println("Received witness2Name: " + request.getWitness2Name());
         System.out.println("Received bankAccountName: " + request.getBankAccountName());
         System.out.println("Received designation: " + request.getDesignation());
 
         Owner user = userManagementService.updateUser(currentUser.getId(), request,
                 headerLogo, vendorSignature, witness1Signature, witness2Signature);
 
-        System.out.println("After update - vendorAddress in DB: " + user.getVendorAddress());
+        // Clear cache and fetch fresh to verify
+        entityManager.clear();
+        Owner freshUser = ownerRepository.findById(user.getId()).orElse(null);
+        System.out.println("AFTER UPDATE - Fresh fetch vendorAddress: " + (freshUser != null ? freshUser.getVendorAddress() : "null"));
 
         return ResponseEntity.ok(new ApiResponseDto<>("Profile updated successfully", mapToResponse(user)));
     }

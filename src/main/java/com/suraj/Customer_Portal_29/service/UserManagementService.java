@@ -9,16 +9,23 @@ import com.suraj.Customer_Portal_29.repository.OwnerRepository;
 import com.suraj.Customer_Portal_29.repository.SolarRecordRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
 import java.util.*;
 
 @Service
+@Transactional
 public class UserManagementService {
 
     private final OwnerRepository ownerRepository;
     private final PasswordEncoder passwordEncoder;
     private final SolarRecordRepository solarRecordRepository;
     private final CloudinaryService cloudinaryService;
+
+    @PersistenceContext
+    private EntityManager entityManager;
 
     public UserManagementService(OwnerRepository ownerRepository,
                                  PasswordEncoder passwordEncoder,
@@ -62,7 +69,7 @@ public class UserManagementService {
 
         Owner user = ownerRepository.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));
 
-        // Update text fields
+        // Update text fields - Vendor Details
         if (request.getVendorAddress() != null) {
             user.setVendorAddress(request.getVendorAddress());
             System.out.println("Set vendorAddress: " + request.getVendorAddress());
@@ -71,6 +78,8 @@ public class UserManagementService {
             user.setAuthorizedPersonName(request.getAuthorizedPersonName());
             System.out.println("Set authorizedPersonName: " + request.getAuthorizedPersonName());
         }
+
+        // Update Witness Details
         if (request.getWitness1Name() != null) {
             user.setWitness1Name(request.getWitness1Name());
             System.out.println("Set witness1Name: " + request.getWitness1Name());
@@ -87,14 +96,8 @@ public class UserManagementService {
             user.setWitness2Address(request.getWitness2Address());
             System.out.println("Set witness2Address: " + request.getWitness2Address());
         }
-        if (request.getVendorMobile() != null) {
-            user.setVendorMobile(request.getVendorMobile());
-            System.out.println("Set vendorMobile: " + request.getVendorMobile());
-        }
-        if (request.getVendorEmail() != null) {
-            user.setVendorEmail(request.getVendorEmail());
-            System.out.println("Set vendorEmail: " + request.getVendorEmail());
-        }
+
+        // Update Bank Details
         if (request.getBankAccountName() != null) {
             user.setBankAccountName(request.getBankAccountName());
             System.out.println("Set bankAccountName: " + request.getBankAccountName());
@@ -115,6 +118,8 @@ public class UserManagementService {
             user.setBranchName(request.getBranchName());
             System.out.println("Set branchName: " + request.getBranchName());
         }
+
+        // Update Designation
         if (request.getDesignation() != null) {
             user.setDesignation(request.getDesignation());
             System.out.println("Set designation: " + request.getDesignation());
@@ -126,20 +131,30 @@ public class UserManagementService {
             System.out.println("Password updated");
         }
 
-        // Update status if provided
-        if (request.getIsActive() != null) {
-            user.setActive(request.getIsActive());
-            System.out.println("Set isActive: " + request.getIsActive());
-        }
-
         // Update images with existing logic
         user.setHeaderLogoUrl(syncImage(user.getHeaderLogoUrl(), headerLogo, request.getExistingHeaderLogo(), "userHeaderLogos"));
         user.setVendorSignatureUrl(syncImage(user.getVendorSignatureUrl(), vendorSignature, request.getExistingVendorSignature(), "userVendorSignatures"));
         user.setWitness1SignatureUrl(syncImage(user.getWitness1SignatureUrl(), witness1Signature, request.getExistingWitness1Signature(), "userWitnessSignatures"));
         user.setWitness2SignatureUrl(syncImage(user.getWitness2SignatureUrl(), witness2Signature, request.getExistingWitness2Signature(), "userWitnessSignatures"));
 
-        Owner savedUser = ownerRepository.save(user);
+        // CRITICAL FIX: Use saveAndFlush to force immediate database write
+        Owner savedUser = ownerRepository.saveAndFlush(user);
+
+        // Clear entity manager cache to ensure fresh reads
+        entityManager.clear();
+
         System.out.println("User saved successfully. VendorAddress in DB: " + savedUser.getVendorAddress());
+        System.out.println("Witness1Name in DB: " + savedUser.getWitness1Name());
+        System.out.println("BankAccountName in DB: " + savedUser.getBankAccountName());
+
+        // Verify by fetching fresh from database
+        Owner verifiedUser = ownerRepository.findById(userId).orElse(null);
+        if (verifiedUser != null) {
+            System.out.println("VERIFIED - VendorAddress after save: " + verifiedUser.getVendorAddress());
+            System.out.println("VERIFIED - Witness1Name after save: " + verifiedUser.getWitness1Name());
+            System.out.println("VERIFIED - BankAccountName after save: " + verifiedUser.getBankAccountName());
+        }
+
         return savedUser;
     }
 
@@ -195,11 +210,13 @@ public class UserManagementService {
             throw new RuntimeException("Cannot delete SUPER_ADMIN");
         }
 
+        // Delete associated images from Cloudinary
         if (user.getHeaderLogoUrl() != null) cloudinaryService.deleteFile(user.getHeaderLogoUrl());
         if (user.getVendorSignatureUrl() != null) cloudinaryService.deleteFile(user.getVendorSignatureUrl());
         if (user.getWitness1SignatureUrl() != null) cloudinaryService.deleteFile(user.getWitness1SignatureUrl());
         if (user.getWitness2SignatureUrl() != null) cloudinaryService.deleteFile(user.getWitness2SignatureUrl());
 
+        // Delete all solar records created by this user
         List<SolarRecord> userRecords = solarRecordRepository.findByCreatedByUserEmail(user.getEmail());
         if (!userRecords.isEmpty()) {
             solarRecordRepository.deleteAll(userRecords);
