@@ -65,7 +65,6 @@ public class UserManagementService {
 
         Owner user = ownerRepository.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));
 
-        // Update text fields
         if (request.getVendorAddress() != null) {
             user.setVendorAddress(request.getVendorAddress());
             System.out.println("Set vendorAddress: " + request.getVendorAddress());
@@ -122,36 +121,27 @@ public class UserManagementService {
             user.setDesignation(request.getDesignation());
             System.out.println("Set designation: " + request.getDesignation());
         }
-        if (request.getPassword() != null && !request.getPassword().isEmpty()) {
-            user.setPassword(passwordEncoder.encode(request.getPassword()));
-            System.out.println("Password updated");
-        }
 
-        // Update images using syncImage pattern (same as SolarRecordService)
         user.setHeaderLogoUrl(syncImage(user.getHeaderLogoUrl(), headerLogo, request.getExistingHeaderLogo(), "userHeaderLogos"));
         user.setVendorSignatureUrl(syncImage(user.getVendorSignatureUrl(), vendorSignature, request.getExistingVendorSignature(), "userVendorSignatures"));
         user.setWitness1SignatureUrl(syncImage(user.getWitness1SignatureUrl(), witness1Signature, request.getExistingWitness1Signature(), "userWitnessSignatures"));
         user.setWitness2SignatureUrl(syncImage(user.getWitness2SignatureUrl(), witness2Signature, request.getExistingWitness2Signature(), "userWitnessSignatures"));
 
-        Owner savedUser = ownerRepository.saveAndFlush(user);
-
+        Owner savedUser = ownerRepository.save(user);
         System.out.println("User saved successfully. VendorAddress: " + savedUser.getVendorAddress());
         System.out.println("Witness1Name: " + savedUser.getWitness1Name());
 
         return savedUser;
     }
 
-    // Same syncImage logic as SolarRecordService
     private String syncImage(String existingUrl, MultipartFile newFile, String existingUrlFromRequest, String folder) {
         String finalUrl = null;
 
-        // If existing URL from request is provided, use it (keeps existing image)
         if (existingUrlFromRequest != null && !existingUrlFromRequest.isEmpty()) {
             finalUrl = existingUrlFromRequest;
             System.out.println("Keeping existing image: " + finalUrl);
         }
 
-        // If new file is uploaded, upload new one and delete old
         if (newFile != null && !newFile.isEmpty()) {
             System.out.println("Uploading new image to folder: " + folder);
             if (existingUrl != null && !existingUrl.equals(finalUrl)) {
@@ -165,7 +155,6 @@ public class UserManagementService {
         return finalUrl;
     }
 
-    // Same uploadImagesWithCompression logic as SolarRecordService
     private List<String> uploadImagesWithCompression(List<MultipartFile> files, String folder) {
         if (files == null || files.isEmpty()) return Collections.emptyList();
         return files.stream()
@@ -174,7 +163,6 @@ public class UserManagementService {
                 .collect(Collectors.toList());
     }
 
-    // Same syncImages logic as SolarRecordService (for multiple images if needed)
     private List<String> syncImages(List<String> existingImages, List<MultipartFile> newFiles, List<String> existingUrlsFromRequest, String folder) {
         List<String> finalUrls = new ArrayList<>();
         if (existingUrlsFromRequest != null) finalUrls.addAll(existingUrlsFromRequest);
