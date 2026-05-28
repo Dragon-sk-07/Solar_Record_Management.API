@@ -10,6 +10,7 @@ import com.suraj.Customer_Portal_29.repository.OwnerRepository;
 import com.suraj.Customer_Portal_29.service.UserManagementService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import jakarta.persistence.EntityManager;
@@ -108,15 +109,13 @@ public class UserManagementController {
     }
 
     @GetMapping("/me")
+    @Transactional(readOnly = true)
     public ResponseEntity<ApiResponseDto<UserResponseDto>> getCurrentUserProfile() {
         String email = SecurityContextHolder.getContext().getAuthentication().getName();
 
-        // Clear entity manager cache to force fresh read
-        entityManager.clear();
-
         Owner currentUser = ownerRepository.findByEmail(email).orElseThrow(() -> new RuntimeException("User not found"));
 
-        // Force refresh from database
+        // Force refresh from database (now within transaction)
         entityManager.refresh(currentUser);
 
         System.out.println("=== GET CURRENT USER PROFILE ===");
@@ -128,6 +127,7 @@ public class UserManagementController {
     }
 
     @PutMapping(value = "/me", consumes = {"multipart/form-data"})
+    @Transactional
     public ResponseEntity<ApiResponseDto<UserResponseDto>> updateCurrentUserProfile(
             @ModelAttribute UserRequestDto request,
             @RequestParam(required = false) MultipartFile headerLogo,
@@ -145,11 +145,6 @@ public class UserManagementController {
 
         Owner user = userManagementService.updateUser(currentUser.getId(), request,
                 headerLogo, vendorSignature, witness1Signature, witness2Signature);
-
-        // Clear cache and fetch fresh to verify
-        entityManager.clear();
-        Owner freshUser = ownerRepository.findById(user.getId()).orElse(null);
-        System.out.println("AFTER UPDATE - Fresh fetch vendorAddress: " + (freshUser != null ? freshUser.getVendorAddress() : "null"));
 
         return ResponseEntity.ok(new ApiResponseDto<>("Profile updated successfully", mapToResponse(user)));
     }
