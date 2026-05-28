@@ -11,8 +11,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.PersistenceContext;
 import java.util.*;
 
 @Service
@@ -23,9 +21,6 @@ public class UserManagementService {
     private final PasswordEncoder passwordEncoder;
     private final SolarRecordRepository solarRecordRepository;
     private final CloudinaryService cloudinaryService;
-
-    @PersistenceContext
-    private EntityManager entityManager;
 
     public UserManagementService(OwnerRepository ownerRepository,
                                  PasswordEncoder passwordEncoder,
@@ -129,9 +124,9 @@ public class UserManagementService {
 
         Owner savedUser = ownerRepository.saveAndFlush(user);
 
-        System.out.println("User saved successfully. VendorAddress in DB: " + savedUser.getVendorAddress());
-        System.out.println("Witness1Name in DB: " + savedUser.getWitness1Name());
-        System.out.println("BankAccountName in DB: " + savedUser.getBankAccountName());
+        System.out.println("User saved successfully. VendorAddress: " + savedUser.getVendorAddress());
+        System.out.println("Witness1Name: " + savedUser.getWitness1Name());
+        System.out.println("BankAccountName: " + savedUser.getBankAccountName());
 
         return savedUser;
     }

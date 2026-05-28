@@ -13,8 +13,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.PersistenceContext;
 import java.util.HashSet;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -25,9 +23,6 @@ public class UserManagementController {
 
     private final UserManagementService userManagementService;
     private final OwnerRepository ownerRepository;
-
-    @PersistenceContext
-    private EntityManager entityManager;
 
     public UserManagementController(UserManagementService userManagementService, OwnerRepository ownerRepository) {
         this.userManagementService = userManagementService;

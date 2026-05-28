@@ -60,7 +60,8 @@ public class SecurityConfig {
         configuration.setAllowedOrigins(List.of(
                 "https://solar-rts.onrender.com",
                 "https://arihant-solar-rts.netlify.app",
-                "https://solar-rts-ui.onrender.com"
+                "https://solar-rts-ui.onrender.com",
+                "http://localhost:5173"
         ));
         configuration.setAllowedMethods(List.of("GET","POST","PUT","DELETE","OPTIONS"));
         configuration.setAllowedHeaders(List.of("*"));
