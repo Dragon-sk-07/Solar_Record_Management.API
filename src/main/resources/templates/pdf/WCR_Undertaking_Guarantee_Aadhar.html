@@ -415,8 +415,8 @@
     <div class="aadhar-block">
         <p style="font-size: 12px; font-weight: 700; margin-bottom: 6px;">Identity Details of Consumer: -</p>
         <div class="aadhar-number-text"><span class="bold">Aadhar Number:</span> <span th:if="${aadharNumber != null and aadharNumber != ''}" th:text="${aadharNumber}"></span><span th:if="${aadharNumber == null or aadharNumber == ''}" class="value-missing">Value Missing</span></div>
-        <div th:if="${not #lists.isEmpty(aadharImageUrls)}"><div th:each="img, iterStat : ${aadharImageUrls}" class="aadhar-image-box"><p style="font-size: 9px; margin-bottom: 5px;">Aadhar Card - Side <span th:text="${iterStat.count}"></span></p><img th:src="${img}" alt="Aadhar Card" style="width: 100%; height: auto; max-height: 180px; border: 1px solid #ccc; object-fit: contain;"/></div></div>
-        <div th:if="${#lists.isEmpty(aadharImageUrls)}"><div class="aadhar-image-box"><p style="font-size: 9px; color: #999;">No Aadhar image uploaded</p></div></div>
+        <div th:if="${not #lists.isEmpty(aadharImages)}"><div th:each="img, iterStat : ${aadharImages}" class="aadhar-image-box">><p style="font-size: 9px; margin-bottom: 5px;">Aadhar Card - Side <span th:text="${iterStat.count}"></span></p><img th:src="${img}" alt="Aadhar Card" style="width: 100%; height: auto; max-height: 180px; border: 1px solid #ccc; object-fit: contain;"/></div></div>
+        <div th:if="${#lists.isEmpty(aadharImages)}"><div class="aadhar-image-box"><p style="font-size: 9px; color: #999;">No Aadhar image uploaded</p></div></div>
         <p class="text-right" style="margin-top: 8px;"><span class="bold">[SELF ATTESTED]</span></p>
         <p style="font-size: 9px; margin-top: 5px; text-align: center;">I hereby confirm that the above Aadhar details are correct and authentic.</p>
     </div>
