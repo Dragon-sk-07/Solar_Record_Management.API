@@ -69,7 +69,6 @@ public class UserManagementService {
 
         Owner user = ownerRepository.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));
 
-        // Update text fields - Vendor Details
         if (request.getVendorAddress() != null) {
             user.setVendorAddress(request.getVendorAddress());
             System.out.println("Set vendorAddress: " + request.getVendorAddress());
@@ -78,8 +77,6 @@ public class UserManagementService {
             user.setAuthorizedPersonName(request.getAuthorizedPersonName());
             System.out.println("Set authorizedPersonName: " + request.getAuthorizedPersonName());
         }
-
-        // Update Witness Details
         if (request.getWitness1Name() != null) {
             user.setWitness1Name(request.getWitness1Name());
             System.out.println("Set witness1Name: " + request.getWitness1Name());
@@ -96,8 +93,6 @@ public class UserManagementService {
             user.setWitness2Address(request.getWitness2Address());
             System.out.println("Set witness2Address: " + request.getWitness2Address());
         }
-
-        // Update Bank Details
         if (request.getBankAccountName() != null) {
             user.setBankAccountName(request.getBankAccountName());
             System.out.println("Set bankAccountName: " + request.getBankAccountName());
@@ -118,42 +113,25 @@ public class UserManagementService {
             user.setBranchName(request.getBranchName());
             System.out.println("Set branchName: " + request.getBranchName());
         }
-
-        // Update Designation
         if (request.getDesignation() != null) {
             user.setDesignation(request.getDesignation());
             System.out.println("Set designation: " + request.getDesignation());
         }
-
-        // Update password if provided
         if (request.getPassword() != null && !request.getPassword().isEmpty()) {
             user.setPassword(passwordEncoder.encode(request.getPassword()));
             System.out.println("Password updated");
         }
 
-        // Update images with existing logic
         user.setHeaderLogoUrl(syncImage(user.getHeaderLogoUrl(), headerLogo, request.getExistingHeaderLogo(), "userHeaderLogos"));
         user.setVendorSignatureUrl(syncImage(user.getVendorSignatureUrl(), vendorSignature, request.getExistingVendorSignature(), "userVendorSignatures"));
         user.setWitness1SignatureUrl(syncImage(user.getWitness1SignatureUrl(), witness1Signature, request.getExistingWitness1Signature(), "userWitnessSignatures"));
         user.setWitness2SignatureUrl(syncImage(user.getWitness2SignatureUrl(), witness2Signature, request.getExistingWitness2Signature(), "userWitnessSignatures"));
 
-        // CRITICAL FIX: Use saveAndFlush to force immediate database write
         Owner savedUser = ownerRepository.saveAndFlush(user);
-
-        // Clear entity manager cache to ensure fresh reads
-        entityManager.clear();
 
         System.out.println("User saved successfully. VendorAddress in DB: " + savedUser.getVendorAddress());
         System.out.println("Witness1Name in DB: " + savedUser.getWitness1Name());
         System.out.println("BankAccountName in DB: " + savedUser.getBankAccountName());
-
-        // Verify by fetching fresh from database
-        Owner verifiedUser = ownerRepository.findById(userId).orElse(null);
-        if (verifiedUser != null) {
-            System.out.println("VERIFIED - VendorAddress after save: " + verifiedUser.getVendorAddress());
-            System.out.println("VERIFIED - Witness1Name after save: " + verifiedUser.getWitness1Name());
-            System.out.println("VERIFIED - BankAccountName after save: " + verifiedUser.getBankAccountName());
-        }
 
         return savedUser;
     }
@@ -161,13 +139,11 @@ public class UserManagementService {
     private String syncImage(String existingUrl, MultipartFile newFile, String existingUrlFromRequest, String folder) {
         String finalUrl = null;
 
-        // If existing URL from request is provided, use it (keeps existing image)
         if (existingUrlFromRequest != null && !existingUrlFromRequest.isEmpty()) {
             finalUrl = existingUrlFromRequest;
             System.out.println("Keeping existing image: " + finalUrl);
         }
 
-        // If new file is uploaded, replace/upload new one
         if (newFile != null && !newFile.isEmpty()) {
             System.out.println("Uploading new image to folder: " + folder);
             if (existingUrl != null && !existingUrl.equals(finalUrl)) {
@@ -210,13 +186,11 @@ public class UserManagementService {
             throw new RuntimeException("Cannot delete SUPER_ADMIN");
         }
 
-        // Delete associated images from Cloudinary
         if (user.getHeaderLogoUrl() != null) cloudinaryService.deleteFile(user.getHeaderLogoUrl());
         if (user.getVendorSignatureUrl() != null) cloudinaryService.deleteFile(user.getVendorSignatureUrl());
         if (user.getWitness1SignatureUrl() != null) cloudinaryService.deleteFile(user.getWitness1SignatureUrl());
         if (user.getWitness2SignatureUrl() != null) cloudinaryService.deleteFile(user.getWitness2SignatureUrl());
 
-        // Delete all solar records created by this user
         List<SolarRecord> userRecords = solarRecordRepository.findByCreatedByUserEmail(user.getEmail());
         if (!userRecords.isEmpty()) {
             solarRecordRepository.deleteAll(userRecords);

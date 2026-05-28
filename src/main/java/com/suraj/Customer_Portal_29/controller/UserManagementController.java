@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
+import java.util.HashSet;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -112,11 +113,7 @@ public class UserManagementController {
     @Transactional(readOnly = true)
     public ResponseEntity<ApiResponseDto<UserResponseDto>> getCurrentUserProfile() {
         String email = SecurityContextHolder.getContext().getAuthentication().getName();
-
         Owner currentUser = ownerRepository.findByEmail(email).orElseThrow(() -> new RuntimeException("User not found"));
-
-        // Force refresh from database (now within transaction)
-        entityManager.refresh(currentUser);
 
         System.out.println("=== GET CURRENT USER PROFILE ===");
         System.out.println("Vendor Address: " + currentUser.getVendorAddress());
@@ -157,7 +154,7 @@ public class UserManagementController {
         dto.setMobile(user.getMobile());
         dto.setRole(user.getRole().name());
         dto.setActive(user.isActive());
-        dto.setPermissions(user.getPermissions());
+        dto.setPermissions(new HashSet<>(user.getPermissions()));
         dto.setCreatedAt(user.getCreatedAt());
         dto.setVendorAddress(user.getVendorAddress());
         dto.setAuthorizedPersonName(user.getAuthorizedPersonName());

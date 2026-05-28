@@ -16,7 +16,6 @@ public class UserResponseDto {
     private Set<Permission> permissions;
     private LocalDateTime createdAt;
 
-    // Vendor/Witness Details
     private String vendorAddress;
     private String authorizedPersonName;
     private String witness1Name;
@@ -26,7 +25,6 @@ public class UserResponseDto {
     private String vendorMobile;
     private String vendorEmail;
 
-    // Bank Details
     private String bankAccountName;
     private String bankAccountNumber;
     private String bankName;
@@ -34,7 +32,6 @@ public class UserResponseDto {
     private String branchName;
     private String designation;
 
-    // Image URLs
     private String headerLogoUrl;
     private String vendorSignatureUrl;
     private String witness1SignatureUrl;
