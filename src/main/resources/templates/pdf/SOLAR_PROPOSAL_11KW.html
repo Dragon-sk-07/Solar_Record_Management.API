@@ -338,7 +338,9 @@
 </head>
 <body>
 
-<!-- PAGE 1 -->
+<!-- ============================================ -->
+<!-- PAGE 1: HEADER + REF + SUBJECT + CONTENT + SIGNATURE -->
+<!-- ============================================ -->
 <div class="page">
     <div class="header-section">
         <img th:if="${not #lists.isEmpty(headerLogo)}" th:src="${headerLogo[0]}" alt="Vendor Header"/>
@@ -375,7 +377,9 @@
     </div>
 </div>
 
+<!-- ============================================ -->
 <!-- PAGE 2: SCOPE OF WORK -->
+<!-- ============================================ -->
 <div class="page">
     <div class="header-section">
         <img th:if="${not #lists.isEmpty(headerLogo)}" th:src="${headerLogo[0]}" alt="Vendor Header"/>
@@ -402,7 +406,7 @@
                 </td>
                 <td class="scope-title-bold">Module mounting structure<br/>
                     <span style="font-weight:normal;">- Design and installation of Galvanized, Structure with heavy support<br>
-                        - Proper grouting and calming to secure structure against stormy wind.</span>
+                    - Proper grouting and calming to secure structure against stormy wind.</span>
                 </td>
             </tr>
             <tr>
@@ -413,9 +417,9 @@
                 </td>
                 <td class="scope-title-bold">Design of i/p & o/p of electricity<br/>
                     <span style="font-weight:normal;">- Inverter installation<br>
-                        - Wiring as per safety terms of MSEDCL.<br>
-                        - Synchronization with Grid<br>
-                        - Proper earthing.</span>
+                    - Wiring as per safety terms of MSEDCL.<br>
+                    - Synchronization with Grid<br>
+                    - Proper earthing.</span>
                 </td>
             </tr>
             <tr>
@@ -443,7 +447,9 @@
     </div>
 </div>
 
-<!-- PAGE 3: QUOTATION -->
+<!-- ============================================ -->
+<!-- PAGE 3: QUOTATION TABLE - USING BACKEND CALCULATED VALUES -->
+<!-- ============================================ -->
 <div class="page">
     <div class="header-section">
         <img th:if="${not #lists.isEmpty(headerLogo)}" th:src="${headerLogo[0]}" alt="Vendor Header"/>
@@ -474,26 +480,11 @@
                 <td>Design, Supply & Installation of <span th:text="${installedCapacity}"></span> KW Solar system.</td>
                 <td style="text-align:center">@ Rs PER/WATT</td>
                 <td style="text-align:right">
-                    <th:block th:if="${totalAmountIncludingGST != null and installedCapacity != null}">
-                        <th:block th:if="${installedCapacity != ''}">
-                            <span th:text="${#numbers.formatDecimal(totalAmountIncludingGST / (installedCapacity * 1000), 1, 2, 'COMMA')}"></span>
-                        </th:block>
-                        <th:block th:unless="${installedCapacity != ''}">
-                            <span>-</span>
-                        </th:block>
-                    </th:block>
-                    <th:block th:unless="${totalAmountIncludingGST != null and installedCapacity != null}">
-                        <span>-</span>
-                    </th:block>
+                    <span th:text="${ratePerWatt}"></span>
                 </td>
                 <td style="text-align:center">1 Unit</td>
                 <td style="text-align:right">
-                    <th:block th:if="${totalAmountIncludingGST != null}">
-                        <span th:text="${#numbers.formatDecimal(totalAmountIncludingGST, 0, 'COMMA')}"></span>/-
-                    </th:block>
-                    <th:block th:unless="${totalAmountIncludingGST != null}">
-                        <span>0</span>/-
-                    </th:block>
+                    <span th:text="${totalAmountIncludingGST}"></span>/-
                 </td>
             </tr>
             <!-- Row 2: Total System Cost with GST -->
@@ -501,12 +492,7 @@
                 <td style="text-align:center">2</td>
                 <td colspan="4">Total System Cost (Including GST 5%)</td>
                 <td style="text-align:right">
-                    <th:block th:if="${totalAmountIncludingGST != null}">
-                        <span th:text="${#numbers.formatDecimal(totalAmountIncludingGST, 0, 'COMMA')}"></span>/-
-                    </th:block>
-                    <th:block th:unless="${totalAmountIncludingGST != null}">
-                        <span>0</span>/-
-                    </th:block>
+                    <span th:text="${totalAmountIncludingGST}"></span>/-
                 </td>
             </tr>
             <!-- Row 3: Cleaning system extra -->
@@ -520,14 +506,7 @@
                 <td style="text-align:center"></td>
                 <td colspan="4"><strong>Total</strong></td>
                 <td style="text-align:right">
-                    <strong>
-                        <th:block th:if="${totalAmountIncludingGST != null}">
-                            <span th:text="${#numbers.formatDecimal(totalAmountIncludingGST, 0, 'COMMA')}"></span>/-
-                        </th:block>
-                        <th:block th:unless="${totalAmountIncludingGST != null}">
-                            <span>0</span>/-
-                        </th:block>
-                    </strong>
+                    <strong><span th:text="${totalAmountIncludingGST}"></span>/-</strong>
                 </td>
             </tr>
             </tbody>
@@ -548,7 +527,9 @@
     </div>
 </div>
 
+<!-- ============================================ -->
 <!-- PAGE 4: SUPPLY OF MATERIAL -->
+<!-- ============================================ -->
 <div class="page">
     <div class="header-section">
         <img th:if="${not #lists.isEmpty(headerLogo)}" th:src="${headerLogo[0]}" alt="Vendor Header"/>
@@ -590,7 +571,9 @@
     </div>
 </div>
 
+<!-- ============================================ -->
 <!-- PAGE 5: BANK DETAILS -->
+<!-- ============================================ -->
 <div class="page">
     <div class="header-section">
         <img th:if="${not #lists.isEmpty(headerLogo)}" th:src="${headerLogo[0]}" alt="Vendor Header"/>

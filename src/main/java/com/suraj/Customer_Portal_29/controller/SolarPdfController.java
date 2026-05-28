@@ -174,6 +174,23 @@ public class SolarPdfController {
         data.put("inverterCapacity", getValueOrDefault(record.getInverterCapacity(), ""));
         data.put("totalAmountIncludingGST", getValueOrDefault(record.getTotalAmountIncludingGST(), ""));
 
+        Double totalAmount = record.getTotalAmountIncludingGST();
+        Double installedCap = record.getInstalledCapacity();
+        String ratePerWatt = "";
+        String baseAmount = "";
+        String gstAmount = "";
+
+        if (totalAmount != null && installedCap != null && installedCap > 0) {
+            double calculatedRate = totalAmount / (installedCap * 1000);
+            ratePerWatt = String.format("%.2f", calculatedRate);
+            baseAmount = String.format("%.0f", totalAmount * 100 / 105);
+            gstAmount = String.format("%.0f", totalAmount * 5 / 105);
+        }
+
+        data.put("ratePerWatt", ratePerWatt);
+        data.put("baseAmount", baseAmount);
+        data.put("gstAmount", gstAmount);
+
         // Vendor & Witness Information
         data.put("vendorName", getValueOrDefault(record.getVendorName(), ""));
         data.put("vendorAddress", getValueOrDefault(record.getVendorAddress(), ""));
