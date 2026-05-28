@@ -31,9 +31,10 @@ public class Owner {
     @Column(nullable = false)
     private UserRole role = UserRole.USER;
 
-    @Column(nullable = false)
+    @Column(name = "is_active", nullable = false)
     private boolean isActive = true;
 
+    @Column(name = "created_at")
     private LocalDateTime createdAt;
 
     @ElementCollection
@@ -42,35 +43,58 @@ public class Owner {
     @Column(name = "permission")
     private Set<Permission> permissions = new HashSet<>();
 
-    // Vendor/Witness Details
-    @Column(length = 500)
+    @Column(name = "vendor_address", length = 500)
     private String vendorAddress;
+
+    @Column(name = "authorized_person_name")
     private String authorizedPersonName;
+
+    @Column(name = "witness1_name")
     private String witness1Name;
-    @Column(length = 500)
+
+    @Column(name = "witness1_address", length = 500)
     private String witness1Address;
+
+    @Column(name = "witness2_name")
     private String witness2Name;
-    @Column(length = 500)
+
+    @Column(name = "witness2_address", length = 500)
     private String witness2Address;
+
+    @Column(name = "vendor_mobile")
     private String vendorMobile;
+
+    @Column(name = "vendor_email")
     private String vendorEmail;
 
-    // Bank Details
+    @Column(name = "bank_account_name")
     private String bankAccountName;
+
+    @Column(name = "bank_account_number")
     private String bankAccountNumber;
+
+    @Column(name = "bank_name")
     private String bankName;
+
+    @Column(name = "bank_ifsc_code")
     private String bankIfscCode;
+
+    @Column(name = "branch_name")
     private String branchName;
+
+    @Column(name = "designation")
     private String designation;
 
-    // Image URLs
-    @Column(length = 1000)
+    @Column(name = "header_logo_url", length = 1000)
     private String headerLogoUrl;
-    @Column(length = 1000)
+
+    @Column(name = "vendor_signature_url", length = 1000)
     private String vendorSignatureUrl;
-    @Column(length = 1000)
+
+    @Column(name = "witness1_signature_url", length = 1000)
     private String witness1SignatureUrl;
-    @Column(length = 1000)
+
+    @Column(name = "witness2_signature_url", length = 1000)
     private String witness2SignatureUrl;
 
     @PrePersist
