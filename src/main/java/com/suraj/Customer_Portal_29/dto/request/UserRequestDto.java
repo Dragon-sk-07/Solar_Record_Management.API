@@ -13,6 +13,8 @@ public class UserRequestDto {
     private String password;
     private Set<Permission> permissions;
     private Boolean isActive;
+
+    // Vendor/Witness Details
     private String vendorAddress;
     private String authorizedPersonName;
     private String witness1Name;
@@ -21,12 +23,16 @@ public class UserRequestDto {
     private String witness2Address;
     private String vendorMobile;
     private String vendorEmail;
+
+    // Bank Details
     private String bankAccountName;
     private String bankAccountNumber;
     private String bankName;
     private String bankIfscCode;
     private String branchName;
     private String designation;
+
+    // Existing Images (for update)
     private String existingHeaderLogo;
     private String existingVendorSignature;
     private String existingWitness1Signature;

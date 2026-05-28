@@ -11,19 +11,27 @@ import java.util.Set;
 @NoArgsConstructor @AllArgsConstructor
 @Table(name = "app_user")
 public class Owner {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private String name;
+
     @Column(unique = true, nullable = false)
     private String email;
+
     private String mobile;
+
     private String password;
+
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private UserRole role = UserRole.USER;
+
     @Column(nullable = false)
     private boolean isActive = true;
+
     private LocalDateTime createdAt;
 
     @ElementCollection
@@ -32,6 +40,7 @@ public class Owner {
     @Column(name = "permission")
     private Set<Permission> permissions = new HashSet<>();
 
+    // Vendor/Witness Details
     @Column(length = 500)
     private String vendorAddress;
     private String authorizedPersonName;
@@ -43,6 +52,8 @@ public class Owner {
     private String witness2Address;
     private String vendorMobile;
     private String vendorEmail;
+
+    // Bank Details
     private String bankAccountName;
     private String bankAccountNumber;
     private String bankName;
@@ -50,6 +61,7 @@ public class Owner {
     private String branchName;
     private String designation;
 
+    // Image URLs
     @Column(length = 1000)
     private String headerLogoUrl;
     @Column(length = 1000)

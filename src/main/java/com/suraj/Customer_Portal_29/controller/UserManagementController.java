@@ -18,6 +18,7 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("/api/admin/users")
 public class UserManagementController {
+
     private final UserManagementService userManagementService;
     private final OwnerRepository ownerRepository;
 
@@ -28,8 +29,11 @@ public class UserManagementController {
 
     private void checkSuperAdmin() {
         String email = SecurityContextHolder.getContext().getAuthentication().getName();
-        Owner currentUser = ownerRepository.findByEmail(email).orElseThrow(() -> new RuntimeException("User not found"));
-        if (currentUser.getRole() != UserRole.SUPER_ADMIN) throw new RuntimeException("Access denied. Super admin only.");
+        Owner currentUser = ownerRepository.findByEmail(email)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+        if (currentUser.getRole() != UserRole.SUPER_ADMIN) {
+            throw new RuntimeException("Access denied. Super admin only.");
+        }
     }
 
     private Owner getLoggedInUser() {
@@ -47,7 +51,9 @@ public class UserManagementController {
     @GetMapping
     public ResponseEntity<ApiResponseDto<List<UserResponseDto>>> getAllUsers() {
         checkSuperAdmin();
-        List<UserResponseDto> users = userManagementService.getAllUsers().stream().map(this::mapToResponse).collect(Collectors.toList());
+        List<UserResponseDto> users = userManagementService.getAllUsers().stream()
+                .map(this::mapToResponse)
+                .collect(Collectors.toList());
         return ResponseEntity.ok(new ApiResponseDto<>("Users fetched successfully", users));
     }
 
@@ -58,7 +64,7 @@ public class UserManagementController {
         return ResponseEntity.ok(new ApiResponseDto<>("User fetched successfully", mapToResponse(user)));
     }
 
-    @PutMapping(value = "/{userId}", consumes = {"multipart/form-data", "application/json"})
+    @PutMapping(value = "/{userId}", consumes = {"multipart/form-data"})
     public ResponseEntity<ApiResponseDto<UserResponseDto>> updateUser(
             @PathVariable Long userId,
             @ModelAttribute UserRequestDto request,
@@ -72,14 +78,18 @@ public class UserManagementController {
     }
 
     @PutMapping("/{userId}/permissions")
-    public ResponseEntity<ApiResponseDto<UserResponseDto>> updatePermissions(@PathVariable Long userId, @RequestBody UserPermissionUpdateDto request) {
+    public ResponseEntity<ApiResponseDto<UserResponseDto>> updatePermissions(
+            @PathVariable Long userId,
+            @RequestBody UserPermissionUpdateDto request) {
         checkSuperAdmin();
         Owner user = userManagementService.updateUserPermissions(userId, request.getPermissions());
         return ResponseEntity.ok(new ApiResponseDto<>("Permissions updated successfully", mapToResponse(user)));
     }
 
     @PutMapping("/{userId}/status")
-    public ResponseEntity<ApiResponseDto<UserResponseDto>> updateStatus(@PathVariable Long userId, @RequestParam boolean active) {
+    public ResponseEntity<ApiResponseDto<UserResponseDto>> updateStatus(
+            @PathVariable Long userId,
+            @RequestParam boolean active) {
         checkSuperAdmin();
         Owner user = userManagementService.updateUserStatus(userId, active);
         return ResponseEntity.ok(new ApiResponseDto<>("User status updated", mapToResponse(user)));
@@ -98,7 +108,7 @@ public class UserManagementController {
         return ResponseEntity.ok(new ApiResponseDto<>("User fetched successfully", mapToResponse(currentUser)));
     }
 
-    @PutMapping(value = "/me", consumes = {"multipart/form-data", "application/json"})
+    @PutMapping(value = "/me", consumes = {"multipart/form-data"})
     public ResponseEntity<ApiResponseDto<UserResponseDto>> updateCurrentUserProfile(
             @ModelAttribute UserRequestDto request,
             @RequestParam(required = false) MultipartFile headerLogo,

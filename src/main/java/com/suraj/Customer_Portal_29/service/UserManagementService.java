@@ -14,18 +14,23 @@ import java.util.*;
 
 @Service
 public class UserManagementService {
+
     private final OwnerRepository ownerRepository;
     private final PasswordEncoder passwordEncoder;
     private final SolarRecordRepository solarRecordRepository;
     private final CloudinaryService cloudinaryService;
 
-    public UserManagementService(OwnerRepository ownerRepository, PasswordEncoder passwordEncoder, SolarRecordRepository solarRecordRepository, CloudinaryService cloudinaryService) {
+    public UserManagementService(OwnerRepository ownerRepository,
+                                 PasswordEncoder passwordEncoder,
+                                 SolarRecordRepository solarRecordRepository,
+                                 CloudinaryService cloudinaryService) {
         this.ownerRepository = ownerRepository;
         this.passwordEncoder = passwordEncoder;
         this.solarRecordRepository = solarRecordRepository;
         this.cloudinaryService = cloudinaryService;
     }
 
+    // CREATE - uses same DTO
     public Owner createUser(UserRequestDto request) {
         if (ownerRepository.existsByEmail(request.getEmail())) {
             throw new RuntimeException("User already exists");
@@ -37,12 +42,26 @@ public class UserManagementService {
         user.setPassword(passwordEncoder.encode(request.getPassword()));
         user.setRole(UserRole.USER);
         user.setActive(true);
-        user.setPermissions(request.getPermissions() != null && !request.getPermissions().isEmpty() ? request.getPermissions() : Set.of(Permission.VIEW_RECORDS));
+
+        if (request.getPermissions() == null || request.getPermissions().isEmpty()) {
+            user.setPermissions(Set.of(Permission.VIEW_RECORDS));
+        } else {
+            user.setPermissions(request.getPermissions());
+        }
         return ownerRepository.save(user);
     }
 
-    public Owner updateUser(Long userId, UserRequestDto request, MultipartFile headerLogo, MultipartFile vendorSignature, MultipartFile witness1Signature, MultipartFile witness2Signature) {
+    // UPDATE - with image handling
+    public Owner updateUser(Long userId,
+                            UserRequestDto request,
+                            MultipartFile headerLogo,
+                            MultipartFile vendorSignature,
+                            MultipartFile witness1Signature,
+                            MultipartFile witness2Signature) {
+
         Owner user = ownerRepository.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));
+
+        // Update text fields
         if (request.getName() != null) user.setName(request.getName());
         if (request.getVendorAddress() != null) user.setVendorAddress(request.getVendorAddress());
         if (request.getAuthorizedPersonName() != null) user.setAuthorizedPersonName(request.getAuthorizedPersonName());
@@ -58,10 +77,23 @@ public class UserManagementService {
         if (request.getBankIfscCode() != null) user.setBankIfscCode(request.getBankIfscCode());
         if (request.getBranchName() != null) user.setBranchName(request.getBranchName());
         if (request.getDesignation() != null) user.setDesignation(request.getDesignation());
-        if (request.getPassword() != null && !request.getPassword().isEmpty()) user.setPassword(passwordEncoder.encode(request.getPassword()));
-        if (request.getIsActive() != null) user.setActive(request.getIsActive());
-        if (request.getPermissions() != null && user.getRole() != UserRole.SUPER_ADMIN) user.setPermissions(request.getPermissions());
 
+        // Update password if provided
+        if (request.getPassword() != null && !request.getPassword().isEmpty()) {
+            user.setPassword(passwordEncoder.encode(request.getPassword()));
+        }
+
+        // Update status if provided
+        if (request.getIsActive() != null) {
+            user.setActive(request.getIsActive());
+        }
+
+        // Update permissions if provided and not SUPER_ADMIN
+        if (request.getPermissions() != null && user.getRole() != UserRole.SUPER_ADMIN) {
+            user.setPermissions(request.getPermissions());
+        }
+
+        // Update images with existing logic
         user.setHeaderLogoUrl(syncImage(user.getHeaderLogoUrl(), headerLogo, request.getExistingHeaderLogo(), "userHeaderLogos"));
         user.setVendorSignatureUrl(syncImage(user.getVendorSignatureUrl(), vendorSignature, request.getExistingVendorSignature(), "userVendorSignatures"));
         user.setWitness1SignatureUrl(syncImage(user.getWitness1SignatureUrl(), witness1Signature, request.getExistingWitness1Signature(), "userWitnessSignatures"));
@@ -72,21 +104,29 @@ public class UserManagementService {
 
     private String syncImage(String existingUrl, MultipartFile newFile, String existingUrlFromRequest, String folder) {
         String finalUrl = null;
+
+        // If existing URL from request is provided, use it (keeps existing image)
         if (existingUrlFromRequest != null && !existingUrlFromRequest.isEmpty()) {
             finalUrl = existingUrlFromRequest;
         }
+
+        // If new file is uploaded, replace/upload new one
         if (newFile != null && !newFile.isEmpty()) {
+            // Delete old file if it exists and is different from the kept one
             if (existingUrl != null && !existingUrl.equals(finalUrl)) {
                 cloudinaryService.deleteFile(existingUrl);
             }
             finalUrl = cloudinaryService.uploadFile(newFile, folder);
         }
+
         return finalUrl;
     }
 
     public Owner updateUserPermissions(Long userId, Set<Permission> permissions) {
         Owner user = ownerRepository.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));
-        if (user.getRole() == UserRole.SUPER_ADMIN) throw new RuntimeException("Cannot modify SUPER_ADMIN permissions");
+        if (user.getRole() == UserRole.SUPER_ADMIN) {
+            throw new RuntimeException("Cannot modify SUPER_ADMIN permissions");
+        }
         user.setPermissions(permissions);
         return ownerRepository.save(user);
     }
@@ -107,13 +147,22 @@ public class UserManagementService {
 
     public void deleteUser(Long userId) {
         Owner user = ownerRepository.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));
-        if (user.getRole() == UserRole.SUPER_ADMIN) throw new RuntimeException("Cannot delete SUPER_ADMIN");
+        if (user.getRole() == UserRole.SUPER_ADMIN) {
+            throw new RuntimeException("Cannot delete SUPER_ADMIN");
+        }
+
+        // Delete associated images from Cloudinary
         if (user.getHeaderLogoUrl() != null) cloudinaryService.deleteFile(user.getHeaderLogoUrl());
         if (user.getVendorSignatureUrl() != null) cloudinaryService.deleteFile(user.getVendorSignatureUrl());
         if (user.getWitness1SignatureUrl() != null) cloudinaryService.deleteFile(user.getWitness1SignatureUrl());
         if (user.getWitness2SignatureUrl() != null) cloudinaryService.deleteFile(user.getWitness2SignatureUrl());
+
+        // Delete all solar records created by this user
         List<SolarRecord> userRecords = solarRecordRepository.findByCreatedByUserEmail(user.getEmail());
-        if (!userRecords.isEmpty()) solarRecordRepository.deleteAll(userRecords);
+        if (!userRecords.isEmpty()) {
+            solarRecordRepository.deleteAll(userRecords);
+        }
+
         ownerRepository.delete(user);
     }
 }
