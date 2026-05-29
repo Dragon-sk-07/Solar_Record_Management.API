@@ -146,47 +146,18 @@
     .page-break {
         page-break-before: always;
     }
-
-    /* Stamp Page Styles - Table-based centering */
     .stamp-page {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 90vh;
         page-break-after: always;
-        width: 100%;
-        height: 100vh;
-        margin: 0;
-        padding: 0;
-        display: table;
     }
-
-    .stamp-page-inner {
-        display: table-cell;
-        vertical-align: middle;
-        text-align: center;
-        width: 100%;
-        height: 100%;
-    }
-
     .stamp-page img {
-        width: calc(100% - 50px) !important;
-        height: calc(100vh - 50px) !important;
-        object-fit: fill !important;
-        display: inline-block !important;
-        margin: 0 auto !important;
-        padding: 25px !important;
-        box-sizing: border-box;
+        width: 100%;
+        height: 85vh;
+        object-fit: contain;
     }
-
-    @media print {
-        .stamp-page {
-            page-break-after: always;
-            page-break-inside: avoid;
-        }
-        .stamp-page img {
-            width: calc(100% - 50px) !important;
-            height: calc(100% - 50px) !important;
-            object-fit: fill !important;
-        }
-    }
-
     .signature-left p, .signature-right p {
         margin-bottom: 5px;
         font-size: 11pt;
@@ -223,9 +194,7 @@
 
 <div th:if="${not #lists.isEmpty(annexureTwoStamp)}">
   <div class="stamp-page">
-    <div class="stamp-page-inner">
-      <img th:src="${annexureTwoStamp[0]}" alt="Annexure II Stamp"/>
-    </div>
+    <img th:src="${annexureTwoStamp[0]}" alt="Annexure II Stamp"/>
   </div>
 </div>
 
