@@ -81,11 +81,57 @@ public class UserManagementController {
 
     @PutMapping(value = "/me", consumes = {"multipart/form-data"})
     public ApiResponseDto<UserResponseDto> updateCurrentUserProfile(
-            @Valid @ModelAttribute UserRequestDto request,
+            @RequestParam(required = false) String vendorAddress,
+            @RequestParam(required = false) String authorizedPersonName,
+            @RequestParam(required = false) String witness1Name,
+            @RequestParam(required = false) String witness1Address,
+            @RequestParam(required = false) String witness2Name,
+            @RequestParam(required = false) String witness2Address,
+            @RequestParam(required = false) String designation,
+            @RequestParam(required = false) String vendorMobile,
+            @RequestParam(required = false) String vendorEmail,
+            @RequestParam(required = false) String bankAccountName,
+            @RequestParam(required = false) String bankAccountNumber,
+            @RequestParam(required = false) String bankName,
+            @RequestParam(required = false) String bankIfscCode,
+            @RequestParam(required = false) String branchName,
             @RequestParam(required = false) MultipartFile headerLogo,
             @RequestParam(required = false) MultipartFile vendorSignature,
             @RequestParam(required = false) MultipartFile witness1Signature,
-            @RequestParam(required = false) MultipartFile witness2Signature) {
+            @RequestParam(required = false) MultipartFile witness2Signature,
+            @RequestParam(required = false) String existingHeaderLogo,
+            @RequestParam(required = false) String existingVendorSignature,
+            @RequestParam(required = false) String existingWitness1Signature,
+            @RequestParam(required = false) String existingWitness2Signature,
+            @RequestParam(required = false) boolean deleteHeaderLogo,
+            @RequestParam(required = false) boolean deleteVendorSignature,
+            @RequestParam(required = false) boolean deleteWitness1Signature,
+            @RequestParam(required = false) boolean deleteWitness2Signature) {
+
+        UserRequestDto request = new UserRequestDto();
+        request.setVendorAddress(vendorAddress);
+        request.setAuthorizedPersonName(authorizedPersonName);
+        request.setWitness1Name(witness1Name);
+        request.setWitness1Address(witness1Address);
+        request.setWitness2Name(witness2Name);
+        request.setWitness2Address(witness2Address);
+        request.setDesignation(designation);
+        request.setVendorMobile(vendorMobile);
+        request.setVendorEmail(vendorEmail);
+        request.setBankAccountName(bankAccountName);
+        request.setBankAccountNumber(bankAccountNumber);
+        request.setBankName(bankName);
+        request.setBankIfscCode(bankIfscCode);
+        request.setBranchName(branchName);
+        request.setExistingHeaderLogo(existingHeaderLogo);
+        request.setExistingVendorSignature(existingVendorSignature);
+        request.setExistingWitness1Signature(existingWitness1Signature);
+        request.setExistingWitness2Signature(existingWitness2Signature);
+        request.setDeleteHeaderLogo(deleteHeaderLogo);
+        request.setDeleteVendorSignature(deleteVendorSignature);
+        request.setDeleteWitness1Signature(deleteWitness1Signature);
+        request.setDeleteWitness2Signature(deleteWitness2Signature);
+
         UserResponseDto data = service.updateCurrentUserProfile(request, headerLogo, vendorSignature, witness1Signature, witness2Signature);
         return new ApiResponseDto<>("Profile updated successfully", data);
     }

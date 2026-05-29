@@ -57,6 +57,23 @@ public class UserManagementService {
         return response;
     }
 
+    private void updateImageField(String currentUrl, MultipartFile newFile, String existingUrl, boolean deleteFlag,
+                                  java.util.function.Consumer<String> setter, java.util.function.Consumer<String> deleter) {
+        if (deleteFlag) {
+            if (currentUrl != null) {
+                cloudinaryService.deleteFile(currentUrl);
+            }
+            setter.accept(null);
+        } else if (newFile != null && !newFile.isEmpty()) {
+            if (currentUrl != null) {
+                cloudinaryService.deleteFile(currentUrl);
+            }
+            setter.accept(cloudinaryService.uploadFile(newFile, "userImages"));
+        } else if (existingUrl != null && !existingUrl.isEmpty()) {
+            setter.accept(existingUrl);
+        }
+    }
+
     public UserResponseDto createUser(UserRequestDto request) {
         if (ownerRepository.existsByEmail(request.getEmail())) {
             throw new RuntimeException("User already exists");
@@ -203,35 +220,75 @@ public class UserManagementService {
                                                     MultipartFile witness2Signature) {
 
         Owner currentUser = getCurrentUser();
-        modelMapper.map(request, currentUser);
 
-        if (headerLogo != null && !headerLogo.isEmpty()) {
-            if (currentUser.getHeaderLogoUrl() != null) {
-                cloudinaryService.deleteFile(currentUser.getHeaderLogoUrl());
+        if (request != null) {
+            if (request.getVendorAddress() != null) {
+                currentUser.setVendorAddress(request.getVendorAddress().isEmpty() ? null : request.getVendorAddress());
             }
-            currentUser.setHeaderLogoUrl(cloudinaryService.uploadFile(headerLogo, "userHeaderLogos"));
+            if (request.getAuthorizedPersonName() != null) {
+                currentUser.setAuthorizedPersonName(request.getAuthorizedPersonName().isEmpty() ? null : request.getAuthorizedPersonName());
+            }
+            if (request.getWitness1Name() != null) {
+                currentUser.setWitness1Name(request.getWitness1Name().isEmpty() ? null : request.getWitness1Name());
+            }
+            if (request.getWitness1Address() != null) {
+                currentUser.setWitness1Address(request.getWitness1Address().isEmpty() ? null : request.getWitness1Address());
+            }
+            if (request.getWitness2Name() != null) {
+                currentUser.setWitness2Name(request.getWitness2Name().isEmpty() ? null : request.getWitness2Name());
+            }
+            if (request.getWitness2Address() != null) {
+                currentUser.setWitness2Address(request.getWitness2Address().isEmpty() ? null : request.getWitness2Address());
+            }
+            if (request.getDesignation() != null) {
+                currentUser.setDesignation(request.getDesignation().isEmpty() ? null : request.getDesignation());
+            }
+            if (request.getVendorMobile() != null) {
+                currentUser.setVendorMobile(request.getVendorMobile().isEmpty() ? null : request.getVendorMobile());
+            }
+            if (request.getVendorEmail() != null) {
+                currentUser.setVendorEmail(request.getVendorEmail().isEmpty() ? null : request.getVendorEmail());
+            }
+            if (request.getBankAccountName() != null) {
+                currentUser.setBankAccountName(request.getBankAccountName().isEmpty() ? null : request.getBankAccountName());
+            }
+            if (request.getBankAccountNumber() != null) {
+                currentUser.setBankAccountNumber(request.getBankAccountNumber().isEmpty() ? null : request.getBankAccountNumber());
+            }
+            if (request.getBankName() != null) {
+                currentUser.setBankName(request.getBankName().isEmpty() ? null : request.getBankName());
+            }
+            if (request.getBankIfscCode() != null) {
+                currentUser.setBankIfscCode(request.getBankIfscCode().isEmpty() ? null : request.getBankIfscCode());
+            }
+            if (request.getBranchName() != null) {
+                currentUser.setBranchName(request.getBranchName().isEmpty() ? null : request.getBranchName());
+            }
         }
 
-        if (vendorSignature != null && !vendorSignature.isEmpty()) {
-            if (currentUser.getVendorSignatureUrl() != null) {
-                cloudinaryService.deleteFile(currentUser.getVendorSignatureUrl());
-            }
-            currentUser.setVendorSignatureUrl(cloudinaryService.uploadFile(vendorSignature, "userVendorSignatures"));
-        }
+        updateImageField(currentUser.getHeaderLogoUrl(), headerLogo,
+                request != null ? request.getExistingHeaderLogo() : null,
+                request != null && request.isDeleteHeaderLogo(),
+                url -> currentUser.setHeaderLogoUrl(url),
+                url -> {});
 
-        if (witness1Signature != null && !witness1Signature.isEmpty()) {
-            if (currentUser.getWitness1SignatureUrl() != null) {
-                cloudinaryService.deleteFile(currentUser.getWitness1SignatureUrl());
-            }
-            currentUser.setWitness1SignatureUrl(cloudinaryService.uploadFile(witness1Signature, "userWitnessSignatures"));
-        }
+        updateImageField(currentUser.getVendorSignatureUrl(), vendorSignature,
+                request != null ? request.getExistingVendorSignature() : null,
+                request != null && request.isDeleteVendorSignature(),
+                url -> currentUser.setVendorSignatureUrl(url),
+                url -> {});
 
-        if (witness2Signature != null && !witness2Signature.isEmpty()) {
-            if (currentUser.getWitness2SignatureUrl() != null) {
-                cloudinaryService.deleteFile(currentUser.getWitness2SignatureUrl());
-            }
-            currentUser.setWitness2SignatureUrl(cloudinaryService.uploadFile(witness2Signature, "userWitnessSignatures"));
-        }
+        updateImageField(currentUser.getWitness1SignatureUrl(), witness1Signature,
+                request != null ? request.getExistingWitness1Signature() : null,
+                request != null && request.isDeleteWitness1Signature(),
+                url -> currentUser.setWitness1SignatureUrl(url),
+                url -> {});
+
+        updateImageField(currentUser.getWitness2SignatureUrl(), witness2Signature,
+                request != null ? request.getExistingWitness2Signature() : null,
+                request != null && request.isDeleteWitness2Signature(),
+                url -> currentUser.setWitness2SignatureUrl(url),
+                url -> {});
 
         return mapToResponse(ownerRepository.save(currentUser));
     }

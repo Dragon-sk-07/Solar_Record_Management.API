@@ -14,7 +14,6 @@ public class UserRequestDto {
     private Set<Permission> permissions;
     private Boolean isActive;
 
-    // Vendor/Witness Details
     private String vendorAddress;
     private String authorizedPersonName;
     private String witness1Name;
@@ -24,7 +23,6 @@ public class UserRequestDto {
     private String vendorMobile;
     private String vendorEmail;
 
-    // Bank Details
     private String bankAccountName;
     private String bankAccountNumber;
     private String bankName;
@@ -32,9 +30,13 @@ public class UserRequestDto {
     private String branchName;
     private String designation;
 
-    // Existing Images (for update)
     private String existingHeaderLogo;
     private String existingVendorSignature;
     private String existingWitness1Signature;
     private String existingWitness2Signature;
+
+    private boolean deleteHeaderLogo;
+    private boolean deleteVendorSignature;
+    private boolean deleteWitness1Signature;
+    private boolean deleteWitness2Signature;
 }
