@@ -37,12 +37,8 @@ public class AuthService {
 
     public LoginResponseDto login(LoginRequestDto request) {
         String email = request.getEmail();
-        com.suraj.Customer_Portal_29.entity.Owner owner = userCache.get(email);
-        if (owner == null || System.currentTimeMillis() - cacheTime.getOrDefault(email, 0L) > CACHE_DURATION) {
-            owner = repo.findByEmail(email).orElseThrow(() -> new RuntimeException("Invalid credentials"));
-            userCache.put(email, owner);
-            cacheTime.put(email, System.currentTimeMillis());
-        }
+        com.suraj.Customer_Portal_29.entity.Owner owner = repo.findByEmail(email).orElseThrow(() -> new RuntimeException("Invalid credentials"));
+
         if (!passwordEncoder.matches(request.getPassword(), owner.getPassword())) {
             throw new RuntimeException("Invalid credentials");
         }
