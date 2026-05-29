@@ -47,15 +47,25 @@
     padding: 0;
 }
 .stamp-page img {
-    max-width: calc(100% - 60px) !important;
-    max-height: calc(100vh - 60px) !important;
+    max-width: calc(100% - 50px) !important;
+    max-height: calc(100vh - 50px) !important;
     width: auto !important;
     height: auto !important;
     object-fit: contain !important;
     display: block;
     margin: 0 auto;
-    padding: 30px;
+    padding: 25px !important;
     box-sizing: border-box;
+}
+@media print {
+    .stamp-page {
+        page-break-after: always;
+        page-break-inside: avoid;
+    }
+    .stamp-page img {
+        max-width: calc(100% - 50px) !important;
+        max-height: calc(100% - 50px) !important;
+    }
 }
         h1 {
             text-align: center;
@@ -218,7 +228,7 @@
 <!--    <img th:src="${defaultMsedclHeader}" style="max-width: 100%; max-height: 80px; object-fit: contain;" alt="MSEDCL Header"/>-->
 <!--</div>-->
 
-<div th:if="${not #lists.isEmpty(netMeteringStamp)}" style="page-break-after: always;">
+<div th:if="${not #lists.isEmpty(netMeteringStamp)}"  >
     <div class="stamp-page">
         <img th:src="${netMeteringStamp[0]}" alt="Net Metering Stamp"/>
     </div>
