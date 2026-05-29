@@ -297,8 +297,9 @@
                     <span th:if="${authorizedPersonName == null or authorizedPersonName == ''}" class="value-placeholder">_________________________</span>
                 </div>
                 <div class="signature-row">
-                    <span class="signature-label">Designation</span>
-                    <span class="signature-value">Proprietor</span>
+                    <span class="signature-label">Designation: </span>
+                    <span th:if="${designation != null and designation != ''}" th:text="${designation}" class="signature-value"></span>
+                    <span th:unless="${designation != null and designation != ''}" class="signature-value">Proprietor</span>
                 </div>
                 <div class="signature-row">
                     <span class="signature-label">Phone</span>

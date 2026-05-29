@@ -146,18 +146,27 @@
     .page-break {
         page-break-before: always;
     }
-    .stamp-page {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        height: 90vh;
-        page-break-after: always;
-    }
-    .stamp-page img {
-        width: 100%;
-        height: 85vh;
-        object-fit: contain;
-    }
+   .stamp-page {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    page-break-after: always;
+    width: 100%;
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+}
+.stamp-page img {
+    max-width: calc(100% - 60px) !important;
+    max-height: calc(100vh - 60px) !important;
+    width: auto !important;
+    height: auto !important;
+    object-fit: contain !important;
+    display: block;
+    margin: 0 auto;
+    padding: 30px;
+    box-sizing: border-box;
+}
     .signature-left p, .signature-right p {
         margin-bottom: 5px;
         font-size: 11pt;
@@ -193,7 +202,7 @@
 <body>
 
 <!-- If Stamp Uploaded: Show Stamp on Page 1 -->
-<div th:if="${not #lists.isEmpty(annexureTwoStamp)}">
+<div th:if="${not #lists.isEmpty(annexureTwoStamp)}" style="page-break-after: always;">
   <div class="stamp-page">
     <img th:src="${annexureTwoStamp[0]}" alt="Annexure II Stamp"/>
   </div>
