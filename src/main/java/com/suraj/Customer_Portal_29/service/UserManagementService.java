@@ -166,18 +166,64 @@ public class UserManagementService {
         }
 
         // Delete Cloudinary images
-        if (user.getHeaderLogoUrl() != null) cloudinaryService.deleteFile(user.getHeaderLogoUrl());
-        if (user.getVendorSignatureUrl() != null) cloudinaryService.deleteFile(user.getVendorSignatureUrl());
-        if (user.getWitness1SignatureUrl() != null) cloudinaryService.deleteFile(user.getWitness1SignatureUrl());
-        if (user.getWitness2SignatureUrl() != null) cloudinaryService.deleteFile(user.getWitness2SignatureUrl());
-
-        // Delete associated solar records
-        List<SolarRecord> userRecords = solarRecordRepository.findByCreatedByUserEmail(user.getEmail());
-        if (!userRecords.isEmpty()) {
-            solarRecordRepository.deleteAll(userRecords);
+        if (user.getHeaderLogoUrl() != null) {
+            cloudinaryService.deleteFile(user.getHeaderLogoUrl());
+            System.out.println("Deleted header logo from Cloudinary");
+        }
+        if (user.getVendorSignatureUrl() != null) {
+            cloudinaryService.deleteFile(user.getVendorSignatureUrl());
+            System.out.println("Deleted vendor signature from Cloudinary");
+        }
+        if (user.getWitness1SignatureUrl() != null) {
+            cloudinaryService.deleteFile(user.getWitness1SignatureUrl());
+            System.out.println("Deleted witness1 signature from Cloudinary");
+        }
+        if (user.getWitness2SignatureUrl() != null) {
+            cloudinaryService.deleteFile(user.getWitness2SignatureUrl());
+            System.out.println("Deleted witness2 signature from Cloudinary");
         }
 
+        // Get all solar records created by this user
+        List<SolarRecord> userRecords = solarRecordRepository.findByCreatedByUserEmail(user.getEmail());
+
+        if (!userRecords.isEmpty()) {
+            // Delete Cloudinary images from each solar record
+            for (SolarRecord record : userRecords) {
+                // Delete site photos
+                if (record.getSitePhotos() != null && !record.getSitePhotos().isEmpty()) {
+                    cloudinaryService.deleteFiles(record.getSitePhotos());
+                    System.out.println("Deleted site photos for record: " + record.getId());
+                }
+                // Delete aadhar images
+                if (record.getAadharImages() != null && !record.getAadharImages().isEmpty()) {
+                    cloudinaryService.deleteFiles(record.getAadharImages());
+                    System.out.println("Deleted aadhar images for record: " + record.getId());
+                }
+                // Delete consumer signatures
+                if (record.getConsumerSignature() != null && !record.getConsumerSignature().isEmpty()) {
+                    cloudinaryService.deleteFiles(record.getConsumerSignature());
+                    System.out.println("Deleted consumer signatures for record: " + record.getId());
+                }
+                // Delete net metering stamps
+                if (record.getNetMeteringStamp() != null && !record.getNetMeteringStamp().isEmpty()) {
+                    cloudinaryService.deleteFiles(record.getNetMeteringStamp());
+                    System.out.println("Deleted net metering stamps for record: " + record.getId());
+                }
+                // Delete annexure two stamps
+                if (record.getAnnexureTwoStamp() != null && !record.getAnnexureTwoStamp().isEmpty()) {
+                    cloudinaryService.deleteFiles(record.getAnnexureTwoStamp());
+                    System.out.println("Deleted annexure two stamps for record: " + record.getId());
+                }
+            }
+
+            // Delete all solar records from database
+            solarRecordRepository.deleteAll(userRecords);
+            System.out.println("Deleted " + userRecords.size() + " solar records from database");
+        }
+
+        // Finally delete the user
         ownerRepository.delete(user);
+        System.out.println("User deleted successfully: " + user.getEmail());
     }
 
     // GET CURRENT USER PROFILE
