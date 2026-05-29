@@ -177,9 +177,6 @@ public class UserManagementService {
                 if (record.getConsumerSignature() != null && !record.getConsumerSignature().isEmpty()) {
                     cloudinaryService.deleteFiles(record.getConsumerSignature());
                 }
-                if (record.getWitnessSignature() != null && !record.getWitnessSignature().isEmpty()) {
-                    cloudinaryService.deleteFiles(record.getWitnessSignature());
-                }
                 if (record.getNetMeteringStamp() != null && !record.getNetMeteringStamp().isEmpty()) {
                     cloudinaryService.deleteFiles(record.getNetMeteringStamp());
                 }
