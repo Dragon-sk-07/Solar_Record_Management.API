@@ -57,7 +57,6 @@ public class UserManagementService {
         return response;
     }
 
-    // CREATE USER
     public UserResponseDto createUser(UserRequestDto request) {
         if (ownerRepository.existsByEmail(request.getEmail())) {
             throw new RuntimeException("User already exists");
@@ -79,19 +78,16 @@ public class UserManagementService {
         return mapToResponse(ownerRepository.save(user));
     }
 
-    // GET ALL USERS
     public List<UserResponseDto> getAllUsers() {
         return ownerRepository.findAll().stream()
                 .map(this::mapToResponse)
                 .collect(Collectors.toList());
     }
 
-    // GET USER BY ID
     public UserResponseDto getUserById(Long userId) {
         return mapToResponse(findEntityById(userId));
     }
 
-    // UPDATE USER (for SUPER_ADMIN)
     @Transactional
     public UserResponseDto updateUser(Long userId,
                                       UserRequestDto request,
@@ -100,13 +96,9 @@ public class UserManagementService {
                                       MultipartFile witness1Signature,
                                       MultipartFile witness2Signature) {
 
-        System.out.println("=== UserManagementService.updateUser START ===");
         Owner existingUser = findEntityById(userId);
-
-        // Map all non-null fields from request to entity
         modelMapper.map(request, existingUser);
 
-        // Handle file uploads
         if (headerLogo != null && !headerLogo.isEmpty()) {
             if (existingUser.getHeaderLogoUrl() != null) {
                 cloudinaryService.deleteFile(existingUser.getHeaderLogoUrl());
@@ -135,13 +127,9 @@ public class UserManagementService {
             existingUser.setWitness2SignatureUrl(cloudinaryService.uploadFile(witness2Signature, "userWitnessSignatures"));
         }
 
-        Owner savedUser = ownerRepository.save(existingUser);
-        System.out.println("User updated successfully - ID: " + savedUser.getId());
-
-        return mapToResponse(savedUser);
+        return mapToResponse(ownerRepository.save(existingUser));
     }
 
-    // UPDATE PERMISSIONS
     public UserResponseDto updateUserPermissions(Long userId, Set<Permission> permissions) {
         Owner user = findEntityById(userId);
         if (user.getRole() == UserRole.SUPER_ADMIN) {
@@ -151,92 +139,65 @@ public class UserManagementService {
         return mapToResponse(ownerRepository.save(user));
     }
 
-    // UPDATE STATUS
     public UserResponseDto updateUserStatus(Long userId, boolean isActive) {
         Owner user = findEntityById(userId);
         user.setActive(isActive);
         return mapToResponse(ownerRepository.save(user));
     }
 
-    // DELETE USER
     public void deleteUser(Long userId) {
         Owner user = findEntityById(userId);
         if (user.getRole() == UserRole.SUPER_ADMIN) {
             throw new RuntimeException("Cannot delete SUPER_ADMIN");
         }
 
-        // Delete Cloudinary images
         if (user.getHeaderLogoUrl() != null) {
             cloudinaryService.deleteFile(user.getHeaderLogoUrl());
-            System.out.println("Deleted header logo from Cloudinary");
         }
         if (user.getVendorSignatureUrl() != null) {
             cloudinaryService.deleteFile(user.getVendorSignatureUrl());
-            System.out.println("Deleted vendor signature from Cloudinary");
         }
         if (user.getWitness1SignatureUrl() != null) {
             cloudinaryService.deleteFile(user.getWitness1SignatureUrl());
-            System.out.println("Deleted witness1 signature from Cloudinary");
         }
         if (user.getWitness2SignatureUrl() != null) {
             cloudinaryService.deleteFile(user.getWitness2SignatureUrl());
-            System.out.println("Deleted witness2 signature from Cloudinary");
         }
 
-        // Get all solar records created by this user
         List<SolarRecord> userRecords = solarRecordRepository.findByCreatedByUserEmail(user.getEmail());
 
         if (!userRecords.isEmpty()) {
-            // Delete Cloudinary images from each solar record
             for (SolarRecord record : userRecords) {
-                // Delete site photos
                 if (record.getSitePhotos() != null && !record.getSitePhotos().isEmpty()) {
                     cloudinaryService.deleteFiles(record.getSitePhotos());
-                    System.out.println("Deleted site photos for record: " + record.getId());
                 }
-                // Delete aadhar images
                 if (record.getAadharImages() != null && !record.getAadharImages().isEmpty()) {
                     cloudinaryService.deleteFiles(record.getAadharImages());
-                    System.out.println("Deleted aadhar images for record: " + record.getId());
                 }
-                // Delete consumer signatures
                 if (record.getConsumerSignature() != null && !record.getConsumerSignature().isEmpty()) {
                     cloudinaryService.deleteFiles(record.getConsumerSignature());
-                    System.out.println("Deleted consumer signatures for record: " + record.getId());
                 }
-                // Delete net metering stamps
+                if (record.getWitnessSignature() != null && !record.getWitnessSignature().isEmpty()) {
+                    cloudinaryService.deleteFiles(record.getWitnessSignature());
+                }
                 if (record.getNetMeteringStamp() != null && !record.getNetMeteringStamp().isEmpty()) {
                     cloudinaryService.deleteFiles(record.getNetMeteringStamp());
-                    System.out.println("Deleted net metering stamps for record: " + record.getId());
                 }
-                // Delete annexure two stamps
                 if (record.getAnnexureTwoStamp() != null && !record.getAnnexureTwoStamp().isEmpty()) {
                     cloudinaryService.deleteFiles(record.getAnnexureTwoStamp());
-                    System.out.println("Deleted annexure two stamps for record: " + record.getId());
                 }
             }
-
-            // Delete all solar records from database
             solarRecordRepository.deleteAll(userRecords);
-            System.out.println("Deleted " + userRecords.size() + " solar records from database");
         }
 
-        // Finally delete the user
         ownerRepository.delete(user);
-        System.out.println("User deleted successfully: " + user.getEmail());
     }
 
-    // GET CURRENT USER PROFILE
     public UserResponseDto getCurrentUserProfile() {
         Owner currentUser = getCurrentUser();
-        System.out.println("=== GET CURRENT USER PROFILE ===");
-        System.out.println("User ID: " + currentUser.getId());
-        System.out.println("Vendor Address: " + currentUser.getVendorAddress());
-        System.out.println("Witness1 Name: " + currentUser.getWitness1Name());
         return mapToResponse(currentUser);
     }
 
-    // UPDATE CURRENT USER PROFILE
     @Transactional
     public UserResponseDto updateCurrentUserProfile(UserRequestDto request,
                                                     MultipartFile headerLogo,
@@ -244,16 +205,9 @@ public class UserManagementService {
                                                     MultipartFile witness1Signature,
                                                     MultipartFile witness2Signature) {
 
-        System.out.println("=== UPDATE CURRENT USER PROFILE ===");
-        System.out.println("Received vendorAddress: " + request.getVendorAddress());
-        System.out.println("Received witness1Name: " + request.getWitness1Name());
-
         Owner currentUser = getCurrentUser();
-
-        // Map all non-null fields from request to entity
         modelMapper.map(request, currentUser);
 
-        // Handle file uploads
         if (headerLogo != null && !headerLogo.isEmpty()) {
             if (currentUser.getHeaderLogoUrl() != null) {
                 cloudinaryService.deleteFile(currentUser.getHeaderLogoUrl());
@@ -282,10 +236,6 @@ public class UserManagementService {
             currentUser.setWitness2SignatureUrl(cloudinaryService.uploadFile(witness2Signature, "userWitnessSignatures"));
         }
 
-        Owner savedUser = ownerRepository.save(currentUser);
-        System.out.println("After update - Vendor Address: " + savedUser.getVendorAddress());
-        System.out.println("After update - Witness1 Name: " + savedUser.getWitness1Name());
-
-        return mapToResponse(savedUser);
+        return mapToResponse(ownerRepository.save(currentUser));
     }
 }

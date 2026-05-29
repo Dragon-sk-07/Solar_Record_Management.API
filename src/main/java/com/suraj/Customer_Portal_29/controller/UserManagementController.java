@@ -69,10 +69,7 @@ public class UserManagementController {
 
     @DeleteMapping("/{userId}")
     public ApiResponseDto<String> deleteUser(@PathVariable Long userId) {
-        System.out.println("=== DELETE USER REQUEST ===");
-        System.out.println("User ID to delete: " + userId);
         service.deleteUser(userId);
-        System.out.println("User and all associated data deleted successfully");
         return new ApiResponseDto<>("User deleted successfully", null);
     }
 

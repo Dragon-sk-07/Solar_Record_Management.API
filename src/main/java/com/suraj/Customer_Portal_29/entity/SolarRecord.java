@@ -126,6 +126,11 @@ public class SolarRecord {
     private List<String> consumerSignature = new ArrayList<>();
 
     @ElementCollection
+    @CollectionTable(name = "solar_witness_signatures", joinColumns = @JoinColumn(name = "solar_record_id"))
+    @Column(name = "signature", columnDefinition = "TEXT")
+    private List<String> witnessSignature = new ArrayList<>();
+
+    @ElementCollection
     @CollectionTable(name = "solar_aadhar_images", joinColumns = @JoinColumn(name = "solar_record_id"))
     @Column(name = "aadhar_image", columnDefinition = "TEXT")
     private List<String> aadharImages = new ArrayList<>();

@@ -79,6 +79,7 @@ public class SolarRecordService {
                 entity.getSitePhotos(),
                 entity.getAadharImages(),
                 entity.getConsumerSignature(),
+                entity.getWitnessSignature(),
                 entity.getNetMeteringStamp(),
                 entity.getAnnexureTwoStamp()
         );
