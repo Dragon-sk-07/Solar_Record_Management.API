@@ -21,11 +21,7 @@ public class UserManagementController {
         this.service = service;
     }
 
-    @PostMapping
-    public ResponseEntity<ApiResponseDto<UserResponseDto>> createUser(@RequestBody UserRequestDto request) {
-        UserResponseDto data = service.createUser(request);
-        return ResponseEntity.ok(new ApiResponseDto<>("User created successfully", data));
-    }
+
 
     @GetMapping
     public ApiResponseDto<java.util.List<UserResponseDto>> getAllUsers() {
@@ -37,6 +33,17 @@ public class UserManagementController {
     public ApiResponseDto<UserResponseDto> getUserById(@PathVariable Long userId) {
         UserResponseDto data = service.getUserById(userId);
         return new ApiResponseDto<>("User fetched successfully", data);
+    }
+
+    @PostMapping(consumes = {"multipart/form-data"})
+    public ResponseEntity<ApiResponseDto<UserResponseDto>> createUser(
+            @Valid @ModelAttribute UserRequestDto request,
+            @RequestParam(required = false) MultipartFile headerLogo,
+            @RequestParam(required = false) MultipartFile vendorSignature,
+            @RequestParam(required = false) MultipartFile witness1Signature,
+            @RequestParam(required = false) MultipartFile witness2Signature) {
+        UserResponseDto data = service.createUser(request, headerLogo, vendorSignature, witness1Signature, witness2Signature);
+        return ResponseEntity.ok(new ApiResponseDto<>("User created successfully", data));
     }
 
     @PutMapping(value = "/{userId}", consumes = {"multipart/form-data"})

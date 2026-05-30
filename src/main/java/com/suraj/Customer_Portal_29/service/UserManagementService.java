@@ -74,7 +74,12 @@ public class UserManagementService {
         }
     }
 
-    public UserResponseDto createUser(UserRequestDto request) {
+    @Transactional
+    public UserResponseDto createUser(UserRequestDto request,
+                                      MultipartFile headerLogo,
+                                      MultipartFile vendorSignature,
+                                      MultipartFile witness1Signature,
+                                      MultipartFile witness2Signature) {
         if (ownerRepository.existsByEmail(request.getEmail())) {
             throw new RuntimeException("User already exists");
         }
@@ -86,10 +91,41 @@ public class UserManagementService {
         user.setRole(UserRole.USER);
         user.setActive(true);
 
+        // Set permissions
         if (request.getPermissions() == null || request.getPermissions().isEmpty()) {
             user.setPermissions(Set.of(Permission.VIEW_RECORDS));
         } else {
             user.setPermissions(request.getPermissions());
+        }
+
+        // Optional fields
+        user.setVendorAddress(request.getVendorAddress());
+        user.setAuthorizedPersonName(request.getAuthorizedPersonName());
+        user.setWitness1Name(request.getWitness1Name());
+        user.setWitness1Address(request.getWitness1Address());
+        user.setWitness2Name(request.getWitness2Name());
+        user.setWitness2Address(request.getWitness2Address());
+        user.setVendorMobile(request.getVendorMobile());
+        user.setVendorEmail(request.getVendorEmail());
+        user.setBankAccountName(request.getBankAccountName());
+        user.setBankAccountNumber(request.getBankAccountNumber());
+        user.setBankName(request.getBankName());
+        user.setBankIfscCode(request.getBankIfscCode());
+        user.setBranchName(request.getBranchName());
+        user.setDesignation(request.getDesignation());
+
+        // Upload images if provided
+        if (headerLogo != null && !headerLogo.isEmpty()) {
+            user.setHeaderLogoUrl(cloudinaryService.uploadFile(headerLogo, "userHeaderLogos"));
+        }
+        if (vendorSignature != null && !vendorSignature.isEmpty()) {
+            user.setVendorSignatureUrl(cloudinaryService.uploadFile(vendorSignature, "userVendorSignatures"));
+        }
+        if (witness1Signature != null && !witness1Signature.isEmpty()) {
+            user.setWitness1SignatureUrl(cloudinaryService.uploadFile(witness1Signature, "userWitnessSignatures"));
+        }
+        if (witness2Signature != null && !witness2Signature.isEmpty()) {
+            user.setWitness2SignatureUrl(cloudinaryService.uploadFile(witness2Signature, "userWitnessSignatures"));
         }
 
         return mapToResponse(ownerRepository.save(user));
@@ -114,35 +150,101 @@ public class UserManagementService {
                                       MultipartFile witness2Signature) {
 
         Owner existingUser = findEntityById(userId);
-        modelMapper.map(request, existingUser);
 
-        if (headerLogo != null && !headerLogo.isEmpty()) {
-            if (existingUser.getHeaderLogoUrl() != null) {
-                cloudinaryService.deleteFile(existingUser.getHeaderLogoUrl());
-            }
-            existingUser.setHeaderLogoUrl(cloudinaryService.uploadFile(headerLogo, "userHeaderLogos"));
+        // SUPER_ADMIN cannot be modified by this endpoint
+        if (existingUser.getRole() == UserRole.SUPER_ADMIN) {
+            throw new RuntimeException("Cannot modify SUPER_ADMIN user");
         }
 
-        if (vendorSignature != null && !vendorSignature.isEmpty()) {
-            if (existingUser.getVendorSignatureUrl() != null) {
-                cloudinaryService.deleteFile(existingUser.getVendorSignatureUrl());
-            }
-            existingUser.setVendorSignatureUrl(cloudinaryService.uploadFile(vendorSignature, "userVendorSignatures"));
+        // Update basic info (name, email, mobile, password, permissions)
+        if (request.getName() != null && !request.getName().isEmpty()) {
+            existingUser.setName(request.getName());
+        }
+        if (request.getEmail() != null && !request.getEmail().isEmpty()) {
+            existingUser.setEmail(request.getEmail());
+        }
+        if (request.getMobile() != null && !request.getMobile().isEmpty()) {
+            existingUser.setMobile(request.getMobile());
+        }
+        if (request.getPassword() != null && !request.getPassword().isEmpty()) {
+            existingUser.setPassword(passwordEncoder.encode(request.getPassword()));
+        }
+        if (request.getPermissions() != null) {
+            existingUser.setPermissions(request.getPermissions());
+        }
+        if (request.getIsActive() != null) {
+            existingUser.setActive(request.getIsActive());
         }
 
-        if (witness1Signature != null && !witness1Signature.isEmpty()) {
-            if (existingUser.getWitness1SignatureUrl() != null) {
-                cloudinaryService.deleteFile(existingUser.getWitness1SignatureUrl());
-            }
-            existingUser.setWitness1SignatureUrl(cloudinaryService.uploadFile(witness1Signature, "userWitnessSignatures"));
+        // Update optional fields
+        if (request.getVendorAddress() != null) {
+            existingUser.setVendorAddress(request.getVendorAddress().isEmpty() ? null : request.getVendorAddress());
+        }
+        if (request.getAuthorizedPersonName() != null) {
+            existingUser.setAuthorizedPersonName(request.getAuthorizedPersonName().isEmpty() ? null : request.getAuthorizedPersonName());
+        }
+        if (request.getWitness1Name() != null) {
+            existingUser.setWitness1Name(request.getWitness1Name().isEmpty() ? null : request.getWitness1Name());
+        }
+        if (request.getWitness1Address() != null) {
+            existingUser.setWitness1Address(request.getWitness1Address().isEmpty() ? null : request.getWitness1Address());
+        }
+        if (request.getWitness2Name() != null) {
+            existingUser.setWitness2Name(request.getWitness2Name().isEmpty() ? null : request.getWitness2Name());
+        }
+        if (request.getWitness2Address() != null) {
+            existingUser.setWitness2Address(request.getWitness2Address().isEmpty() ? null : request.getWitness2Address());
+        }
+        if (request.getDesignation() != null) {
+            existingUser.setDesignation(request.getDesignation().isEmpty() ? null : request.getDesignation());
+        }
+        if (request.getVendorMobile() != null) {
+            existingUser.setVendorMobile(request.getVendorMobile().isEmpty() ? null : request.getVendorMobile());
+        }
+        if (request.getVendorEmail() != null) {
+            existingUser.setVendorEmail(request.getVendorEmail().isEmpty() ? null : request.getVendorEmail());
+        }
+        if (request.getBankAccountName() != null) {
+            existingUser.setBankAccountName(request.getBankAccountName().isEmpty() ? null : request.getBankAccountName());
+        }
+        if (request.getBankAccountNumber() != null) {
+            existingUser.setBankAccountNumber(request.getBankAccountNumber().isEmpty() ? null : request.getBankAccountNumber());
+        }
+        if (request.getBankName() != null) {
+            existingUser.setBankName(request.getBankName().isEmpty() ? null : request.getBankName());
+        }
+        if (request.getBankIfscCode() != null) {
+            existingUser.setBankIfscCode(request.getBankIfscCode().isEmpty() ? null : request.getBankIfscCode());
+        }
+        if (request.getBranchName() != null) {
+            existingUser.setBranchName(request.getBranchName().isEmpty() ? null : request.getBranchName());
         }
 
-        if (witness2Signature != null && !witness2Signature.isEmpty()) {
-            if (existingUser.getWitness2SignatureUrl() != null) {
-                cloudinaryService.deleteFile(existingUser.getWitness2SignatureUrl());
-            }
-            existingUser.setWitness2SignatureUrl(cloudinaryService.uploadFile(witness2Signature, "userWitnessSignatures"));
-        }
+        // Handle Header Logo update/delete
+        updateImageField(existingUser.getHeaderLogoUrl(), headerLogo,
+                request.getExistingHeaderLogo(),
+                request.isDeleteHeaderLogo(),
+                url -> existingUser.setHeaderLogoUrl(url),
+                url -> {});
+
+        // Handle signatures
+        updateImageField(existingUser.getVendorSignatureUrl(), vendorSignature,
+                request.getExistingVendorSignature(),
+                request.isDeleteVendorSignature(),
+                url -> existingUser.setVendorSignatureUrl(url),
+                url -> {});
+
+        updateImageField(existingUser.getWitness1SignatureUrl(), witness1Signature,
+                request.getExistingWitness1Signature(),
+                request.isDeleteWitness1Signature(),
+                url -> existingUser.setWitness1SignatureUrl(url),
+                url -> {});
+
+        updateImageField(existingUser.getWitness2SignatureUrl(), witness2Signature,
+                request.getExistingWitness2Signature(),
+                request.isDeleteWitness2Signature(),
+                url -> existingUser.setWitness2SignatureUrl(url),
+                url -> {});
 
         return mapToResponse(ownerRepository.save(existingUser));
     }
