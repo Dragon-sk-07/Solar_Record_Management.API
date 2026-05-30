@@ -42,6 +42,7 @@ public class UserManagementService {
 
     private Owner getCurrentUser() {
         String email = SecurityContextHolder.getContext().getAuthentication().getName();
+        System.out.println("[DEBUG] getCurrentUser - Email from SecurityContext: " + email);
         return ownerRepository.findByEmailIgnoreCase(email.trim())
                 .orElseThrow(() -> new RuntimeException("User not found"));
     }
@@ -91,14 +92,12 @@ public class UserManagementService {
         user.setRole(UserRole.USER);
         user.setActive(true);
 
-        // Set permissions
         if (request.getPermissions() == null || request.getPermissions().isEmpty()) {
             user.setPermissions(Set.of(Permission.VIEW_RECORDS));
         } else {
             user.setPermissions(request.getPermissions());
         }
 
-        // Optional fields
         user.setVendorAddress(request.getVendorAddress());
         user.setAuthorizedPersonName(request.getAuthorizedPersonName());
         user.setWitness1Name(request.getWitness1Name());
@@ -112,7 +111,6 @@ public class UserManagementService {
         user.setBranchName(request.getBranchName());
         user.setDesignation(request.getDesignation());
 
-        // Upload images if provided
         if (headerLogo != null && !headerLogo.isEmpty()) {
             user.setHeaderLogoUrl(cloudinaryService.uploadFile(headerLogo, "userHeaderLogos"));
         }
@@ -149,12 +147,10 @@ public class UserManagementService {
 
         Owner existingUser = findEntityById(userId);
 
-        // SUPER_ADMIN cannot be modified by this endpoint
         if (existingUser.getRole() == UserRole.SUPER_ADMIN) {
             throw new RuntimeException("Cannot modify SUPER_ADMIN user");
         }
 
-        // Update basic info (name, email, mobile, password, permissions)
         if (request.getName() != null && !request.getName().isEmpty()) {
             existingUser.setName(request.getName());
         }
@@ -174,7 +170,6 @@ public class UserManagementService {
             existingUser.setActive(request.getIsActive());
         }
 
-        // Update optional fields
         if (request.getVendorAddress() != null) {
             existingUser.setVendorAddress(request.getVendorAddress().isEmpty() ? null : request.getVendorAddress());
         }
@@ -213,14 +208,12 @@ public class UserManagementService {
             existingUser.setBranchName(request.getBranchName().isEmpty() ? null : request.getBranchName());
         }
 
-        // Handle Header Logo update/delete
         updateImageField(existingUser.getHeaderLogoUrl(), headerLogo,
                 request.getExistingHeaderLogo(),
                 request.isDeleteHeaderLogo(),
                 url -> existingUser.setHeaderLogoUrl(url),
                 url -> {});
 
-        // Handle signatures
         updateImageField(existingUser.getVendorSignatureUrl(), vendorSignature,
                 request.getExistingVendorSignature(),
                 request.isDeleteVendorSignature(),
@@ -314,23 +307,41 @@ public class UserManagementService {
                                                     MultipartFile witness1Signature,
                                                     MultipartFile witness2Signature) {
 
+        System.out.println("[DEBUG] ========== updateCurrentUserProfile START ==========");
+
         Owner currentUser = getCurrentUser();
+        System.out.println("[DEBUG] Current User ID: " + currentUser.getId());
+        System.out.println("[DEBUG] Current User Email: " + currentUser.getEmail());
+        System.out.println("[DEBUG] Current User Name: " + currentUser.getName());
+        System.out.println("[DEBUG] Current User Mobile: " + currentUser.getMobile());
+        System.out.println("[DEBUG] Current User Role: " + currentUser.getRole());
 
         if (request != null) {
-            // SUPER_ADMIN can update name, email, mobile, password
+            System.out.println("[DEBUG] Request Name: " + request.getName());
+            System.out.println("[DEBUG] Request Email: " + request.getEmail());
+            System.out.println("[DEBUG] Request Mobile: " + request.getMobile());
+            System.out.println("[DEBUG] Request Password provided: " + (request.getPassword() != null && !request.getPassword().isEmpty()));
+
             if (currentUser.getRole() == UserRole.SUPER_ADMIN) {
                 if (request.getName() != null && !request.getName().isEmpty()) {
                     currentUser.setName(request.getName());
+                    System.out.println("[DEBUG] Updated Name to: " + request.getName());
                 }
                 if (request.getEmail() != null && !request.getEmail().isEmpty()) {
                     currentUser.setEmail(request.getEmail());
+                    System.out.println("[DEBUG] Updated Email to: " + request.getEmail());
                 }
                 if (request.getMobile() != null && !request.getMobile().isEmpty()) {
                     currentUser.setMobile(request.getMobile());
+                    System.out.println("[DEBUG] Updated Mobile to: " + request.getMobile());
                 }
                 if (request.getPassword() != null && !request.getPassword().isEmpty()) {
-                    currentUser.setPassword(passwordEncoder.encode(request.getPassword()));
+                    String encodedPassword = passwordEncoder.encode(request.getPassword());
+                    currentUser.setPassword(encodedPassword);
+                    System.out.println("[DEBUG] Updated Password - Hash length: " + encodedPassword.length());
                 }
+            } else {
+                System.out.println("[DEBUG] User is not SUPER_ADMIN, skipping basic info update");
             }
 
             if (request.getVendorAddress() != null) {
@@ -354,7 +365,6 @@ public class UserManagementService {
             if (request.getDesignation() != null) {
                 currentUser.setDesignation(request.getDesignation().isEmpty() ? null : request.getDesignation());
             }
-
             if (request.getBankAccountName() != null) {
                 currentUser.setBankAccountName(request.getBankAccountName().isEmpty() ? null : request.getBankAccountName());
             }
@@ -396,6 +406,13 @@ public class UserManagementService {
                 url -> currentUser.setWitness2SignatureUrl(url),
                 url -> {});
 
-        return mapToResponse(ownerRepository.save(currentUser));
+        Owner savedUser = ownerRepository.save(currentUser);
+        System.out.println("[DEBUG] After Save - User ID: " + savedUser.getId());
+        System.out.println("[DEBUG] After Save - Email: " + savedUser.getEmail());
+        System.out.println("[DEBUG] After Save - Name: " + savedUser.getName());
+        System.out.println("[DEBUG] After Save - Mobile: " + savedUser.getMobile());
+        System.out.println("[DEBUG] ========== updateCurrentUserProfile END ==========");
+
+        return mapToResponse(savedUser);
     }
 }
