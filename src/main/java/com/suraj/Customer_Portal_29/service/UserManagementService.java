@@ -105,8 +105,6 @@ public class UserManagementService {
         user.setWitness1Address(request.getWitness1Address());
         user.setWitness2Name(request.getWitness2Name());
         user.setWitness2Address(request.getWitness2Address());
-        user.setVendorMobile(request.getVendorMobile());
-        user.setVendorEmail(request.getVendorEmail());
         user.setBankAccountName(request.getBankAccountName());
         user.setBankAccountNumber(request.getBankAccountNumber());
         user.setBankName(request.getBankName());
@@ -198,12 +196,7 @@ public class UserManagementService {
         if (request.getDesignation() != null) {
             existingUser.setDesignation(request.getDesignation().isEmpty() ? null : request.getDesignation());
         }
-        if (request.getVendorMobile() != null) {
-            existingUser.setVendorMobile(request.getVendorMobile().isEmpty() ? null : request.getVendorMobile());
-        }
-        if (request.getVendorEmail() != null) {
-            existingUser.setVendorEmail(request.getVendorEmail().isEmpty() ? null : request.getVendorEmail());
-        }
+
         if (request.getBankAccountName() != null) {
             existingUser.setBankAccountName(request.getBankAccountName().isEmpty() ? null : request.getBankAccountName());
         }
@@ -345,12 +338,7 @@ public class UserManagementService {
             if (request.getDesignation() != null) {
                 currentUser.setDesignation(request.getDesignation().isEmpty() ? null : request.getDesignation());
             }
-            if (request.getVendorMobile() != null) {
-                currentUser.setVendorMobile(request.getVendorMobile().isEmpty() ? null : request.getVendorMobile());
-            }
-            if (request.getVendorEmail() != null) {
-                currentUser.setVendorEmail(request.getVendorEmail().isEmpty() ? null : request.getVendorEmail());
-            }
+
             if (request.getBankAccountName() != null) {
                 currentUser.setBankAccountName(request.getBankAccountName().isEmpty() ? null : request.getBankAccountName());
             }

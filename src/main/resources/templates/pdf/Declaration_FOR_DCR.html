@@ -303,13 +303,11 @@
                 </div>
                 <div class="signature-row">
                     <span class="signature-label">Phone</span>
-                    <span class="signature-value" th:if="${vendorMobile != null and vendorMobile != ''}" th:text="${vendorMobile}"></span>
-                    <span th:if="${vendorMobile == null or vendorMobile == ''}" class="value-placeholder">_________________________</span>
+                    <span class="signature-value" th:text="${vendorMobile}"></span>
                 </div>
                 <div class="signature-row">
                     <span class="signature-label">Email</span>
-                    <span class="signature-value" th:if="${vendorEmail != null and vendorEmail != ''}" th:text="${vendorEmail}" style="text-transform: lowercase;"></span>
-                    <span th:if="${vendorEmail == null or vendorEmail == ''}" class="value-placeholder">_________________________</span>
+                    <span class="signature-value" th:text="${vendorEmail}"></span>
                 </div>
             </div>
         </div>

@@ -123,8 +123,6 @@ public class UserManagementController {
         request.setWitness2Name(witness2Name);
         request.setWitness2Address(witness2Address);
         request.setDesignation(designation);
-        request.setVendorMobile(vendorMobile);
-        request.setVendorEmail(vendorEmail);
         request.setBankAccountName(bankAccountName);
         request.setBankAccountNumber(bankAccountNumber);
         request.setBankName(bankName);

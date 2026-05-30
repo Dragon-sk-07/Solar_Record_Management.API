@@ -182,8 +182,8 @@ public class SolarPdfController {
 
         data.put("vendorName", getValueOrDefault(currentUser.getName(), ""));
         data.put("vendorAddress", getValueOrDefault(currentUser.getVendorAddress(), ""));
-        data.put("vendorMobile", getValueOrDefault(currentUser.getVendorMobile(), ""));
-        data.put("vendorEmail", getValueOrDefault(currentUser.getVendorEmail(), ""));
+        data.put("vendorMobile", getValueOrDefault(currentUser.getMobile(), ""));
+        data.put("vendorEmail", getValueOrDefault(currentUser.getEmail(), ""));
         data.put("authorizedPersonName", getValueOrDefault(currentUser.getAuthorizedPersonName(), ""));
         data.put("designation", getValueOrDefault(currentUser.getDesignation(), "Proprietor"));
 

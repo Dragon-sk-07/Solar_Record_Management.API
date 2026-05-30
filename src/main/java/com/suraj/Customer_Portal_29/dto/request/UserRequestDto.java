@@ -13,36 +13,22 @@ public class UserRequestDto {
     private String password;
     private Set<Permission> permissions;
     private Boolean isActive;
-
-    // Vendor Details
     private String vendorAddress;
     private String authorizedPersonName;
     private String witness1Name;
     private String witness1Address;
     private String witness2Name;
     private String witness2Address;
-    private String vendorMobile;      // Contact mobile (can be changed by user)
-    private String vendorEmail;       // Contact email (can be changed by user)
-
-    // Contact details (same as above but separate for clarity)
-    private String contactMobile;      // Alias for vendorMobile
-    private String contactEmail;       // Alias for vendorEmail
-
-    // Bank Details
     private String bankAccountName;
     private String bankAccountNumber;
     private String bankName;
     private String bankIfscCode;
     private String branchName;
     private String designation;
-
-    // Image URLs from existing
     private String existingHeaderLogo;
     private String existingVendorSignature;
     private String existingWitness1Signature;
     private String existingWitness2Signature;
-
-    // Delete flags
     private boolean deleteHeaderLogo;
     private boolean deleteVendorSignature;
     private boolean deleteWitness1Signature;
