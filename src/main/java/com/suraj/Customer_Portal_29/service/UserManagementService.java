@@ -317,6 +317,22 @@ public class UserManagementService {
         Owner currentUser = getCurrentUser();
 
         if (request != null) {
+            // SUPER_ADMIN can update name, email, mobile, password
+            if (currentUser.getRole() == UserRole.SUPER_ADMIN) {
+                if (request.getName() != null && !request.getName().isEmpty()) {
+                    currentUser.setName(request.getName());
+                }
+                if (request.getEmail() != null && !request.getEmail().isEmpty()) {
+                    currentUser.setEmail(request.getEmail());
+                }
+                if (request.getMobile() != null && !request.getMobile().isEmpty()) {
+                    currentUser.setMobile(request.getMobile());
+                }
+                if (request.getPassword() != null && !request.getPassword().isEmpty()) {
+                    currentUser.setPassword(passwordEncoder.encode(request.getPassword()));
+                }
+            }
+
             if (request.getVendorAddress() != null) {
                 currentUser.setVendorAddress(request.getVendorAddress().isEmpty() ? null : request.getVendorAddress());
             }

@@ -44,7 +44,7 @@ public class SolarRecordService {
 
     public List<SolarRecordResponseDto> findAll() {
         Owner currentUser = getCurrentUser();
-        List<SolarRecord> records = repository.findByCreatedByUserEmail(currentUser.getEmail());
+        List<SolarRecord> records = repository.findByCreatedById(currentUser.getId());
         return records.stream().map(this::mapToResponse).collect(Collectors.toList());
     }
 
@@ -57,7 +57,7 @@ public class SolarRecordService {
     public SolarRecordResponseDto update(String id, SolarRecordRequestDto request) {
         Owner currentUser = getCurrentUser();
         SolarRecord existing = findEntityById(id);
-        if (!existing.getCreatedByUserEmail().equals(currentUser.getEmail())) {
+        if (!existing.getCreatedBy().getId().equals(currentUser.getId())) {
             throw new RuntimeException("No permission to update this record");
         }
         updateEntity(existing, request);
@@ -67,7 +67,7 @@ public class SolarRecordService {
     public void delete(String id) {
         Owner currentUser = getCurrentUser();
         SolarRecord entity = findEntityById(id);
-        if (!entity.getCreatedByUserEmail().equals(currentUser.getEmail())) {
+        if (!entity.getCreatedBy().getId().equals(currentUser.getId())) {
             throw new RuntimeException("No permission to delete this record");
         }
         deleteCloudinaryFiles(entity);
