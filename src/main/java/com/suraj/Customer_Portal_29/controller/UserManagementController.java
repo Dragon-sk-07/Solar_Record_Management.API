@@ -88,6 +88,10 @@ public class UserManagementController {
 
     @PutMapping(value = "/me", consumes = {"multipart/form-data"})
     public ApiResponseDto<UserResponseDto> updateCurrentUserProfile(
+            @RequestParam(required = false) String name,
+            @RequestParam(required = false) String email,
+            @RequestParam(required = false) String mobile,
+            @RequestParam(required = false) String password,
             @RequestParam(required = false) String vendorAddress,
             @RequestParam(required = false) String authorizedPersonName,
             @RequestParam(required = false) String witness1Name,
@@ -95,8 +99,6 @@ public class UserManagementController {
             @RequestParam(required = false) String witness2Name,
             @RequestParam(required = false) String witness2Address,
             @RequestParam(required = false) String designation,
-            @RequestParam(required = false) String vendorMobile,
-            @RequestParam(required = false) String vendorEmail,
             @RequestParam(required = false) String bankAccountName,
             @RequestParam(required = false) String bankAccountNumber,
             @RequestParam(required = false) String bankName,
@@ -116,6 +118,10 @@ public class UserManagementController {
             @RequestParam(required = false) boolean deleteWitness2Signature) {
 
         UserRequestDto request = new UserRequestDto();
+        request.setName(name);
+        request.setEmail(email);
+        request.setMobile(mobile);
+        request.setPassword(password);
         request.setVendorAddress(vendorAddress);
         request.setAuthorizedPersonName(authorizedPersonName);
         request.setWitness1Name(witness1Name);
