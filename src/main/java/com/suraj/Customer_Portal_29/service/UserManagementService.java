@@ -60,20 +60,31 @@ public class UserManagementService {
 
     private void syncImageField(String currentUrl, MultipartFile newFile, String existingUrl, boolean deleteFlag,
                                 java.util.function.Consumer<String> setter) {
+        System.out.println("=== syncImageField DEBUG ===");
+        System.out.println("currentUrl: " + currentUrl);
+        System.out.println("newFile: " + (newFile != null ? newFile.getOriginalFilename() : "null"));
+        System.out.println("existingUrl: " + existingUrl);
+        System.out.println("deleteFlag: " + deleteFlag);
+
         if (deleteFlag) {
+            System.out.println("→ DELETE case");
             if (currentUrl != null) {
                 cloudinaryService.deleteFile(currentUrl);
             }
             setter.accept(null);
         } else if (newFile != null && !newFile.isEmpty()) {
+            System.out.println("→ NEW FILE case - uploading to Cloudinary...");
             if (currentUrl != null && !currentUrl.equals(existingUrl)) {
                 cloudinaryService.deleteFile(currentUrl);
             }
-            String uploadedUrl = cloudinaryService.uploadFile(newFile, "userImages");
+            String uploadedUrl = cloudinaryService.uploadFile(newFile, "userHeaderLogos");
+            System.out.println("→ Uploaded URL: " + uploadedUrl);
             setter.accept(uploadedUrl);
         } else if (existingUrl != null && !existingUrl.isEmpty()) {
+            System.out.println("→ EXISTING URL case - keeping: " + existingUrl);
             setter.accept(existingUrl);
         } else {
+            System.out.println("→ NULL case");
             setter.accept(null);
         }
     }
@@ -179,7 +190,21 @@ public class UserManagementService {
                                       MultipartFile witness1Signature,
                                       MultipartFile witness2Signature) {
 
+        System.out.println("========== UPDATE USER DEBUG START ==========");
+        System.out.println("User ID: " + userId);
+        System.out.println("headerLogo received: " + (headerLogo != null ? headerLogo.getOriginalFilename() : "NULL"));
+        System.out.println("headerLogo size: " + (headerLogo != null ? headerLogo.getSize() : 0));
+        System.out.println("vendorSignature received: " + (vendorSignature != null ? vendorSignature.getOriginalFilename() : "NULL"));
+        System.out.println("witness1Signature received: " + (witness1Signature != null ? witness1Signature.getOriginalFilename() : "NULL"));
+        System.out.println("witness2Signature received: " + (witness2Signature != null ? witness2Signature.getOriginalFilename() : "NULL"));
+        System.out.println("existingHeaderLogo from request: " + request.getExistingHeaderLogo());
+        System.out.println("deleteHeaderLogo: " + request.isDeleteHeaderLogo());
+
         Owner existingUser = findEntityById(userId);
+        System.out.println("Current headerLogoUrl in DB: " + existingUser.getHeaderLogoUrl());
+        System.out.println("Current vendorSignatureUrl in DB: " + existingUser.getVendorSignatureUrl());
+        System.out.println("Current witness1SignatureUrl in DB: " + existingUser.getWitness1SignatureUrl());
+        System.out.println("Current witness2SignatureUrl in DB: " + existingUser.getWitness2SignatureUrl());
 
         if (existingUser.getRole() == UserRole.SUPER_ADMIN) {
             throw new RuntimeException("Cannot modify SUPER_ADMIN user");
@@ -242,27 +267,50 @@ public class UserManagementService {
             existingUser.setBranchName(request.getBranchName().isEmpty() ? null : request.getBranchName());
         }
 
+        System.out.println("Calling syncImageField for headerLogo...");
         syncImageField(existingUser.getHeaderLogoUrl(), headerLogo,
                 request.getExistingHeaderLogo(),
                 request.isDeleteHeaderLogo(),
-                url -> existingUser.setHeaderLogoUrl(url));
+                url -> {
+                    System.out.println("Setting headerLogoUrl to: " + url);
+                    existingUser.setHeaderLogoUrl(url);
+                });
 
+        System.out.println("Calling syncImageField for vendorSignature...");
         syncImageField(existingUser.getVendorSignatureUrl(), vendorSignature,
                 request.getExistingVendorSignature(),
                 request.isDeleteVendorSignature(),
-                url -> existingUser.setVendorSignatureUrl(url));
+                url -> {
+                    System.out.println("Setting vendorSignatureUrl to: " + url);
+                    existingUser.setVendorSignatureUrl(url);
+                });
 
+        System.out.println("Calling syncImageField for witness1Signature...");
         syncImageField(existingUser.getWitness1SignatureUrl(), witness1Signature,
                 request.getExistingWitness1Signature(),
                 request.isDeleteWitness1Signature(),
-                url -> existingUser.setWitness1SignatureUrl(url));
+                url -> {
+                    System.out.println("Setting witness1SignatureUrl to: " + url);
+                    existingUser.setWitness1SignatureUrl(url);
+                });
 
+        System.out.println("Calling syncImageField for witness2Signature...");
         syncImageField(existingUser.getWitness2SignatureUrl(), witness2Signature,
                 request.getExistingWitness2Signature(),
                 request.isDeleteWitness2Signature(),
-                url -> existingUser.setWitness2SignatureUrl(url));
+                url -> {
+                    System.out.println("Setting witness2SignatureUrl to: " + url);
+                    existingUser.setWitness2SignatureUrl(url);
+                });
 
-        return mapToResponse(ownerRepository.save(existingUser));
+        Owner savedUser = ownerRepository.save(existingUser);
+        System.out.println("After save - headerLogoUrl: " + savedUser.getHeaderLogoUrl());
+        System.out.println("After save - vendorSignatureUrl: " + savedUser.getVendorSignatureUrl());
+        System.out.println("After save - witness1SignatureUrl: " + savedUser.getWitness1SignatureUrl());
+        System.out.println("After save - witness2SignatureUrl: " + savedUser.getWitness2SignatureUrl());
+        System.out.println("========== UPDATE USER DEBUG END ==========");
+
+        return mapToResponse(savedUser);
     }
 
     public UserResponseDto updateUserPermissions(Long userId, Set<Permission> permissions) {
