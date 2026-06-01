@@ -58,20 +58,23 @@ public class UserManagementService {
         return response;
     }
 
-    private void updateImageField(String currentUrl, MultipartFile newFile, String existingUrl, boolean deleteFlag,
-                                  java.util.function.Consumer<String> setter, java.util.function.Consumer<String> deleter) {
+    private void syncImageField(String currentUrl, MultipartFile newFile, String existingUrl, boolean deleteFlag,
+                                java.util.function.Consumer<String> setter) {
         if (deleteFlag) {
             if (currentUrl != null) {
                 cloudinaryService.deleteFile(currentUrl);
             }
             setter.accept(null);
         } else if (newFile != null && !newFile.isEmpty()) {
-            if (currentUrl != null) {
+            if (currentUrl != null && !currentUrl.equals(existingUrl)) {
                 cloudinaryService.deleteFile(currentUrl);
             }
-            setter.accept(cloudinaryService.uploadFile(newFile, "userImages"));
+            String uploadedUrl = cloudinaryService.uploadFile(newFile, "userImages");
+            setter.accept(uploadedUrl);
         } else if (existingUrl != null && !existingUrl.isEmpty()) {
             setter.accept(existingUrl);
+        } else {
+            setter.accept(null);
         }
     }
 
@@ -208,29 +211,25 @@ public class UserManagementService {
             existingUser.setBranchName(request.getBranchName().isEmpty() ? null : request.getBranchName());
         }
 
-        updateImageField(existingUser.getHeaderLogoUrl(), headerLogo,
+        syncImageField(existingUser.getHeaderLogoUrl(), headerLogo,
                 request.getExistingHeaderLogo(),
                 request.isDeleteHeaderLogo(),
-                url -> existingUser.setHeaderLogoUrl(url),
-                url -> {});
+                url -> existingUser.setHeaderLogoUrl(url));
 
-        updateImageField(existingUser.getVendorSignatureUrl(), vendorSignature,
+        syncImageField(existingUser.getVendorSignatureUrl(), vendorSignature,
                 request.getExistingVendorSignature(),
                 request.isDeleteVendorSignature(),
-                url -> existingUser.setVendorSignatureUrl(url),
-                url -> {});
+                url -> existingUser.setVendorSignatureUrl(url));
 
-        updateImageField(existingUser.getWitness1SignatureUrl(), witness1Signature,
+        syncImageField(existingUser.getWitness1SignatureUrl(), witness1Signature,
                 request.getExistingWitness1Signature(),
                 request.isDeleteWitness1Signature(),
-                url -> existingUser.setWitness1SignatureUrl(url),
-                url -> {});
+                url -> existingUser.setWitness1SignatureUrl(url));
 
-        updateImageField(existingUser.getWitness2SignatureUrl(), witness2Signature,
+        syncImageField(existingUser.getWitness2SignatureUrl(), witness2Signature,
                 request.getExistingWitness2Signature(),
                 request.isDeleteWitness2Signature(),
-                url -> existingUser.setWitness2SignatureUrl(url),
-                url -> {});
+                url -> existingUser.setWitness2SignatureUrl(url));
 
         return mapToResponse(ownerRepository.save(existingUser));
     }
@@ -382,29 +381,25 @@ public class UserManagementService {
             }
         }
 
-        updateImageField(currentUser.getHeaderLogoUrl(), headerLogo,
+        syncImageField(currentUser.getHeaderLogoUrl(), headerLogo,
                 request != null ? request.getExistingHeaderLogo() : null,
                 request != null && request.isDeleteHeaderLogo(),
-                url -> currentUser.setHeaderLogoUrl(url),
-                url -> {});
+                url -> currentUser.setHeaderLogoUrl(url));
 
-        updateImageField(currentUser.getVendorSignatureUrl(), vendorSignature,
+        syncImageField(currentUser.getVendorSignatureUrl(), vendorSignature,
                 request != null ? request.getExistingVendorSignature() : null,
                 request != null && request.isDeleteVendorSignature(),
-                url -> currentUser.setVendorSignatureUrl(url),
-                url -> {});
+                url -> currentUser.setVendorSignatureUrl(url));
 
-        updateImageField(currentUser.getWitness1SignatureUrl(), witness1Signature,
+        syncImageField(currentUser.getWitness1SignatureUrl(), witness1Signature,
                 request != null ? request.getExistingWitness1Signature() : null,
                 request != null && request.isDeleteWitness1Signature(),
-                url -> currentUser.setWitness1SignatureUrl(url),
-                url -> {});
+                url -> currentUser.setWitness1SignatureUrl(url));
 
-        updateImageField(currentUser.getWitness2SignatureUrl(), witness2Signature,
+        syncImageField(currentUser.getWitness2SignatureUrl(), witness2Signature,
                 request != null ? request.getExistingWitness2Signature() : null,
                 request != null && request.isDeleteWitness2Signature(),
-                url -> currentUser.setWitness2SignatureUrl(url),
-                url -> {});
+                url -> currentUser.setWitness2SignatureUrl(url));
 
         Owner savedUser = ownerRepository.save(currentUser);
         System.out.println("[DEBUG] After Save - User ID: " + savedUser.getId());
