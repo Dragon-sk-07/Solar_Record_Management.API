@@ -50,10 +50,10 @@ public class UserManagementController {
     public ApiResponseDto<UserResponseDto> updateUser(
             @PathVariable Long userId,
             @Valid @ModelAttribute UserRequestDto request,
-            @RequestParam(required = false) MultipartFile headerLogo,
-            @RequestParam(required = false) MultipartFile vendorSignature,
-            @RequestParam(required = false) MultipartFile witness1Signature,
-            @RequestParam(required = false) MultipartFile witness2Signature,
+            @RequestPart(required = false) MultipartFile headerLogo,
+            @RequestPart(required = false) MultipartFile vendorSignature,
+            @RequestPart(required = false) MultipartFile witness1Signature,
+            @RequestPart(required = false) MultipartFile witness2Signature,
             @RequestParam(required = false) String existingHeaderLogo,
             @RequestParam(required = false) String existingVendorSignature,
             @RequestParam(required = false) String existingWitness1Signature,
@@ -62,6 +62,11 @@ public class UserManagementController {
             @RequestParam(required = false) boolean deleteVendorSignature,
             @RequestParam(required = false) boolean deleteWitness1Signature,
             @RequestParam(required = false) boolean deleteWitness2Signature) {
+
+        System.out.println("========== CONTROLLER UPDATE USER ==========");
+        System.out.println("User ID: " + userId);
+        System.out.println("headerLogo from @RequestPart: " + (headerLogo != null ? headerLogo.getOriginalFilename() : "NULL"));
+        System.out.println("headerLogo size: " + (headerLogo != null ? headerLogo.getSize() : 0));
 
         request.setExistingHeaderLogo(existingHeaderLogo);
         request.setExistingVendorSignature(existingVendorSignature);
