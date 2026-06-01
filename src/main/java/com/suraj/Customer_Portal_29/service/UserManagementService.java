@@ -84,9 +84,21 @@ public class UserManagementService {
                                       MultipartFile vendorSignature,
                                       MultipartFile witness1Signature,
                                       MultipartFile witness2Signature) {
+        System.out.println("========== CREATE USER DEBUG START ==========");
+        System.out.println("Request Name: " + request.getName());
+        System.out.println("Request Email: " + request.getEmail());
+
+        // Debug image files
+        System.out.println("headerLogo received: " + (headerLogo != null ? headerLogo.getOriginalFilename() : "NULL"));
+        System.out.println("headerLogo size: " + (headerLogo != null ? headerLogo.getSize() : 0));
+        System.out.println("vendorSignature received: " + (vendorSignature != null ? vendorSignature.getOriginalFilename() : "NULL"));
+        System.out.println("witness1Signature received: " + (witness1Signature != null ? witness1Signature.getOriginalFilename() : "NULL"));
+        System.out.println("witness2Signature received: " + (witness2Signature != null ? witness2Signature.getOriginalFilename() : "NULL"));
+
         if (ownerRepository.existsByEmail(request.getEmail())) {
             throw new RuntimeException("User already exists");
         }
+
         Owner user = new Owner();
         user.setEmail(request.getEmail());
         user.setName(request.getName());
@@ -115,19 +127,38 @@ public class UserManagementService {
         user.setDesignation(request.getDesignation());
 
         if (headerLogo != null && !headerLogo.isEmpty()) {
-            user.setHeaderLogoUrl(cloudinaryService.uploadFile(headerLogo, "userHeaderLogos"));
+            try {
+                System.out.println("Uploading header logo to Cloudinary...");
+                String uploadedUrl = cloudinaryService.uploadFile(headerLogo, "userHeaderLogos");
+                System.out.println("Header logo uploaded URL: " + uploadedUrl);
+                user.setHeaderLogoUrl(uploadedUrl);
+            } catch (Exception e) {
+                System.out.println("ERROR uploading header logo: " + e.getMessage());
+                e.printStackTrace();
+            }
+        } else {
+            System.out.println("No header logo received - skipping upload");
         }
+
         if (vendorSignature != null && !vendorSignature.isEmpty()) {
             user.setVendorSignatureUrl(cloudinaryService.uploadFile(vendorSignature, "userVendorSignatures"));
+            System.out.println("Vendor signature uploaded");
         }
         if (witness1Signature != null && !witness1Signature.isEmpty()) {
             user.setWitness1SignatureUrl(cloudinaryService.uploadFile(witness1Signature, "userWitnessSignatures"));
+            System.out.println("Witness1 signature uploaded");
         }
         if (witness2Signature != null && !witness2Signature.isEmpty()) {
             user.setWitness2SignatureUrl(cloudinaryService.uploadFile(witness2Signature, "userWitnessSignatures"));
+            System.out.println("Witness2 signature uploaded");
         }
 
-        return mapToResponse(ownerRepository.save(user));
+        Owner savedUser = ownerRepository.save(user);
+        System.out.println("User saved with ID: " + savedUser.getId());
+        System.out.println("Header Logo URL in saved user: " + savedUser.getHeaderLogoUrl());
+        System.out.println("========== CREATE USER DEBUG END ==========");
+
+        return mapToResponse(savedUser);
     }
 
     public List<UserResponseDto> getAllUsers() {
@@ -296,7 +327,25 @@ public class UserManagementService {
 
     public UserResponseDto getCurrentUserProfile() {
         Owner currentUser = getCurrentUser();
-        return mapToResponse(currentUser);
+        System.out.println("========== GET CURRENT USER PROFILE DEBUG ==========");
+        System.out.println("User ID: " + currentUser.getId());
+        System.out.println("Header Logo URL from DB: " + currentUser.getHeaderLogoUrl());
+        System.out.println("Vendor Signature URL from DB: " + currentUser.getVendorSignatureUrl());
+        System.out.println("Witness1 Signature URL from DB: " + currentUser.getWitness1SignatureUrl());
+        System.out.println("Witness2 Signature URL from DB: " + currentUser.getWitness2SignatureUrl());
+
+        UserResponseDto response = mapToResponse(currentUser);
+
+        // Explicitly set image URLs (ModelMapper might miss them)
+        response.setHeaderLogoUrl(currentUser.getHeaderLogoUrl());
+        response.setVendorSignatureUrl(currentUser.getVendorSignatureUrl());
+        response.setWitness1SignatureUrl(currentUser.getWitness1SignatureUrl());
+        response.setWitness2SignatureUrl(currentUser.getWitness2SignatureUrl());
+
+        System.out.println("Response Header Logo URL: " + response.getHeaderLogoUrl());
+        System.out.println("========== GET CURRENT USER PROFILE DEBUG END ==========");
+
+        return response;
     }
 
     @Transactional

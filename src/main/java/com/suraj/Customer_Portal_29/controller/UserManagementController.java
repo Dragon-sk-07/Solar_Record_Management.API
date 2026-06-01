@@ -53,7 +53,25 @@ public class UserManagementController {
             @RequestParam(required = false) MultipartFile headerLogo,
             @RequestParam(required = false) MultipartFile vendorSignature,
             @RequestParam(required = false) MultipartFile witness1Signature,
-            @RequestParam(required = false) MultipartFile witness2Signature) {
+            @RequestParam(required = false) MultipartFile witness2Signature,
+            @RequestParam(required = false) String existingHeaderLogo,
+            @RequestParam(required = false) String existingVendorSignature,
+            @RequestParam(required = false) String existingWitness1Signature,
+            @RequestParam(required = false) String existingWitness2Signature,
+            @RequestParam(required = false) boolean deleteHeaderLogo,
+            @RequestParam(required = false) boolean deleteVendorSignature,
+            @RequestParam(required = false) boolean deleteWitness1Signature,
+            @RequestParam(required = false) boolean deleteWitness2Signature) {
+
+        request.setExistingHeaderLogo(existingHeaderLogo);
+        request.setExistingVendorSignature(existingVendorSignature);
+        request.setExistingWitness1Signature(existingWitness1Signature);
+        request.setExistingWitness2Signature(existingWitness2Signature);
+        request.setDeleteHeaderLogo(deleteHeaderLogo);
+        request.setDeleteVendorSignature(deleteVendorSignature);
+        request.setDeleteWitness1Signature(deleteWitness1Signature);
+        request.setDeleteWitness2Signature(deleteWitness2Signature);
+
         UserResponseDto data = service.updateUser(userId, request, headerLogo, vendorSignature, witness1Signature, witness2Signature);
         return new ApiResponseDto<>("User updated successfully", data);
     }
