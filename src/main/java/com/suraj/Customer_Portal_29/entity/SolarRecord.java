@@ -2,7 +2,6 @@ package com.suraj.Customer_Portal_29.entity;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.DecimalMin;
-import jakarta.validation.constraints.NotNull;
 import lombok.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -62,7 +61,6 @@ public class SolarRecord {
     @Column(name = "sanctioned_capacity")
     private Double sanctionedCapacity;
 
-    @NotNull
     @DecimalMin("0.1")
     private Double installedCapacity;
 
