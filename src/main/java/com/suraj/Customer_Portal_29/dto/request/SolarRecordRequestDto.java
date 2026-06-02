@@ -21,14 +21,10 @@ public class SolarRecordRequestDto {
     @Pattern(regexp = "^[6-9]\\d{9}$", message = "Mobile number must be a valid Indian number")
     private String mobileNumber;
 
-    @NotBlank(message = "Email is required")
-    @Email(message = "Email must be valid")
     private String email;
 
     private String aadharNumber;
 
-    @NotBlank(message = "Site address is required")
-    @Size(max = 1000, message = "Site address must not exceed 1000 characters")
     private String siteAddress;
 
     private String place;
@@ -43,29 +39,20 @@ public class SolarRecordRequestDto {
 
     private String connectionType;
 
-    @NotNull(message = "Sanctioned capacity is required")
-    @DecimalMin(value = "0.1", message = "Sanctioned capacity must be greater than 0")
     private Double sanctionedCapacity;
 
-    @NotNull(message = "Installed capacity is required")
-    @DecimalMin(value = "0.1", message = "Installed capacity must be greater than 0")
     private Double installedCapacity;
 
-    @NotNull(message = "Installation date is required")
     private LocalDate installationDate;
 
     private String moduleMake;
 
-    @NotNull(message = "Wattage per module is required")
     private Double wattagePerModule;
 
-    @NotNull(message = "Number of modules is required")
-    @Min(value = 1, message = "Number of modules must be at least 1")
     private Integer numberOfModules;
 
     private Double totalCapacityKWP;
 
-    @Size(max = 2000, message = "Module serial numbers must not exceed 2000 characters")
     private String moduleSerialNumbers;
 
     private Integer numberOfStrings;
