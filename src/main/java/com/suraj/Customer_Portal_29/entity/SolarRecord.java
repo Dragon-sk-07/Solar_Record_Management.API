@@ -61,7 +61,6 @@ public class SolarRecord {
     @Column(name = "sanctioned_capacity")
     private Double sanctionedCapacity;
 
-    @DecimalMin("0.1")
     private Double installedCapacity;
 
     @Column(name = "installation_date")
