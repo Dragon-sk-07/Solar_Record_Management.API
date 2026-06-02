@@ -63,10 +63,7 @@ public class UserManagementController {
             @RequestParam(required = false) boolean deleteWitness1Signature,
             @RequestParam(required = false) boolean deleteWitness2Signature) {
 
-        System.out.println("========== CONTROLLER UPDATE USER ==========");
-        System.out.println("User ID: " + userId);
-        System.out.println("headerLogo from @RequestPart: " + (headerLogo != null ? headerLogo.getOriginalFilename() : "NULL"));
-        System.out.println("headerLogo size: " + (headerLogo != null ? headerLogo.getSize() : 0));
+
 
         request.setExistingHeaderLogo(existingHeaderLogo);
         request.setExistingVendorSignature(existingVendorSignature);
