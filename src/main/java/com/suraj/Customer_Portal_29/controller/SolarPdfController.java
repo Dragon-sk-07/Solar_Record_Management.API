@@ -236,6 +236,7 @@ public class SolarPdfController {
         data.put("year", String.valueOf(now.getYear()));
 
         data.put("defaultArihantHeader", convertImageToBase64("/Arihant_Header.png"));
+        data.put("defaultArihantHeader", convertImageToBase64("/Arihant_Header.jpeg"));
         data.put("defaultMsedclHeader", convertImageToBase64("/MSEDCL_Header.png"));
         data.put("cotationFirstPageImage", convertImageToBase64("/CotationFirstPageImage.png"));
         data.put("secondPageFirstImage", convertImageToBase64("/SecondPageFirstImage.png"));
