@@ -10,6 +10,7 @@
             box-sizing: border-box;
         }
 
+        /* Page setup: A4 with tighter margins for better fit */
         @page {
             size: A4;
             margin: 6mm 10mm;
@@ -19,16 +20,18 @@
             font-family: 'Times New Roman', Times, serif;
             background: white;
             color: #000;
-            font-size: 9.5pt;
-            line-height: 1.28;
+            font-size: 9.2pt;
+            line-height: 1.25;
             padding: 0;
             margin: 0;
         }
 
+        /* Each page container - forced page breaks */
         .page {
             page-break-after: always;
             margin: 0;
             padding: 0;
+            position: relative;
             min-height: 270mm;
         }
 
@@ -36,50 +39,23 @@
             page-break-after: avoid;
         }
 
-        .master-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 0 0 2px 0;
-            font-size: 9pt;
-            border: 1px solid #000;
-            table-layout: fixed;
-        }
-
-        .master-table th,
-        .master-table td {
-            border: 1px solid #000;
-            padding: 4px 5px;
-            vertical-align: top;
-        }
-
-        .master-table th {
-            background-color: #e3e3e3;
-            font-weight: 700;
+        /* Main Title */
+        .main-title {
+            font-size: 10.5pt;
+            font-weight: bold;
             text-align: center;
-            font-size: 9pt;
-            padding: 5px 4px;
+            text-transform: uppercase;
+            margin: 4px 0 6px 0;
+            padding: 3px 0;
+            letter-spacing: 0.5px;
+            background: transparent;
         }
 
-        .master-table th:first-child,
-        .master-table td:first-child {
-            width: 8%;
-            text-align: center;
-        }
-
-        .master-table th:nth-child(2),
-        .master-table td:nth-child(2) {
-            width: 54%;
-        }
-
-        .master-table th:nth-child(3),
-        .master-table td:nth-child(3) {
-            width: 38%;
-        }
-
+        /* Section Title */
         .section-title {
             font-weight: bold;
-            font-size: 10.5pt;
-            margin: 6px 0 3px 0;
+            font-size: 9.8pt;
+            margin: 5px 0 3px 0;
             background: #d9e1ec;
             padding: 4px 8px;
             text-align: center;
@@ -88,36 +64,59 @@
             page-break-after: avoid;
         }
 
-        /* For the jumbled header text on page 1 - exactly as PDF */
-        .jumbled-header {
-            font-size: 9pt;
-            line-height: 1.4;
-            margin: 5px 0 8px 0;
-            padding: 6px 8px;
-            background: #f5f5f5;
-            border: 1px solid #ccc;
-            word-break: break-word;
+        /* Main table styling - reduced font and padding */
+        .wcr-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 3px 0 5px 0;
+            font-size: 8.8pt;
+            border: 1px solid #000;
+            table-layout: fixed;
         }
 
-        .jumbled-header span {
-            display: inline-block;
-            margin-right: 8px;
+        .wcr-table th,
+        .wcr-table td {
+            border: 1px solid #000;
+            padding: 3px 4px;
+            vertical-align: top;
         }
 
-        .master-table tr {
-            page-break-inside: avoid;
-            break-inside: avoid;
+        .wcr-table th {
+            background-color: #e3e3e3;
+            font-weight: 700;
+            text-align: center;
+            font-size: 8.8pt;
+            padding: 4px 4px;
         }
 
+        /* Column widths */
+        .wcr-table th:first-child,
+        .wcr-table td:first-child {
+            width: 8%;
+            text-align: center;
+        }
+
+        .wcr-table th:nth-child(2),
+        .wcr-table td:nth-child(2) {
+            width: 54%;
+        }
+
+        .wcr-table th:nth-child(3),
+        .wcr-table td:nth-child(3) {
+            width: 38%;
+        }
+
+        /* Module serial numbers */
         .module-serial-numbers {
-            font-size: 8pt;
+            font-size: 7.8pt;
             line-height: 1.3;
             word-break: break-word;
             white-space: normal;
         }
 
+        /* Signature section */
         .signature-row {
-            margin: 16px 0 12px 0;
+            margin: 12px 0 8px 0;
             page-break-inside: avoid;
         }
 
@@ -135,7 +134,7 @@
         }
 
         .sign-line {
-            margin-top: 20px;
+            margin-top: 16px;
             border-top: 1px solid #000;
             width: 70%;
             margin-left: auto;
@@ -143,22 +142,23 @@
         }
 
         .sign-img {
-            max-height: 50px;
-            max-width: 150px;
+            max-height: 45px;
+            max-width: 140px;
         }
 
         .signature-name {
             font-weight: bold;
-            margin-top: 5px;
-            font-size: 9.5pt;
+            margin-top: 4px;
+            font-size: 9pt;
         }
 
+        /* Remarks box */
         .remarks-box {
-            margin-top: 16px;
-            padding: 7px 9px;
+            margin-top: 10px;
+            padding: 6px 8px;
             background: #fef9e6;
             border-left: 4px solid #b8860b;
-            font-size: 8.5pt;
+            font-size: 8.2pt;
             line-height: 1.35;
             page-break-inside: avoid;
         }
@@ -167,30 +167,32 @@
             margin: 3px 0;
         }
 
+        /* Prevent page breaks inside table rows */
+        .wcr-table tr {
+            page-break-inside: avoid;
+            break-inside: avoid;
+        }
+
         @media print {
             body {
                 margin: 0;
                 padding: 0;
+            }
+            .page {
+                page-break-after: always;
             }
         }
     </style>
 </head>
 <body>
 
-<!-- =================================================================== -->
-<!-- PAGE 1: EXACT MATCH TO YOUR PDF - With the JUMBLED HEADER TEXT exactly as shown -->
-<!-- =================================================================== -->
+<!-- ============================================ -->
+<!-- PAGE 1: INSPECTION REPORT + CHECKING OF EARTHING SYSTEM (Sr.No 1-16) -->
+<!-- ============================================ -->
 <div class="page">
-    <!-- SECTION TITLE -->
+    <div class="main-title">Inspection Report on checking of Roof Top Solar System with Associated Equipment</div>
     <div class="section-title">CHECKING OF EARTHING SYSTEM</div>
-
-    <!-- JUMBLED HEADER TEXT - Exactly as your PDF shows (continuous scattered points) -->
-    <div class="jumbled-header">
-        1 Details of Inspecting Office (Name, Designation, Subdivision) &nbsp;&nbsp; 2 Date and Time of Inspection &nbsp;&nbsp; 3 Name of the Consumer: &nbsp;&nbsp; 4 Address of Consumer: &nbsp;&nbsp; 5 Consumer No.: &nbsp;&nbsp; 5.A Name of Billing Unit : &nbsp;&nbsp; 6 MSEDCL Existing Sanction &amp; Connected Load(AC in Kw): &nbsp;&nbsp; 7 Type of connection (1Ph/3Ph) &nbsp;&nbsp; 8 Consumer Tariff Category &nbsp;&nbsp; 9 Installed Solar Roof Top System(AC Cap): &nbsp;&nbsp; 9.A Whether Point of Supply Drawing submitted &nbsp;&nbsp; 10 Separate Earthing provided for LA Earthing &nbsp;&nbsp; 11 Separate Earthing provided for Solar Panel Structure &nbsp;&nbsp; 12 Earthing provided DCDB Earthing &nbsp;&nbsp; 13 Earthing provided ACDB Earthing &nbsp;&nbsp; 14 Separate Earthing provided Grid Inverter in Built(AC side Earthing) &nbsp;&nbsp; 15 Earthing provided to Metering cubicle Yes/No &nbsp;&nbsp; 16 All Metallic body Parts earthed
-    </div>
-
-    <!-- THEN THE ACTUAL TABLE WITH DATA - Exactly as your PDF shows -->
-    <table class="master-table">
+    <table class="wcr-table">
         <thead>
         <tr><th>Sr.No.</th><th>Points to be checked</th><th>Observation</th></tr>
         </thead>
@@ -216,12 +218,10 @@
         </tbody>
     </table>
 
-    <!-- Section 2: CHECKING OF PROTECTION SWITCHGEAR -->
+    <!-- Checking of Protection Switchgear (rows 17-26) -->
     <div class="section-title">Checking of Protection Switchgear</div>
-    <table class="master-table">
-        <thead>
-        <tr><th>Sr.No.</th><th>Points to be checked</th><th>Observation</th>
-        </thead>
+    <table class="wcr-table">
+        <thead><tr><th>Sr.No.</th><th>Points to be checked</th><th>Observation</th></tr></thead>
         <tbody>
         <tr><td style="text-align:center">17</td><td>DC Fuses provided after Solar Modules</td><td>Yes</td></tr>
         <tr><td style="text-align:center">18</td><td>AC Junction Box provided with Built in Surge protector device</td><td>Yes</td></tr>
@@ -238,17 +238,17 @@
     </table>
 </div>
 
-<!-- =================================================================== -->
-<!-- PAGE 2: Net Metering + Generation Meter + Solar Equipment Details -->
-<!-- =================================================================== -->
+<!-- ============================================ -->
+<!-- PAGE 2: Net Metering (27-36) + Generation Meter (37-46) + Solar Equipment (47-53) -->
+<!-- ============================================ -->
 <div class="page">
     <div class="section-title">Net Metering System Details</div>
-    <table class="master-table">
+    <table class="wcr-table">
         <thead><tr><th>Sr.No.</th><th>Points to be checked</th><th>Observation</th></tr></thead>
         <tbody>
         <tr><td style="text-align:center">27</td><td>Net meter Installed in Grid/Network system at the time of Joint Inspection Yes/No</td><td>Yes</td></tr>
         <tr><td style="text-align:center">28</td><td>Net meter is Tested at MSEDCL Testing Division Lab Yes/No , If Yes, Testing date &amp; Seal Nos</td><td>Yes (Cert. date 12-03-2026, Seal#MS254)</td></tr>
-        <tr><td style="text-align:center">29</td><td>Meter make</td><td th:text="${meterMake}">Schneider</td></tr>
+        <tr><td style="text-align:center">29</td><td>Meter make</td><td th:text="${meterMake}">Schneider Electric</td></tr>
         <tr><td style="text-align:center">30</td><td>Meter Type DLMS, Generation Meter</td><td>DLMS, Generation Meter</td></tr>
         <tr><td style="text-align:center">31</td><td>Meter Serial No</td><td th:text="${netMeterNumber}">NET-85766</td></tr>
         <tr><td style="text-align:center">32</td><td>Meter Class of Accuracy</td><td>Class 1.0</td></tr>
@@ -260,7 +260,7 @@
     </table>
 
     <div class="section-title">Generation Meter Details</div>
-    <table class="master-table">
+    <table class="wcr-table">
         <thead><tr><th>Sr.No.</th><th>Points to be checked</th><th>Observation</th></tr></thead>
         <tbody>
         <tr><td style="text-align:center">37</td><td>Generation meter Installed for recording Solar Generation Yes/No</td><td>Yes</td></tr>
@@ -277,7 +277,7 @@
     </table>
 
     <div class="section-title">Solar System Equipment Details</div>
-    <table class="master-table">
+    <table class="wcr-table">
         <thead><tr><th>Sr.No.</th><th>Points to be checked</th><th>Observation</th></tr></thead>
         <tbody>
         <tr><td style="text-align:center">47</td><td>Grid Tie Inverter Make:</td><td th:text="${inverterMake}">Luminous</td></tr>
@@ -291,12 +291,12 @@
     </table>
 </div>
 
-<!-- =================================================================== -->
-<!-- PAGE 3: Checking of connection + Signatures + Remarks -->
-<!-- =================================================================== -->
+<!-- ============================================ -->
+<!-- PAGE 3: Checking of connection (54-59) + Signatures + Remarks -->
+<!-- ============================================ -->
 <div class="page">
     <div class="section-title">Checking of connection of Meter &amp; Overall Observation</div>
-    <table class="master-table">
+    <table class="wcr-table">
         <thead><tr><th>Sr.No.</th><th>Points to be checked</th><th>Observation</th></tr></thead>
         <tbody>
         <tr><td style="text-align:center">54</td><td>Generation Meter connection</td><td>Correct</td></tr>
@@ -308,13 +308,14 @@
         </tbody>
     </table>
 
+    <!-- Signature section -->
     <div class="signature-row">
         <table class="signature-table">
             <tr>
-                <td>
-                    <div><img th:if="${consumerSignature != null and !#lists.isEmpty(consumerSignature)}" th:src="${consumerSignature[0]}" class="sign-img" alt="Consumer Signature"/><div th:if="${consumerSignature == null or #lists.isEmpty(consumerSignature)}" class="sign-line"></div></div>
-                    <div><strong>Consumer representative</strong></div>
-                    <div class="signature-name" th:text="${name}">Deepak Desai</div>
+            <tr>
+                <div><img th:if="${consumerSignature != null and !#lists.isEmpty(consumerSignature)}" th:src="${consumerSignature[0]}" class="sign-img" alt="Consumer Signature"/><div th:if="${consumerSignature == null or #lists.isEmpty(consumerSignature)}" class="sign-line"></div></div>
+                <div><strong>Consumer representative</strong></div>
+                <div class="signature-name" th:text="${name}">Deepak Desai</div>
                 </td>
                 <td>
                     <div><img th:if="${vendorSignature != null and !#lists.isEmpty(vendorSignature)}" th:src="${vendorSignature[0]}" class="sign-img" alt="Vendor Signature"/><div th:if="${vendorSignature == null or #lists.isEmpty(vendorSignature)}" class="sign-line"></div></div>
@@ -325,6 +326,7 @@
         </table>
     </div>
 
+    <!-- Remarks box -->
     <div class="remarks-box">
         <p><strong>Remarks:-</strong></p>
         <p>In the presence of backup inverter an arrangement should be made in such way that the backup inverter supply should never be synchronised with solar inverter to avoid any electrical accident due to back feeding. If Islanding is not working satisfactory then connection should not be released by AE(QC) and agency should be instructed to solve the islanding issue.</p>
