@@ -232,7 +232,7 @@
   <div class="ref-line"><span class="ref-label">Ref: 1. Consumer name:</span> <span th:if="${name != null and name != ''}" th:text="${name}"></span><span th:unless="${name != null and name != ''}" class="value-missing">_____________</span></div>
   <div class="ref-line"><span class="ref-label">2. Consumer Number:</span> <span th:if="${consumerNumber != null and consumerNumber != ''}" th:text="${consumerNumber}"></span><span th:unless="${consumerNumber != null and consumerNumber != ''}" class="value-missing">_____________</span></div>
   <div class="ref-line"><span class="ref-label">3. Sanction Number:</span> <span th:if="${sanctionNumber != null and sanctionNumber != ''}" th:text="${sanctionNumber}"></span><span th:unless="${sanctionNumber != null and sanctionNumber != ''}" class="value-missing">_____________</span></div>
-  <div class="ref-line"><span class="ref-label">4. Scheme name:</span> PM Suryghar Muft Bijli Yojana</div>
+<!--  <div class="ref-line"><span class="ref-label">4. Scheme name:</span> PM Suryghar Muft Bijli Yojana</div>-->
 
   <!-- Salutation -->
   <div class="body-text">
@@ -250,8 +250,8 @@
     <table class="meter-table">
       <tr><td class="meter-label">Make:</td><td><span th:if="${meterMake != null and meterMake != ''}" th:text="${meterMake}"></span><span th:unless="${meterMake != null and meterMake != ''}" class="value-missing">_____________</span></td></tr>
       <tr><td class="meter-label">Sr. No.:</td><td><span th:if="${meterNumber != null and meterNumber != ''}" th:text="${meterNumber}"></span><span th:unless="${meterNumber != null and meterNumber != ''}" class="value-missing">_____________</span></td></tr>
-      <tr><td class="meter-label">Phase:</td><td>1 Phase</td></tr>
-      <tr><td class="meter-label">Range:</td><td>5-30A</td></tr>
+<!--      <tr><td class="meter-label">Phase:</td><td>1 Phase</td></tr>-->
+<!--      <tr><td class="meter-label">Range:</td><td>5-30A</td></tr>-->
     </table>
   </div>
 
@@ -309,7 +309,7 @@
     </thead>
     <tbody>
     <tr>
-      <td>Generation Meter (1 Phase, 5-30A) - Make: <span th:if="${meterMake != null and meterMake != ''}" th:text="${meterMake}"></span><span th:unless="${meterMake != null and meterMake != ''}" class="value-missing">_____</span>, Sr.No.: <span th:if="${meterNumber != null and meterNumber != ''}" th:text="${meterNumber}"></span><span th:unless="${meterNumber != null and meterNumber != ''}" class="value-missing">_____</span></td>
+      <td>Make: <span th:if="${meterMake != null and meterMake != ''}" th:text="${meterMake}"></span><span th:unless="${meterMake != null and meterMake != ''}" class="value-missing">_____</span>, Sr.No.: <span th:if="${meterNumber != null and meterNumber != ''}" th:text="${meterNumber}"></span><span th:unless="${meterNumber != null and meterNumber != ''}" class="value-missing">_____</span></td>
       <td style="text-align:center">1</td>
       <td style="text-align:center">18%</td>
       <td style="text-align:right">2,100.00</td>
