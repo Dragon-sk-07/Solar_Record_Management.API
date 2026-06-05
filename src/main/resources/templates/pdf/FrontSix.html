@@ -10,7 +10,6 @@
             box-sizing: border-box;
         }
 
-        /* Page setup: A4 with optimized margins */
         @page {
             size: A4;
             margin: 6mm 10mm;
@@ -26,12 +25,10 @@
             margin: 0;
         }
 
-        /* Each page container - forced page breaks */
         .page {
             page-break-after: always;
             margin: 0;
             padding: 0;
-            position: relative;
             min-height: 270mm;
         }
 
@@ -39,7 +36,6 @@
             page-break-after: avoid;
         }
 
-        /* Global table styling - single continuous style */
         .master-table {
             width: 100%;
             border-collapse: collapse;
@@ -64,7 +60,6 @@
             padding: 5px 4px;
         }
 
-        /* Column width definitions */
         .master-table th:first-child,
         .master-table td:first-child {
             width: 8%;
@@ -81,7 +76,6 @@
             width: 38%;
         }
 
-        /* Section title (group header) */
         .section-title {
             font-weight: bold;
             font-size: 10.5pt;
@@ -94,13 +88,27 @@
             page-break-after: avoid;
         }
 
-        /* Prevent row splitting across pages */
+        /* For the jumbled header text on page 1 - exactly as PDF */
+        .jumbled-header {
+            font-size: 9pt;
+            line-height: 1.4;
+            margin: 5px 0 8px 0;
+            padding: 6px 8px;
+            background: #f5f5f5;
+            border: 1px solid #ccc;
+            word-break: break-word;
+        }
+
+        .jumbled-header span {
+            display: inline-block;
+            margin-right: 8px;
+        }
+
         .master-table tr {
             page-break-inside: avoid;
             break-inside: avoid;
         }
 
-        /* Module serial numbers styling */
         .module-serial-numbers {
             font-size: 8pt;
             line-height: 1.3;
@@ -108,7 +116,6 @@
             white-space: normal;
         }
 
-        /* Signatures row */
         .signature-row {
             margin: 16px 0 12px 0;
             page-break-inside: avoid;
@@ -146,7 +153,6 @@
             font-size: 9.5pt;
         }
 
-        /* Remarks box */
         .remarks-box {
             margin-top: 16px;
             padding: 7px 9px;
@@ -172,12 +178,18 @@
 <body>
 
 <!-- =================================================================== -->
-<!-- PAGE 1: CHECKING OF EARTHING SYSTEM (Sr No 1-16) + Checking of Protection Switchgear (Sr No 17-26) -->
-<!-- All rows 1 to 26 perfectly on first page -->
+<!-- PAGE 1: EXACT MATCH TO YOUR PDF - With the JUMBLED HEADER TEXT exactly as shown -->
 <!-- =================================================================== -->
 <div class="page">
-    <!-- Section 1: EARTHING SYSTEM (rows 1-16) -->
+    <!-- SECTION TITLE -->
     <div class="section-title">CHECKING OF EARTHING SYSTEM</div>
+
+    <!-- JUMBLED HEADER TEXT - Exactly as your PDF shows (continuous scattered points) -->
+    <div class="jumbled-header">
+        1 Details of Inspecting Office (Name, Designation, Subdivision) &nbsp;&nbsp; 2 Date and Time of Inspection &nbsp;&nbsp; 3 Name of the Consumer: &nbsp;&nbsp; 4 Address of Consumer: &nbsp;&nbsp; 5 Consumer No.: &nbsp;&nbsp; 5.A Name of Billing Unit : &nbsp;&nbsp; 6 MSEDCL Existing Sanction &amp; Connected Load(AC in Kw): &nbsp;&nbsp; 7 Type of connection (1Ph/3Ph) &nbsp;&nbsp; 8 Consumer Tariff Category &nbsp;&nbsp; 9 Installed Solar Roof Top System(AC Cap): &nbsp;&nbsp; 9.A Whether Point of Supply Drawing submitted &nbsp;&nbsp; 10 Separate Earthing provided for LA Earthing &nbsp;&nbsp; 11 Separate Earthing provided for Solar Panel Structure &nbsp;&nbsp; 12 Earthing provided DCDB Earthing &nbsp;&nbsp; 13 Earthing provided ACDB Earthing &nbsp;&nbsp; 14 Separate Earthing provided Grid Inverter in Built(AC side Earthing) &nbsp;&nbsp; 15 Earthing provided to Metering cubicle Yes/No &nbsp;&nbsp; 16 All Metallic body Parts earthed
+    </div>
+
+    <!-- THEN THE ACTUAL TABLE WITH DATA - Exactly as your PDF shows -->
     <table class="master-table">
         <thead>
         <tr><th>Sr.No.</th><th>Points to be checked</th><th>Observation</th></tr>
@@ -192,7 +204,7 @@
         <tr><td style="text-align:center">6</td><td>MSEDCL Existing Sanction &amp; Connected Load(AC in Kw):</td><td th:text="${sanctionedCapacity}">7.27</td></tr>
         <tr><td style="text-align:center">7</td><td>Type of connection (1Ph/3Ph)</td><td th:text="${connectionType}">Single Phase</td></tr>
         <tr><td style="text-align:center">8</td><td>Consumer Tariff Category</td><td>Residential (LT-I)</td></tr>
-        <tr><td style="text-align:center">9</td><td>Installed Solar Roof Top System(AC Cap):-</td><td th:text="${installedCapacity}">7.27</td></tr>
+        <tr><td style="text-align:center">9</td><td>Installed Solar Roof Top System(AC Cap):</td><td th:text="${installedCapacity}">7.27</td></tr>
         <tr><td style="text-align:center">9.A</td><td>Whether Point of Supply Drawing submitted</td><td>Submitted</td></tr>
         <tr><td style="text-align:center">10</td><td>Separate Earthing provided for LA Earthing</td><td>Yes</td></tr>
         <tr><td style="text-align:center">11</td><td>Separate Earthing provided for Solar Panel Structure</td><td>Yes</td></tr>
@@ -204,10 +216,12 @@
         </tbody>
     </table>
 
-    <!-- Section 2: PROTECTION SWITCHGEAR (rows 17-26) -->
+    <!-- Section 2: CHECKING OF PROTECTION SWITCHGEAR -->
     <div class="section-title">Checking of Protection Switchgear</div>
     <table class="master-table">
-        <thead> hilab<th>Sr.No.</th><th>Points to be checked</th><th>Observation</th> </tr</thead>
+        <thead>
+        <tr><th>Sr.No.</th><th>Points to be checked</th><th>Observation</th>
+        </thead>
         <tbody>
         <tr><td style="text-align:center">17</td><td>DC Fuses provided after Solar Modules</td><td>Yes</td></tr>
         <tr><td style="text-align:center">18</td><td>AC Junction Box provided with Built in Surge protector device</td><td>Yes</td></tr>
@@ -225,18 +239,16 @@
 </div>
 
 <!-- =================================================================== -->
-<!-- PAGE 2: Net Metering System Details (Rows 27-36) + Generation Meter Details (Rows 37-46) + Solar System Equipment Details (Rows 47-53) -->
-<!-- All tables from 27 to 53 perfectly on second page -->
+<!-- PAGE 2: Net Metering + Generation Meter + Solar Equipment Details -->
 <!-- =================================================================== -->
 <div class="page">
-    <!-- Net Metering section rows 27-36 -->
     <div class="section-title">Net Metering System Details</div>
     <table class="master-table">
-        <thead><tr><th>Sr.No.</th><th>Points to be checked</th><th>Observation</th> </tr</thead>
+        <thead><tr><th>Sr.No.</th><th>Points to be checked</th><th>Observation</th></tr></thead>
         <tbody>
         <tr><td style="text-align:center">27</td><td>Net meter Installed in Grid/Network system at the time of Joint Inspection Yes/No</td><td>Yes</td></tr>
         <tr><td style="text-align:center">28</td><td>Net meter is Tested at MSEDCL Testing Division Lab Yes/No , If Yes, Testing date &amp; Seal Nos</td><td>Yes (Cert. date 12-03-2026, Seal#MS254)</td></tr>
-        <tr><td style="text-align:center">29</td><td>Meter make</td><td th:text="${meterMake}">Schneider Electric</td></tr>
+        <tr><td style="text-align:center">29</td><td>Meter make</td><td th:text="${meterMake}">Schneider</td></tr>
         <tr><td style="text-align:center">30</td><td>Meter Type DLMS, Generation Meter</td><td>DLMS, Generation Meter</td></tr>
         <tr><td style="text-align:center">31</td><td>Meter Serial No</td><td th:text="${netMeterNumber}">NET-85766</td></tr>
         <tr><td style="text-align:center">32</td><td>Meter Class of Accuracy</td><td>Class 1.0</td></tr>
@@ -247,10 +259,9 @@
         </tbody>
     </table>
 
-    <!-- Generation Meter Details rows 37-46 -->
     <div class="section-title">Generation Meter Details</div>
     <table class="master-table">
-        <thead><tr><th>Sr.No.</th><th>Points to be checked</th><th>Observation</th> </tr</thead>
+        <thead><tr><th>Sr.No.</th><th>Points to be checked</th><th>Observation</th></tr></thead>
         <tbody>
         <tr><td style="text-align:center">37</td><td>Generation meter Installed for recording Solar Generation Yes/No</td><td>Yes</td></tr>
         <tr><td style="text-align:center">38</td><td>Meter is Tested at MSEDCL Testing Division Lab Yes/No , If Yes, Testing date &amp; Seal Nos</td><td>Yes (Cert. 15-03-2026, Seal#GEN789)</td></tr>
@@ -265,18 +276,15 @@
         </tbody>
     </table>
 
-    <!-- Solar System Equipment Details rows 47-53 (on PAGE 2 as requested) -->
     <div class="section-title">Solar System Equipment Details</div>
     <table class="master-table">
-        <thead><tr><th>Sr.No.</th><th>Points to be checked</th><th>Observation</th> </tr</thead>
+        <thead><tr><th>Sr.No.</th><th>Points to be checked</th><th>Observation</th></tr></thead>
         <tbody>
         <tr><td style="text-align:center">47</td><td>Grid Tie Inverter Make:</td><td th:text="${inverterMake}">Luminous</td></tr>
         <tr><td style="text-align:center">48</td><td>Inverter Capacity(AC Kw/Kva)</td><td th:text="${inverterCapacity}">7.27 kW</td></tr>
         <tr><td style="text-align:center">49</td><td>PV Module make:-</td><td th:text="${moduleMake}">Adani Solar</td></tr>
         <tr><td style="text-align:center">50</td><td>PV Module Nos</td><td th:text="${numberOfModules}">13</td></tr>
-        <tr><td style="text-align:center">51</td><td>PV Module serial Nos</td>
-            <td class="module-serial-numbers" th:text="${moduleSerialNumbers}">SN-MOD-68394, SN-MOD-65560, SN-MOD-24291, SN-MOD-37947, SN-MOD-64486, SN-MOD-16142, SN-MOD-55889, SN-MOD-46408, SN-MOD-56025, SN-MOD-24522, SN-MOD-80123, SN-MOD-45678, SN-MOD-91234</td>
-        </tr>
+        <tr><td style="text-align:center">51</td><td>PV Module serial Nos</td><td class="module-serial-numbers" th:text="${moduleSerialNumbers}">SN-MOD-68394, SN-MOD-65560, SN-MOD-24291, SN-MOD-37947, SN-MOD-64486, SN-MOD-16142, SN-MOD-55889, SN-MOD-46408, SN-MOD-56025, SN-MOD-24522</td></tr>
         <tr><td style="text-align:center">52</td><td>No. of strings:</td><td th:text="${numberOfStrings}">7</td></tr>
         <tr><td style="text-align:center">53</td><td>Rating of Each PV modules &amp; total Capacity</td><td th:text="${wattagePerModule} + ' watt / ' + ${totalCapacityKWP} + ' kW'">559.0 watt / 7.27 kW</td></tr>
         </tbody>
@@ -284,14 +292,12 @@
 </div>
 
 <!-- =================================================================== -->
-<!-- PAGE 3: Checking of connection (rows 54-59) + Signatures + Remarks -->
-<!-- Remaining content from 54 to 59 on third page -->
+<!-- PAGE 3: Checking of connection + Signatures + Remarks -->
 <!-- =================================================================== -->
 <div class="page">
-    <!-- Checking of connection & overall observation rows 54-59 -->
     <div class="section-title">Checking of connection of Meter &amp; Overall Observation</div>
     <table class="master-table">
-        <thead><tr><th>Sr.No.</th><th>Points to be checked</th><th>Observation</th> </tr</thead>
+        <thead><tr><th>Sr.No.</th><th>Points to be checked</th><th>Observation</th></tr></thead>
         <tbody>
         <tr><td style="text-align:center">54</td><td>Generation Meter connection</td><td>Correct</td></tr>
         <tr><td style="text-align:center">55</td><td>Net Meter connection</td><td>Correct</td></tr>
@@ -302,7 +308,6 @@
         </tbody>
     </table>
 
-    <!-- Signature section (Consumer + Contractor) -->
     <div class="signature-row">
         <table class="signature-table">
             <tr>
@@ -320,7 +325,6 @@
         </table>
     </div>
 
-    <!-- Remarks as per original PDF (safety instructions) -->
     <div class="remarks-box">
         <p><strong>Remarks:-</strong></p>
         <p>In the presence of backup inverter an arrangement should be made in such way that the backup inverter supply should never be synchronised with solar inverter to avoid any electrical accident due to back feeding. If Islanding is not working satisfactory then connection should not be released by AE(QC) and agency should be instructed to solve the islanding issue.</p>
