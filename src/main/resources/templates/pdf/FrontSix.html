@@ -336,27 +336,26 @@
         </tbody>
     </table>
 
-    <!-- Signature row with conditional spacing:
-         - When signature image exists, no extra top margin (image provides spacing)
-         - When no image, .sign-line provides a line with top margin for manual signature -->
     <!-- SIGNATURE SECTION - WITH INLINE CSS -->
-    <div style="margin: 20px 0 10px;">
+    <div style="margin: 0 0 10px 0;">
         <table style="width: 100%; border-collapse: collapse;">
             <tr>
                 <td style="border: none; width: 50%; text-align: center; padding: 0 10px; vertical-align: top;">
-                    <div>
-                        <img th:if="${consumerSignature != null and !#lists.isEmpty(consumerSignature)}" th:src="${consumerSignature[0]}" style="max-height: 50px; max-width: 150px;" alt="Consumer Signature"/>
-                        <div th:if="${consumerSignature == null or #lists.isEmpty(consumerSignature)}" style="margin-top: 18px; border-top: 1px solid #000; width: 70%; margin-left: auto; margin-right: auto;"></div>
+                    <!-- Consumer Side: Conditional margin-top only when no signature image -->
+                    <div th:if="${consumerSignature != null and !#lists.isEmpty(consumerSignature)}" style="margin-top: 0px;">
+                        <img th:src="${consumerSignature[0]}" style="max-height: 50px; max-width: 150px;" alt="Consumer Signature"/>
                     </div>
-                    <div><strong>Consumer representative</strong></div>
+                    <div th:if="${consumerSignature == null or #lists.isEmpty(consumerSignature)}" style="margin-top: 20px; border-top: 1px solid #000; width: 70%; margin-left: auto; margin-right: auto;"></div>
+                    <div style="margin-top: 8px;"><strong>Consumer representative</strong></div>
                     <div style="font-weight: bold; margin-top: 4px; font-size: 10pt;" th:text="${name}">Laksh Nair</div>
                 </td>
                 <td style="border: none; width: 50%; text-align: center; padding: 0 10px; vertical-align: top;">
-                    <div>
-                        <img th:if="${vendorSignature != null and !#lists.isEmpty(vendorSignature)}" th:src="${vendorSignature[0]}" style="max-height: 50px; max-width: 150px;" alt="Vendor Signature"/>
-                        <div th:if="${vendorSignature == null or #lists.isEmpty(vendorSignature)}" style="margin-top: 18px; border-top: 1px solid #000; width: 70%; margin-left: auto; margin-right: auto;"></div>
+                    <!-- Contractor Side: Conditional margin-top only when no signature image -->
+                    <div th:if="${vendorSignature != null and !#lists.isEmpty(vendorSignature)}" style="margin-top: 0px;">
+                        <img th:src="${vendorSignature[0]}" style="max-height: 50px; max-width: 150px;" alt="Vendor Signature"/>
                     </div>
-                    <div><strong>Contractor Representative</strong></div>
+                    <div th:if="${vendorSignature == null or #lists.isEmpty(vendorSignature)}" style="margin-top: 20px; border-top: 1px solid #000; width: 70%; margin-left: auto; margin-right: auto;"></div>
+                    <div style="margin-top: 8px;"><strong>Contractor Representative</strong></div>
                     <div style="font-weight: bold; margin-top: 4px; font-size: 10pt;" th:text="${vendorName}">Arihant Electricals</div>
                 </td>
             </tr>
