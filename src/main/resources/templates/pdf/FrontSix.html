@@ -48,11 +48,10 @@
             background: transparent;
         }
 
-        /* Section Title */
+        /* Section Title - slightly reduced on page 1, normal on others */
         .section-title {
             font-weight: bold;
             font-size: 10.2pt;
-            margin: 6px 0 3px 0;
             background: #e9ecef;
             padding: 4px 8px;
             text-align: center;
@@ -60,10 +59,38 @@
             border-right: 3px solid #2c3e50;
         }
 
+        /* Page 1 specific - tighter spacing */
+        .page:nth-child(1) .section-title {
+            margin: 4px 0 2px 0;
+        }
+        .page:nth-child(1) .wcr-table {
+            margin: 2px 0 3px 0;
+        }
+        .page:nth-child(1) .wcr-table th,
+        .page:nth-child(1) .wcr-table td {
+            padding: 3px 4px;
+        }
+
+        /* Page 2 & 3 specific - increased spacing to utilize empty space */
+        .page:nth-child(2) .section-title,
+        .page:nth-child(3) .section-title {
+            margin: 8px 0 5px 0;
+            padding: 5px 8px;
+        }
+        .page:nth-child(2) .wcr-table,
+        .page:nth-child(3) .wcr-table {
+            margin: 5px 0 8px 0;
+        }
+        .page:nth-child(2) .wcr-table th,
+        .page:nth-child(2) .wcr-table td,
+        .page:nth-child(3) .wcr-table th,
+        .page:nth-child(3) .wcr-table td {
+            padding: 5px 6px;
+        }
+
         .wcr-table {
             width: 100%;
             border-collapse: collapse;
-            margin: 3px 0 5px 0;
             font-size: 9.2pt;
             border: 1px solid #000;
             table-layout: fixed;
@@ -72,7 +99,6 @@
         .wcr-table th,
         .wcr-table td {
             border: 1px solid #000;
-            padding: 4px 5px;
             vertical-align: top;
         }
 
@@ -125,21 +151,30 @@
             vertical-align: top;
         }
 
+        /* Conditional margin for manual signature - only when no image is present */
         .sign-line {
-            margin-top: 16px;
+            margin-top: 20px;
             border-top: 1px solid #000;
             width: 70%;
             margin-left: auto;
             margin-right: auto;
         }
 
+        /* When signature image exists, no extra top margin needed */
         .sign-img {
-            max-height: 45px;
-            max-width: 140px;
+            max-height: 50px;
+            max-width: 150px;
+            display: block;
+            margin: 0 auto;
+        }
+
+        /* Wrapper for signature area - adds spacing only when needed */
+        .signature-wrapper {
+            min-height: 70px;
         }
 
         .remarks-box {
-            margin-top: 10px;
+            margin-top: 15px;
             padding: 7px 9px;
             background: #fef9e6;
             border-left: 4px solid #b8860b;
@@ -153,7 +188,7 @@
 
         .signature-name {
             font-weight: bold;
-            margin-top: 4px;
+            margin-top: 8px;
             font-size: 9.5pt;
         }
 
@@ -178,6 +213,7 @@
 
 <!-- ============================================ -->
 <!-- PAGE 1: CHECKING OF EARTHING SYSTEM (Sr.No 1-16) + PROTECTION SWITCHGEAR (17-26) -->
+<!-- Tighter spacing applied via page:nth-child(1) selector -->
 <!-- ============================================ -->
 <div class="page">
     <div class="main-title">Inspection Report on checking of Roof Top Solar System with Associated Equipment</div>
@@ -230,6 +266,7 @@
 
 <!-- ============================================ -->
 <!-- PAGE 2: NET METERING (27-36) + GENERATION METER (37-46) + SOLAR EQUIPMENT (47-53) -->
+<!-- Increased spacing to utilize empty space -->
 <!-- ============================================ -->
 <div class="page">
     <div class="section-title">Net Metering System Details</div>
@@ -282,7 +319,8 @@
 </div>
 
 <!-- ============================================ -->
-<!-- PAGE 3: CHECKING OF CONNECTION (54-59) + SIGNATURES + REMARKS (UNCHANGED LAYOUT) -->
+<!-- PAGE 3: CHECKING OF CONNECTION (54-59) + SIGNATURES + REMARKS -->
+<!-- Increased spacing and conditional signature margin -->
 <!-- ============================================ -->
 <div class="page">
     <div class="section-title">Checking of connection of Meter &amp; Overall Observation</div>
@@ -298,16 +336,29 @@
         </tbody>
     </table>
 
+    <!-- Signature row with conditional spacing:
+         - When signature image exists, no extra top margin (image provides spacing)
+         - When no image, .sign-line provides a line with top margin for manual signature -->
     <div class="signature-row">
         <table class="signature-table">
             <tr>
                 <td>
-                    <div><img th:if="${consumerSignature != null and !#lists.isEmpty(consumerSignature)}" th:src="${consumerSignature[0]}" class="sign-img" alt="Consumer Signature"/><div th:if="${consumerSignature == null or #lists.isEmpty(consumerSignature)}" class="sign-line"></div></div>
+                    <div class="signature-wrapper">
+                        <div th:if="${consumerSignature != null and !#lists.isEmpty(consumerSignature)}">
+                            <img th:src="${consumerSignature[0]}" class="sign-img" alt="Consumer Signature"/>
+                        </div>
+                        <div th:if="${consumerSignature == null or #lists.isEmpty(consumerSignature)}" class="sign-line"></div>
+                    </div>
                     <div><strong>Consumer representative</strong></div>
                     <div class="signature-name" th:text="${name}">Deepak Desai</div>
                 </td>
                 <td>
-                    <div><img th:if="${vendorSignature != null and !#lists.isEmpty(vendorSignature)}" th:src="${vendorSignature[0]}" class="sign-img" alt="Vendor Signature"/><div th:if="${vendorSignature == null or #lists.isEmpty(vendorSignature)}" class="sign-line"></div></div>
+                    <div class="signature-wrapper">
+                        <div th:if="${vendorSignature != null and !#lists.isEmpty(vendorSignature)}">
+                            <img th:src="${vendorSignature[0]}" class="sign-img" alt="Vendor Signature"/>
+                        </div>
+                        <div th:if="${vendorSignature == null or #lists.isEmpty(vendorSignature)}" class="sign-line"></div>
+                    </div>
                     <div><strong>Contractor Representative</strong></div>
                     <div class="signature-name" th:text="${vendorName}">Dragon Electricals</div>
                 </td>
