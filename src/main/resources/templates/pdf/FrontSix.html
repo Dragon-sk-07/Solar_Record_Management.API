@@ -10,18 +10,18 @@
             box-sizing: border-box;
         }
 
-        /* Page setup: A4 with optimized margins for exact 3 pages */
+        /* Page setup: A4 with optimized margins */
         @page {
             size: A4;
-            margin: 8mm 12mm;
+            margin: 6mm 10mm;
         }
 
         body {
             font-family: 'Times New Roman', Times, serif;
             background: white;
             color: #000;
-            font-size: 10.5pt;
-            line-height: 1.3;
+            font-size: 9.5pt;
+            line-height: 1.28;
             padding: 0;
             margin: 0;
         }
@@ -43,8 +43,8 @@
         .master-table {
             width: 100%;
             border-collapse: collapse;
-            margin: 0;
-            font-size: 10pt;
+            margin: 0 0 2px 0;
+            font-size: 9pt;
             border: 1px solid #000;
             table-layout: fixed;
         }
@@ -52,7 +52,7 @@
         .master-table th,
         .master-table td {
             border: 1px solid #000;
-            padding: 5px 6px;
+            padding: 4px 5px;
             vertical-align: top;
         }
 
@@ -60,34 +60,34 @@
             background-color: #e3e3e3;
             font-weight: 700;
             text-align: center;
-            font-size: 10pt;
-            padding: 6px 4px;
+            font-size: 9pt;
+            padding: 5px 4px;
         }
 
         /* Column width definitions */
         .master-table th:first-child,
         .master-table td:first-child {
-            width: 9%;
+            width: 8%;
             text-align: center;
         }
 
         .master-table th:nth-child(2),
         .master-table td:nth-child(2) {
-            width: 52%;
+            width: 54%;
         }
 
         .master-table th:nth-child(3),
         .master-table td:nth-child(3) {
-            width: 39%;
+            width: 38%;
         }
 
         /* Section title (group header) */
         .section-title {
             font-weight: bold;
-            font-size: 11pt;
-            margin: 8px 0 4px 0;
+            font-size: 10.5pt;
+            margin: 6px 0 3px 0;
             background: #d9e1ec;
-            padding: 5px 8px;
+            padding: 4px 8px;
             text-align: center;
             border-left: 3px solid #1e466e;
             border-right: 3px solid #1e466e;
@@ -102,15 +102,15 @@
 
         /* Module serial numbers styling */
         .module-serial-numbers {
-            font-size: 8.5pt;
-            line-height: 1.35;
+            font-size: 8pt;
+            line-height: 1.3;
             word-break: break-word;
             white-space: normal;
         }
 
         /* Signatures row */
         .signature-row {
-            margin: 20px 0 15px 0;
+            margin: 16px 0 12px 0;
             page-break-inside: avoid;
         }
 
@@ -128,7 +128,7 @@
         }
 
         .sign-line {
-            margin-top: 22px;
+            margin-top: 20px;
             border-top: 1px solid #000;
             width: 70%;
             margin-left: auto;
@@ -136,29 +136,29 @@
         }
 
         .sign-img {
-            max-height: 55px;
-            max-width: 160px;
+            max-height: 50px;
+            max-width: 150px;
         }
 
         .signature-name {
             font-weight: bold;
-            margin-top: 6px;
-            font-size: 10pt;
+            margin-top: 5px;
+            font-size: 9.5pt;
         }
 
         /* Remarks box */
         .remarks-box {
-            margin-top: 18px;
-            padding: 8px 10px;
+            margin-top: 16px;
+            padding: 7px 9px;
             background: #fef9e6;
             border-left: 4px solid #b8860b;
-            font-size: 9pt;
-            line-height: 1.4;
+            font-size: 8.5pt;
+            line-height: 1.35;
             page-break-inside: avoid;
         }
 
         .remarks-box p {
-            margin: 4px 0;
+            margin: 3px 0;
         }
 
         @media print {
@@ -172,8 +172,8 @@
 <body>
 
 <!-- =================================================================== -->
-<!-- PAGE 1: Contains "CHECKING OF EARTHING SYSTEM" (Sr No 1-16) + "Checking of Protection Switchgear" (Sr No 17-26) -->
-<!-- Entire rows from 1 to 26 fully placed on first page -->
+<!-- PAGE 1: CHECKING OF EARTHING SYSTEM (Sr No 1-16) + Checking of Protection Switchgear (Sr No 17-26) -->
+<!-- All rows 1 to 26 perfectly on first page -->
 <!-- =================================================================== -->
 <div class="page">
     <!-- Section 1: EARTHING SYSTEM (rows 1-16) -->
@@ -185,14 +185,14 @@
         <tbody>
         <tr><td style="text-align:center">1</td><td>Details of Inspecting Office (Name, Designation, Subdivision)</td><td th:text="${msedclOfficerName}">MSEDCL Officer - Mr. S. Patil</td></tr>
         <tr><td style="text-align:center">2</td><td>Date and Time of Inspection</td><td th:text="${createdAt != null ? #temporals.format(createdAt, 'yyyy-MM-dd') + ' 11:00 AM' : '2026-06-05, 11:00 AM'}">2026-06-05, 11:00 AM</td></tr>
-        <tr><td style="text-align:center">3</td><td>Name of the Consumer:</td><td th:text="${name}">Laksh Nair</td></tr>
-        <tr><td style="text-align:center">4</td><td>Address of Consumer:</td><td th:text="${siteAddress}">Plot No. 45, Green Residency, Pune</td></tr>
-        <tr><td style="text-align:center">5</td><td>Consumer No.:</td><td th:text="${consumerNumber}">CN-1122334455</td></tr>
-        <tr><td style="text-align:center">5.A</td><td>Name of Billing Unit :</td><td th:text="${billingUnit}">MSEDCL - Hadapsar Division</td></tr>
-        <tr><td style="text-align:center">6</td><td>MSEDCL Existing Sanction &amp; Connected Load(AC in Kw):</td><td th:text="${sanctionedCapacity}">5.00 kW</td></tr>
-        <tr><td style="text-align:center">7</td><td>Type of connection (1Ph/3Ph)</td><td th:text="${connectionType}">1 Phase</td></tr>
+        <tr><td style="text-align:center">3</td><td>Name of the Consumer:</td><td th:text="${name}">Deepak Desai</td></tr>
+        <tr><td style="text-align:center">4</td><td>Address of Consumer:</td><td th:text="${siteAddress}">H.No.8704, Near Market Yard, Budhwar Peth, Kolhapur - 416001, Maharashtra</td></tr>
+        <tr><td style="text-align:center">5</td><td>Consumer No.:</td><td th:text="${consumerNumber}">MSEDCL/06/77/5630873</td></tr>
+        <tr><td style="text-align:center">5.A</td><td>Name of Billing Unit :</td><td th:text="${billingUnit}">Unit A</td></tr>
+        <tr><td style="text-align:center">6</td><td>MSEDCL Existing Sanction &amp; Connected Load(AC in Kw):</td><td th:text="${sanctionedCapacity}">7.27</td></tr>
+        <tr><td style="text-align:center">7</td><td>Type of connection (1Ph/3Ph)</td><td th:text="${connectionType}">Single Phase</td></tr>
         <tr><td style="text-align:center">8</td><td>Consumer Tariff Category</td><td>Residential (LT-I)</td></tr>
-        <tr><td style="text-align:center">9</td><td>Installed Solar Roof Top System(AC Cap):-</td><td th:text="${installedCapacity}">7.27 kW</td></tr>
+        <tr><td style="text-align:center">9</td><td>Installed Solar Roof Top System(AC Cap):-</td><td th:text="${installedCapacity}">7.27</td></tr>
         <tr><td style="text-align:center">9.A</td><td>Whether Point of Supply Drawing submitted</td><td>Submitted</td></tr>
         <tr><td style="text-align:center">10</td><td>Separate Earthing provided for LA Earthing</td><td>Yes</td></tr>
         <tr><td style="text-align:center">11</td><td>Separate Earthing provided for Solar Panel Structure</td><td>Yes</td></tr>
@@ -207,7 +207,7 @@
     <!-- Section 2: PROTECTION SWITCHGEAR (rows 17-26) -->
     <div class="section-title">Checking of Protection Switchgear</div>
     <table class="master-table">
-        <thead><tr><th>Sr.No.</th><th>Points to be checked</th><th>Observation</th></tr></thead>
+        <thead> hilab<th>Sr.No.</th><th>Points to be checked</th><th>Observation</th> </tr</thead>
         <tbody>
         <tr><td style="text-align:center">17</td><td>DC Fuses provided after Solar Modules</td><td>Yes</td></tr>
         <tr><td style="text-align:center">18</td><td>AC Junction Box provided with Built in Surge protector device</td><td>Yes</td></tr>
@@ -217,7 +217,7 @@
         <tr><td style="text-align:center">22</td><td>Manual Operated Isolation switch of rated Capacity provided for protection, If Yes : 1. Whether switch has visible verification that separation has been accomplished, 2. Whether switch clearly indicate Open/Close Position, 3. Whether switch has facility of locking in open Position</td><td>Yes, with visible verification</td></tr>
         <tr><td style="text-align:center">23</td><td>MCB Provided before Load side</td><td>Yes</td></tr>
         <tr><td style="text-align:center">24</td><td>Net Metering cabinet with ELCB/RCCB protection of rated capacity with Sealing arrangement for 3ph</td><td th:text="${connectionType == '3 Phase' ? 'Yes' : 'Not Applicable'}">Not Applicable</td></tr>
-        <tr><td style="text-align:center">24A</td><td>Net Metering with ELCB/RCCB protection for 1ph. If Yes, Rating-</td><td th:text="${connectionType == '1 Phase' ? 'Yes, 30mA' : 'Not Applicable'}">Yes, 30mA</td></tr>
+        <tr><td style="text-align:center">24A</td><td>Net Metering with ELCB/RCCB protection for 1ph. If Yes, Rating-</td><td th:text="${connectionType == '1 Phase' ? 'Yes, 30mA' : 'Not Applicable'}">Not Applicable</td></tr>
         <tr><td style="text-align:center">25</td><td>Checking of Islanding mode of Solar System by disconnecting from grid supply and also with Single phasing of Grid (in case of 3phase power supply to consumer) Checked Yes/No, If Yes working satisfactory Yes/No</td><td>Checked, Yes working satisfactory</td></tr>
         <tr><td style="text-align:center">26</td><td>In case of Solar Inverter with Storage Battery or DG as standby source to Solar Inverter, please check whether separate wiring done &amp; change over switch is provided Provided Yes/No, If Yes, Please check Operation to ensure that no reverse power fed into Grid in case of switching of Operation of Solar Inverter with Reference voltage from Storage battery/DG</td><td>Not Applicable</td></tr>
         </tbody>
@@ -226,13 +226,13 @@
 
 <!-- =================================================================== -->
 <!-- PAGE 2: Net Metering System Details (Rows 27-36) + Generation Meter Details (Rows 37-46) + Solar System Equipment Details (Rows 47-53) -->
-<!-- Complete tables from 27 to 53 on second page -->
+<!-- All tables from 27 to 53 perfectly on second page -->
 <!-- =================================================================== -->
 <div class="page">
     <!-- Net Metering section rows 27-36 -->
     <div class="section-title">Net Metering System Details</div>
     <table class="master-table">
-        <thead><tr><th>Sr.No.</th><th>Points to be checked</th><th>Observation</th></tr></thead>
+        <thead><tr><th>Sr.No.</th><th>Points to be checked</th><th>Observation</th> </tr</thead>
         <tbody>
         <tr><td style="text-align:center">27</td><td>Net meter Installed in Grid/Network system at the time of Joint Inspection Yes/No</td><td>Yes</td></tr>
         <tr><td style="text-align:center">28</td><td>Net meter is Tested at MSEDCL Testing Division Lab Yes/No , If Yes, Testing date &amp; Seal Nos</td><td>Yes (Cert. date 12-03-2026, Seal#MS254)</td></tr>
@@ -250,7 +250,7 @@
     <!-- Generation Meter Details rows 37-46 -->
     <div class="section-title">Generation Meter Details</div>
     <table class="master-table">
-        <thead><tr><th>Sr.No.</th><th>Points to be checked</th><th>Observation</th></tr></thead>
+        <thead><tr><th>Sr.No.</th><th>Points to be checked</th><th>Observation</th> </tr</thead>
         <tbody>
         <tr><td style="text-align:center">37</td><td>Generation meter Installed for recording Solar Generation Yes/No</td><td>Yes</td></tr>
         <tr><td style="text-align:center">38</td><td>Meter is Tested at MSEDCL Testing Division Lab Yes/No , If Yes, Testing date &amp; Seal Nos</td><td>Yes (Cert. 15-03-2026, Seal#GEN789)</td></tr>
@@ -265,10 +265,10 @@
         </tbody>
     </table>
 
-    <!-- Solar System Equipment Details rows 47-53 (MOVED TO PAGE 2) -->
+    <!-- Solar System Equipment Details rows 47-53 (on PAGE 2 as requested) -->
     <div class="section-title">Solar System Equipment Details</div>
     <table class="master-table">
-        <thead><tr><th>Sr.No.</th><th>Points to be checked</th><th>Observation</th></tr></thead>
+        <thead><tr><th>Sr.No.</th><th>Points to be checked</th><th>Observation</th> </tr</thead>
         <tbody>
         <tr><td style="text-align:center">47</td><td>Grid Tie Inverter Make:</td><td th:text="${inverterMake}">Luminous</td></tr>
         <tr><td style="text-align:center">48</td><td>Inverter Capacity(AC Kw/Kva)</td><td th:text="${inverterCapacity}">7.27 kW</td></tr>
@@ -291,7 +291,7 @@
     <!-- Checking of connection & overall observation rows 54-59 -->
     <div class="section-title">Checking of connection of Meter &amp; Overall Observation</div>
     <table class="master-table">
-        <thead><tr><th>Sr.No.</th><th>Points to be checked</th><th>Observation</th></tr></thead>
+        <thead><tr><th>Sr.No.</th><th>Points to be checked</th><th>Observation</th> </tr</thead>
         <tbody>
         <tr><td style="text-align:center">54</td><td>Generation Meter connection</td><td>Correct</td></tr>
         <tr><td style="text-align:center">55</td><td>Net Meter connection</td><td>Correct</td></tr>
