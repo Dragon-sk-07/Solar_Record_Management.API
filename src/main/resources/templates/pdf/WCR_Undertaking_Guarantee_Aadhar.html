@@ -330,11 +330,10 @@
 </head>
 <body>
 
-<!-- WCR Header: Uploaded headerLogo OR default Arihant Header -->
-<div style="text-align: center; margin-bottom: 15px; padding-bottom: 8px; border-bottom: 1px solid #000;">
-    <img th:if="${not #lists.isEmpty(headerLogo)}" th:src="${headerLogo[0]}" style="max-width: 100%; max-height: 80px; object-fit: contain;" alt="Vendor Header"/>
-    <img th:if="${#lists.isEmpty(headerLogo)}" th:src="${defaultArihantHeader}" style="max-width: 100%; max-height: 80px; object-fit: contain;" alt="Arihant Electricals Header"/>
+<div th:if="${not #lists.isEmpty(headerLogo)}" style="text-align: center; margin-bottom: 15px; padding-bottom: 8px; border-bottom: 1px solid #000;">
+    <img th:src="${headerLogo[0]}" style="max-width: 100%; max-height: 80px; object-fit: contain;" alt="Vendor Header"/>
 </div>
+<div th:if="${#lists.isEmpty(headerLogo)}" style="margin-bottom: 15px; padding-bottom: 8px; border-bottom: 1px solid #000;"></div>
 
 <div class="gov-wrapper">
 
