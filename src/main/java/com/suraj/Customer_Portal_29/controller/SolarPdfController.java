@@ -12,6 +12,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.*;
 import com.suraj.Customer_Portal_29.repository.OwnerRepository;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @RestController
 @RequestMapping("/api/solar/pdf")
@@ -41,9 +42,11 @@ public class SolarPdfController {
     }
 
     @GetMapping("/{id}/{type}/word")
-    public ResponseEntity<byte[]> downloadWord(@PathVariable String id, @PathVariable String type) {
+    public ResponseEntity<byte[]> downloadWord(@PathVariable String id,
+                                               @PathVariable String type,
+                                               @RequestParam(defaultValue = "true") boolean includeSignatures) {
         checkDownloadPermission("word");
-        Map<String, Object> data = buildData(id, false);
+        Map<String, Object> data = buildData(id, false, includeSignatures);
         byte[] wordDoc = wordService.generateWord(type, data);
         return ResponseEntity.ok()
                 .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + type + ".doc")
@@ -52,9 +55,11 @@ public class SolarPdfController {
     }
 
     @GetMapping("/{id}/{type}")
-    public ResponseEntity<byte[]> downloadPdf(@PathVariable String id, @PathVariable String type) {
+    public ResponseEntity<byte[]> downloadPdf(@PathVariable String id,
+                                              @PathVariable String type,
+                                              @RequestParam(defaultValue = "true") boolean includeSignatures) {
         checkDownloadPermission("pdf");
-        Map<String, Object> data = buildData(id, true);
+        Map<String, Object> data = buildData(id, true, includeSignatures);
         byte[] pdf = pdfService.generatePdfAsync(type, data).join();
         return ResponseEntity.ok()
                 .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + getPdfFilename(type))
@@ -63,10 +68,11 @@ public class SolarPdfController {
     }
 
     @GetMapping("/{id}/all-in-one")
-    public ResponseEntity<byte[]> downloadAllInOnePdf(@PathVariable String id) {
+    public ResponseEntity<byte[]> downloadAllInOnePdf(@PathVariable String id,
+                                                      @RequestParam(defaultValue = "true") boolean includeSignatures) {
         checkDownloadPermission("pdf");
         try {
-            Map<String, Object> data = buildData(id, true);
+            Map<String, Object> data = buildData(id, true, includeSignatures);
             List<byte[]> pdfs = new ArrayList<>();
             String[] pdfTypes = {"METER_TESTING_REQUEST", "FrontSix", "wcr", "proforma-a", "dcr", "agreement", "site-photos"};
             for (String type : pdfTypes) {
@@ -92,7 +98,7 @@ public class SolarPdfController {
                     .contentType(MediaType.APPLICATION_OCTET_STREAM)
                     .body(wordDoc);
         } catch (Exception e) {
-            byte[] wordDoc = wordService.generateCombinedWord(buildData(id, true));
+            byte[] wordDoc = wordService.generateCombinedWord(buildData(id, true, includeSignatures));
             return ResponseEntity.ok()
                     .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=All_In_One.doc")
                     .contentType(MediaType.APPLICATION_OCTET_STREAM)
@@ -101,9 +107,10 @@ public class SolarPdfController {
     }
 
     @GetMapping("/{id}/all-in-one/word")
-    public ResponseEntity<byte[]> downloadAllInOneWord(@PathVariable String id) {
+    public ResponseEntity<byte[]> downloadAllInOneWord(@PathVariable String id,
+                                                       @RequestParam(defaultValue = "true") boolean includeSignatures) {
         checkDownloadPermission("word");
-        Map<String, Object> data = buildData(id, true);
+        Map<String, Object> data = buildData(id, true, includeSignatures);
         byte[] wordDoc = wordService.generateCombinedWord(data);
         return ResponseEntity.ok()
                 .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=All_In_One.doc")
@@ -111,7 +118,7 @@ public class SolarPdfController {
                 .body(wordDoc);
     }
 
-    private Map<String, Object> buildData(String id, boolean includeCompleteData) {
+    private Map<String, Object> buildData(String id, boolean includeCompleteData, boolean includeSignatures) {
         SolarRecordResponseDto record = solarService.findById(id);
         Owner currentUser = getCurrentUser();
         Map<String, Object> data = new HashMap<>();
@@ -210,11 +217,17 @@ public class SolarPdfController {
         if (vendorSignatureUrl != null && !vendorSignatureUrl.isEmpty()) {
             vendorSignatureList.add(vendorSignatureUrl);
         }
-        data.put("vendorSignature", vendorSignatureList);
-
-        data.put("witness1Signature", getValueOrDefault(currentUser.getWitness1SignatureUrl(), ""));
-        data.put("witness2Signature", getValueOrDefault(currentUser.getWitness2SignatureUrl(), ""));
-        data.put("consumerSignature", record.getConsumerSignature() != null ? record.getConsumerSignature() : Collections.emptyList());
+        if (includeSignatures) {
+            data.put("vendorSignature", getValueOrDefault(currentUser.getVendorSignatureUrl(), ""));
+            data.put("witness1Signature", getValueOrDefault(currentUser.getWitness1SignatureUrl(), ""));
+            data.put("witness2Signature", getValueOrDefault(currentUser.getWitness2SignatureUrl(), ""));
+            data.put("consumerSignature", record.getConsumerSignature() != null ? record.getConsumerSignature() : Collections.emptyList());
+        } else {
+            data.put("vendorSignature", "");
+            data.put("witness1Signature", "");
+            data.put("witness2Signature", "");
+            data.put("consumerSignature", Collections.emptyList());
+        }
         data.put("netMeteringStamp", record.getNetMeteringStamp() != null ? record.getNetMeteringStamp() : Collections.emptyList());
         data.put("annexureTwoStamp", record.getAnnexureTwoStamp() != null ? record.getAnnexureTwoStamp() : Collections.emptyList());
         data.put("aadharImages", record.getAadharImages() != null ? record.getAadharImages() : Collections.emptyList());
