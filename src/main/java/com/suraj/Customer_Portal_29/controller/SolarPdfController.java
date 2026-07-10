@@ -121,6 +121,9 @@ public class SolarPdfController {
     private Map<String, Object> buildData(String id, boolean includeCompleteData, boolean includeSignatures) {
         SolarRecordResponseDto record = solarService.findById(id);
         Owner currentUser = getCurrentUser();
+        System.out.println("=== VENDOR SIGNATURE DEBUG ===");
+        System.out.println("includeSignatures: " + includeSignatures);
+        System.out.println("vendorSignatureUrl from DB: " + currentUser.getVendorSignatureUrl());
         Map<String, Object> data = new HashMap<>();
         LocalDate now = LocalDate.now();
         DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
@@ -215,11 +218,13 @@ public class SolarPdfController {
 
         if (includeSignatures) {
             data.put("vendorSignature", getValueOrDefault(currentUser.getVendorSignatureUrl(), ""));
+            System.out.println("vendorSig value: "+ getValueOrDefault(currentUser.getVendorSignatureUrl(), ""));
             data.put("witness1Signature", getValueOrDefault(currentUser.getWitness1SignatureUrl(), ""));
             data.put("witness2Signature", getValueOrDefault(currentUser.getWitness2SignatureUrl(), ""));
             data.put("consumerSignature", record.getConsumerSignature() != null ? record.getConsumerSignature() : Collections.emptyList());
         } else {
             data.put("vendorSignature", "");
+            System.out.println("includeSignatures is FALSE - setting empty");
             data.put("witness1Signature", "");
             data.put("witness2Signature", "");
             data.put("consumerSignature", Collections.emptyList());
@@ -253,6 +258,8 @@ public class SolarPdfController {
         data.put("secondPageThirdImage", convertImageToBase64("/SecondPageThirdImage.png"));
         data.put("secondPageFourthImage", convertImageToBase64("/SecondPageFourthImage.png"));
 
+        System.out.println("Final vendorSignature in data: '" + data.get("vendorSignature") + "'");
+        System.out.println("=== END DEBUG ===");
         return data;
     }
 
