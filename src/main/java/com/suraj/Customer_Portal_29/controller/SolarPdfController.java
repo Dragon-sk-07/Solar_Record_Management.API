@@ -225,26 +225,15 @@ public class SolarPdfController {
             data.put("vendorSignature", vendorSigList);
             System.out.println("vendorSig value: "+ vendorSigUrl);
 
-            String witness1SigUrl = getValueOrDefault(currentUser.getWitness1SignatureUrl(), "");
-            List<String> witness1SigList = new ArrayList<>();
-            if (witness1SigUrl != null && !witness1SigUrl.isEmpty()) {
-                witness1SigList.add(witness1SigUrl);
-            }
-            data.put("witness1Signature", witness1SigList);
-
-            String witness2SigUrl = getValueOrDefault(currentUser.getWitness2SignatureUrl(), "");
-            List<String> witness2SigList = new ArrayList<>();
-            if (witness2SigUrl != null && !witness2SigUrl.isEmpty()) {
-                witness2SigList.add(witness2SigUrl);
-            }
-            data.put("witness2Signature", witness2SigList);
+            data.put("witness1Signature", getValueOrDefault(currentUser.getWitness1SignatureUrl(), ""));
+            data.put("witness2Signature", getValueOrDefault(currentUser.getWitness2SignatureUrl(), ""));
 
             data.put("consumerSignature", record.getConsumerSignature() != null ? record.getConsumerSignature() : Collections.emptyList());
         } else {
             data.put("vendorSignature", Collections.emptyList());
             System.out.println("includeSignatures is FALSE - setting empty");
-            data.put("witness1Signature", Collections.emptyList());
-            data.put("witness2Signature", Collections.emptyList());
+            data.put("witness1Signature", "");
+            data.put("witness2Signature", "");
             data.put("consumerSignature", Collections.emptyList());
         }
         data.put("netMeteringStamp", record.getNetMeteringStamp() != null ? record.getNetMeteringStamp() : Collections.emptyList());
