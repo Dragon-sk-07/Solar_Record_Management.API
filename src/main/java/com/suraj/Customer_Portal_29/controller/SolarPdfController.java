@@ -121,9 +121,8 @@ public class SolarPdfController {
     private Map<String, Object> buildData(String id, boolean includeCompleteData, boolean includeSignatures) {
         SolarRecordResponseDto record = solarService.findById(id);
         Owner currentUser = getCurrentUser();
-        System.out.println("=== VENDOR SIGNATURE DEBUG ===");
-        System.out.println("includeSignatures: " + includeSignatures);
-        System.out.println("vendorSignatureUrl from DB: " + currentUser.getVendorSignatureUrl());
+        System.out.println("witness1SignatureUrl from DB: " + currentUser.getWitness1SignatureUrl());
+        System.out.println("witness2SignatureUrl from DB: " + currentUser.getWitness2SignatureUrl());
         Map<String, Object> data = new HashMap<>();
         LocalDate now = LocalDate.now();
         DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
@@ -276,8 +275,9 @@ public class SolarPdfController {
         data.put("secondPageThirdImage", convertImageToBase64("/SecondPageThirdImage.png"));
         data.put("secondPageFourthImage", convertImageToBase64("/SecondPageFourthImage.png"));
 
-        System.out.println("Final vendorSignature in data: '" + data.get("vendorSignature") + "'");
-        System.out.println("=== END DEBUG ===");
+
+        System.out.println("Final witness1Signature in data: '" + data.get("witness1Signature") + "'");
+        System.out.println("Final witness2Signature in data: '" + data.get("witness2Signature") + "'");
         return data;
     }
 
