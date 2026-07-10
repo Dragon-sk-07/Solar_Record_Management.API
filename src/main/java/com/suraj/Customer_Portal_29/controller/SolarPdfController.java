@@ -212,11 +212,7 @@ public class SolarPdfController {
         }
         data.put("headerLogo", headerLogoList);
 
-        String vendorSignatureUrl = getValueOrDefault(currentUser.getVendorSignatureUrl(), "");
-        List<String> vendorSignatureList = new ArrayList<>();
-        if (vendorSignatureUrl != null && !vendorSignatureUrl.isEmpty()) {
-            vendorSignatureList.add(vendorSignatureUrl);
-        }
+
         if (includeSignatures) {
             data.put("vendorSignature", getValueOrDefault(currentUser.getVendorSignatureUrl(), ""));
             data.put("witness1Signature", getValueOrDefault(currentUser.getWitness1SignatureUrl(), ""));
