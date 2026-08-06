@@ -210,20 +210,20 @@
 
     <p>
         This Agreement is made and entered into at
-        <span th:if="${place != null and place != ''}" th:text="${place}"></span><span th:if="${place == null or place == ''}" class="value-missing">Value Missing</span>
+        <span th:if="${place != null and place != ''}" th:text="${place}"></span><span th:if="${place == null or place == ''}" class="value-missing"></span>
         on this
-        <span th:if="${day != null and day != ''}" th:text="${day}"></span><span th:if="${day == null or day == ''}" class="value-missing">Value Missing</span>
+        <span th:if="${day != null and day != ''}" th:text="${day}"></span><span th:if="${day == null or day == ''}" class="value-missing"></span>
         day of
-        <span th:if="${month != null and month != ''}" th:text="${month}"></span><span th:if="${month == null or month == ''}" class="value-missing">Value Missing</span>
-        <span th:if="${year != null and year != ''}" th:text="${year}"></span><span th:if="${year == null or year == ''}" class="value-missing">Value Missing</span>
+        <span th:if="${month != null and month != ''}" th:text="${month}"></span><span th:if="${month == null or month == ''}" class="value-missing"></span>
+        <span th:if="${year != null and year != ''}" th:text="${year}"></span><span th:if="${year == null or year == ''}" class="value-missing"></span>
         between the Eligible Consumer
-        <span th:if="${name != null and name != ''}" th:text="${name}"></span><span th:if="${name == null or name == ''}" class="value-missing">Value Missing</span>
+        <span th:if="${name != null and name != ''}" th:text="${name}"></span><span th:if="${name == null or name == ''}" class="value-missing"></span>
         having premises at
-        <span th:if="${siteAddress != null and siteAddress != ''}" th:text="${siteAddress}"></span><span th:if="${siteAddress == null or siteAddress == ''}" class="value-missing">Value Missing</span>
+        <span th:if="${siteAddress != null and siteAddress != ''}" th:text="${siteAddress}"></span><span th:if="${siteAddress == null or siteAddress == ''}" class="value-missing"></span>
         and Consumer No.
-        <span th:if="${consumerNumber != null and consumerNumber != ''}" th:text="${consumerNumber}"></span><span th:if="${consumerNumber == null or consumerNumber == ''}" class="value-missing">Value Missing</span>
+        <span th:if="${consumerNumber != null and consumerNumber != ''}" th:text="${consumerNumber}"></span><span th:if="${consumerNumber == null or consumerNumber == ''}" class="value-missing"></span>
         Meter No.
-        <span th:if="${meterNumber != null and meterNumber != ''}" th:text="${meterNumber}"></span><span th:if="${meterNumber == null or meterNumber == ''}" class="value-missing">Value Missing</span>
+        <span th:if="${meterNumber != null and meterNumber != ''}" th:text="${meterNumber}"></span><span th:if="${meterNumber == null or meterNumber == ''}" class="value-missing"></span>
         has the first Party,
     </p>
 
@@ -241,9 +241,9 @@
 
     <p class="mt12">
         And whereas MSEDCL has agreed to provide Network connectivity to the Eligible Consumer for injection of electricity generated from its Renewable Energy Generating System of
-        <span th:if="${installedCapacity != null}" th:text="${installedCapacity}"></span><span th:if="${installedCapacity == null}" class="value-missing">Value Missing</span>
+        <span th:if="${installedCapacity != null}" th:text="${installedCapacity}"></span><span th:if="${installedCapacity == null}" class="value-missing"></span>
         kilowatt (Installed Capacity), which is within the Sanctioned Capacity of
-        <span th:if="${sanctionedCapacity != null}" th:text="${sanctionedCapacity}"></span><span th:if="${sanctionedCapacity == null}" class="value-missing">Value Missing</span>
+        <span th:if="${sanctionedCapacity != null}" th:text="${sanctionedCapacity}"></span><span th:if="${sanctionedCapacity == null}" class="value-missing"></span>
         kilowatt approved by MSEDCL;
     </p>
 
@@ -286,7 +286,7 @@
     <h2>8 Commercial Settlement</h2>
     <p><b>8.1</b> The commercial settlements under this Agreement shall be in accordance with the Grid Interactive Renewable Regulations.</p>
     <p class="mt8"><b>8.2</b> MSEDCL shall not be liable to compensate the Eligible Consumer if his Renewable Energy Generating System is unable to inject surplus power generated into MSEDCL's Network on account of failure of power supply in the grid/Network.</p>
-    <p class="mt8"><b>8.3</b> The existing metering System, if not in accordance with the Grid Interactive Renewable Regulations, shall be replaced by a bi-directional meter (Net Meter No. <span th:if="${netMeterNumber != null and netMeterNumber != ''}" th:text="${netMeterNumber}"></span><span th:if="${netMeterNumber == null or netMeterNumber == ''}" class="value-missing">Value Missing</span>) (whole current/CT operated) and a separate Renewable Energy Generation Meter shall be provided to measure Renewable Energy generation. The bi-directional meter (whole current/CT operated) shall be installed at the inter-connection point to MSEDCL's Network for recording export and import of energy.</p>
+    <p class="mt8"><b>8.3</b> The existing metering System, if not in accordance with the Grid Interactive Renewable Regulations, shall be replaced by a bi-directional meter (Net Meter No. <span th:if="${netMeterNumber != null and netMeterNumber != ''}" th:text="${netMeterNumber}"></span><span th:if="${netMeterNumber == null or netMeterNumber == ''}" class="value-missing"></span>) (whole current/CT operated) and a separate Renewable Energy Generation Meter shall be provided to measure Renewable Energy generation. The bi-directional meter (whole current/CT operated) shall be installed at the inter-connection point to MSEDCL's Network for recording export and import of energy.</p>
     <p class="mt8"><b>8.4</b> The uni-directional and bi-directional meters shall be fixed in separate meter boxes in the same proximity.</p>
     <p class="mt8"><b>8.5</b> The energy generated by the Renewable Energy Generating Station shall be offset against the energy consumption of the consumer from the MSEDCL in the following manner:</p>
     <p>a) If the quantum of electricity exported exceeds the quantum imported during the Billing Period, the excess quantum shall be carried forward to the next Billing Period as credited Units of electricity;</p>
@@ -304,7 +304,7 @@
 
     <p class="mt25">
         In the witness, where of
-        <span th:if="${name != null and name != ''}" th:text="${name}"></span><span th:if="${name == null or name == ''}" class="value-missing">Value Missing</span>
+        <span th:if="${name != null and name != ''}" th:text="${name}"></span><span th:if="${name == null or name == ''}" class="value-missing"></span>
         for and on behalf of Eligible Consumer and
         for and on behalf of <span class="fixed-value">MSEDCL</span> (Licensee) agree to this agreement.
     </p>
@@ -317,8 +317,8 @@
             </div>
             <div class="line" th:if="${#lists.isEmpty(consumerSignature)}"></div>
             <p>Signature:</p>
-            <p class="mt8">Name: <span th:if="${name != null and name != ''}" th:text="${name}"></span><span th:if="${name == null or name == ''}" class="value-missing">Value Missing</span></p>
-            <p>Date: <span th:if="${installationDate != null and installationDate != ''}" th:text="${installationDate}"></span><span th:if="${installationDate == null or installationDate == ''}" class="value-missing">Value Missing</span></p>
+            <p class="mt8">Name: <span th:if="${name != null and name != ''}" th:text="${name}"></span><span th:if="${name == null or name == ''}" class="value-missing"></span></p>
+            <p>Date: <span th:if="${installationDate != null and installationDate != ''}" th:text="${installationDate}"></span><span th:if="${installationDate == null or installationDate == ''}" class="value-missing"></span></p>
         </div>
         <div class="signature-right">
             <p class="bold">For and on behalf of MSEDCL (Licensee)</p>
@@ -329,15 +329,15 @@
             <p>Signature:</p>
             <p class="mt8">Name: </p>
             <p>Designation: <span class="fixed-value">Executive Engineer</span></p>
-            <p>Date: <span th:if="${installationDate != null and installationDate != ''}" th:text="${installationDate}"></span><span th:if="${installationDate == null or installationDate == ''}" class="value-missing">Value Missing</span></p>
+            <p>Date: <span th:if="${installationDate != null and installationDate != ''}" th:text="${installationDate}"></span><span th:if="${installationDate == null or installationDate == ''}" class="value-missing"></span></p>
         </div>
     </div>
 
     <div class="witness-row">
         <div class="witness-left">
             <p class="bold">Witness 1</p>
-            <p>Name: <span th:if="${witness1Name != null and witness1Name != ''}" th:text="${witness1Name}"></span><span th:if="${witness1Name == null or witness1Name == ''}" class="value-missing">Value Missing</span></p>
-            <p>Address: <span th:if="${witness1Address != null and witness1Address != ''}" th:text="${witness1Address}"></span><span th:if="${witness1Address == null or witness1Address == ''}" class="value-missing">Value Missing</span></p>
+            <p>Name: <span th:if="${witness1Name != null and witness1Name != ''}" th:text="${witness1Name}"></span><span th:if="${witness1Name == null or witness1Name == ''}" class="value-missing"></span></p>
+            <p>Address: <span th:if="${witness1Address != null and witness1Address != ''}" th:text="${witness1Address}"></span><span th:if="${witness1Address == null or witness1Address == ''}" class="value-missing"></span></p>
             <div class="signature-space">
                 <img th:if="${not #lists.isEmpty(witness1Signature)}" th:src="${witness1Signature[0]}" style="max-height:60px; max-width:200px; object-fit:contain;"/>
                 <div th:if="${#lists.isEmpty(witness1Signature)}" class="line"></div>
@@ -347,8 +347,8 @@
 
         <div class="witness-right">
             <p class="bold">Witness 2</p>
-            <p>Name: <span th:if="${witness2Name != null and witness2Name != ''}" th:text="${witness2Name}"></span><span th:if="${witness2Name == null or witness2Name == ''}" class="value-missing">Value Missing</span></p>
-            <p>Address: <span th:if="${witness2Address != null and witness2Address != ''}" th:text="${witness2Address}"></span><span th:if="${witness2Address == null or witness2Address == ''}" class="value-missing">Value Missing</span></p>
+            <p>Name: <span th:if="${witness2Name != null and witness2Name != ''}" th:text="${witness2Name}"></span><span th:if="${witness2Name == null or witness2Name == ''}" class="value-missing"></span></p>
+            <p>Address: <span th:if="${witness2Address != null and witness2Address != ''}" th:text="${witness2Address}"></span><span th:if="${witness2Address == null or witness2Address == ''}" class="value-missing"></span></p>
             <div class="signature-space">
                 <img th:if="${not #lists.isEmpty(witness2Signature)}" th:src="${witness2Signature[0]}" style="max-height:60px; max-width:200px; object-fit:contain;"/>
                 <div th:if="${#lists.isEmpty(witness2Signature)}" class="line"></div>

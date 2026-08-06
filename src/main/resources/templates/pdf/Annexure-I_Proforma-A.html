@@ -268,45 +268,45 @@
         </thead>
         <tbody>
         <tr><td>1</td><td>Name of the Consumer</td>
-            <td><span th:if="${name != null and name != ''}" th:text="${name}"></span><span th:if="${name == null or name == ''}" class="value-missing">Value Missing</span></td>
+            <td><span th:if="${name != null and name != ''}" th:text="${name}"></span><span th:if="${name == null or name == ''}" class="value-missing"></span></td>
         </tr>
         <tr><td>2</td><td>Consumer Number</td>
-            <td><span th:if="${consumerNumber != null and consumerNumber != ''}" th:text="${consumerNumber}"></span><span th:if="${consumerNumber == null or consumerNumber == ''}" class="value-missing">Value Missing</span></td>
+            <td><span th:if="${consumerNumber != null and consumerNumber != ''}" th:text="${consumerNumber}"></span><span th:if="${consumerNumber == null or consumerNumber == ''}" class="value-missing"></span></td>
         </tr>
         <tr><td>3</td><td>Mobile Number</td>
-            <td><span th:if="${mobileNumber != null and mobileNumber != ''}" th:text="${mobileNumber}"></span><span th:if="${mobileNumber == null or mobileNumber == ''}" class="value-missing">Value Missing</span></td>
+            <td><span th:if="${mobileNumber != null and mobileNumber != ''}" th:text="${mobileNumber}"></span><span th:if="${mobileNumber == null or mobileNumber == ''}" class="value-missing"></span></td>
         </tr>
         <tr><td>4</td><td>E-mail</td>
-            <td><span th:if="${email != null and email != ''}" th:text="${email}"></span><span th:if="${email == null or email == ''}" class="value-missing">Value Missing</span></td>
+            <td><span th:if="${email != null and email != ''}" th:text="${email}"></span><span th:if="${email == null or email == ''}" class="value-missing"></span></td>
         </tr>
         <tr><td>5</td><td>Address of Installation</td>
-            <td><span th:if="${siteAddress != null and siteAddress != ''}" th:text="${siteAddress}"></span><span th:if="${siteAddress == null or siteAddress == ''}" class="value-missing">Value Missing</span></td>
+            <td><span th:if="${siteAddress != null and siteAddress != ''}" th:text="${siteAddress}"></span><span th:if="${siteAddress == null or siteAddress == ''}" class="value-missing"></span></td>
         </tr>
         <tr><td>6</td><td>RE Arrangement Type</td><td>Net Metering Arrangement</td></tr>
         <tr><td>7</td><td>RE Source</td><td>Solar</td></tr>
         <tr><td>8</td><td>Sanctioned Capacity(KW)</td>
-            <td><span th:if="${sanctionedCapacity != null}" th:text="${sanctionedCapacity}"></span><span th:if="${sanctionedCapacity == null}" class="value-missing">Value Missing</span></td>
+            <td><span th:if="${sanctionedCapacity != null}" th:text="${sanctionedCapacity}"></span><span th:if="${sanctionedCapacity == null}" class="value-missing"></span></td>
         </tr>
         <tr><td>9</td><td>Capacity Type</td><td>Rooftop</td></tr>
         <tr><td>10</td><td>Project Model</td><td>CAPEX</td></tr>
         <tr><td>11</td><td>RE installed Capacity(Rooftop)(KW)</td>
-            <td><span th:if="${installedCapacity != null}" th:text="${installedCapacity}"></span><span th:if="${installedCapacity == null}" class="value-missing">Value Missing</span></td>
+            <td><span th:if="${installedCapacity != null}" th:text="${installedCapacity}"></span><span th:if="${installedCapacity == null}" class="value-missing"></span></td>
         </tr>
         <tr><td>12</td><td>RE installed Capacity(Rooftop + Ground)(KW)</td>
-            <td><span th:if="${installedCapacity != null}" th:text="${installedCapacity}"></span><span th:if="${installedCapacity == null}" class="value-missing">Value Missing</span></td>
+            <td><span th:if="${installedCapacity != null}" th:text="${installedCapacity}"></span><span th:if="${installedCapacity == null}" class="value-missing"></span></td>
         </tr>
         <tr><td>13</td><td>RE installed Capacity(Ground)(KW)</td><td>0</td></tr>
         <tr><td>14</td><td>Installation date</td>
-            <td><span th:if="${installationDate != null and installationDate != ''}" th:text="${installationDate}"></span><span th:if="${installationDate == null or installationDate == ''}" class="value-missing">Value Missing</span></td>
+            <td><span th:if="${installationDate != null and installationDate != ''}" th:text="${installationDate}"></span><span th:if="${installationDate == null or installationDate == ''}" class="value-missing"></span></td>
         </tr>
         <tr>
             <td>15</td>
             <td>SolarPV Details</td>
             <td>
-                Inverter Capacity(KW): <span th:if="${inverterCapacity != null}" th:text="${inverterCapacity}"></span><span th:if="${inverterCapacity == null}" class="value-missing">Value Missing</span><br/>
-                Inverter Make: <span th:if="${inverterMake != null and inverterMake != ''}" th:text="${inverterMake}"></span><span th:if="${inverterMake == null or inverterMake == ''}" class="value-missing">Value Missing</span><br/>
-                No.of PV Modules: <span th:if="${numberOfModules != null}" th:text="${numberOfModules}"></span><span th:if="${numberOfModules == null}" class="value-missing">Value Missing</span><br/>
-                Module Capacity (Wp): <span th:if="${wattagePerModule != null}" th:text="${wattagePerModule}"></span><span th:if="${wattagePerModule == null}" class="value-missing">Value Missing</span>
+                Inverter Capacity(KW): <span th:if="${inverterCapacity != null}" th:text="${inverterCapacity}"></span><span th:if="${inverterCapacity == null}" class="value-missing"></span><br/>
+                Inverter Make: <span th:if="${inverterMake != null and inverterMake != ''}" th:text="${inverterMake}"></span><span th:if="${inverterMake == null or inverterMake == ''}" class="value-missing"></span><br/>
+                No.of PV Modules: <span th:if="${numberOfModules != null}" th:text="${numberOfModules}"></span><span th:if="${numberOfModules == null}" class="value-missing"></span><br/>
+                Module Capacity (Wp): <span th:if="${wattagePerModule != null}" th:text="${wattagePerModule}"></span><span th:if="${wattagePerModule == null}" class="value-missing"></span>
             </td>
         </tr>
         </tbody>
@@ -316,8 +316,8 @@
     <div class="subtitle">COMMISSIONING REPORT (PROVISIONAL) FOR GRID CONNECTED SOLAR PHOTOVOLTAIC POWER PLANT (with Net-metering facility)</div>
 
     <div class="commissioning-text">
-        <p>Certified that a Grid Connected SPV Power Plant of <span th:if="${totalCapacityKWP != null}" th:text="${totalCapacityKWP}"></span><span th:if="${totalCapacityKWP == null}" class="value-missing">Value Missing</span> KWp capacity has been installed at the site <span th:if="${siteAddress != null and siteAddress != ''}" th:text="${siteAddress}"></span><span th:if="${siteAddress == null or siteAddress == ''}" class="value-missing">Value Missing</span></p>
-        <p>District <span th:if="${place != null and place != ''}" th:text="${place}"></span><span th:if="${place == null or place == ''}" class="value-missing">Value Missing</span> of MAHARASHTRA which has been installed by M/S <span th:if="${vendorName != null and vendorName != ''}" th:text="${vendorName}"></span><span th:if="${vendorName == null or vendorName == ''}" class="value-missing">Value Missing</span> on <span th:if="${installationDate != null and installationDate != ''}" th:text="${installationDate}"></span><span th:if="${installationDate == null or installationDate == ''}" class="value-missing">Value Missing</span> The system is as per BIS/MNRE specifications. The system has been checked for its performance and found in order for further commissioning.</p>
+        <p>Certified that a Grid Connected SPV Power Plant of <span th:if="${totalCapacityKWP != null}" th:text="${totalCapacityKWP}"></span><span th:if="${totalCapacityKWP == null}" class="value-missing"></span> KWp capacity has been installed at the site <span th:if="${siteAddress != null and siteAddress != ''}" th:text="${siteAddress}"></span><span th:if="${siteAddress == null or siteAddress == ''}" class="value-missing"></span></p>
+        <p>District <span th:if="${place != null and place != ''}" th:text="${place}"></span><span th:if="${place == null or place == ''}" class="value-missing"></span> of MAHARASHTRA which has been installed by M/S <span th:if="${vendorName != null and vendorName != ''}" th:text="${vendorName}"></span><span th:if="${vendorName == null or vendorName == ''}" class="value-missing"></span> on <span th:if="${installationDate != null and installationDate != ''}" th:text="${installationDate}"></span><span th:if="${installationDate == null or installationDate == ''}" class="value-missing"></span> The system is as per BIS/MNRE specifications. The system has been checked for its performance and found in order for further commissioning.</p>
     </div>
 
     <div class="signature-row">
@@ -338,7 +338,7 @@
     <div class="page-break"></div>
 
     <div class="commissioning-text">
-        <p>The above RTS installation has been inspected by me for Pre-Commissioning Testing of Roof Top Solar Connection on dt. <span th:if="${installationDate != null and installationDate != ''}" th:text="${installationDate}"></span><span th:if="${installationDate == null or installationDate == ''}" class="value-missing">Value Missing</span> as per guidelines issued by the office of The Chief Engineer vide letter no 21653 on dt. 18.08.2022 and found in order for commissioning.</p>
+        <p>The above RTS installation has been inspected by me for Pre-Commissioning Testing of Roof Top Solar Connection on dt. <span th:if="${installationDate != null and installationDate != ''}" th:text="${installationDate}"></span><span th:if="${installationDate == null or installationDate == ''}" class="value-missing"></span> as per guidelines issued by the office of The Chief Engineer vide letter no 21653 on dt. 18.08.2022 and found in order for commissioning.</p>
     </div>
 
     <div class="msedcl-section" style="text-align: left; width: 100%;">
@@ -354,7 +354,7 @@
                 <div class="msedcl-label">Designation: <span class="value-text">Executive Engineer</span></div>
             </div>
         </div>
-        <div class="msedcl-label" style="margin-top: 8px;">Date and seal: <span th:if="${installationDate != null and installationDate != ''}" th:text="${installationDate}" class="value-text"></span><span th:if="${installationDate == null or installationDate == ''}" class="value-missing">Value Missing</span></div>
+        <div class="msedcl-label" style="margin-top: 8px;">Date and seal: <span th:if="${installationDate != null and installationDate != ''}" th:text="${installationDate}" class="value-text"></span><span th:if="${installationDate == null or installationDate == ''}" class="value-missing"></span></div>
     </div>
 
 </div>
