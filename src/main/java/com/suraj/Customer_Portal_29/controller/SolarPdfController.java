@@ -178,7 +178,7 @@ public class SolarPdfController {
 
         Double totalAmount = parseToDouble(record.getTotalAmountIncludingGST());
         Double installedCap = parseToDouble(record.getInstalledCapacity());
-        String ratePerWatt = "", baseAmount = "", gstAmount = "", cleaningCharge = "4500", grossTotal = "";
+        String ratePerWatt = "", ratePerWattDisplay = "", baseAmount = "", gstAmount = "", cleaningCharge = "4500", grossTotal = "";
 
         if (totalAmount != null && totalAmount > 0) {
             baseAmount = String.format("%.0f", totalAmount * 100 / 105);
@@ -188,10 +188,12 @@ public class SolarPdfController {
             if (installedCap != null && installedCap > 0) {
                 double calculatedRate = totalAmount / (installedCap * 1000);
                 ratePerWatt = String.format("%.2f", calculatedRate);
+                ratePerWattDisplay = "Rs " + ratePerWatt + "/Watt";
             }
         }
 
         data.put("ratePerWatt", ratePerWatt);
+        data.put("ratePerWattDisplay", ratePerWattDisplay);
         data.put("baseAmount", baseAmount);
         data.put("gstAmount", gstAmount);
         data.put("cleaningCharge", cleaningCharge);
