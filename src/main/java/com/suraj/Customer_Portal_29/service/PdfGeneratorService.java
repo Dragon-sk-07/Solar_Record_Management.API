@@ -8,6 +8,8 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
+import org.apache.pdfbox.pdmodel.PDDocument;
+import java.io.ByteArrayOutputStream;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -58,6 +60,12 @@ public class PdfGeneratorService {
             builder.run();
 
             byte[] result = outputStream.toByteArray();
+
+            // Compress PDF if larger than 290KB
+            if (result.length > 290 * 1024) {
+                result = compressPdf(result);
+            }
+
             System.out.println("PDF generated successfully for: " + type + ", size: " + result.length + " bytes");
             System.out.println("=== PDF Generation Completed for: " + type + " ===");
 
@@ -68,6 +76,18 @@ public class PdfGeneratorService {
             System.err.println("Error: " + e.getMessage());
             e.printStackTrace();
             throw new RuntimeException("PDF generation failed for " + type + ": " + e.getMessage(), e);
+        }
+    }
+
+    private byte[] compressPdf(byte[] pdfBytes) {
+        try {
+            PDDocument document = PDDocument.load(pdfBytes);
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            document.save(baos);
+            document.close();
+            return baos.toByteArray();
+        } catch (Exception e) {
+            return pdfBytes;
         }
     }
 
