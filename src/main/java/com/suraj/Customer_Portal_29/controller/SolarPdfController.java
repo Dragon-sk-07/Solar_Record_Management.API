@@ -176,18 +176,26 @@ public class SolarPdfController {
         data.put("inverterCapacity", getValueOrDefault(record.getInverterCapacity(), ""));
         data.put("totalAmountIncludingGST", getValueOrDefault(record.getTotalAmountIncludingGST(), ""));
 
-        Double totalAmount = record.getTotalAmountIncludingGST();
-        Double installedCap = record.getInstalledCapacity();
-        String ratePerWatt = "", baseAmount = "", gstAmount = "";
-        if (totalAmount != null && installedCap != null && installedCap > 0) {
-            double calculatedRate = totalAmount / (installedCap * 1000);
-            ratePerWatt = String.format("%.2f", calculatedRate);
+        Double totalAmount = parseToDouble(record.getTotalAmountIncludingGST());
+        Double installedCap = parseToDouble(record.getInstalledCapacity());
+        String ratePerWatt = "", baseAmount = "", gstAmount = "", cleaningCharge = "4500", grossTotal = "";
+
+        if (totalAmount != null && totalAmount > 0) {
             baseAmount = String.format("%.0f", totalAmount * 100 / 105);
             gstAmount = String.format("%.0f", totalAmount * 5 / 105);
+            grossTotal = String.format("%.0f", totalAmount + 4500);
+
+            if (installedCap != null && installedCap > 0) {
+                double calculatedRate = totalAmount / (installedCap * 1000);
+                ratePerWatt = String.format("%.2f", calculatedRate);
+            }
         }
+
         data.put("ratePerWatt", ratePerWatt);
         data.put("baseAmount", baseAmount);
         data.put("gstAmount", gstAmount);
+        data.put("cleaningCharge", cleaningCharge);
+        data.put("grossTotal", grossTotal);
 
         data.put("vendorName", getValueOrDefault(currentUser.getName(), ""));
         data.put("vendorAddress", getValueOrDefault(currentUser.getVendorAddress(), ""));
@@ -310,6 +318,21 @@ public class SolarPdfController {
             return "data:" + mimeType + ";base64," + base64;
         } catch (Exception e) {
             return "";
+        }
+    }
+
+    private Double parseToDouble(Object value) {
+        if (value == null) return null;
+        if (value instanceof Double) return (Double) value;
+        if (value instanceof Integer) return ((Integer) value).doubleValue();
+        if (value instanceof Number) return ((Number) value).doubleValue();
+        try {
+            String s = String.valueOf(value).trim().replace(",", "");
+            if (s.isEmpty()) return null;
+            return Double.parseDouble(s);
+        } catch (NumberFormatException e) {
+            System.err.println("Failed to parse amount value: '" + value + "'");
+            return null;
         }
     }
 
