@@ -75,7 +75,7 @@ public class UserManagementService {
         } else if (existingUrl != null && !existingUrl.isEmpty()) {
             setter.accept(existingUrl);
         } else {
-            setter.accept(null);
+//            setter.accept(null);
         }
     }
 
