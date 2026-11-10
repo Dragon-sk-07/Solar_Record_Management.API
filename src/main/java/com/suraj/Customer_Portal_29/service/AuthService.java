@@ -5,8 +5,10 @@ import com.suraj.Customer_Portal_29.dto.request.*;
 import com.suraj.Customer_Portal_29.dto.response.LoginResponseDto;
 import com.suraj.Customer_Portal_29.entity.Owner;
 import com.suraj.Customer_Portal_29.repository.OwnerRepository;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -28,16 +30,17 @@ public class AuthService {
         Owner owner = repo.findByEmail(request.getEmail()).orElse(null);
 
         if (owner == null) {
-            throw new RuntimeException("Invalid credentials");
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Invalid email or password");
         }
 
         boolean passwordMatches = passwordEncoder.matches(request.getPassword(), owner.getPassword());
 
         if (!passwordMatches) {
-            throw new RuntimeException("Invalid credentials");
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Invalid email or password");
         }
+
         if (!owner.isActive()) {
-            throw new RuntimeException("Your account has been deactivated. Please contact super admin.");
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Your account has been deactivated. Please contact super admin.");
         }
 
         Map<String, Object> claims = new HashMap<>();
