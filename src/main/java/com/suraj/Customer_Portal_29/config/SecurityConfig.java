@@ -61,7 +61,7 @@ public class SecurityConfig {
                 "https://solar-rts.onrender.com",
                 "https://arihant-solar-rts.netlify.app",
                 "https://solar-rts-ui.onrender.com",
-                "http://localhost:5173",
+                "http://localhost:5173"
 //                "http://localhost:8080"
         ));
         configuration.setAllowedMethods(List.of("GET","POST","PUT","DELETE","OPTIONS"));
