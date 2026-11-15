@@ -1,6 +1,5 @@
 package com.suraj.Customer_Portal_29.config;
 
-import com.suraj.Customer_Portal_29.repository.OwnerRepository;
 import io.jsonwebtoken.Claims;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -21,12 +20,9 @@ import java.util.List;
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     private final JwtTokenProvider jwtProvider;
-    private final OwnerRepository ownerRepository;
 
-    public JwtAuthenticationFilter(JwtTokenProvider jwtProvider,
-                                   OwnerRepository ownerRepository) {
+    public JwtAuthenticationFilter(JwtTokenProvider jwtProvider) {
         this.jwtProvider = jwtProvider;
-        this.ownerRepository = ownerRepository;
     }
 
     @Override
@@ -34,12 +30,6 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                                     HttpServletResponse response,
                                     FilterChain chain)
             throws ServletException, IOException {
-
-        if ("OPTIONS".equalsIgnoreCase(request.getMethod())) {
-            response.setStatus(HttpServletResponse.SC_OK);
-            chain.doFilter(request, response);
-            return;
-        }
 
         String path = request.getServletPath();
 
@@ -75,19 +65,9 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                         new UsernamePasswordAuthenticationToken(email, null, authorities);
 
                 SecurityContextHolder.getContext().setAuthentication(auth);
-
-                try {
-                    ownerRepository.findByEmailIgnoreCase(email.trim())
-                            .ifPresent(CurrentUserContext::set);
-                } catch (Exception ignored) {
-                }
             }
         }
 
-        try {
-            chain.doFilter(request, response);
-        } finally {
-            CurrentUserContext.clear();
-        }
+        chain.doFilter(request, response);
     }
 }

@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Indemnity Bond - MSEDCL Solar RTS</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        @page { margin: 5mm 10mm; }
+        body { padding: 5px 10px; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Times New Roman', Times, serif;
+            background: #fff;
+            color: #000;
+            font-size: 13.5pt;
+            line-height: 1.35;
+            padding: 12px 20px;
+        }
+        .bond-wrapper {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: #fff;
+        }
+        .vendor-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #000;
+        }
+        .vendor-logo {
+            width: 40%;
+        }
+        .vendor-logo img {
+            max-height: 60px;
+            max-width: 100%;
+            object-fit: contain;
+        }
+        .vendor-info {
+            width: 60%;
+            text-align: right;
+        }
+        .vendor-name {
+            font-size: 14px;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+        .vendor-details {
+            font-size: 8px;
+            margin-top: 3px;
+        }
+        .msedcl-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #000;
+        }
+        .msedcl-logo {
+            width: 40%;
+        }
+        .msedcl-logo img {
+            max-height: 50px;
+            max-width: 100%;
+            object-fit: contain;
+        }
+        .msedcl-info {
+            width: 60%;
+            text-align: right;
+        }
+        .msedcl-name {
+            font-size: 14px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .msedcl-fullform {
+            font-size: 7px;
+            font-weight: normal;
+            letter-spacing: 0.5px;
+        }
+        .msedcl-address {
+            font-size: 7px;
+            margin-top: 3px;
+        }
+        h1 {
+            font-size: 18pt;
+            font-weight: bold;
+            text-align: center;
+            text-transform: uppercase;
+            text-decoration: underline;
+            margin: 18pt 0 12pt 0;
+            letter-spacing: 1px;
+        }
+        h2 {
+            font-size: 15pt;
+            font-weight: bold;
+            text-align: left;
+            margin: 12pt 0 6pt 0;
+        }
+        .stamp-paper {
+            text-align: center;
+            font-weight: bold;
+            font-size: 13.5pt;
+            margin-bottom: 10px;
+        }
+        p {
+            margin: 6pt 0;
+            text-align: justify;
+            line-height: 1.4;
+            font-size: 13.5pt;
+        }
+        .bold {
+            font-weight: 700;
+        }
+        strong, .field {
+            font-weight: 700;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 10pt 0;
+            font-size: 12.5pt;
+            border: 1px solid #000000;
+        }
+        th, td {
+            border: 1px solid #000;
+            padding: 5px 6px;
+            vertical-align: top;
+        }
+        th {
+            background-color: #f5f5f5;
+            font-weight: 700;
+            text-align: center;
+        }
+        .consumer-table {
+            width: 100%;
+            margin-top: 8px;
+        }
+        .consumer-table td, .consumer-table th {
+            padding: 5px 6px;
+        }
+        .consumer-table td {
+            font-weight: 700;
+        }
+        .roman-list {
+            margin: 6pt 0 6pt 35pt;
+            list-style-type: upper-roman;
+        }
+        .roman-list li {
+            margin: 3pt 0;
+        }
+        .lower-roman-list {
+            margin: 4pt 0 4pt 40pt;
+            list-style-type: lower-roman;
+        }
+        .lower-roman-list li {
+            margin: 2pt 0;
+        }
+        .decimal-list {
+            margin: 6pt 0 6pt 30pt;
+            list-style-type: decimal;
+        }
+        .decimal-list li {
+            margin: 3pt 0;
+        }
+        .component-head {
+            font-weight: bold;
+            margin-top: 10pt;
+            margin-bottom: 4pt;
+            font-size: 14pt;
+        }
+        .inspection-table td, .inspection-table th {
+            font-size: 11.5pt;
+            padding: 5px 4px;
+        }
+        .signature-row {
+            display: flex;
+            width: 100%;
+            justify-content: space-between;
+            margin: 25pt 0 15pt 0;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+        .witness-area {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 18pt;
+            gap: 25px;
+        }
+        .witness {
+            flex: 1;
+        }
+        .witness span {
+            font-weight: 700;
+        }
+        .stamp-placeholder {
+            border: 1.5px solid #000;
+            width: 170px;
+            height: 65px;
+            margin: 6px auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 11pt;
+            text-align: center;
+        }
+        .note-text {
+            font-size: 10.5pt;
+            margin-top: 18px;
+            border-top: 1px solid #aaa;
+            padding-top: 8px;
+        }
+        .signature-line-area {
+            margin-top: 30pt;
+            text-align: left;
+        }
+        .for-on-behalf {
+            margin-top: 15px;
+            text-align: center;
+        }
+        .guidelines-list {
+            margin-left: 35px;
+            list-style-type: decimal;
+        }
+        .value-missing {
+            color: #999;
+            font-style: italic;
+        }
+        .fixed-value {
+            font-weight: 700;
+        }
+        @media print {
+            body {
+                padding: 0.4in;
+                margin: 0;
+            }
+            .signature-row, .witness-area {
+                page-break-inside: avoid;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<!--<div style="text-align: center; margin-bottom: 15px; padding-bottom: 8px; border-bottom: 1px solid #000;">-->
+<!--    <img th:src="${defaultMsedclHeader}" style="max-width: 100%; max-height: 80px; object-fit: contain;" alt="MSEDCL Header"/>-->
+<!--</div>-->
+
+<div class="bond-wrapper">
+
+    <div class="stamp-paper">***(On non-judicial stamp paper of Rs. 500/-)***</div>
+    <h1>INDEMNITY BOND</h1>
+
+    <p><strong>This Indemnity Bond</strong> is made this <span th:if="${indemnityDay != null and indemnityDay != ''}" th:text="${indemnityDay}"></span><span th:if="${indemnityDay == null or indemnityDay == ''}" class="value-missing"></span> day of <span th:if="${indemnityMonth != null and indemnityMonth != ''}" th:text="${indemnityMonth}"></span><span th:if="${indemnityMonth == null or indemnityMonth == ''}" class="value-missing"></span>, <span th:if="${indemnityYear != null and indemnityYear != ''}" th:text="${indemnityYear}"></span><span th:if="${indemnityYear == null or indemnityYear == ''}" class="value-missing"></span> by <strong>M/s <span th:if="${vendorName != null and vendorName != ''}" th:text="${vendorName}"></span><span th:if="${vendorName == null or vendorName == ''}" class="value-missing"></span></strong>, having its registered office at <span th:if="${vendorAddress != null and vendorAddress != ''}" th:text="${vendorAddress}"></span><span th:if="${vendorAddress == null or vendorAddress == ''}" class="value-missing"></span> (herein after called as <strong>"vendor"</strong> which expression shall include its successors and permitted assigns) in favour of <strong>Maharashtra State Electricity Distribution Company Limited</strong> (hereinafter called <strong>"MSEDCL"</strong> which expression shall include its successor and assigns).</p>
+
+    <p><strong>Whereas</strong> Vendor executed the work of the roof top solar installation on the household of the following consumer as per MSEDCL technical sanctions under the SMART solar scheme and by the virtue of clause No 9 of G.R. of GoM with reference number <span class="fixed-value">202510061736312910</span> on <span class="fixed-value">06th Oct 2025</span>, the Vendor undertakes the responsibility of Operation and maintenance for the period of 5 years from the date of commissioning.</p>
+
+    <table class="consumer-table">
+        <thead>
+        <tr style="background:#ececec;">
+            <th style="width:10%">S. No.</th>
+            <th style="width:45%">Name & Address of Consumers</th>
+            <th style="width:25%">Consumer No.</th>
+            <th style="width:20%">Capacity of Plant</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td style="text-align:center">1</td>
+            <td><span th:if="${name != null and name != ''}" th:text="${name}"></span><span th:if="${name == null or name == ''}" class="value-missing"></span><br/><span th:if="${siteAddress != null and siteAddress != ''}" th:text="${siteAddress}"></span><span th:if="${siteAddress == null or siteAddress == ''}" class="value-missing"></span></td>
+            <td><span th:if="${consumerNumber != null and consumerNumber != ''}" th:text="${consumerNumber}"></span><span th:if="${consumerNumber == null or consumerNumber == ''}" class="value-missing"></span></td>
+            <td><span th:if="${installedCapacity != null}" th:text="${installedCapacity}"></span><span th:if="${installedCapacity == null}" class="value-missing"></span> kWp</td>
+        </tr>
+        </tbody>
+    </table>
+
+    <p>The Vendor will carry out operation and maintenance of the grid connected RTS plant as per the schedule annexed herewith.</p>
+
+    <ol class="roman-list">
+        <li>For the optimal operation of a PV plant, maintenance must be carried out on a regular basis.</li>
+        <li>All the components should be kept clean. It should be ensured that all the components are fastened well at their due place.</li>
+        <li>Maintenance guidelines for various components viz. solar panels, inverter, wiring etc. are discussed below:</li>
+    </ol>
+
+    <div class="component-head">SOLAR PANELS</div>
+    <p>Although the cleaning frequency for the panels will vary from site to site depending on soiling, it is recommended that</p>
+    <ol class="lower-roman-list">
+        <li>The panels are cleaned at least once every fifteen days.</li>
+        <li>Any bird droppings or spots should be cleaned immediately.</li>
+        <li>Use water and a soft sponge or cloth for cleaning.</li>
+        <li>Do not use detergent or any abrasive material for panel cleaning.</li>
+        <li>Iso-propyl alcohol may be used to remove oil or grease stains.</li>
+        <li>Do not spray water on the panel if the panel glass is cracked or the back side is perforated.</li>
+        <li>Wipe water from module as soon as possible.</li>
+        <li>Use proper safety belts while cleaning modules at inclined roofs etc.</li>
+        <li>The modules should not be cleaned when they are excessively hot. Early morning is particularly good time for module cleaning.</li>
+        <li>Check if there are any shade problems due to vegetation or new building. If there are, make arrangements for removing the vegetation or moving the panels to a shade-free place.</li>
+        <li>Ensure that the module terminal connections are not exposed while cleaning; this poses a risk of electric shock.</li>
+        <li>Never use panels for any unintended use, e. g. drying clothes, chips etc.</li>
+        <li>Ensure that monkeys or other animals do not damage the panels.</li>
+    </ol>
+
+    <div class="component-head">CABLES AND CONNECTION BOXES</div>
+    <ol class="lower-roman-list">
+        <li>Check the connections for corrosion and tightness.</li>
+        <li>Check the connection box to make sure that the wires are tight, and the water seals are not damaged.</li>
+        <li>There should be no vermin inside the box.</li>
+        <li>Check the cable insulating sheath for cracks, breaks or burns. If the insulation is damaged, replace the wire</li>
+        <li>If the wire is outside the building, use wire with weather-resistant insulation.</li>
+        <li>Make sure that the wire is clamped properly and that it should not rub against any sharp edges or corners.</li>
+        <li>If some wire needs to be changed, make sure it is of proper rating and type.</li>
+    </ol>
+
+    <div class="component-head">INVERTER</div>
+    <ol class="lower-roman-list">
+        <li>The inverter should be installed in a clean, dry, and ventilated area which is separated from, and not directly above, the battery bank.</li>
+        <li>Remove any excess dust in heat sinks and ventilations. This should only be done with a dry cloth or brush.</li>
+        <li>Check that vermin have not infested the inverter. Typical signs of this include spider webs on ventilation grills or wasps' nests in heat sinks.</li>
+        <li>Check functionality, e.g. automatic disconnection upon loss of grid power supply, at least once a month.</li>
+        <li>Verify the state of DC/AC surge arrestors, cable connections, and circuit breakers.</li>
+    </ol>
+
+    <div class="component-head">SHUTTING DOWN THE SYSTEM</div>
+    <ol class="lower-roman-list">
+        <li>Disconnect system from all power sources in accordance with instructions for all other components used in the system.</li>
+        <li>Completely cover system modules with an opaque material to prevent electricity from being generated while disconnecting conductors.</li>
+        <li>To the extent possible, system shutdown will not be done during daytime or peak generation.</li>
+    </ol>
+
+    <h2>INSPECTION AND MAINTENANCE SCHEDULE:</h2>
+    <table class="inspection-table">
+        <thead>
+        <tr>
+            <th style="width:18%">Component</th>
+            <th style="width:18%">Activity</th>
+            <th style="width:38%">Description</th>
+            <th style="width:12%">Interval</th>
+            <th style="width:14%">By</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr><td>PV Module</td><td>Cleaning</td><td>Clean any bird droppings/ dark spots on module</td><td>Immediately</td><td>Beneficiary</td></tr>
+        <tr><td>PV Module</td><td>Cleaning</td><td>Clean PV modules with plain water or mild dishwashing detergent. Do not use brushes, any types of solvents, abrasives, or harsh detergents.</td><td>Fortnightly or as per site conditions</td><td>Beneficiary</td></tr>
+        <tr><td>PV Array</td><td>Inspection</td><td>Check the PV modules and rack for any damage. Note down location and serial number of damaged modules.</td><td>Annual</td><td>User/Technician</td></tr>
+        <tr><td>PV Array</td><td>Inspection</td><td>Determine if any new objects, such as vegetation growth, are causing shading of the array and move them if possible.</td><td>Annual</td><td>User/Technician</td></tr>
+        <tr><td>PV Array</td><td>Vermin Removal</td><td>Remove bird nests or vermin from array and rack area.</td><td>Annual</td><td>User/Technician</td></tr>
+        <tr><td>Junction Boxes</td><td>Inspection</td><td>Inspect electrical boxes for corrosion or intrusion of water or insects. Seal boxes if required. Check position of switches and breakers. Check operation of all protection devices.</td><td>Annual</td><td>Electrician</td></tr>
+        <tr><td>Wiring</td><td>Inspection</td><td>Inspect cabling for signs of cracks, defects, loose connections, overheating, arcing, short or open circuits, and ground faults.</td><td>Annual</td><td>Electrician</td></tr>
+        <tr><td>Inverter</td><td>Inspection</td><td>Observe instantaneous operational indicators on the faceplate of the inverter to ensure that the amount of power being generated is typical of the conditions. Inspect Inverter housing or shelter for physical maintenance, if required.</td><td>Quarterly</td><td>Electrician</td></tr>
+        <tr><td>Inverter</td><td>Service</td><td>Clean or replace any air filters.</td><td>As needed</td><td>Electrician</td></tr>
+        <tr><td>Instruments</td><td>Validation</td><td>Spot-check monitoring instruments (pyranometer etc.) with standard instruments to ensure that they are operational and within specifications.</td><td>Annual</td><td>PV Specialist</td></tr>
+        <tr><td>Tracker (if present)</td><td>Inspection</td><td>Inspect gears, gear boxes, bearings as required.</td><td>Annual</td><td>Technician</td></tr>
+        <tr><td>Tracker (if present)</td><td>Service</td><td>Lubricate tracker mounting bearings, gearbox as required.</td><td>Bi-annual</td><td>Technician</td></tr>
+        <tr><td>Plant</td><td>Monitoring</td><td>Daily Operation and Performance Monitoring</td><td>Daily</td><td>Beneficiary</td></tr>
+        <tr><td>Spare Parts</td><td>Management</td><td>Manage inventory of spare parts.</td><td>As needed</td><td>Site in charge</td></tr>
+        <tr><td>Logbook</td><td>Documentation</td><td>Document all O&M activities in a workbook available to all service personnel</td><td>Continuous</td><td>Site in charge</td></tr>
+        </tbody>
+    </table>
+
+    <div class="component-head">Operation and Maintenance Guidelines of Grid Connected PV Plants</div>
+    <ol class="guidelines-list">
+        <li>Periodic cleaning of solar modules, preferably once every fortnight. As this task has to be done by the beneficiary, the vendors shall apprise the beneficiary on the importance and proper technique for cleaning.</li>
+        <li>O&M of Solar Power Plant shall be compliant with grid requirements to achieve committed energy generation.</li>
+        <li>Periodic checks of the Modules, PCUs and BoS shall be carried out as a part of routine preventive and breakdown maintenance.</li>
+        <li>Immediate replacement of defective Modules, Invertors/PCUs and other equipment as and when required.</li>
+        <li>Supply of all spares, consumables and fixtures as required. Such stock shall be maintained for all associated equipment and materials as per manufacturer/ supplier's recommendations.</li>
+        <li>All the equipment testing instrument required for Testing, Commissioning and O&M for the healthy operation of the Plant shall be maintained by the Bidder. The testing equipment must be calibrated once every 2 years from NABL accredited labs and the certificate of calibration must be kept for reference as required.</li>
+        <li>If negligence/ mal operation on part of the Bidder's operator results in failure of equipment, such equipment should be repaired/ replaced by the Bidder free of cost.</li>
+        <li>If any jobs covered in O&M Scope as per RFP are not carried out by the contractor/ Bidders during the O&M period, the Engineer-In-Charge shall take appropriate action as deemed fit.</li>
+        <li>MSEDCL reserves the right to make surprise checks/ inspection visits at its own or through authorized representative to verify the O&M activities being carried out by the Bidder. Failure to adhere to above guidelines will result in penal action including debarring from participation in next tender</li>
+    </ol>
+
+    <p><strong>Now, therefore, this indemnity bond witnesses this as follows:</strong></p>
+    <ol class="decimal-list">
+        <li>The contractor undertakes to keep MSEDCL harmless against any past, future unforeseen loss or damage due to any event/act occurred up to the period of commissioning that may be caused due to non-establishment of Insurance Cover under the contract against which the CFA has been released by MSEDCL on the behalf of GoM.</li>
+        <li>This indemnity bond is irrevocable. The vendor to execute the project and O & M will be carried for 5 Years, failing to which or breach of above condition, the PBG submitted by the vendor will be forfeited by the MSEDCL without further notice. (PBG Amount: <span th:if="${pbgAmount != null}" th:text="${pbgAmount}"></span><span th:if="${pbgAmount == null}" class="value-missing"></span> INR)</li>
+        <li>Now, the condition of this bond is that if the vendor shall duly and punctually comply with the terms and conditions of this bond to the satisfaction of MSEDCL, then the above bond shall be void, but otherwise, it shall remain in full force and virtue.</li>
+    </ol>
+
+    <p>In witness where of the vendor has here-unto set its hand through its authorized representative under the common seal of the company, the day, month and year first above mentioned.</p>
+
+    <div class="for-on-behalf">
+        <p><strong>For and on behalf of M/s <span th:if="${vendorName != null and vendorName != ''}" th:text="${vendorName}"></span><span th:if="${vendorName == null or vendorName == ''}" class="value-missing"></span></strong></p>
+        <p>Authorized Representative</p>
+        <div class="signature-line-area">
+            <p>Signature:</p>
+            <div>
+                <img th:if="${not #lists.isEmpty(vendorSignature)}" th:src="${vendorSignature[0]}" style="max-height:60px; max-width:200px; object-fit:contain;"/>
+            </div>
+            <p>Name: <span th:if="${authorizedPersonName != null and authorizedPersonName != ''}" th:text="${authorizedPersonName}"></span><span th:if="${authorizedPersonName == null or authorizedPersonName == ''}" class="value-missing"></span></p>
+            <p>Address: <span th:if="${vendorAddress != null and vendorAddress != ''}" th:text="${vendorAddress}"></span><span th:if="${vendorAddress == null or vendorAddress == ''}" class="value-missing"></span></p>
+        </div>
+    </div>
+
+    <div class="witness-area">
+        <div class="witness">
+            <strong>Witness I</strong><br/>
+            Signature:<br/>
+            <div>
+                <img th:if="${not #lists.isEmpty(witnessSignature) and #lists.size(witnessSignature) >= 1}" th:src="${witnessSignature[0]}" style="max-height:60px; max-width:200px; object-fit:contain;"/>
+            </div>
+            Name: <span th:if="${witness1Name != null and witness1Name != ''}" th:text="${witness1Name}"></span><span th:if="${witness1Name == null or witness1Name == ''}" class="value-missing"></span><br/>
+            Address: <span th:if="${witness1Address != null and witness1Address != ''}" th:text="${witness1Address}"></span><span th:if="${witness1Address == null or witness1Address == ''}" class="value-missing"></span>
+        </div>
+        <div class="witness">
+            <strong>Witness II</strong><br/>
+            Signature:<br/>
+            <div>
+                <img th:if="${not #lists.isEmpty(witnessSignature) and #lists.size(witnessSignature) >= 2}" th:src="${witnessSignature[1]}" style="max-height:60px; max-width:200px; object-fit:contain;"/>
+            </div>
+            Name: <span th:if="${witness2Name != null and witness2Name != ''}" th:text="${witness2Name}"></span><span th:if="${witness2Name == null or witness2Name == ''}" class="value-missing"></span><br/>
+            Address: <span th:if="${witness2Address != null and witness2Address != ''}" th:text="${witness2Address}"></span><span th:if="${witness2Address == null or witness2Address == ''}" class="value-missing"></span>
+        </div>
+    </div>
+
+    <div style="text-align: center; margin-top: 18px;">
+
+        <p><strong>(Stamp & Seal of the Company)</strong></p>
+    </div>
+
+    <div style="margin-top: 20px; text-align: center;">
+        <p><strong><u>(Bond should be duly notarized)</u></strong></p>
+    </div>
+
+    <div class="note-text">
+        <p><strong>Note:</strong> *Indemnity Bonds are to be executed by the authorized persons and (i) In case of contracting Company under common seal of the Company or (ii) having the power of attorney issued under common seal of the company with authority to execute Indemnity Bonds, (iii) In case, (ii) the original Power of Attorney if it is specifically for our contract or a Photostat copy of the Power of Attorney if it is a General Power of Attorney and such documents should be attached to Indemnity Bond.*</p>
+    </div>
+
+</div>
+</body>
+</html>

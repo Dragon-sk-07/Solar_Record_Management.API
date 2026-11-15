@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Undertaking for Domestic Content Requirement - Solar RTS</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        @page {
+            size: A4;
+            margin: 15mm 18mm;
+        }
+
+        body {
+            background: #fff;
+            color: #000;
+            padding: 8px 12px;
+            font-family: 'Times New Roman', Times, serif;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        .document-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* Title styling - only bold, normal weight */
+        .main-heading {
+            font-size: 20px;
+            font-weight: 700;
+            text-align: center;
+            text-transform: uppercase;
+            margin-top: 8px;
+            margin-bottom: 4px;
+        }
+
+        .sub-heading {
+            font-size: 17px;
+            font-weight: 700;
+            text-align: center;
+            text-transform: uppercase;
+            text-decoration: underline;
+            margin-bottom: 22px;
+        }
+
+        .paragraph {
+            margin: 12px 0;
+            text-align: justify;
+        }
+
+        .paragraph p {
+            margin: 0;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        .bold {
+            font-weight: 700;
+        }
+
+        .module-details {
+            margin: 10px 0 8px 0;
+            padding-left: 20px;
+        }
+
+        .detail-line {
+            margin: 6px 0;
+        }
+
+        .detail-label {
+            font-weight: 700;
+            display: inline-block;
+            min-width: 180px;
+        }
+
+        .module-sr-list {
+            margin-left: 35px;
+            margin-top: 3px;
+            margin-bottom: 8px;
+        }
+
+        .module-sr-list .sr-item {
+            display: block;
+            margin: 2px 0;
+        }
+
+        .signature-section {
+            margin-top: 35px;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        .signature-card {
+            width: 360px;
+        }
+
+        .signature-space {
+            min-height: 55px;
+            margin-bottom: 5px;
+        }
+
+        .signature-space img {
+            max-height: 55px;
+            max-width: 200px;
+            object-fit: contain;
+        }
+
+        .signature-line {
+            border-bottom: 1px solid #000;
+            width: 100%;
+            margin: 5px 0 3px 0;
+        }
+
+        .signature-seal-text {
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+
+        .signature-details {
+            margin-top: 5px;
+        }
+
+        .signature-row {
+            margin: 6px 0;
+            display: flex;
+            align-items: baseline;
+        }
+
+        .signature-label {
+            font-weight: 700;
+            display: inline-block;
+            width: 105px;
+            flex-shrink: 0;
+        }
+
+        .signature-label::after {
+            content: ":";
+            margin-left: 2px;
+            margin-right: 8px;
+        }
+
+        .signature-value {
+            font-weight: 700;
+            word-break: break-word;
+        }
+
+        /* Empty or placeholder fields remain normal weight but with underline style */
+        .value-placeholder {
+            font-weight: 400;
+            font-style: normal;
+            letter-spacing: 1px;
+        }
+
+        .footer-note {
+            margin-top: 20px;
+            font-size: 10px;
+            text-align: center;
+            color: #555;
+            border-top: 1px solid #eee;
+            padding-top: 10px;
+        }
+
+        @media print {
+            body {
+                padding: 0;
+                margin: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="document-container">
+
+    <!-- Title Block -->
+    <div class="main-heading">UNDERTAKING / SELF-DECLARATION</div>
+    <div class="main-heading" style="font-size:18px; margin-top:-3px;">FOR DOMESTIC CONTENT REQUIREMENT</div>
+    <div class="sub-heading">(ON A PLAIN PAPER)</div>
+
+    <!-- Point 1 -->
+    <div class="paragraph">
+        <p>
+            <span class="bold">1.</span> This is to certify that M/S.
+            <span th:if="${vendorName != null and vendorName != ''}" th:text="${vendorName}" class="bold"></span>
+            <span th:if="${vendorName == null or vendorName == ''}" class="value-placeholder">_________________________</span>
+            has installed
+            <span th:if="${installedCapacity != null}" th:text="${installedCapacity}" class="bold"></span>
+            <span th:if="${installedCapacity == null}" class="value-placeholder">_________________________</span>
+            KW Grid Connected Rooftop Solar Plant for
+            <span th:if="${name != null and name != ''}" th:text="${name}" class="bold"></span>
+            <span th:if="${name == null or name == ''}" class="value-placeholder">_________________________</span>
+            at
+            <span th:if="${siteAddress != null and siteAddress != ''}" th:text="${siteAddress}" class="bold"></span>
+            <span th:if="${siteAddress == null or siteAddress == ''}" class="value-placeholder">_________________________</span>
+            under application number
+            <span th:if="${applicationNumber != null and applicationNumber != ''}" th:text="${applicationNumber}" class="bold"></span>
+            <span th:if="${applicationNumber == null or applicationNumber == ''}" class="value-placeholder">_________________________</span>
+            dated
+            <span th:if="${applicationDate != null and applicationDate != ''}" th:text="${applicationDate}" class="bold"></span>
+            <span th:if="${applicationDate == null or applicationDate == ''}" class="value-placeholder">_________________________</span>
+            under
+            <span class="bold">MSEDCL</span>.
+        </p>
+    </div>
+
+    <!-- Point 2 -->
+    <div class="paragraph">
+        <p>
+            <span class="bold">2.</span> It is hereby undertaken that the PV modules installed for the above-mentioned project are domestically manufactured using domestic manufactured solar cells. The details of installed PV Modules are follows:
+        </p>
+    </div>
+
+    <!-- Module Details -->
+    <div class="module-details">
+        <div class="detail-line">
+            <span class="detail-label">1. PV Module Capacity</span>
+            <span th:if="${wattagePerModule != null}" th:text="${wattagePerModule}" class="bold"></span>
+            <span th:if="${wattagePerModule == null}" class="value-placeholder">_________________________</span>
+        </div>
+        <div class="detail-line">
+            <span class="detail-label">2. Number of PV Modules</span>
+            <span th:if="${numberOfModules != null}" th:text="${numberOfModules}" class="bold"></span>
+            <span th:if="${numberOfModules == null}" class="value-placeholder">_________________________</span>
+        </div>
+        <div class="detail-line">
+            <span class="detail-label">3. Sr No of PV Module</span>
+            <span th:if="${moduleSerialNumbers != null and moduleSerialNumbers != ''}" th:text="${moduleSerialNumbers}" class="bold"></span>
+            <span th:if="${moduleSerialNumbers == null or moduleSerialNumbers == ''}" class="value-placeholder">_________________________</span>
+        </div>
+        <div class="detail-line">
+            <span class="detail-label">4. PV Module Make</span>
+            <span th:if="${moduleMake != null and moduleMake != ''}" th:text="${moduleMake}" class="bold"></span>
+            <span th:if="${moduleMake == null or moduleMake == ''}" class="value-placeholder">_________________________</span>
+        </div>
+        <div class="detail-line">
+            <span class="detail-label">5. Cell manufacturer's name</span>
+            <span th:if="${cellManufacturerName != null and cellManufacturerName != ''}" th:text="${cellManufacturerName}" class="bold"></span>
+            <span th:if="${cellManufacturerName == null or cellManufacturerName == ''}" class="value-placeholder">_________________________</span>
+        </div>
+        <div class="detail-line">
+            <span class="detail-label">6. Cell GST invoice No</span>
+            <span th:if="${cellGSTInvoiceNo != null and cellGSTInvoiceNo != ''}" th:text="${cellGSTInvoiceNo}" class="bold"></span>
+            <span th:if="${cellGSTInvoiceNo == null or cellGSTInvoiceNo == ''}" class="value-placeholder">_________________________</span>
+        </div>
+    </div>
+
+    <!-- Point 3 -->
+    <div class="paragraph">
+        <p>
+            <span class="bold">3.</span> The above undertaking is based on the certificate issued by PV Module manufacturer/supplier while supplying the above mentioned order.
+        </p>
+    </div>
+
+    <!-- Point 4 -->
+    <div class="paragraph">
+        <p>
+            <span class="bold">4.</span> I,
+            <span th:if="${authorizedPersonName != null and authorizedPersonName != ''}" th:text="${authorizedPersonName}" class="bold"></span>
+            <span th:if="${authorizedPersonName == null or authorizedPersonName == ''}" class="value-placeholder">_________________________</span>
+            on behalf of M/S.
+            <span th:if="${vendorName != null and vendorName != ''}" th:text="${vendorName}" class="bold"></span>
+            <span th:if="${vendorName == null or vendorName == ''}" class="value-placeholder">_________________________</span>
+            further declare that the information given above is true and correct and nothing has been concealed therein. If anything is found incorrect at any stage, then REC/MNRE may take any appropriate action against my company for wrong declaration. Supporting documents and proof of the above information will be provided as and when requested by MNRE.
+        </p>
+    </div>
+
+    <!-- Signature Section with Vendor Mobile and Email -->
+    <div class="signature-section">
+        <div class="signature-card">
+            <!-- Signature Image / Space -->
+            <div class="signature-space">
+                <img th:if="${not #lists.isEmpty(vendorSignature)}"
+                     th:src="${vendorSignature[0]}"
+                     style="max-height:55px; max-width:200px; object-fit:contain;"
+                     alt="Signature"/>
+                <div th:if="${#lists.isEmpty(vendorSignature)}" class="signature-line"></div>
+            </div>
+            <div class="signature-seal-text">(Signature With official Seal)</div>
+
+            <div class="signature-details">
+                <div class="signature-row">
+                    <span class="signature-label">For</span>
+                    <span class="signature-value" th:if="${vendorName != null and vendorName != ''}" th:text="${vendorName}"></span>
+                    <span th:if="${vendorName == null or vendorName == ''}" class="value-placeholder">_________________________</span>
+                </div>
+                <div class="signature-row">
+                    <span class="signature-label">Name</span>
+                    <span class="signature-value" th:if="${authorizedPersonName != null and authorizedPersonName != ''}" th:text="${authorizedPersonName}"></span>
+                    <span th:if="${authorizedPersonName == null or authorizedPersonName == ''}" class="value-placeholder">_________________________</span>
+                </div>
+                <div class="signature-row">
+                    <span class="signature-label">Designation: </span>
+                    <span th:if="${designation != null and designation != ''}" th:text="${designation}" class="signature-value"></span>
+                    <span th:unless="${designation != null and designation != ''}" class="signature-value">Proprietor</span>
+                </div>
+                <div class="signature-row">
+                    <span class="signature-label">Phone</span>
+                    <span class="signature-value" th:text="${vendorMobile}"></span>
+                </div>
+                <div class="signature-row">
+                    <span class="signature-label">Email</span>
+                    <span class="signature-value" th:text="${vendorEmail}"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>

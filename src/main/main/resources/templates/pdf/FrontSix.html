@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Pre-Commissioning Report - Solar Rooftop System</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        @page {
+            size: A4;
+            margin: 6mm 10mm;
+        }
+
+        body {
+            font-family: 'Times New Roman', Times, serif;
+            background: white;
+            color: #000;
+            font-size: 10.2pt;
+            line-height: 1.28;
+            padding: 0;
+            margin: 0;
+        }
+
+        .page {
+            page-break-after: always;
+            margin: 0;
+            padding: 0;
+            min-height: 270mm;
+        }
+
+        .page:last-child {
+            page-break-after: avoid;
+        }
+
+        /* Main Title */
+        .main-title {
+            font-size: 11pt;
+            font-weight: bold;
+            text-align: center;
+            text-transform: uppercase;
+            margin: 4px 0 6px 0;
+            padding: 3px 0;
+            letter-spacing: 0.5px;
+            background: transparent;
+        }
+
+        /* Section Title - slightly reduced on page 1, normal on others */
+        .section-title {
+            font-weight: bold;
+            font-size: 10.2pt;
+            background: #e9ecef;
+            padding: 4px 8px;
+            text-align: center;
+            border-left: 3px solid #2c3e50;
+            border-right: 3px solid #2c3e50;
+        }
+
+        /* Page 1 specific - tighter spacing */
+        .page:nth-child(1) .section-title {
+            margin: 4px 0 2px 0;
+        }
+        .page:nth-child(1) .wcr-table {
+            margin: 2px 0 3px 0;
+        }
+        .page:nth-child(1) .wcr-table th,
+        .page:nth-child(1) .wcr-table td {
+            padding: 3px 4px;
+        }
+
+        /* Page 2 & 3 specific - increased spacing to utilize empty space */
+        .page:nth-child(2) .section-title,
+        .page:nth-child(3) .section-title {
+            margin: 8px 0 5px 0;
+            padding: 5px 8px;
+        }
+        .page:nth-child(2) .wcr-table,
+        .page:nth-child(3) .wcr-table {
+            margin: 5px 0 8px 0;
+        }
+        .page:nth-child(2) .wcr-table th,
+        .page:nth-child(2) .wcr-table td,
+        .page:nth-child(3) .wcr-table th,
+        .page:nth-child(3) .wcr-table td {
+            padding: 5px 6px;
+        }
+
+        .wcr-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 9.2pt;
+            border: 1px solid #000;
+            table-layout: fixed;
+        }
+
+        .wcr-table th,
+        .wcr-table td {
+            border: 1px solid #000;
+            vertical-align: top;
+        }
+
+        .wcr-table th {
+            background-color: #e3e3e3;
+            font-weight: 700;
+            text-align: center;
+            font-size: 9.2pt;
+            padding: 5px 4px;
+        }
+
+        .wcr-table th:first-child,
+        .wcr-table td:first-child {
+            width: 8%;
+            text-align: center;
+        }
+
+        .wcr-table th:nth-child(2),
+        .wcr-table td:nth-child(2) {
+            width: 53%;
+        }
+
+        .wcr-table th:nth-child(3),
+        .wcr-table td:nth-child(3) {
+            width: 39%;
+        }
+
+        /* Module serial numbers */
+        .module-serial-numbers {
+            font-size: 8.2pt;
+            line-height: 1.3;
+            word-break: break-word;
+            white-space: normal;
+        }
+
+        .signature-row {
+            margin: 12px 0 8px;
+        }
+
+        .signature-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .signature-table td {
+            border: none;
+            width: 50%;
+            text-align: center;
+            padding: 0 10px;
+            vertical-align: top;
+        }
+
+        /* Conditional margin for manual signature - only when no image is present */
+        .sign-line {
+            margin-top: 20px;
+            border-top: 1px solid #000;
+            width: 70%;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* When signature image exists, no extra top margin needed */
+        .sign-img {
+            max-height: 50px;
+            max-width: 150px;
+            display: block;
+            margin: 0 auto;
+        }
+
+        /* Wrapper for signature area - adds spacing only when needed */
+        .signature-wrapper {
+            min-height: 70px;
+        }
+
+        .remarks-box {
+            margin-top: 15px;
+            padding: 7px 9px;
+            background: #fef9e6;
+            border-left: 4px solid #b8860b;
+            font-size: 8.5pt;
+            line-height: 1.35;
+        }
+
+        .remarks-box p {
+            margin: 3px 0;
+        }
+
+        .signature-name {
+            font-weight: bold;
+            margin-top: 8px;
+            font-size: 9.5pt;
+        }
+
+        /* Prevent page breaks inside table rows */
+        .wcr-table tr {
+            page-break-inside: avoid;
+            break-inside: avoid;
+        }
+
+        @media print {
+            body {
+                margin: 0;
+                padding: 0;
+            }
+            .page {
+                page-break-after: always;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<!-- ============================================ -->
+<!-- PAGE 1: CHECKING OF EARTHING SYSTEM (Sr.No 1-16) + PROTECTION SWITCHGEAR (17-26) -->
+<!-- Tighter spacing applied via page:nth-child(1) selector -->
+<!-- ============================================ -->
+<div class="page">
+    <div class="main-title">Inspection Report on checking of Roof Top Solar System with Associated Equipment</div>
+
+    <div class="section-title">CHECKING OF EARTHING SYSTEM</div>
+    <table class="wcr-table">
+        <thead>
+        <tr><th>Sr.No.</th><th>Points to be checked</th><th>Observation</th></tr>
+        </thead>
+        <tbody>
+        <tr><td style="text-align:center">1</td><td>Details of Inspecting Office (Name, Designation, Subdivision)</td><td th:text="${msedclOfficerName}">MSEDCL Officer - Mr. S. Patil</td></tr>
+        <tr><td style="text-align:center">2</td><td>Date and Time of Inspection</td><td th:text="${createdAt != null ? #temporals.format(createdAt, 'yyyy-MM-dd') + ' 11:00 AM' : '2026-06-05, 11:00 AM'}">2026-06-05, 11:00 AM</td></tr>
+        <tr><td style="text-align:center">3</td><td>Name of the Consumer:</td><td th:text="${name}">Deepak Desai</td></tr>
+        <tr><td style="text-align:center">4</td><td>Address of Consumer:</td><td th:text="${siteAddress}">H.No.8704, Near Market Yard, Budhwar Peth, Kolhapur - 416001, Maharashtra</td></tr>
+        <tr><td style="text-align:center">5</td><td>Consumer No.:</td><td th:text="${consumerNumber}">MSEDCL/06/77/5630873</td></tr>
+        <tr><td style="text-align:center">5.A</td><td>Name of Billing Unit :</td><td th:text="${billingUnit}">Unit A</td></tr>
+        <tr><td style="text-align:center">6</td><td>MSEDCL Existing Sanction &amp; Connected Load(AC in Kw):</td><td th:text="${sanctionedCapacity}">7.27</td></tr>
+        <tr><td style="text-align:center">7</td><td>Type of connection (1Ph/3Ph)</td><td th:text="${connectionType}">Single Phase</td></tr>
+        <tr><td style="text-align:center">8</td><td>Consumer Tariff Category</td><td>Residential (LT-I)</td></tr>
+        <tr><td style="text-align:center">9</td><td>Installed Solar Roof Top System(AC Cap):</td><td th:text="${installedCapacity}">7.27</td></tr>
+        <tr><td style="text-align:center">9.A</td><td>Whether Point of Supply Drawing submitted</td><td>Submitted</td></tr>
+        <tr><td style="text-align:center">10</td><td>Separate Earthing provided for LA Earthing</td><td>Yes</td></tr>
+        <tr><td style="text-align:center">11</td><td>Separate Earthing provided for Solar Panel Structure</td><td>Yes</td></tr>
+        <tr><td style="text-align:center">12</td><td>Earthing provided DCDB Earthing</td><td>Yes</td></tr>
+        <tr><td style="text-align:center">13</td><td>Earthing provided ACDB Earthing</td><td>Yes</td></tr>
+        <tr><td style="text-align:center">14</td><td>Separate Earthing provided Grid Inverter in Built(AC side Earthing)</td><td>Yes</td></tr>
+        <tr><td style="text-align:center">15</td><td>Earthing provided to Metering cubicle Yes/No</td><td>Yes</td></tr>
+        <tr><td style="text-align:center">16</td><td>All Metallic body Parts earthed</td><td>Yes</td></tr>
+        </tbody>
+    </table>
+
+    <div class="section-title">Checking of Protection Switchgear</div>
+    <table class="wcr-table">
+        <thead><tr><th>Sr.No.</th><th>Points to be checked</th><th>Observation</th></tr></thead>
+        <tbody>
+        <tr><td style="text-align:center">17</td><td>DC Fuses provided after Solar Modules</td><td>Yes</td></tr>
+        <tr><td style="text-align:center">18</td><td>AC Junction Box provided with Built in Surge protector device</td><td>Yes</td></tr>
+        <tr><td style="text-align:center">19</td><td>Separate Lightning Arrestor provided before Solar Panel</td><td>Yes</td></tr>
+        <tr><td style="text-align:center">20</td><td>Internal Protection provided after Grid –tie Inverter with MCC/MCB</td><td>Yes, Rating-32A</td></tr>
+        <tr><td style="text-align:center">21</td><td>ACDB provided with Built in Surge Protector</td><td>Yes</td></tr>
+        <tr><td style="text-align:center">22</td><td>Manual Operated Isolation switch of rated Capacity provided for protection, If Yes : 1. Whether switch has visible verification that separation has been accomplished, 2. Whether switch clearly indicate Open/Close Position, 3. Whether switch has facility of locking in open Position</td><td>Yes, with visible verification</td></tr>
+        <tr><td style="text-align:center">23</td><td>MCB Provided before Load side</td><td>Yes</td></tr>
+<!--        <tr><td style="text-align:center">24</td><td>Net Metering cabinet with ELCB/RCCB protection of rated capacity with Sealing arrangement for 3ph</td><td th:text="${connectionType == '3 Phase' ? 'Yes' : 'Not Applicable'}">Not Applicable</td></tr>-->
+<!--        <tr><td style="text-align:center">24A</td><td>Net Metering with ELCB/RCCB protection for 1ph. If Yes, Rating-</td><td th:text="${connectionType == '1 Phase' ? 'Yes, 30mA' : 'Not Applicable'}">Not Applicable</td></tr>-->
+        <tr><td style="text-align:center">24</td><td>Net Metering cabinet with ELCB/RCCB protection of rated capacity with Sealing arrangement for 3ph</td><td th:text="${connectionType == '3 Phase' ? 'Yes' : 'Applicable'}">Applicable</td></tr>
+        <tr><td style="text-align:center">24A</td><td>Net Metering with ELCB/RCCB protection for 1ph. If Yes, Rating-</td><td th:text="${connectionType == '1 Phase' ? 'Yes, 30mA' : 'Applicable'}">Applicable</td></tr>
+        <tr><td style="text-align:center">25</td><td>Checking of Islanding mode of Solar System by disconnecting from grid supply and also with Single phasing of Grid (in case of 3phase power supply to consumer) Checked Yes/No, If Yes working satisfactory Yes/No</td><td>Checked, Yes working satisfactory</td></tr>
+<!--        <tr><td style="text-align:center">26</td><td>In case of Solar Inverter with Storage Battery or DG as standby source to Solar Inverter, please check whether separate wiring done &amp; change over switch is provided Provided Yes/No, If Yes, Please check Operation to ensure that no reverse power fed into Grid in case of switching of Operation of Solar Inverter with Reference voltage from Storage battery/DG</td><td>Not Applicable</td></tr>-->
+        <tr><td style="text-align:center">26</td><td>In case of Solar Inverter with Storage Battery or DG as standby source to Solar Inverter, please check whether separate wiring done &amp; change over switch is provided Provided Yes/No, If Yes, Please check Operation to ensure that no reverse power fed into Grid in case of switching of Operation of Solar Inverter with Reference voltage from Storage battery/DG</td><td>Applicable</td></tr>
+        </tbody>
+    </table>
+</div>
+
+<!-- ============================================ -->
+<!-- PAGE 2: NET METERING (27-36) + GENERATION METER (37-46) + SOLAR EQUIPMENT (47-53) -->
+<!-- Increased spacing to utilize empty space -->
+<!-- ============================================ -->
+<div class="page">
+    <div class="section-title">Net Metering System Details</div>
+    <table class="wcr-table">
+        <thead><tr><th>Sr.No.</th><th>Points to be checked</th><th>Observation</th></tr></thead>
+        <tbody>
+        <tr><td style="text-align:center">27</td><td>Net meter Installed in Grid/Network system at the time of Joint Inspection Yes/No</td><td>Yes</td></tr>
+        <tr><td style="text-align:center">28</td><td>Net meter is Tested at MSEDCL Testing Division Lab Yes/No , If Yes, Testing date &amp; Seal Nos</td><td>Yes (Cert. date 12-03-2026, Seal#MS254)</td></tr>
+        <tr><td style="text-align:center">29</td><td>Meter make</td><td th:text="${meterMake}">Schneider Electric</td></tr>
+        <tr><td style="text-align:center">30</td><td>Meter Type DLMS, Generation Meter</td><td>DLMS, Generation Meter</td></tr>
+        <tr><td style="text-align:center">31</td><td>Meter Serial No</td><td th:text="${netMeterNumber}">NET-85766</td></tr>
+        <tr><td style="text-align:center">32</td><td>Meter Class of Accuracy</td><td>Class 1.0</td></tr>
+        <tr><td style="text-align:center">33</td><td>Meter Capacity</td><td>5-30A</td></tr>
+        <tr><td style="text-align:center">34</td><td>Meter Constant</td><td>1600 imp/kWh</td></tr>
+        <tr><td style="text-align:center">35</td><td>Meter Initial Reading</td><td>0.00</td></tr>
+        <tr><td style="text-align:center">36</td><td>Location meter easily assessable for meter reading</td><td>Yes</td></tr>
+        </tbody>
+    </table>
+
+    <div class="section-title">Generation Meter Details</div>
+    <table class="wcr-table">
+        <thead><tr><th>Sr.No.</th><th>Points to be checked</th><th>Observation</th></tr></thead>
+        <tbody>
+        <tr><td style="text-align:center">37</td><td>Generation meter Installed for recording Solar Generation Yes/No</td><td>Yes</td></tr>
+        <tr><td style="text-align:center">38</td><td>Meter is Tested at MSEDCL Testing Division Lab Yes/No , If Yes, Testing date &amp; Seal Nos</td><td>Yes (Cert. 15-03-2026, Seal#GEN789)</td></tr>
+        <tr><td style="text-align:center">39</td><td>Meter make</td><td th:text="${meterMake}">Schneider</td></tr>
+        <tr><td style="text-align:center">40</td><td>Meter Type DLMS, Generation Meter</td><td>DLMS, Generation Meter</td></tr>
+        <tr><td style="text-align:center">41</td><td>Meter Serial No</td><td th:text="${meterNumber}">MTR-58510</td></tr>
+        <tr><td style="text-align:center">42</td><td>Meter Class of Accuracy</td><td>Class 1.0</td></tr>
+        <tr><td style="text-align:center">43</td><td>Meter Capacity</td><td>5-30A</td></tr>
+        <tr><td style="text-align:center">44</td><td>Meter Constant</td><td>1600 imp/kWh</td></tr>
+        <tr><td style="text-align:center">45</td><td>Meter Initial Reading</td><td>0.00</td></tr>
+        <tr><td style="text-align:center">46</td><td>Location meter easily assessable for meter reading</td><td>Yes</td></tr>
+        </tbody>
+    </table>
+
+    <div class="section-title">Solar System Equipment Details</div>
+    <table class="wcr-table">
+        <thead><tr><th>Sr.No.</th><th>Points to be checked</th><th>Observation</th></tr></thead>
+        <tbody>
+        <tr><td style="text-align:center">47</td><td>Grid Tie Inverter Make:</td><td th:text="${inverterMake}">Luminous</td></tr>
+        <tr><td style="text-align:center">48</td><td>Inverter Capacity(AC Kw/Kva)</td><td th:text="${inverterCapacity}">7.27 kW</td></tr>
+        <tr><td style="text-align:center">49</td><td>PV Module make:-</td><td th:text="${moduleMake}">Adani Solar</td></tr>
+        <tr><td style="text-align:center">50</td><td>PV Module Nos</td><td th:text="${numberOfModules}">13</td></tr>
+        <tr><td style="text-align:center">51</td><td>PV Module serial Nos</td><td class="module-serial-numbers" th:text="${moduleSerialNumbers}">SN-MOD-68394, SN-MOD-65560, SN-MOD-24291, SN-MOD-37947, SN-MOD-64486, SN-MOD-16142, SN-MOD-55889, SN-MOD-46408, SN-MOD-56025, SN-MOD-24522</td></tr>
+        <tr><td style="text-align:center">52</td><td>No. of strings:</td><td th:text="${numberOfStrings}">7</td></tr>
+        <tr><td style="text-align:center">53</td><td>Rating of Each PV modules &amp; total Capacity</td><td th:text="${wattagePerModule} + ' watt / ' + ${totalCapacityKWP} + ' kW'">559.0 watt / 7.27 kW</td></tr>
+        </tbody>
+    </table>
+</div>
+
+<!-- ============================================ -->
+<!-- PAGE 3: CHECKING OF CONNECTION (54-59) + SIGNATURES + REMARKS -->
+<!-- Increased spacing and conditional signature margin -->
+<!-- ============================================ -->
+<div class="page">
+    <div class="section-title">Checking of connection of Meter &amp; Overall Observation</div>
+    <table class="wcr-table">
+        <thead><tr><th>Sr.No.</th><th>Points to be checked</th><th>Observation</th></tr></thead>
+        <tbody>
+        <tr><td style="text-align:center">54</td><td>Generation Meter connection</td><td>Correct</td></tr>
+        <tr><td style="text-align:center">55</td><td>Net Meter connection</td><td>Correct</td></tr>
+        <tr><td style="text-align:center">56</td><td>Found that inverter is working in Healthy condition (Yes/No)</td><td>Yes</td></tr>
+        <tr><td style="text-align:center">57</td><td>Islanding of Solar System working Satisfactory</td><td>Yes</td></tr>
+        <tr><td style="text-align:center">58</td><td>The Above inspected Solar Invertors system with associated equipment &amp; Metering system can be taken into system (Yes/No)</td><td>Yes</td></tr>
+        <tr><td style="text-align:center">59</td><td>If, No , Discrepancies to be attended by consumer (Please mention Serial Nos of Points to be complied by consumers)</td><td>None</td></tr>
+        </tbody>
+    </table>
+
+    <!-- SIGNATURE SECTION - WITH INLINE CSS -->
+    <div style="margin: 15px 0 10px;">
+        <table style="width: 100%; border-collapse: collapse;">
+            <tr>
+                <td style="border: none; width: 50%; text-align: center; padding: 0 10px; vertical-align: top;">
+                    <div>
+                        <img th:if="${consumerSignature != null and !#lists.isEmpty(consumerSignature)}" th:src="${consumerSignature[0]}" style="max-height: 50px; max-width: 150px;" alt="Consumer Signature"/>
+                        <div th:if="${consumerSignature == null or #lists.isEmpty(consumerSignature)}" style="margin-top: 18px; border-top: 1px solid #000; width: 70%; margin-left: auto; margin-right: auto;"></div>
+                    </div>
+                    <div><strong>Consumer representative</strong></div>
+                    <div style="font-weight: bold; margin-top: 4px; font-size: 10pt;" th:text="${name}">Laksh Nair</div>
+                </td>
+                <td style="border: none; width: 50%; text-align: center; padding: 0 10px; vertical-align: top;">
+                    <div>
+                        <img th:if="${vendorSignature != null and !#lists.isEmpty(vendorSignature)}" th:src="${vendorSignature[0]}" style="max-height: 50px; max-width: 150px;" alt="Vendor Signature"/>
+                        <div th:if="${vendorSignature == null or #lists.isEmpty(vendorSignature)}" style="margin-top: 18px; border-top: 1px solid #000; width: 70%; margin-left: auto; margin-right: auto;"></div>
+                    </div>
+                    <div><strong>Contractor Representative</strong></div>
+                    <div style="font-weight: bold; margin-top: 4px; font-size: 10pt;" th:text="${vendorName}">Arihant Electricals</div>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="remarks-box">
+        <p><strong>Remarks:-</strong></p>
+        <p>In the presence of backup inverter an arrangement should be made in such way that the backup inverter supply should never be synchronised with solar inverter to avoid any electrical accident due to back feeding. If Islanding is not working satisfactory then connection should not be released by AE(QC) and agency should be instructed to solve the islanding issue.</p>
+        <p>In case of DG synchronisation, synchronised panel protection, uv and frequency should be verified</p>
+        <p>Please refer "Sample detailed specification of typical rooftop photovoltaic system" and MSEDCL commercial circular No- 322 dated 21-01-2019 regarding "connectivity to the Distribution network of MSEDCL for eligible consumers installing Rooftop Renewable Energy Generating Systems in his premises under MERC (Grid Interactive Rooftop Renewable Energy Generating Systems) Regulations, 2019 - Procedure for Application, methodology for Metering &amp; Billing, etc."</p>
+    </div>
+</div>
+
+</body>
+</html>
