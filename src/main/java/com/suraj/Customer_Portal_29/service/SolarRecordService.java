@@ -91,84 +91,80 @@ public class SolarRecordService {
 
     private SolarRecord mapToEntity(SolarRecordRequestDto req) {
         SolarRecord entity = new SolarRecord();
-        entity.setName(req.getName());
-        entity.setConsumerNumber(req.getConsumerNumber());
-        entity.setMobileNumber(req.getMobileNumber());
-        entity.setEmail(req.getEmail());
-        entity.setAadharNumber(req.getAadharNumber());
-        entity.setSiteAddress(req.getSiteAddress());
-        entity.setPlace(req.getPlace());
-        entity.setApplicationNumber(req.getApplicationNumber());
-        entity.setApplicationDate(req.getApplicationDate());
-        entity.setSanctionNumber(req.getSanctionNumber());
-        entity.setBillingUnit(req.getBillingUnit());
-        entity.setConnectionType(req.getConnectionType());
-        entity.setSanctionedCapacity(req.getSanctionedCapacity());
-        entity.setInstalledCapacity(req.getInstalledCapacity());
-        entity.setInstallationDate(req.getInstallationDate());
-        entity.setModuleMake(req.getModuleMake());
-        entity.setWattagePerModule(req.getWattagePerModule());
-        entity.setNumberOfModules(req.getNumberOfModules());
-        entity.setTotalCapacityKWP(req.getTotalCapacityKWP());
-        entity.setModuleSerialNumbers(req.getModuleSerialNumbers());
-        entity.setNumberOfStrings(req.getNumberOfStrings());
-        entity.setInverterMake(req.getInverterMake());
-        entity.setInverterModelNumber(req.getInverterModelNumber());
-        entity.setInverterCapacity(req.getInverterCapacity());
-        entity.setCellManufacturerName(req.getCellManufacturerName());
-        entity.setCellGSTInvoiceNo(req.getCellGSTInvoiceNo());
-        entity.setMeterMake(req.getMeterMake());
-        entity.setMeterNumber(req.getMeterNumber());
-        entity.setNetMeterNumber(req.getNetMeterNumber());
-        entity.setInvoiceNumber(req.getInvoiceNumber());
-        entity.setTotalAmountIncludingGST(req.getTotalAmountIncludingGST());
-        entity.setYearOfManufacturing(req.getYearOfManufacturing());
-        entity.setConsumerSignature(uploadImages(req.getConsumerSignature(), "consumerSignatures"));
-        entity.setAadharImages(uploadImages(req.getAadharImages(), "aadharImages"));
-        entity.setSitePhotos(uploadImages(req.getSitePhotos(), "sitePhotos"));
-        entity.setNetMeteringStamp(uploadImages(req.getNetMeteringStamp(), "netMeteringStamps"));
-        entity.setAnnexureTwoStamp(uploadImages(req.getAnnexureTwoStamp(), "annexureTwoStamps"));
+        if (req.getName() != null) entity.setName(req.getName());
+        if (req.getConsumerNumber() != null) entity.setConsumerNumber(req.getConsumerNumber());
+        if (req.getMobileNumber() != null) entity.setMobileNumber(req.getMobileNumber());
+        if (req.getEmail() != null) entity.setEmail(req.getEmail());
+        if (req.getAadharNumber() != null) entity.setAadharNumber(req.getAadharNumber());
+        if (req.getSiteAddress() != null) entity.setSiteAddress(req.getSiteAddress());
+        if (req.getPlace() != null) entity.setPlace(req.getPlace());
+        if (req.getApplicationNumber() != null) entity.setApplicationNumber(req.getApplicationNumber());
+        if (req.getApplicationDate() != null) entity.setApplicationDate(req.getApplicationDate());
+        if (req.getSanctionNumber() != null) entity.setSanctionNumber(req.getSanctionNumber());
+        if (req.getBillingUnit() != null) entity.setBillingUnit(req.getBillingUnit());
+        if (req.getConnectionType() != null) entity.setConnectionType(req.getConnectionType());
+        if (req.getSanctionedCapacity() != null) entity.setSanctionedCapacity(req.getSanctionedCapacity());
+        if (req.getInstalledCapacity() != null) entity.setInstalledCapacity(req.getInstalledCapacity());
+        if (req.getInstallationDate() != null) entity.setInstallationDate(req.getInstallationDate());
+        if (req.getModuleMake() != null) entity.setModuleMake(req.getModuleMake());
+        if (req.getWattagePerModule() != null) entity.setWattagePerModule(req.getWattagePerModule());
+        if (req.getNumberOfModules() != null) entity.setNumberOfModules(req.getNumberOfModules());
+        if (req.getTotalCapacityKWP() != null) entity.setTotalCapacityKWP(req.getTotalCapacityKWP());
+        if (req.getModuleSerialNumbers() != null) entity.setModuleSerialNumbers(req.getModuleSerialNumbers());
+        if (req.getNumberOfStrings() != null) entity.setNumberOfStrings(req.getNumberOfStrings());
+        if (req.getInverterMake() != null) entity.setInverterMake(req.getInverterMake());
+        if (req.getInverterModelNumber() != null) entity.setInverterModelNumber(req.getInverterModelNumber());
+        if (req.getInverterCapacity() != null) entity.setInverterCapacity(req.getInverterCapacity());
+        if (req.getCellManufacturerName() != null) entity.setCellManufacturerName(req.getCellManufacturerName());
+        if (req.getCellGSTInvoiceNo() != null) entity.setCellGSTInvoiceNo(req.getCellGSTInvoiceNo());
+        if (req.getMeterMake() != null) entity.setMeterMake(req.getMeterMake());
+        if (req.getMeterNumber() != null) entity.setMeterNumber(req.getMeterNumber());
+        if (req.getNetMeterNumber() != null) entity.setNetMeterNumber(req.getNetMeterNumber());
+        if (req.getInvoiceNumber() != null) entity.setInvoiceNumber(req.getInvoiceNumber());
+        if (req.getTotalAmountIncludingGST() != null) entity.setTotalAmountIncludingGST(req.getTotalAmountIncludingGST());
+        if (req.getYearOfManufacturing() != null) entity.setYearOfManufacturing(req.getYearOfManufacturing());
         return entity;
     }
 
     private void updateEntity(SolarRecord entity, SolarRecordRequestDto req) {
-        entity.setName(req.getName());
-        entity.setConsumerNumber(req.getConsumerNumber());
-        entity.setMobileNumber(req.getMobileNumber());
-        entity.setEmail(req.getEmail());
-        entity.setAadharNumber(req.getAadharNumber());
-        entity.setSiteAddress(req.getSiteAddress());
-        entity.setPlace(req.getPlace());
-        entity.setApplicationNumber(req.getApplicationNumber());
-        entity.setApplicationDate(req.getApplicationDate());
-        entity.setSanctionNumber(req.getSanctionNumber());
-        entity.setBillingUnit(req.getBillingUnit());
-        entity.setConnectionType(req.getConnectionType());
-        entity.setSanctionedCapacity(req.getSanctionedCapacity());
-        entity.setInstalledCapacity(req.getInstalledCapacity());
-        entity.setInstallationDate(req.getInstallationDate());
-        entity.setModuleMake(req.getModuleMake());
-        entity.setWattagePerModule(req.getWattagePerModule());
-        entity.setNumberOfModules(req.getNumberOfModules());
-        entity.setTotalCapacityKWP(req.getTotalCapacityKWP());
-        entity.setModuleSerialNumbers(req.getModuleSerialNumbers());
-        entity.setNumberOfStrings(req.getNumberOfStrings());
-        entity.setInverterMake(req.getInverterMake());
-        entity.setInverterModelNumber(req.getInverterModelNumber());
-        entity.setInverterCapacity(req.getInverterCapacity());
-        entity.setCellManufacturerName(req.getCellManufacturerName());
-        entity.setCellGSTInvoiceNo(req.getCellGSTInvoiceNo());
-        entity.setMeterMake(req.getMeterMake());
-        entity.setMeterNumber(req.getMeterNumber());
-        entity.setNetMeterNumber(req.getNetMeterNumber());
-        entity.setInvoiceNumber(req.getInvoiceNumber());
-        entity.setTotalAmountIncludingGST(req.getTotalAmountIncludingGST());
-        entity.setYearOfManufacturing(req.getYearOfManufacturing());
-        entity.setConsumerSignature(syncImages(entity.getConsumerSignature(), req.getConsumerSignature(), req.getExistingConsumerSignature(), "consumerSignatures"));
-        entity.setAadharImages(syncImages(entity.getAadharImages(), req.getAadharImages(), req.getExistingAadharImages(), "aadharImages"));
-        entity.setSitePhotos(syncImages(entity.getSitePhotos(), req.getSitePhotos(), req.getExistingSitePhotos(), "sitePhotos"));
-        entity.setNetMeteringStamp(syncImages(entity.getNetMeteringStamp(), req.getNetMeteringStamp(), req.getExistingNetMeteringStamp(), "netMeteringStamps"));
-        entity.setAnnexureTwoStamp(syncImages(entity.getAnnexureTwoStamp(), req.getAnnexureTwoStamp(), req.getExistingAnnexureTwoStamp(), "annexureTwoStamps"));
+        if (req.getName() != null) entity.setName(req.getName());
+        if (req.getConsumerNumber() != null) entity.setConsumerNumber(req.getConsumerNumber());
+        if (req.getMobileNumber() != null) entity.setMobileNumber(req.getMobileNumber());
+        if (req.getEmail() != null) entity.setEmail(req.getEmail());
+        if (req.getAadharNumber() != null) entity.setAadharNumber(req.getAadharNumber());
+        if (req.getSiteAddress() != null) entity.setSiteAddress(req.getSiteAddress());
+        if (req.getPlace() != null) entity.setPlace(req.getPlace());
+        if (req.getApplicationNumber() != null) entity.setApplicationNumber(req.getApplicationNumber());
+        if (req.getApplicationDate() != null) entity.setApplicationDate(req.getApplicationDate());
+        if (req.getSanctionNumber() != null) entity.setSanctionNumber(req.getSanctionNumber());
+        if (req.getBillingUnit() != null) entity.setBillingUnit(req.getBillingUnit());
+        if (req.getConnectionType() != null) entity.setConnectionType(req.getConnectionType());
+        if (req.getSanctionedCapacity() != null) entity.setSanctionedCapacity(req.getSanctionedCapacity());
+        if (req.getInstalledCapacity() != null) entity.setInstalledCapacity(req.getInstalledCapacity());
+        if (req.getInstallationDate() != null) entity.setInstallationDate(req.getInstallationDate());
+        if (req.getModuleMake() != null) entity.setModuleMake(req.getModuleMake());
+        if (req.getWattagePerModule() != null) entity.setWattagePerModule(req.getWattagePerModule());
+        if (req.getNumberOfModules() != null) entity.setNumberOfModules(req.getNumberOfModules());
+        if (req.getTotalCapacityKWP() != null) entity.setTotalCapacityKWP(req.getTotalCapacityKWP());
+        if (req.getModuleSerialNumbers() != null) entity.setModuleSerialNumbers(req.getModuleSerialNumbers());
+        if (req.getNumberOfStrings() != null) entity.setNumberOfStrings(req.getNumberOfStrings());
+        if (req.getInverterMake() != null) entity.setInverterMake(req.getInverterMake());
+        if (req.getInverterModelNumber() != null) entity.setInverterModelNumber(req.getInverterModelNumber());
+        if (req.getInverterCapacity() != null) entity.setInverterCapacity(req.getInverterCapacity());
+        if (req.getCellManufacturerName() != null) entity.setCellManufacturerName(req.getCellManufacturerName());
+        if (req.getCellGSTInvoiceNo() != null) entity.setCellGSTInvoiceNo(req.getCellGSTInvoiceNo());
+        if (req.getMeterMake() != null) entity.setMeterMake(req.getMeterMake());
+        if (req.getMeterNumber() != null) entity.setMeterNumber(req.getMeterNumber());
+        if (req.getNetMeterNumber() != null) entity.setNetMeterNumber(req.getNetMeterNumber());
+        if (req.getInvoiceNumber() != null) entity.setInvoiceNumber(req.getInvoiceNumber());
+        if (req.getTotalAmountIncludingGST() != null) entity.setTotalAmountIncludingGST(req.getTotalAmountIncludingGST());
+        if (req.getYearOfManufacturing() != null) entity.setYearOfManufacturing(req.getYearOfManufacturing());
+
+        entity.setConsumerSignature(syncImages(entity.getConsumerSignature(), req.getConsumerSignature(), req.getExistingConsumerSignature(), req.getDeleteConsumerSignature(), "consumerSignatures"));
+        entity.setAadharImages(syncImages(entity.getAadharImages(), req.getAadharImages(), req.getExistingAadharImages(), req.getDeleteAadharImages(), "aadharImages"));
+        entity.setSitePhotos(syncImages(entity.getSitePhotos(), req.getSitePhotos(), req.getExistingSitePhotos(), req.getDeleteSitePhotos(), "sitePhotos"));
+        entity.setNetMeteringStamp(syncImages(entity.getNetMeteringStamp(), req.getNetMeteringStamp(), req.getExistingNetMeteringStamp(), req.getDeleteNetMeteringStamp(), "netMeteringStamps"));
+        entity.setAnnexureTwoStamp(syncImages(entity.getAnnexureTwoStamp(), req.getAnnexureTwoStamp(), req.getExistingAnnexureTwoStamp(), req.getDeleteAnnexureTwoStamp(), "annexureTwoStamps"));
     }
 
     private SolarRecordResponseDto mapToResponse(SolarRecord entity) {
@@ -182,12 +178,39 @@ public class SolarRecordService {
         return files.stream().filter(Objects::nonNull).map(file -> cloudinaryService.uploadFile(file, folder)).collect(Collectors.toList());
     }
 
-    private List<String> syncImages(List<String> existingImages, List<MultipartFile> newFiles, List<String> existingUrlsFromRequest, String folder) {
+    private List<String> syncImages(
+            List<String> existingImages,
+            List<MultipartFile> newFiles,
+            List<String> existingUrlsFromRequest,
+            Boolean deleteFlag,
+            String folder
+    ) {
+        boolean hasNew = newFiles != null && newFiles.stream().anyMatch(Objects::nonNull);
+        boolean hasExisting = existingUrlsFromRequest != null && !existingUrlsFromRequest.isEmpty();
+        boolean explicitDelete = Boolean.TRUE.equals(deleteFlag);
+
+        // Nothing sent → keep DB values untouched (SAFE default)
+        if (!hasNew && !hasExisting && !explicitDelete) {
+            return existingImages == null ? new ArrayList<>() : new ArrayList<>(existingImages);
+        }
+
+        // Explicit delete with no replacements
+        if (explicitDelete && !hasNew && !hasExisting) {
+            if (existingImages != null && !existingImages.isEmpty()) {
+                cloudinaryService.deleteFiles(existingImages);
+            }
+            return new ArrayList<>();
+        }
+
+        // Normal merge: keep requested URLs + upload new files, delete only removed
         List<String> finalUrls = new ArrayList<>();
-        if (existingUrlsFromRequest != null) finalUrls.addAll(existingUrlsFromRequest);
-        if (newFiles != null && !newFiles.isEmpty()) finalUrls.addAll(uploadImages(newFiles, folder));
+        if (hasExisting) finalUrls.addAll(existingUrlsFromRequest);
+        if (hasNew) finalUrls.addAll(uploadImages(newFiles, folder));
+
         if (existingImages != null && !existingImages.isEmpty()) {
-            List<String> urlsToDelete = existingImages.stream().filter(url -> !finalUrls.contains(url)).collect(Collectors.toList());
+            List<String> urlsToDelete = existingImages.stream()
+                    .filter(url -> !finalUrls.contains(url))
+                    .collect(Collectors.toList());
             if (!urlsToDelete.isEmpty()) cloudinaryService.deleteFiles(urlsToDelete);
         }
         return finalUrls;

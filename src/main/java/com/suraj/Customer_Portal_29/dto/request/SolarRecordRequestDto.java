@@ -77,6 +77,12 @@ public class SolarRecordRequestDto {
     private List<String> existingNetMeteringStamp;
     private List<String> existingAnnexureTwoStamp;
 
+    private Boolean deleteConsumerSignature;
+    private Boolean deleteAadharImages;
+    private Boolean deleteSitePhotos;
+    private Boolean deleteNetMeteringStamp;
+    private Boolean deleteAnnexureTwoStamp;
+
     private String cellManufacturerName;
     private String cellGSTInvoiceNo;
     private String meterMake;
