@@ -5,6 +5,7 @@ import com.suraj.Customer_Portal_29.dto.response.ApiResponseDto;
 import com.suraj.Customer_Portal_29.dto.response.SolarRecordResponseDto;
 import com.suraj.Customer_Portal_29.entity.Permission;
 import com.suraj.Customer_Portal_29.entity.Owner;
+import com.suraj.Customer_Portal_29.config.CurrentUserContext;
 import com.suraj.Customer_Portal_29.entity.UserRole;
 import com.suraj.Customer_Portal_29.repository.OwnerRepository;
 import com.suraj.Customer_Portal_29.service.SolarRecordService;
@@ -28,14 +29,17 @@ public class SolarRecordController {
     }
 
     private void checkPermission(Permission requiredPermission) {
-        String email = SecurityContextHolder.getContext().getAuthentication().getName();
-        Owner currentUser = ownerRepository.findByEmail(email)
-                .orElseThrow(() -> new RuntimeException("User not found"));
+        Owner currentUser = CurrentUserContext.get();
+        if (currentUser == null) {
+            String email = SecurityContextHolder.getContext().getAuthentication().getName();
+            currentUser = ownerRepository.findByEmail(email)
+                    .orElseThrow(() -> new RuntimeException("User not found"));
+            CurrentUserContext.set(currentUser);
+        }
 
         if (currentUser.getRole() == UserRole.SUPER_ADMIN) {
             return;
         }
-
         if (!currentUser.getPermissions().contains(requiredPermission)) {
             throw new RuntimeException("Access denied. " + requiredPermission + " permission required.");
         }
