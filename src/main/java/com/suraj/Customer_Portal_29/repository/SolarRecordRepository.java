@@ -12,14 +12,7 @@ public interface SolarRecordRepository extends JpaRepository<SolarRecord, String
 
     Optional<SolarRecord> findByConsumerNumber(String consumerNumber);
 
-    @Query("SELECT DISTINCT s FROM SolarRecord s " +
-            "LEFT JOIN FETCH s.consumerSignature " +
-            "LEFT JOIN FETCH s.aadharImages " +
-            "LEFT JOIN FETCH s.sitePhotos " +
-            "LEFT JOIN FETCH s.netMeteringStamp " +
-            "LEFT JOIN FETCH s.annexureTwoStamp " +
-            "WHERE s.createdBy.id = :userId")
-    List<SolarRecord> findByCreatedById(@Param("userId") Long userId);
+    List<SolarRecord> findByCreatedById(Long userId);
 
     List<SolarRecord> findByCreatedByUserEmail(String userEmail);
 }
