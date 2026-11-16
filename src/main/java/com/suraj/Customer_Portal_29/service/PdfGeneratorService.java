@@ -9,7 +9,11 @@ import org.springframework.stereotype.Service;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
 import org.apache.pdfbox.pdmodel.PDDocument;
-import java.io.ByteArrayOutputStream;
+import org.apache.pdfbox.cos.COSName;
+import org.apache.pdfbox.pdmodel.PDResources;
+import org.apache.pdfbox.pdmodel.PDPage;
+import org.apache.pdfbox.pdmodel.graphics.PDXObject;
+import org.apache.pdfbox.pdmodel.graphics.image.PDImageXObject;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -30,16 +34,11 @@ public class PdfGeneratorService {
 
     public byte[] generatePdf(String type, Map<String, Object> data) {
         try {
-            System.out.println("=== PDF Generation Started for: " + type + " ===");
-
             Context context = new Context();
             context.setVariables(data);
 
             String templateName = mapTemplateName(type);
-            System.out.println("Template name: pdf/" + templateName);
-
             String html = templateEngine.process("pdf/" + templateName, context);
-            System.out.println("HTML generated, length: " + html.length() + " characters");
 
             html = html.replace("\uFEFF", "");
             html = compressImagesInHtml(html);
@@ -61,34 +60,73 @@ public class PdfGeneratorService {
 
             byte[] result = outputStream.toByteArray();
 
-            // Compress PDF if larger than 290KB
-            if (result.length > 290 * 1024) {
-                result = compressPdf(result);
-            }
+            long targetBytes = "all-in-one".equalsIgnoreCase(type) ? (2500L * 1024L) : (300L * 1024L);
 
-            System.out.println("PDF generated successfully for: " + type + ", size: " + result.length + " bytes");
-            System.out.println("=== PDF Generation Completed for: " + type + " ===");
+            if (result.length > targetBytes) {
+                result = forceStrictCompression(result, targetBytes);
+            }
 
             return result;
 
         } catch (Exception e) {
-            System.err.println("!!! PDF Generation FAILED for: " + type + " !!!");
-            System.err.println("Error: " + e.getMessage());
-            e.printStackTrace();
             throw new RuntimeException("PDF generation failed for " + type + ": " + e.getMessage(), e);
         }
     }
 
-    private byte[] compressPdf(byte[] pdfBytes) {
-        try {
-            PDDocument document = PDDocument.load(pdfBytes);
-            ByteArrayOutputStream baos = new ByteArrayOutputStream();
-            document.save(baos);
-            document.close();
-            return baos.toByteArray();
-        } catch (Exception e) {
-            return pdfBytes;
+    private byte[] forceStrictCompression(byte[] pdfBytes, long targetBytes) {
+        int maxWidth = 800;
+
+        for (int attempt = 0; attempt < 4; attempt++) {
+            try {
+                PDDocument document = PDDocument.load(pdfBytes);
+
+                for (PDPage page : document.getPages()) {
+                    PDResources resources = page.getResources();
+                    if (resources != null) {
+                        for (COSName name : resources.getXObjectNames()) {
+                            PDXObject xobject = resources.getXObject(name);
+                            if (xobject instanceof PDImageXObject) {
+                                PDImageXObject image = (PDImageXObject) xobject;
+                                BufferedImage bufferedImage = image.getImage();
+
+                                if (bufferedImage != null) {
+                                    int newWidth = Math.min(bufferedImage.getWidth(), maxWidth);
+                                    int newHeight = (int) ((double) bufferedImage.getHeight() * newWidth / bufferedImage.getWidth());
+
+                                    BufferedImage scaledImage = new BufferedImage(newWidth, newHeight, BufferedImage.TYPE_INT_RGB);
+                                    scaledImage.getGraphics().drawImage(bufferedImage.getScaledInstance(newWidth, newHeight, java.awt.Image.SCALE_SMOOTH), 0, 0, null);
+
+                                    ByteArrayOutputStream imgBaos = new ByteArrayOutputStream();
+                                    ImageIO.write(scaledImage, "jpeg", imgBaos);
+
+                                    PDImageXObject newImage = PDImageXObject.createFromByteArray(document, imgBaos.toByteArray(), name.getName());
+                                    resources.put(name, newImage);
+                                }
+                            }
+                        }
+                    }
+                }
+
+                ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                document.setAllSecurityToBeRemoved(true);
+                document.save(baos);
+                document.close();
+
+                byte[] compressedBytes = baos.toByteArray();
+
+                if (compressedBytes.length <= targetBytes) {
+                    return compressedBytes;
+                }
+
+                pdfBytes = compressedBytes;
+                maxWidth = (int) (maxWidth * 0.6);
+
+            } catch (Exception e) {
+                e.printStackTrace();
+                break;
+            }
         }
+        return pdfBytes;
     }
 
     private String mapTemplateName(String type) {
@@ -103,8 +141,6 @@ public class PdfGeneratorService {
                 return "Declaration_FOR_DCR";
             case "agreement":
                 return "NET_METERING_CONNECTION_AGREEMENT";
-//            case "indemnity":
-//                return "INDEMNITY_BOND";
             case "site-photos":
                 return "Site-photos";
             case "SOLAR_PROPOSAL_11KW":
@@ -113,7 +149,6 @@ public class PdfGeneratorService {
                 return "METER_TESTING_REQUEST";
             case "PM_SURYA_GHAR_AGREEMENT":
                 return "PM_SURYA_GHAR_AGREEMENT";
-
             default:
                 return type;
         }
