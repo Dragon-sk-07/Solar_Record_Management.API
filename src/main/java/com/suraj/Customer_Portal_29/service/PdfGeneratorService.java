@@ -74,11 +74,12 @@ public class PdfGeneratorService {
     }
 
     private byte[] forceStrictCompression(byte[] pdfBytes, long targetBytes) {
-        int maxWidth = 800;
+        int maxWidth = 700;
 
-        for (int attempt = 0; attempt < 4; attempt++) {
+        for (int attempt = 0; attempt < 6; attempt++) {
+            PDDocument document = null;
             try {
-                PDDocument document = PDDocument.load(pdfBytes);
+                document = PDDocument.load(pdfBytes);
 
                 for (PDPage page : document.getPages()) {
                     PDResources resources = page.getResources();
@@ -101,6 +102,10 @@ public class PdfGeneratorService {
 
                                     PDImageXObject newImage = PDImageXObject.createFromByteArray(document, imgBaos.toByteArray(), name.getName());
                                     resources.put(name, newImage);
+
+                                    imgBaos.close();
+                                    bufferedImage.flush();
+                                    scaledImage.flush();
                                 }
                             }
                         }
@@ -110,9 +115,9 @@ public class PdfGeneratorService {
                 ByteArrayOutputStream baos = new ByteArrayOutputStream();
                 document.setAllSecurityToBeRemoved(true);
                 document.save(baos);
-                document.close();
 
                 byte[] compressedBytes = baos.toByteArray();
+                baos.close();
 
                 if (compressedBytes.length <= targetBytes) {
                     return compressedBytes;
@@ -122,8 +127,11 @@ public class PdfGeneratorService {
                 maxWidth = (int) (maxWidth * 0.6);
 
             } catch (Exception e) {
-                e.printStackTrace();
                 break;
+            } finally {
+                if (document != null) {
+                    try { document.close(); } catch (Exception ignored) {}
+                }
             }
         }
         return pdfBytes;
@@ -187,7 +195,7 @@ public class PdfGeneratorService {
 
             int width = image.getWidth();
             int height = image.getHeight();
-            int maxWidth = 800;
+            int maxWidth = 600;
 
             if (width > maxWidth) {
                 float ratio = (float) maxWidth / width;
@@ -218,7 +226,7 @@ public class PdfGeneratorService {
             if (image != null) {
                 int width = image.getWidth();
                 int height = image.getHeight();
-                int maxWidth = 800;
+                int maxWidth = 600;
 
                 if (width > maxWidth) {
                     float ratio = (float) maxWidth / width;
