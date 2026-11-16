@@ -21,14 +21,14 @@ public class CloudinaryService {
             Map<?, ?> uploadResult = cloudinary.uploader().upload(
                     file.getBytes(),
                     ObjectUtils.asMap(
-                            "folder", folderName,
-                            "quality", 30,
-                            "fetch_format", "auto:low",
-                            "width", 400,
-                            "height", 400,
-                            "crop", "limit",
-                            "compression", "true",
-                            "flags", "lossy"
+                            "folder", folderName
+//                            "quality", 30,
+//                            "fetch_format", "auto:low",
+//                            "width", 400,
+//                            "height", 400,
+//                            "crop", "limit",
+//                            "compression", "true",
+//                            "flags", "lossy"
                     )
             );
             return uploadResult.get("secure_url").toString();
