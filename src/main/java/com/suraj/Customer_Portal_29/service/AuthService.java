@@ -46,12 +46,4 @@ public class AuthService {
         return new LoginResponseDto(token, owner.getName(), owner.getRole().name(), owner.getPermissions());
     }
 
-    public void register(RegisterRequestDto request) {
-        Owner owner = new Owner();
-        owner.setName(request.getName());
-        owner.setEmail(request.getEmail());
-        owner.setMobile(request.getMobile());
-        owner.setPassword(passwordEncoder.encode(request.getPassword()));
-        repo.save(owner);
-    }
 }

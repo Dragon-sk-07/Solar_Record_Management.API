@@ -26,11 +26,7 @@ public class AuthController {
         return ResponseEntity.ok(service.login(request));
     }
 
-    @PostMapping("/register")
-    public ApiResponseDto register(@RequestBody RegisterRequestDto request) {
-        service.register(request);
-        return new ApiResponseDto("User Registered Successfully", null);
-    }
+
 
     @ExceptionHandler(ResponseStatusException.class)
     public ResponseEntity<Map<String, String>> handleAuthException(ResponseStatusException ex) {
