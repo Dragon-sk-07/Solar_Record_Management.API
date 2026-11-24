@@ -5,23 +5,27 @@ import com.suraj.Customer_Portal_29.dto.request.UserRequestDto;
 import com.suraj.Customer_Portal_29.dto.response.ApiResponseDto;
 import com.suraj.Customer_Portal_29.dto.response.UserResponseDto;
 import com.suraj.Customer_Portal_29.service.UserManagementService;
+import com.suraj.Customer_Portal_29.service.WalletService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import java.util.List;
 
 import jakarta.validation.Valid;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/admin/users")
 public class UserManagementController {
 
     private final UserManagementService service;
+    private final WalletService walletService;
 
-    public UserManagementController(UserManagementService service) {
+    public UserManagementController(UserManagementService service,
+                                    WalletService walletService) {
         this.service = service;
+        this.walletService = walletService;
     }
-
-
 
     @GetMapping
     public ApiResponseDto<java.util.List<UserResponseDto>> getAllUsers() {
@@ -62,8 +66,6 @@ public class UserManagementController {
             @RequestParam(required = false) boolean deleteVendorSignature,
             @RequestParam(required = false) boolean deleteWitness1Signature,
             @RequestParam(required = false) boolean deleteWitness2Signature) {
-
-
 
         request.setExistingHeaderLogo(existingHeaderLogo);
         request.setExistingVendorSignature(existingVendorSignature);
@@ -165,5 +167,28 @@ public class UserManagementController {
 
         UserResponseDto data = service.updateCurrentUserProfile(request, headerLogo, vendorSignature, witness1Signature, witness2Signature);
         return new ApiResponseDto<>("Profile updated successfully", data);
+    }
+
+    @PostMapping("/{userId}/wallet/credit")
+    public ApiResponseDto<UserResponseDto> creditWallet(
+            @PathVariable Long userId,
+            @RequestBody UserRequestDto request) {
+        UserResponseDto data = service.creditWallet(
+                userId,
+                request.getWalletTopUp(),
+                request.getWalletNote());
+        return new ApiResponseDto<>("Wallet credited successfully", data);
+    }
+
+    @PostMapping("/{userId}/wallet/reset")
+    public ApiResponseDto<String> resetWallet(@PathVariable Long userId) {
+        walletService.resetUserWallet(userId);
+        return new ApiResponseDto<>("Wallet reset to zero successfully", null);
+    }
+
+    @GetMapping("/wallet-balances")
+    public ApiResponseDto<List<Map<String, Object>>> getWalletBalances() {
+        List<Map<String, Object>> data = service.getAllWalletBalances();
+        return new ApiResponseDto<>("Wallet balances fetched successfully", data);
     }
 }

@@ -30,7 +30,7 @@ public class JwtTokenProvider {
     }
 
     public String generateToken(String email, Map<String, Object> extraClaims) {
-        Owner user = ownerRepository.findByEmail(email).orElseThrow(() -> new RuntimeException("User not found"));
+        Owner user = ownerRepository.findByEmailIgnoreCase(email).orElseThrow(() -> new RuntimeException("User not found"));
         Map<String, Object> claims = new HashMap<>(extraClaims);
         claims.put("sub", email);
         claims.put("email", email);

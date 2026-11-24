@@ -2,12 +2,11 @@ package com.suraj.Customer_Portal_29.service;
 
 import com.suraj.Customer_Portal_29.dto.request.UserRequestDto;
 import com.suraj.Customer_Portal_29.dto.response.UserResponseDto;
-import com.suraj.Customer_Portal_29.entity.Owner;
-import com.suraj.Customer_Portal_29.entity.Permission;
-import com.suraj.Customer_Portal_29.entity.SolarRecord;
-import com.suraj.Customer_Portal_29.entity.UserRole;
+import com.suraj.Customer_Portal_29.entity.*;
 import com.suraj.Customer_Portal_29.repository.OwnerRepository;
 import com.suraj.Customer_Portal_29.repository.SolarRecordRepository;
+import com.suraj.Customer_Portal_29.repository.WalletRepository;
+import com.suraj.Customer_Portal_29.repository.WalletTransactionRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -27,17 +26,26 @@ public class UserManagementService {
     private final SolarRecordRepository solarRecordRepository;
     private final CloudinaryService cloudinaryService;
     private final ModelMapper modelMapper;
+    private final WalletService walletService;
+    private final WalletRepository walletRepository;
+    private final WalletTransactionRepository walletTransactionRepository;
 
     public UserManagementService(OwnerRepository ownerRepository,
                                  PasswordEncoder passwordEncoder,
                                  SolarRecordRepository solarRecordRepository,
                                  CloudinaryService cloudinaryService,
-                                 ModelMapper modelMapper) {
+                                 ModelMapper modelMapper,
+                                 WalletService walletService,
+                                 WalletRepository walletRepository,
+                                 WalletTransactionRepository walletTransactionRepository) {
         this.ownerRepository = ownerRepository;
         this.passwordEncoder = passwordEncoder;
         this.solarRecordRepository = solarRecordRepository;
         this.cloudinaryService = cloudinaryService;
         this.modelMapper = modelMapper;
+        this.walletService = walletService;
+        this.walletRepository = walletRepository;
+        this.walletTransactionRepository = walletTransactionRepository;
     }
 
     private Owner getCurrentUser() {
@@ -54,13 +62,15 @@ public class UserManagementService {
     private UserResponseDto mapToResponse(Owner entity) {
         UserResponseDto response = new UserResponseDto();
         modelMapper.map(entity, response);
+        java.math.BigDecimal balance = walletService.ensureWallet(entity).getBalance();
+        response.setWalletBalance(balance);
+        java.math.BigDecimal totalAdded = walletService.getTotalAddedForUser(entity.getId());
+        response.setTotalAdded(totalAdded);
         return response;
     }
 
     private void syncImageField(String currentUrl, MultipartFile newFile, String existingUrl, boolean deleteFlag,
                                 java.util.function.Consumer<String> setter) {
-
-
         if (deleteFlag) {
             if (currentUrl != null) {
                 cloudinaryService.deleteFile(currentUrl);
@@ -74,9 +84,17 @@ public class UserManagementService {
             setter.accept(uploadedUrl);
         } else if (existingUrl != null && !existingUrl.isEmpty()) {
             setter.accept(existingUrl);
-        } else {
-//            setter.accept(null);
         }
+    }
+
+    private UserResponseDto mapToResponseWithTotal(Owner entity,
+                                                   java.math.BigDecimal totalAdded) {
+        UserResponseDto response = new UserResponseDto();
+        modelMapper.map(entity, response);
+        java.math.BigDecimal balance = walletService.ensureWallet(entity).getBalance();
+        response.setWalletBalance(balance);
+        response.setTotalAdded(totalAdded);
+        return response;
     }
 
     @Transactional
@@ -85,7 +103,6 @@ public class UserManagementService {
                                       MultipartFile vendorSignature,
                                       MultipartFile witness1Signature,
                                       MultipartFile witness2Signature) {
-
 
         if (ownerRepository.existsByEmail(request.getEmail())) {
             throw new RuntimeException("User already exists");
@@ -138,15 +155,24 @@ public class UserManagementService {
         }
 
         Owner savedUser = ownerRepository.save(user);
-
+        walletService.ensureWallet(savedUser);
 
         return mapToResponse(savedUser);
     }
 
     public List<UserResponseDto> getAllUsers() {
-        return ownerRepository.findAll().stream()
-                .map(this::mapToResponse)
-                .collect(Collectors.toList());
+        List<Owner> owners = ownerRepository.findAll();
+        if (owners.isEmpty()) return List.of();
+
+        java.util.List<Long> ids = owners.stream().map(Owner::getId).toList();
+        java.util.Map<Long, java.math.BigDecimal> totals = new java.util.HashMap<>();
+        for (Object[] row : walletService.getCreditTotalsByOwnerIds(ids)) {
+            totals.put((Long) row[0], (java.math.BigDecimal) row[1]);
+        }
+
+        return owners.stream()
+                .map(o -> mapToResponseWithTotal(o, totals.getOrDefault(o.getId(), java.math.BigDecimal.ZERO)))
+                .toList();
     }
 
     public UserResponseDto getUserById(Long userId) {
@@ -161,10 +187,7 @@ public class UserManagementService {
                                       MultipartFile witness1Signature,
                                       MultipartFile witness2Signature) {
 
-
-
         Owner existingUser = findEntityById(userId);
-
 
         if (existingUser.getRole() == UserRole.SUPER_ADMIN) {
             throw new RuntimeException("Cannot modify SUPER_ADMIN user");
@@ -210,7 +233,6 @@ public class UserManagementService {
         if (request.getDesignation() != null) {
             existingUser.setDesignation(request.getDesignation().isEmpty() ? null : request.getDesignation());
         }
-
         if (request.getBankAccountName() != null) {
             existingUser.setBankAccountName(request.getBankAccountName().isEmpty() ? null : request.getBankAccountName());
         }
@@ -230,33 +252,26 @@ public class UserManagementService {
         syncImageField(existingUser.getHeaderLogoUrl(), headerLogo,
                 request.getExistingHeaderLogo(),
                 request.isDeleteHeaderLogo(),
-                url -> {
-                    existingUser.setHeaderLogoUrl(url);
-                });
+                url -> existingUser.setHeaderLogoUrl(url));
 
         syncImageField(existingUser.getVendorSignatureUrl(), vendorSignature,
                 request.getExistingVendorSignature(),
                 request.isDeleteVendorSignature(),
-                url -> {
-                    existingUser.setVendorSignatureUrl(url);
-                });
+                url -> existingUser.setVendorSignatureUrl(url));
 
         syncImageField(existingUser.getWitness1SignatureUrl(), witness1Signature,
                 request.getExistingWitness1Signature(),
                 request.isDeleteWitness1Signature(),
-                url -> {
-                    existingUser.setWitness1SignatureUrl(url);
-                });
+                url -> existingUser.setWitness1SignatureUrl(url));
 
         syncImageField(existingUser.getWitness2SignatureUrl(), witness2Signature,
                 request.getExistingWitness2Signature(),
                 request.isDeleteWitness2Signature(),
-                url -> {
-                    existingUser.setWitness2SignatureUrl(url);
-                });
+                url -> existingUser.setWitness2SignatureUrl(url));
 
         Owner savedUser = ownerRepository.save(existingUser);
-
+        java.math.BigDecimal wb = walletService.ensureWallet(existingUser).getBalance();
+        existingUser.setWalletBalance(wb);
 
         return mapToResponse(savedUser);
     }
@@ -318,22 +333,27 @@ public class UserManagementService {
             solarRecordRepository.deleteAll(userRecords);
         }
 
-        ownerRepository.delete(user);
+        try {
+            walletService.resetUserWallet(userId);
+        } catch (Exception ignored) {
+        }
+
+        user.setActive(false);
+        user.setEmail(user.getEmail() + "_deleted_" + System.currentTimeMillis());
+        ownerRepository.save(user);
     }
 
     public UserResponseDto getCurrentUserProfile() {
         Owner currentUser = getCurrentUser();
 
-
         UserResponseDto response = mapToResponse(currentUser);
 
-        // Explicitly set image URLs (ModelMapper might miss them)
         response.setHeaderLogoUrl(currentUser.getHeaderLogoUrl());
         response.setVendorSignatureUrl(currentUser.getVendorSignatureUrl());
         response.setWitness1SignatureUrl(currentUser.getWitness1SignatureUrl());
         response.setWitness2SignatureUrl(currentUser.getWitness2SignatureUrl());
-
-
+        java.math.BigDecimal wb = walletService.ensureWallet(currentUser).getBalance();
+        response.setWalletBalance(wb);
 
         return response;
     }
@@ -345,13 +365,9 @@ public class UserManagementService {
                                                     MultipartFile witness1Signature,
                                                     MultipartFile witness2Signature) {
 
-
         Owner currentUser = getCurrentUser();
 
-
         if (request != null) {
-
-
             if (currentUser.getRole() == UserRole.SUPER_ADMIN) {
                 if (request.getName() != null && !request.getName().isEmpty()) {
                     currentUser.setName(request.getName());
@@ -363,8 +379,7 @@ public class UserManagementService {
                     currentUser.setMobile(request.getMobile());
                 }
                 if (request.getPassword() != null && !request.getPassword().isEmpty()) {
-                    String encodedPassword = passwordEncoder.encode(request.getPassword());
-                    currentUser.setPassword(encodedPassword);
+                    currentUser.setPassword(passwordEncoder.encode(request.getPassword()));
                 }
             }
 
@@ -428,7 +443,49 @@ public class UserManagementService {
 
         Owner savedUser = ownerRepository.save(currentUser);
 
-
         return mapToResponse(savedUser);
+    }
+
+    @Transactional(rollbackFor = Exception.class)
+    public UserResponseDto creditWallet(Long userId,
+                                        java.math.BigDecimal amount,
+                                        String note) {
+        if (amount == null || amount.compareTo(java.math.BigDecimal.ZERO) <= 0) {
+            throw new RuntimeException("Amount must be positive");
+        }
+        Owner user = findEntityById(userId);
+        if (user.getRole() == UserRole.SUPER_ADMIN) {
+            throw new RuntimeException("Cannot credit SUPER_ADMIN wallet");
+        }
+
+        String actorEmail = SecurityContextHolder.getContext().getAuthentication().getName();
+        Wallet wallet = walletService.credit(userId, amount, note, actorEmail);
+        user.setWalletBalance(wallet.getBalance());
+        ownerRepository.save(user);
+        return mapToResponse(user);
+    }
+
+    @org.springframework.transaction.annotation.Transactional(readOnly = true)
+    public List<java.util.Map<String, Object>> getAllWalletBalances() {
+        List<Owner> owners = ownerRepository.findAll();
+        if (owners.isEmpty()) return List.of();
+
+        List<Long> ids = owners.stream().map(Owner::getId).toList();
+
+        java.util.Map<Long, java.math.BigDecimal> totals = new java.util.HashMap<>();
+        for (Object[] row : walletService.getCreditTotalsByOwnerIds(ids)) {
+            totals.put((Long) row[0], (java.math.BigDecimal) row[1]);
+        }
+
+        return owners.stream().map(o -> {
+            java.math.BigDecimal balance = walletService.ensureWallet(o).getBalance();
+            java.math.BigDecimal total = totals.getOrDefault(o.getId(), java.math.BigDecimal.ZERO);
+
+            java.util.Map<String, Object> map = new java.util.HashMap<>();
+            map.put("id", o.getId());
+            map.put("walletBalance", balance);
+            map.put("totalAdded", total);
+            return map;
+        }).toList();
     }
 }

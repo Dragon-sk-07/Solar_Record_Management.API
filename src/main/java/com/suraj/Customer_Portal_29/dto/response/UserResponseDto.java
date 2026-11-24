@@ -2,6 +2,7 @@ package com.suraj.Customer_Portal_29.dto.response;
 
 import com.suraj.Customer_Portal_29.entity.Permission;
 import lombok.Data;
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.Set;
 
@@ -31,4 +32,7 @@ public class UserResponseDto {
     private String vendorSignatureUrl;
     private String witness1SignatureUrl;
     private String witness2SignatureUrl;
+
+    private BigDecimal walletBalance;
+    private BigDecimal totalAdded;
 }

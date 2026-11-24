@@ -97,6 +97,9 @@ public class Owner {
     @Column(name = "witness2_signature_url", length = 1000)
     private String witness2SignatureUrl;
 
+    @Column(name = "wallet_balance", precision = 12, scale = 2)
+    private java.math.BigDecimal walletBalance = java.math.BigDecimal.ZERO;
+
     @PrePersist
     protected void onCreate() {
         createdAt = LocalDateTime.now();

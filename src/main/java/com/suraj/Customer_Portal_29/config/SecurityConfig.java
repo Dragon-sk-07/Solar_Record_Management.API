@@ -44,6 +44,7 @@ public class SecurityConfig {
                         ).permitAll()
                         .requestMatchers("/api/admin/users/me").authenticated()
                         .requestMatchers("/api/urls/**").authenticated()
+                        .requestMatchers("/api/wallet/**").authenticated()
                         .requestMatchers("/api/admin/users/**").hasRole("SUPER_ADMIN")
                         .anyRequest().authenticated()
                 )

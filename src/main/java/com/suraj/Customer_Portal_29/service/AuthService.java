@@ -27,7 +27,7 @@ public class AuthService {
     }
 
     public LoginResponseDto login(LoginRequestDto request) {
-        Owner owner = repo.findByEmail(request.getEmail()).orElse(null);
+        Owner owner = repo.findByEmailIgnoreCase(request.getEmail()).orElse(null);
 
         if (owner == null || !passwordEncoder.matches(request.getPassword(), owner.getPassword())) {
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Invalid email or password");

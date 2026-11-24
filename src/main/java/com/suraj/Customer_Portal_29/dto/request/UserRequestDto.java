@@ -33,4 +33,6 @@ public class UserRequestDto {
     private boolean deleteVendorSignature;
     private boolean deleteWitness1Signature;
     private boolean deleteWitness2Signature;
+    private java.math.BigDecimal walletTopUp;
+    private String walletNote;
 }

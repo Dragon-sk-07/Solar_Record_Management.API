@@ -1,18 +1,37 @@
 package com.suraj.Customer_Portal_29.controller;
 
+import com.suraj.Customer_Portal_29.dto.request.CommitDownloadRequestDto;
+import com.suraj.Customer_Portal_29.dto.response.PreviewResponseDto;
 import com.suraj.Customer_Portal_29.dto.response.SolarRecordResponseDto;
 import com.suraj.Customer_Portal_29.entity.Owner;
+import com.suraj.Customer_Portal_29.entity.PdfDocType;
 import com.suraj.Customer_Portal_29.entity.Permission;
+import com.suraj.Customer_Portal_29.entity.PreviewToken;
 import com.suraj.Customer_Portal_29.entity.UserRole;
-import com.suraj.Customer_Portal_29.service.*;
-import org.springframework.http.*;
-import org.springframework.web.bind.annotation.*;
-import java.time.*;
-import java.time.format.DateTimeFormatter;
-import java.util.*;
 import com.suraj.Customer_Portal_29.repository.OwnerRepository;
+import com.suraj.Customer_Portal_29.service.PdfGeneratorService;
+import com.suraj.Customer_Portal_29.service.PdfMergerService;
+import com.suraj.Customer_Portal_29.service.PreviewTokenStore;
+import com.suraj.Customer_Portal_29.service.SolarRecordService;
+import com.suraj.Customer_Portal_29.service.WalletService;
+import com.suraj.Customer_Portal_29.service.WordGeneratorService;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
+
+import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.Base64;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/solar/pdf")
@@ -23,29 +42,123 @@ public class SolarPdfController {
     private final WordGeneratorService wordService;
     private final PdfMergerService pdfMergerService;
     private final OwnerRepository ownerRepository;
+    private final PreviewTokenStore previewTokenStore;
+    private final WalletService walletService;
+
+    private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+    private static final DateTimeFormatter MONTH_FORMATTER = DateTimeFormatter.ofPattern("MMMM");
+    private static final DateTimeFormatter INSTALL_DATE_FORMATTER = DateTimeFormatter.ofPattern("dd.MM.yyyy");
+
+    private static final String[] ALL_NINE_TYPES = {
+            "METER_TESTING_REQUEST", "FrontSix", "wcr", "proforma-a",
+            "dcr", "agreement", "site-photos"
+    };
+
+    private static final Map<String, String> PDF_FILENAMES = Map.ofEntries(
+            Map.entry("wcr", "WCR_Undertaking_Guarantee_Aadhar.pdf"),
+            Map.entry("proforma-a", "Annexure-I_Proforma-A.pdf"),
+            Map.entry("dcr", "Declaration_FOR_DCR.pdf"),
+            Map.entry("agreement", "NET_METERING_CONNECTION_AGREEMENT.pdf"),
+            Map.entry("SOLAR_PROPOSAL_11KW", "11KW_Solar_Proposal.pdf"),
+            Map.entry("METER_TESTING_REQUEST", "Meter_Testing_Request.pdf"),
+            Map.entry("PM_SURYA_GHAR_AGREEMENT", "PM_Surya_Ghar_Agreement.pdf"),
+            Map.entry("FrontSix", "Pre_Commissioning_Report_FrontSix.pdf"),
+            Map.entry("site-photos", "Site_Photos.pdf"),
+            Map.entry("all-in-one", "All_In_One.pdf"),
+            Map.entry("all-nine", "All_Nine.pdf")
+    );
 
     public SolarPdfController(SolarRecordService solarService,
                               PdfGeneratorService pdfService,
                               WordGeneratorService wordService,
                               PdfMergerService pdfMergerService,
-                              OwnerRepository ownerRepository) {
+                              OwnerRepository ownerRepository,
+                              PreviewTokenStore previewTokenStore,
+                              WalletService walletService) {
         this.solarService = solarService;
         this.pdfService = pdfService;
         this.wordService = wordService;
         this.pdfMergerService = pdfMergerService;
         this.ownerRepository = ownerRepository;
+        this.previewTokenStore = previewTokenStore;
+        this.walletService = walletService;
     }
 
     private Owner getCurrentUser() {
         String email = SecurityContextHolder.getContext().getAuthentication().getName();
-        return ownerRepository.findByEmail(email).orElseThrow(() -> new RuntimeException("User not found"));
+        return ownerRepository.findByEmail(email)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+    }
+
+    private boolean isSuperAdmin(Owner user) {
+        return user.getRole() == UserRole.SUPER_ADMIN;
+    }
+
+    private void chargeIfNeeded(Owner user, PdfDocType docType, String recordId, String previewToken) {
+        if (isSuperAdmin(user)) return;
+
+        BigDecimal cost = BigDecimal.valueOf(docType.getCostInRupees());
+        walletService.debit(
+                user.getId(),
+                cost,
+                docType,
+                recordId,
+                previewToken,
+                user.getEmail()
+        );
+
+        BigDecimal newBalance = walletService.getMyWallet().getBalance();
+        user.setWalletBalance(newBalance);
+        ownerRepository.save(user);
+    }
+
+    private void checkDownloadPermission() {
+        Owner currentUser = getCurrentUser();
+        if (isSuperAdmin(currentUser)) return;
+        if (!currentUser.getPermissions().contains(Permission.DOWNLOAD)) {
+            throw new RuntimeException("You don't have permission to download documents");
+        }
+    }
+
+    private String getPdfFilename(String type) {
+        return PDF_FILENAMES.getOrDefault(type,
+                "document_" + System.currentTimeMillis() + ".pdf");
+    }
+
+    private String getValueOrDefault(Object value, String defaultValue) {
+        if (value == null) return defaultValue;
+        String s = String.valueOf(value);
+        return s.isEmpty() ? defaultValue : s;
+    }
+
+    private Double parseToDouble(Object value) {
+        if (value == null) return null;
+        if (value instanceof Number) return ((Number) value).doubleValue();
+        try {
+            String s = String.valueOf(value).trim().replace(",", "");
+            return s.isEmpty() ? null : Double.parseDouble(s);
+        } catch (NumberFormatException e) {
+            System.err.println("Failed to parse amount: '" + value + "'");
+            return null;
+        }
+    }
+
+    private String convertImageToBase64(String imagePath) {
+        try {
+            Resource resource = new ClassPathResource("static" + imagePath);
+            byte[] bytes = resource.getContentAsByteArray();
+            String mime = imagePath.endsWith(".png") ? "image/png" : "image/jpeg";
+            return "data:" + mime + ";base64," + Base64.getEncoder().encodeToString(bytes);
+        } catch (Exception e) {
+            return "";
+        }
     }
 
     @GetMapping("/{id}/{type}/word")
     public ResponseEntity<byte[]> downloadWord(@PathVariable String id,
                                                @PathVariable String type,
                                                @RequestParam(defaultValue = "true") boolean includeSignatures) {
-        checkDownloadPermission("word");
+        checkDownloadPermission();
         Map<String, Object> data = buildData(id, false, includeSignatures);
         byte[] wordDoc = wordService.generateWord(type, data);
         return ResponseEntity.ok()
@@ -58,7 +171,16 @@ public class SolarPdfController {
     public ResponseEntity<byte[]> downloadPdf(@PathVariable String id,
                                               @PathVariable String type,
                                               @RequestParam(defaultValue = "true") boolean includeSignatures) {
-        checkDownloadPermission("pdf");
+        checkDownloadPermission();
+
+        Owner currentUser = getCurrentUser();
+        PdfDocType docType = PdfDocType.fromUrlSegment(type);
+        if (docType == null) {
+            throw new RuntimeException("Invalid doc type: " + type);
+        }
+
+        chargeIfNeeded(currentUser, docType, id, null);
+
         Map<String, Object> data = buildData(id, true, includeSignatures);
         byte[] pdf = pdfService.generatePdfAsync(type, data).join();
         return ResponseEntity.ok()
@@ -70,17 +192,18 @@ public class SolarPdfController {
     @GetMapping("/{id}/all-in-one")
     public ResponseEntity<byte[]> downloadAllInOnePdf(@PathVariable String id,
                                                       @RequestParam(defaultValue = "true") boolean includeSignatures) {
-        checkDownloadPermission("pdf");
+        checkDownloadPermission();
+
+        Owner currentUser = getCurrentUser();
+        chargeIfNeeded(currentUser, PdfDocType.ALL_IN_ONE, id, null);
+
         try {
             Map<String, Object> data = buildData(id, true, includeSignatures);
             List<byte[]> pdfs = new ArrayList<>();
-            String[] pdfTypes = {"METER_TESTING_REQUEST", "FrontSix", "wcr", "proforma-a", "dcr", "agreement", "site-photos"};
-            for (String type : pdfTypes) {
+            for (String type : ALL_NINE_TYPES) {
                 try {
                     byte[] pdf = pdfService.generatePdf(type, data);
-                    if (pdf != null && pdf.length > 500) {
-                        pdfs.add(pdf);
-                    }
+                    if (pdf != null && pdf.length > 500) pdfs.add(pdf);
                 } catch (Exception e) {
                     System.err.println("Failed: " + type + " - " + e.getMessage());
                 }
@@ -109,7 +232,7 @@ public class SolarPdfController {
     @GetMapping("/{id}/all-in-one/word")
     public ResponseEntity<byte[]> downloadAllInOneWord(@PathVariable String id,
                                                        @RequestParam(defaultValue = "true") boolean includeSignatures) {
-        checkDownloadPermission("word");
+        checkDownloadPermission();
         Map<String, Object> data = buildData(id, true, includeSignatures);
         byte[] wordDoc = wordService.generateCombinedWord(data);
         return ResponseEntity.ok()
@@ -118,16 +241,112 @@ public class SolarPdfController {
                 .body(wordDoc);
     }
 
+    @GetMapping("/{id}/{type}/preview")
+    public PreviewResponseDto previewPdf(@PathVariable String id,
+                                         @PathVariable String type,
+                                         @RequestParam(defaultValue = "true") boolean includeSignatures) {
+
+        PdfDocType docType = PdfDocType.fromUrlSegment(type);
+        if (docType == null || docType == PdfDocType.ALL_NINE) {
+            throw new RuntimeException("Invalid doc type for preview: " + type);
+        }
+
+        Owner currentUser = getCurrentUser();
+        byte[] pdf = renderPdfBytes(docType, id, includeSignatures);
+        PreviewToken token = previewTokenStore.create(currentUser.getEmail(), id, docType, pdf);
+
+        int cost = isSuperAdmin(currentUser) ? 0 : docType.getCostInRupees();
+
+        return new PreviewResponseDto(
+                token.getToken(),
+                docType.name(),
+                docType.toUrlSegment(),
+                cost,
+                pdf.length,
+                300,
+                Base64.getEncoder().encodeToString(pdf)
+        );
+    }
+
+    @GetMapping("/{id}/all-nine/preview")
+    public PreviewResponseDto previewAllNine(@PathVariable String id,
+                                             @RequestParam(defaultValue = "true") boolean includeSignatures) {
+
+        Owner currentUser = getCurrentUser();
+        byte[] pdf = renderPdfBytes(PdfDocType.ALL_NINE, id, includeSignatures);
+        PreviewToken token = previewTokenStore.create(
+                currentUser.getEmail(), id, PdfDocType.ALL_NINE, pdf);
+
+        int cost = isSuperAdmin(currentUser) ? 0 : PdfDocType.ALL_NINE.getCostInRupees();
+
+        return new PreviewResponseDto(
+                token.getToken(),
+                PdfDocType.ALL_NINE.name(),
+                PdfDocType.ALL_NINE.toUrlSegment(),
+                cost,
+                pdf.length,
+                300,
+                Base64.getEncoder().encodeToString(pdf)
+        );
+    }
+
+    @PostMapping("/commit-download")
+    public ResponseEntity<byte[]> commitDownload(@RequestBody CommitDownloadRequestDto request) {
+
+        if (request == null || request.getPreviewToken() == null || request.getPreviewToken().isBlank()) {
+            throw new RuntimeException("previewToken is required");
+        }
+
+        Owner currentUser = getCurrentUser();
+        PreviewToken pt = previewTokenStore.consume(request.getPreviewToken(), currentUser.getEmail());
+
+        if (pt == null) {
+            throw new RuntimeException("Preview expired or invalid. Please preview again.");
+        }
+
+        if (!isSuperAdmin(currentUser)) {
+            chargeIfNeeded(currentUser, pt.getDocType(), pt.getSolarRecordId(), pt.getToken());
+        }
+
+        previewTokenStore.remove(pt.getToken());
+
+        byte[] pdf = pt.getPdfBytes();
+
+        return ResponseEntity.ok()
+                .header(HttpHeaders.CONTENT_DISPOSITION,
+                        "attachment; filename=" + getPdfFilename(pt.getDocType().toUrlSegment()))
+                .contentType(MediaType.APPLICATION_PDF)
+                .body(pdf);
+    }
+
+    private byte[] renderPdfBytes(PdfDocType docType, String recordId, boolean includeSignatures) {
+        if (docType == PdfDocType.ALL_NINE || docType == PdfDocType.ALL_IN_ONE) {
+            Map<String, Object> data = buildData(recordId, true, includeSignatures);
+            List<byte[]> pdfs = new ArrayList<>();
+            for (String t : ALL_NINE_TYPES) {
+                try {
+                    byte[] b = pdfService.generatePdf(t, data);
+                    if (b != null && b.length > 500) pdfs.add(b);
+                } catch (Exception ignored) {
+                }
+            }
+            try {
+                return pdfMergerService.mergePdfs(pdfs);
+            } catch (Exception e) {
+                throw new RuntimeException(docType.name() + " generation failed: " + e.getMessage());
+            }
+        }
+
+        Map<String, Object> data = buildData(recordId, true, includeSignatures);
+        return pdfService.generatePdf(docType.toUrlSegment(), data);
+    }
+
     private Map<String, Object> buildData(String id, boolean includeCompleteData, boolean includeSignatures) {
         SolarRecordResponseDto record = solarService.findById(id);
         Owner currentUser = getCurrentUser();
-        System.out.println("witness1SignatureUrl from DB: " + currentUser.getWitness1SignatureUrl());
-        System.out.println("witness2SignatureUrl from DB: " + currentUser.getWitness2SignatureUrl());
+
         Map<String, Object> data = new HashMap<>();
         LocalDate now = LocalDate.now();
-        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        DateTimeFormatter monthFormatter = DateTimeFormatter.ofPattern("MMMM");
-        DateTimeFormatter installDateFormatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
 
         data.put("name", getValueOrDefault(record.getName(), ""));
         data.put("consumerNumber", getValueOrDefault(record.getConsumerNumber(), ""));
@@ -154,13 +373,13 @@ public class SolarPdfController {
 
         String installationDate = record.getInstallationDate();
         if (installationDate == null || installationDate.isEmpty()) {
-            installationDate = now.format(installDateFormatter);
+            installationDate = now.format(INSTALL_DATE_FORMATTER);
         } else {
             try {
                 LocalDate parsedDate = LocalDate.parse(installationDate);
-                installationDate = parsedDate.format(installDateFormatter);
+                installationDate = parsedDate.format(INSTALL_DATE_FORMATTER);
             } catch (Exception e) {
-                installationDate = now.format(installDateFormatter);
+                installationDate = now.format(INSTALL_DATE_FORMATTER);
             }
         }
         data.put("installationDate", installationDate);
@@ -178,7 +397,12 @@ public class SolarPdfController {
 
         Double totalAmount = parseToDouble(record.getTotalAmountIncludingGST());
         Double installedCap = parseToDouble(record.getInstalledCapacity());
-        String ratePerWatt = "", ratePerWattDisplay = "", baseAmount = "", gstAmount = "", cleaningCharge = "4500", grossTotal = "";
+        String ratePerWatt = "";
+        String ratePerWattDisplay = "";
+        String baseAmount = "";
+        String gstAmount = "";
+        String cleaningCharge = "4500";
+        String grossTotal = "";
 
         if (totalAmount != null && totalAmount > 0) {
             baseAmount = String.format("%.0f", totalAmount * 100 / 105);
@@ -224,7 +448,6 @@ public class SolarPdfController {
         }
         data.put("headerLogo", headerLogoList);
 
-
         if (includeSignatures) {
             String vendorSigUrl = getValueOrDefault(currentUser.getVendorSignatureUrl(), "");
             List<String> vendorSigList = new ArrayList<>();
@@ -232,7 +455,6 @@ public class SolarPdfController {
                 vendorSigList.add(vendorSigUrl);
             }
             data.put("vendorSignature", vendorSigList);
-            System.out.println("vendorSig value: "+ vendorSigUrl);
 
             String witness1SigUrl = getValueOrDefault(currentUser.getWitness1SignatureUrl(), "");
             List<String> witness1SigList = new ArrayList<>();
@@ -248,17 +470,23 @@ public class SolarPdfController {
             }
             data.put("witness2Signature", witness2SigList);
 
-            data.put("consumerSignature", record.getConsumerSignature() != null ? record.getConsumerSignature() : Collections.emptyList());
+            data.put("consumerSignature",
+                    record.getConsumerSignature() != null
+                            ? record.getConsumerSignature()
+                            : Collections.emptyList());
         } else {
             data.put("vendorSignature", Collections.emptyList());
-            System.out.println("includeSignatures is FALSE - setting empty");
             data.put("witness1Signature", Collections.emptyList());
             data.put("witness2Signature", Collections.emptyList());
             data.put("consumerSignature", Collections.emptyList());
         }
-        data.put("netMeteringStamp", record.getNetMeteringStamp() != null ? record.getNetMeteringStamp() : Collections.emptyList());
-        data.put("annexureTwoStamp", record.getAnnexureTwoStamp() != null ? record.getAnnexureTwoStamp() : Collections.emptyList());
-        data.put("aadharImages", record.getAadharImages() != null ? record.getAadharImages() : Collections.emptyList());
+
+        data.put("netMeteringStamp",
+                record.getNetMeteringStamp() != null ? record.getNetMeteringStamp() : Collections.emptyList());
+        data.put("annexureTwoStamp",
+                record.getAnnexureTwoStamp() != null ? record.getAnnexureTwoStamp() : Collections.emptyList());
+        data.put("aadharImages",
+                record.getAadharImages() != null ? record.getAadharImages() : Collections.emptyList());
 
         List<String> processedSitePhotos = new ArrayList<>();
         if (record.getSitePhotos() != null) {
@@ -271,12 +499,11 @@ public class SolarPdfController {
         }
         data.put("sitePhotos", processedSitePhotos);
 
-        data.put("currentDate", now.format(dateFormatter));
+        data.put("currentDate", now.format(DATE_FORMATTER));
         data.put("day", String.valueOf(now.getDayOfMonth()));
-        data.put("month", now.format(monthFormatter));
+        data.put("month", now.format(MONTH_FORMATTER));
         data.put("year", String.valueOf(now.getYear()));
 
-        data.put("defaultArihantHeader", convertImageToBase64("/Arihant_Header.png"));
         data.put("defaultArihantHeader", convertImageToBase64("/Arihant_Header.jpeg"));
         data.put("defaultMsedclHeader", convertImageToBase64("/MSEDCL_Header.png"));
         data.put("cotationFirstPageImage", convertImageToBase64("/CotationFirstPageImage.png"));
@@ -285,70 +512,6 @@ public class SolarPdfController {
         data.put("secondPageThirdImage", convertImageToBase64("/SecondPageThirdImage.png"));
         data.put("secondPageFourthImage", convertImageToBase64("/SecondPageFourthImage.png"));
 
-
-        System.out.println("Final witness1Signature in data: '" + data.get("witness1Signature") + "'");
-        System.out.println("Final witness2Signature in data: '" + data.get("witness2Signature") + "'");
         return data;
-    }
-
-    private String getPdfFilename(String type) {
-        Map<String, String> names = new HashMap<>();
-        names.put("wcr", "WCR_Undertaking_Guarantee_Aadhar.pdf");
-        names.put("proforma-a", "Annexure-I_Proforma-A.pdf");
-        names.put("dcr", "Declaration_FOR_DCR.pdf");
-        names.put("agreement", "NET_METERING_CONNECTION_AGREEMENT.pdf");
-        names.put("SOLAR_PROPOSAL_11KW", "11KW_Solar_Proposal.pdf");
-        names.put("METER_TESTING_REQUEST", "Meter_Testing_Request.pdf");
-        names.put("PM_SURYA_GHAR_AGREEMENT", "PM_Surya_Ghar_Agreement.pdf");
-        names.put("FrontSix", "Pre_Commissioning_Report_FrontSix.pdf");
-        names.put("site-photos", "Site_Photos.pdf");
-        return names.getOrDefault(type, "document_" + System.currentTimeMillis() + ".pdf");
-    }
-
-    private String getValueOrDefault(Object value, String defaultValue) {
-        if (value == null) return defaultValue;
-        String stringValue = String.valueOf(value);
-        return stringValue.isEmpty() ? defaultValue : stringValue;
-    }
-
-    private String convertImageToBase64(String imagePath) {
-        try {
-            org.springframework.core.io.Resource resource = new org.springframework.core.io.ClassPathResource("static" + imagePath);
-            byte[] imageBytes = resource.getContentAsByteArray();
-            String base64 = java.util.Base64.getEncoder().encodeToString(imageBytes);
-            String mimeType = imagePath.endsWith(".png") ? "image/png" : "image/jpeg";
-            return "data:" + mimeType + ";base64," + base64;
-        } catch (Exception e) {
-            return "";
-        }
-    }
-
-    private Double parseToDouble(Object value) {
-        if (value == null) return null;
-        if (value instanceof Double) return (Double) value;
-        if (value instanceof Integer) return ((Integer) value).doubleValue();
-        if (value instanceof Number) return ((Number) value).doubleValue();
-        try {
-            String s = String.valueOf(value).trim().replace(",", "");
-            if (s.isEmpty()) return null;
-            return Double.parseDouble(s);
-        } catch (NumberFormatException e) {
-            System.err.println("Failed to parse amount value: '" + value + "'");
-            return null;
-        }
-    }
-
-    private void checkDownloadPermission(String format) {
-        String email = SecurityContextHolder.getContext().getAuthentication().getName();
-        Owner currentUser = ownerRepository.findByEmail(email)
-                .orElseThrow(() -> new RuntimeException("User not found"));
-
-        if (currentUser.getRole() == UserRole.SUPER_ADMIN) {
-            return;
-        }
-
-        if (!currentUser.getPermissions().contains(Permission.DOWNLOAD)) {
-            throw new RuntimeException("You don't have permission to download documents");
-        }
     }
 }
