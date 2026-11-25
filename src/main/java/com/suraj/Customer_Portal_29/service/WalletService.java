@@ -75,9 +75,46 @@ public class WalletService {
 
     @Transactional(readOnly = true)
     public BigDecimal calculateSystemRevenue() {
-        BigDecimal debits = txRepository.sumByType(Wallet.TransactionType.DEBIT);
+        BigDecimal debits = txRepository.sumByTypeExcludingDummy(Wallet.TransactionType.DEBIT);
         if (debits == null) debits = BigDecimal.ZERO;
         return debits;
+    }
+
+    private static final BigDecimal DUMMY_FREE_CREDITS = new BigDecimal("100.00");
+
+    @Transactional(rollbackFor = Exception.class, isolation = Isolation.READ_COMMITTED)
+    public Wallet creditDummyStarter(Long ownerId, String performedByEmail) {
+        Wallet wallet = walletRepository.findByOwnerIdForUpdate(ownerId)
+                .orElseGet(() -> {
+                    Owner owner = ownerRepository.findById(ownerId)
+                            .orElseThrow(() -> new RuntimeException("Owner not found: " + ownerId));
+                    Wallet w = new Wallet();
+                    w.setOwner(owner);
+                    w.setBalance(BigDecimal.ZERO);
+                    return walletRepository.save(w);
+                });
+
+        BigDecimal before = wallet.getBalance();
+        BigDecimal after = before.add(DUMMY_FREE_CREDITS);
+        wallet.setBalance(after);
+        walletRepository.save(wallet);
+
+        Owner owner = wallet.getOwner();
+        owner.setWalletBalance(after);
+        ownerRepository.save(owner);
+
+        Wallet.Transaction tx = new Wallet.Transaction();
+        tx.setWallet(wallet);
+        tx.setType(Wallet.TransactionType.CREDIT);
+        tx.setAmount(DUMMY_FREE_CREDITS);
+        tx.setBalanceBefore(before);
+        tx.setBalanceAfter(after);
+        tx.setNote("Demo user starter credits (free)");
+        tx.setPerformedByEmail(performedByEmail);
+        tx.setDummy(true);
+        txRepository.save(tx);
+
+        return wallet;
     }
 
     @Transactional(readOnly = true)
@@ -120,6 +157,9 @@ public class WalletService {
         walletRepository.save(wallet);
 
         Owner owner = wallet.getOwner();
+        if (owner.isDummy()) {
+            throw new IllegalStateException("Dummy users have fixed demo credits and cannot be topped up.");
+        }
         owner.setWalletBalance(after);
         ownerRepository.save(owner);
 
@@ -153,6 +193,9 @@ public class WalletService {
         if (owner.getRole() == UserRole.SUPER_ADMIN) {
             return wallet;
         }
+        if (owner.isDummy()) {
+            throw new IllegalStateException("Dummy users cannot be credited or reset.");
+        }
 
         BigDecimal before = wallet.getBalance();
         if (before.compareTo(amount) < 0) {
@@ -180,6 +223,7 @@ public class WalletService {
         tx.setSolarRecordId(solarRecordId);
         tx.setPreviewToken(previewToken);
         tx.setPerformedByEmail(performedByEmail);
+        tx.setDummy(owner.isDummy());
         txRepository.save(tx);
 
         return wallet;
@@ -215,6 +259,9 @@ public class WalletService {
 
         if (owner.getRole() == UserRole.SUPER_ADMIN) {
             throw new RuntimeException("Cannot reset SUPER_ADMIN wallet");
+        }
+        if (owner.isDummy()) {
+            throw new IllegalStateException("Dummy users have fixed demo credits and cannot be reset.");
         }
 
         Wallet wallet = walletRepository.findByOwnerIdForUpdate(ownerId)

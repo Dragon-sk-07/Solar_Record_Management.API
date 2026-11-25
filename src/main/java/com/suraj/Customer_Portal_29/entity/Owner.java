@@ -2,6 +2,7 @@ package com.suraj.Customer_Portal_29.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
@@ -98,7 +99,10 @@ public class Owner {
     private String witness2SignatureUrl;
 
     @Column(name = "wallet_balance", precision = 12, scale = 2)
-    private java.math.BigDecimal walletBalance = java.math.BigDecimal.ZERO;
+    private BigDecimal walletBalance = BigDecimal.ZERO;
+
+    @Column(nullable = false)
+    private boolean dummy = false;
 
     @PrePersist
     protected void onCreate() {

@@ -35,4 +35,7 @@ public class UserRequestDto {
     private boolean deleteWitness2Signature;
     private java.math.BigDecimal walletTopUp;
     private String walletNote;
+    private Boolean isDummy;
+    public Boolean getIsDummy() { return isDummy; }
+    public void setIsDummy(Boolean isDummy) { this.isDummy = isDummy; }
 }

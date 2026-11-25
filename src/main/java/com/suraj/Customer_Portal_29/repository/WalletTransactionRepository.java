@@ -33,14 +33,20 @@ public interface WalletTransactionRepository extends JpaRepository<Wallet.Transa
     BigDecimal sumByType(@Param("type") Wallet.TransactionType type);
 
     @Query("SELECT COALESCE(SUM(t.amount), 0) FROM WalletTransaction t " +
-            "WHERE t.wallet.owner.id = :ownerId AND t.type = :type AND t.deleted = false")
+            "WHERE t.wallet.owner.id = :ownerId AND t.type = :type " +
+            "AND t.deleted = false AND t.dummy = false")
     BigDecimal sumAmountByOwnerIdAndType(@Param("ownerId") Long ownerId,
                                          @Param("type") Wallet.TransactionType type);
 
     @Query("SELECT t.wallet.owner.id, COALESCE(SUM(t.amount), 0) " +
             "FROM WalletTransaction t " +
-            "WHERE t.type = :type AND t.wallet.owner.id IN :ids AND t.deleted = false " +
+            "WHERE t.type = :type AND t.wallet.owner.id IN :ids " +
+            "AND t.deleted = false AND t.dummy = false " +
             "GROUP BY t.wallet.owner.id")
     List<Object[]> sumAmountByOwnerIdsAndType(@Param("type") Wallet.TransactionType type,
                                               @Param("ids") Collection<Long> ids);
+
+    @Query("SELECT COALESCE(SUM(t.amount), 0) FROM WalletTransaction t " +
+            "WHERE t.type = :type AND t.dummy = false AND t.deleted = false")
+    BigDecimal sumByTypeExcludingDummy(@Param("type") Wallet.TransactionType type);
 }

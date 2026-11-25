@@ -66,6 +66,7 @@ public class UserManagementService {
         response.setWalletBalance(balance);
         java.math.BigDecimal totalAdded = walletService.getTotalAddedForUser(entity.getId());
         response.setTotalAdded(totalAdded);
+        response.setDummy(entity.isDummy());
         return response;
     }
 
@@ -115,6 +116,7 @@ public class UserManagementService {
         user.setPassword(passwordEncoder.encode(request.getPassword()));
         user.setRole(UserRole.USER);
         user.setActive(true);
+        user.setDummy(Boolean.TRUE.equals(request.getIsDummy()));
 
         if (request.getPermissions() == null || request.getPermissions().isEmpty()) {
             user.setPermissions(Set.of(Permission.VIEW_RECORDS));
@@ -155,7 +157,12 @@ public class UserManagementService {
         }
 
         Owner savedUser = ownerRepository.save(user);
-        walletService.ensureWallet(savedUser);
+
+        if (savedUser.isDummy()) {
+            walletService.creditDummyStarter(savedUser.getId(), "system");
+        } else {
+            walletService.ensureWallet(savedUser);
+        }
 
         return mapToResponse(savedUser);
     }
@@ -279,7 +286,10 @@ public class UserManagementService {
     public UserResponseDto updateUserPermissions(Long userId, Set<Permission> permissions) {
         Owner user = findEntityById(userId);
         if (user.getRole() == UserRole.SUPER_ADMIN) {
-            throw new RuntimeException("Cannot modify SUPER_ADMIN permissions");
+            throw new RuntimeException("Cannot credit SUPER_ADMIN wallet");
+        }
+        if (user.isDummy()) {
+            throw new IllegalStateException("Dummy users have fixed demo credits and cannot be topped up.");
         }
         user.setPermissions(permissions);
         return mapToResponse(ownerRepository.save(user));
@@ -485,6 +495,7 @@ public class UserManagementService {
             map.put("id", o.getId());
             map.put("walletBalance", balance);
             map.put("totalAdded", total);
+            map.put("dummy", o.isDummy());
             return map;
         }).toList();
     }

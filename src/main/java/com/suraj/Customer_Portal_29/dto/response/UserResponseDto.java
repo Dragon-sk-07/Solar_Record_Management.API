@@ -35,4 +35,5 @@ public class UserResponseDto {
 
     private BigDecimal walletBalance;
     private BigDecimal totalAdded;
+    private boolean dummy;
 }
