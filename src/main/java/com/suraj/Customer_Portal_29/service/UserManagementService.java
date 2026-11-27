@@ -6,7 +6,6 @@ import com.suraj.Customer_Portal_29.entity.*;
 import com.suraj.Customer_Portal_29.repository.OwnerRepository;
 import com.suraj.Customer_Portal_29.repository.SolarRecordRepository;
 import com.suraj.Customer_Portal_29.repository.WalletRepository;
-import com.suraj.Customer_Portal_29.repository.WalletTransactionRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -15,7 +14,6 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -28,7 +26,6 @@ public class UserManagementService {
     private final ModelMapper modelMapper;
     private final WalletService walletService;
     private final WalletRepository walletRepository;
-    private final WalletTransactionRepository walletTransactionRepository;
 
     public UserManagementService(OwnerRepository ownerRepository,
                                  PasswordEncoder passwordEncoder,
@@ -36,8 +33,7 @@ public class UserManagementService {
                                  CloudinaryService cloudinaryService,
                                  ModelMapper modelMapper,
                                  WalletService walletService,
-                                 WalletRepository walletRepository,
-                                 WalletTransactionRepository walletTransactionRepository) {
+                                 WalletRepository walletRepository) {
         this.ownerRepository = ownerRepository;
         this.passwordEncoder = passwordEncoder;
         this.solarRecordRepository = solarRecordRepository;
@@ -45,7 +41,6 @@ public class UserManagementService {
         this.modelMapper = modelMapper;
         this.walletService = walletService;
         this.walletRepository = walletRepository;
-        this.walletTransactionRepository = walletTransactionRepository;
     }
 
     private Owner getCurrentUser() {
@@ -288,9 +283,6 @@ public class UserManagementService {
         if (user.getRole() == UserRole.SUPER_ADMIN) {
             throw new RuntimeException("Cannot credit SUPER_ADMIN wallet");
         }
-        if (user.isDummy()) {
-            throw new IllegalStateException("Dummy users have fixed demo credits and cannot be topped up.");
-        }
         user.setPermissions(permissions);
         return mapToResponse(ownerRepository.save(user));
     }
@@ -303,6 +295,7 @@ public class UserManagementService {
 
     public void deleteUser(Long userId) {
         Owner user = findEntityById(userId);
+
         if (user.getRole() == UserRole.SUPER_ADMIN) {
             throw new RuntimeException("Cannot delete SUPER_ADMIN");
         }
@@ -348,9 +341,10 @@ public class UserManagementService {
         } catch (Exception ignored) {
         }
 
-        user.setActive(false);
-        user.setEmail(user.getEmail() + "_deleted_" + System.currentTimeMillis());
-        ownerRepository.save(user);
+        walletRepository.deleteByWalletOwnerId(userId);
+        walletRepository.deleteByOwnerId(userId);
+
+        ownerRepository.delete(user);
     }
 
     public UserResponseDto getCurrentUserProfile() {

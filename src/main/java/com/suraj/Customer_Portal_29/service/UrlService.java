@@ -11,21 +11,13 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public interface UrlService {
-    List<UrlResponseDto> getUserUrls(String userId);
-    UrlResponseDto addUrl(String userId, UrlRequestDto request);
-    UrlResponseDto updateUrl(String userId, Long id, UrlRequestDto request);
-    void deleteUrl(String userId, Long id);
-}
-
 @Service
 @RequiredArgsConstructor
-class UrlServiceImpl implements UrlService {
+public class UrlService {
 
     private final UrlRepository urlRepository;
 
     private static final List<String[]> DEFAULT_URLS = List.of(
-
             new String[]{"PM Consumer Login", "https://consumer.pmsuryaghar.gov.in/consumer/#/login"},
             new String[]{"PM Vendor Login", "https://vendor.pmsuryaghar.gov.in/vendor/#/signed-in/dashboard"},
             new String[]{"MOBILE NO AND EMAIL ID CHANGE", "https://pro.mahadiscom.in/ConsumerContact/consumer"},
@@ -37,7 +29,6 @@ class UrlServiceImpl implements UrlService {
             new String[]{"DCR login", "https://dcr.mahadiscom.in/"}
     );
 
-    @Override
     public List<UrlResponseDto> getUserUrls(String userId) {
         if (!urlRepository.existsByUserId(userId)) {
             initDefaultUrlsForUser(userId);
@@ -48,7 +39,6 @@ class UrlServiceImpl implements UrlService {
                 .collect(Collectors.toList());
     }
 
-    @Override
     @Transactional
     public UrlResponseDto addUrl(String userId, UrlRequestDto request) {
         UrlEntity entity = UrlEntity.builder()
@@ -60,7 +50,6 @@ class UrlServiceImpl implements UrlService {
         return mapToDto(urlRepository.save(entity));
     }
 
-    @Override
     @Transactional
     public UrlResponseDto updateUrl(String userId, Long id, UrlRequestDto request) {
         UrlEntity entity = urlRepository.findById(id)
@@ -75,7 +64,6 @@ class UrlServiceImpl implements UrlService {
         return mapToDto(urlRepository.save(entity));
     }
 
-    @Override
     @Transactional
     public void deleteUrl(String userId, Long id) {
         UrlEntity entity = urlRepository.findById(id)

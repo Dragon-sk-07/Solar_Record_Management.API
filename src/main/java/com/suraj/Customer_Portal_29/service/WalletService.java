@@ -7,11 +7,11 @@ import com.suraj.Customer_Portal_29.entity.UserRole;
 import com.suraj.Customer_Portal_29.entity.Wallet;
 import com.suraj.Customer_Portal_29.repository.OwnerRepository;
 import com.suraj.Customer_Portal_29.repository.WalletRepository;
-import com.suraj.Customer_Portal_29.repository.WalletTransactionRepository;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
@@ -23,14 +23,11 @@ import java.util.stream.Collectors;
 public class WalletService {
 
     private final WalletRepository walletRepository;
-    private final WalletTransactionRepository txRepository;
     private final OwnerRepository ownerRepository;
 
     public WalletService(WalletRepository walletRepository,
-                         WalletTransactionRepository txRepository,
                          OwnerRepository ownerRepository) {
         this.walletRepository = walletRepository;
-        this.txRepository = txRepository;
         this.ownerRepository = ownerRepository;
     }
 
@@ -75,7 +72,7 @@ public class WalletService {
 
     @Transactional(readOnly = true)
     public BigDecimal calculateSystemRevenue() {
-        BigDecimal debits = txRepository.sumByTypeExcludingDummy(Wallet.TransactionType.DEBIT);
+        BigDecimal debits = walletRepository.sumByTypeExcludingDummy(Wallet.TransactionType.DEBIT);
         if (debits == null) debits = BigDecimal.ZERO;
         return debits;
     }
@@ -112,7 +109,7 @@ public class WalletService {
         tx.setNote("Demo user starter credits (free)");
         tx.setPerformedByEmail(performedByEmail);
         tx.setDummy(true);
-        txRepository.save(tx);
+        walletRepository.save(tx);
 
         return wallet;
     }
@@ -121,7 +118,7 @@ public class WalletService {
     public List<WalletResponseDto.TransactionItem> getMyTransactions(int page, int size) {
         Owner owner = getCurrentUser();
         Wallet wallet = ensureWallet(owner);
-        return txRepository
+        return walletRepository
                 .findByWalletIdAndDeletedFalseOrderByCreatedAtDesc(
                         wallet.getId(), PageRequest.of(page, size))
                 .stream()
@@ -157,9 +154,6 @@ public class WalletService {
         walletRepository.save(wallet);
 
         Owner owner = wallet.getOwner();
-        if (owner.isDummy()) {
-            throw new IllegalStateException("Dummy users have fixed demo credits and cannot be topped up.");
-        }
         owner.setWalletBalance(after);
         ownerRepository.save(owner);
 
@@ -171,7 +165,7 @@ public class WalletService {
         tx.setBalanceAfter(after);
         tx.setNote(note);
         tx.setPerformedByEmail(performedByEmail);
-        txRepository.save(tx);
+        walletRepository.save(tx);
 
         return wallet;
     }
@@ -193,16 +187,14 @@ public class WalletService {
         if (owner.getRole() == UserRole.SUPER_ADMIN) {
             return wallet;
         }
-        if (owner.isDummy()) {
-            throw new IllegalStateException("Dummy users cannot be credited or reset.");
-        }
 
         BigDecimal before = wallet.getBalance();
+
         if (before.compareTo(amount) < 0) {
             throw new IllegalStateException("Insufficient wallet balance. Required " + amount + ", available " + before);
         }
 
-        if (previewToken != null && txRepository.existsByPreviewTokenAndDeletedFalse(previewToken)) {
+        if (previewToken != null && walletRepository.existsByPreviewTokenAndDeletedFalse(previewToken)) {
             throw new IllegalStateException("Duplicate download detected");
         }
 
@@ -224,14 +216,14 @@ public class WalletService {
         tx.setPreviewToken(previewToken);
         tx.setPerformedByEmail(performedByEmail);
         tx.setDummy(owner.isDummy());
-        txRepository.save(tx);
+        walletRepository.save(tx);
 
         return wallet;
     }
 
     @Transactional(readOnly = true)
     public List<WalletResponseDto.TransactionItem> getAllTransactions() {
-        return txRepository.findAllByDeletedFalseOrderByCreatedAtDesc()
+        return walletRepository.findAllByDeletedFalseOrderByCreatedAtDesc()
                 .stream()
                 .map(WalletResponseDto::toTransactionItem)
                 .collect(Collectors.toList());
@@ -239,7 +231,7 @@ public class WalletService {
 
     @Transactional(readOnly = true)
     public BigDecimal getTotalAddedForUser(Long ownerId) {
-        return txRepository.sumAmountByOwnerIdAndType(
+        return walletRepository.sumAmountByOwnerIdAndType(
                 ownerId, Wallet.TransactionType.CREDIT);
     }
 
@@ -248,11 +240,11 @@ public class WalletService {
         if (ownerIds == null || ownerIds.isEmpty()) {
             return List.of();
         }
-        return txRepository.sumAmountByOwnerIdsAndType(
+        return walletRepository.sumAmountByOwnerIdsAndType(
                 Wallet.TransactionType.CREDIT, ownerIds);
     }
 
-    @Transactional(rollbackFor = Exception.class, isolation = Isolation.READ_COMMITTED)
+    @Transactional(rollbackFor = Exception.class, isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRES_NEW)
     public void resetUserWallet(Long ownerId) {
         Owner owner = ownerRepository.findById(ownerId)
                 .orElseThrow(() -> new RuntimeException("User not found with id: " + ownerId));
@@ -260,24 +252,23 @@ public class WalletService {
         if (owner.getRole() == UserRole.SUPER_ADMIN) {
             throw new RuntimeException("Cannot reset SUPER_ADMIN wallet");
         }
-        if (owner.isDummy()) {
-            throw new IllegalStateException("Dummy users have fixed demo credits and cannot be reset.");
-        }
+
+        BigDecimal resetBalance = owner.isDummy() ? new BigDecimal("100.00") : BigDecimal.ZERO;
 
         Wallet wallet = walletRepository.findByOwnerIdForUpdate(ownerId)
                 .orElseGet(() -> {
                     Wallet w = new Wallet();
                     w.setOwner(owner);
-                    w.setBalance(BigDecimal.ZERO);
+                    w.setBalance(resetBalance);
                     return walletRepository.save(w);
                 });
 
-        txRepository.softDeleteByWalletId(wallet.getId());
+        walletRepository.softDeleteByWalletId(wallet.getId());
 
-        wallet.setBalance(BigDecimal.ZERO);
+        wallet.setBalance(resetBalance);
         walletRepository.save(wallet);
 
-        owner.setWalletBalance(BigDecimal.ZERO);
+        owner.setWalletBalance(resetBalance);
         ownerRepository.save(owner);
     }
 }
