@@ -7,6 +7,7 @@ import java.util.Set;
 @Data
 public class UserRequestDto {
     private Long id;
+    private String username;
     private String email;
     private String name;
     private String mobile;

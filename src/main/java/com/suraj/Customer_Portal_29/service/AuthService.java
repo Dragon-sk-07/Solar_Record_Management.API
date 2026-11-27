@@ -27,10 +27,9 @@ public class AuthService {
     }
 
     public LoginResponseDto login(LoginRequestDto request) {
-        Owner owner = repo.findByEmailIgnoreCase(request.getEmail()).orElse(null);
-
+        Owner owner = repo.findByUsernameIgnoreCase(request.getUsername()).orElse(null);
         if (owner == null || !passwordEncoder.matches(request.getPassword(), owner.getPassword())) {
-            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Invalid email or password");
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Invalid username or password");
         }
 
         if (!owner.isActive()) {
@@ -41,7 +40,7 @@ public class AuthService {
         claims.put("role", owner.getRole().name());
         claims.put("permissions", owner.getPermissions());
 
-        String token = jwtProvider.generateToken(owner.getEmail(), claims);
+        String token = jwtProvider.generateToken(owner.getUsername(), claims);
 
         return new LoginResponseDto(token, owner.getName(), owner.getRole().name(), owner.getPermissions());
     }

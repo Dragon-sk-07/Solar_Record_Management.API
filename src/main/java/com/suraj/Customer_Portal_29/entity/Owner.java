@@ -22,6 +22,9 @@ public class Owner {
     private String name;
 
     @Column(unique = true, nullable = false)
+    private String username;
+
+    @Column(nullable = true)
     private String email;
 
     private String mobile;

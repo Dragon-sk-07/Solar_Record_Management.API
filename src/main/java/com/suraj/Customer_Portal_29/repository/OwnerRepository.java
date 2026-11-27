@@ -17,8 +17,14 @@ public interface OwnerRepository extends JpaRepository<Owner, Long> {
 
     boolean existsByEmail(String email);
 
+    Optional<Owner> findByUsername(String username);
+
+    Optional<Owner> findByUsernameIgnoreCase(String username);
+
+    boolean existsByUsername(String username);
+
     List<Owner> findByRole(UserRole role);
 
-    @Query("SELECT o FROM Owner o WHERE LOWER(o.email) LIKE LOWER(CONCAT('%', :keyword, '%')) OR LOWER(o.name) LIKE LOWER(CONCAT('%', :keyword, '%'))")
+    @Query("SELECT o FROM Owner o WHERE LOWER(o.email) LIKE LOWER(CONCAT('%', :keyword, '%')) OR LOWER(o.name) LIKE LOWER(CONCAT('%', :keyword, '%')) OR LOWER(o.username) LIKE LOWER(CONCAT('%', :keyword, '%'))")
     List<Owner> searchUsers(@Param("keyword") String keyword);
 }

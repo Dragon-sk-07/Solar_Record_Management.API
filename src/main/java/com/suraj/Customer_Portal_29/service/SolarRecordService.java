@@ -30,8 +30,8 @@ public class SolarRecordService {
     }
 
     private Owner getCurrentUser() {
-        String email = SecurityContextHolder.getContext().getAuthentication().getName();
-        return ownerRepository.findByEmailIgnoreCase(email.trim()).orElseThrow(() -> new RuntimeException("User not found"));
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        return ownerRepository.findByUsernameIgnoreCase(username.trim()).orElseThrow(() -> new RuntimeException("User not found"));
     }
 
     public SolarRecordResponseDto save(SolarRecordRequestDto request) {

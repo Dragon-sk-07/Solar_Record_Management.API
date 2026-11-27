@@ -85,8 +85,8 @@ public class SolarPdfController {
     }
 
     private Owner getCurrentUser() {
-        String email = SecurityContextHolder.getContext().getAuthentication().getName();
-        return ownerRepository.findByEmail(email)
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        return ownerRepository.findByUsername(username)
                 .orElseThrow(() -> new RuntimeException("User not found"));
     }
 

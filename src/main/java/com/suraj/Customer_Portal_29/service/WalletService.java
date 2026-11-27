@@ -32,8 +32,8 @@ public class WalletService {
     }
 
     private Owner getCurrentUser() {
-        String email = SecurityContextHolder.getContext().getAuthentication().getName();
-        return ownerRepository.findByEmailIgnoreCase(email.trim())
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        return ownerRepository.findByUsernameIgnoreCase(username.trim())
                 .orElseThrow(() -> new RuntimeException("User not found"));
     }
 

@@ -28,8 +28,8 @@ public class SolarRecordController {
     }
 
     private void checkPermission(Permission requiredPermission) {
-        String email = SecurityContextHolder.getContext().getAuthentication().getName();
-        Owner currentUser = ownerRepository.findByEmail(email)
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        Owner currentUser = ownerRepository.findByUsernameIgnoreCase(username)
                 .orElseThrow(() -> new RuntimeException("User not found"));
 
         if (currentUser.getRole() == UserRole.SUPER_ADMIN) {

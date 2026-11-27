@@ -44,8 +44,8 @@ public class UserManagementService {
     }
 
     private Owner getCurrentUser() {
-        String email = SecurityContextHolder.getContext().getAuthentication().getName();
-        return ownerRepository.findByEmailIgnoreCase(email.trim())
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        return ownerRepository.findByUsernameIgnoreCase(username.trim())
                 .orElseThrow(() -> new RuntimeException("User not found"));
     }
 
@@ -100,11 +100,12 @@ public class UserManagementService {
                                       MultipartFile witness1Signature,
                                       MultipartFile witness2Signature) {
 
-        if (ownerRepository.existsByEmail(request.getEmail())) {
-            throw new RuntimeException("User already exists");
+        if (ownerRepository.existsByUsername(request.getUsername())) {
+            throw new RuntimeException("Username already exists");
         }
 
         Owner user = new Owner();
+        user.setUsername(request.getUsername());
         user.setEmail(request.getEmail());
         user.setName(request.getName());
         user.setMobile(request.getMobile());
@@ -197,6 +198,12 @@ public class UserManagementService {
 
         if (request.getName() != null && !request.getName().isEmpty()) {
             existingUser.setName(request.getName());
+        }
+        if (request.getUsername() != null && !request.getUsername().isEmpty() && !existingUser.getUsername().equals(request.getUsername())) {
+            if (ownerRepository.existsByUsername(request.getUsername())) {
+                throw new RuntimeException("Username already exists");
+            }
+            existingUser.setUsername(request.getUsername());
         }
         if (request.getEmail() != null && !request.getEmail().isEmpty()) {
             existingUser.setEmail(request.getEmail());

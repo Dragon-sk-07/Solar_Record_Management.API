@@ -29,11 +29,12 @@ public class JwtTokenProvider {
         return Keys.hmacShaKeyFor(secret.getBytes());
     }
 
-    public String generateToken(String email, Map<String, Object> extraClaims) {
-        Owner user = ownerRepository.findByEmailIgnoreCase(email).orElseThrow(() -> new RuntimeException("User not found"));
+    public String generateToken(String username, Map<String, Object> extraClaims) {
+        Owner user = ownerRepository.findByUsernameIgnoreCase(username).orElseThrow(() -> new RuntimeException("User not found"));
         Map<String, Object> claims = new HashMap<>(extraClaims);
-        claims.put("sub", email);
-        claims.put("email", email);
+        claims.put("sub", username);
+        claims.put("username", username);
+        claims.put("email", user.getEmail());
         claims.put("name", user.getName());
         claims.put("mobile", user.getMobile());
         claims.put("role", user.getRole().name());
@@ -58,10 +59,10 @@ public class JwtTokenProvider {
         claims.put("witness2SignatureUrl", user.getWitness2SignatureUrl());
         Date now = new Date();
         Date expiryDate = new Date(now.getTime() + expiration);
-        return Jwts.builder().setClaims(claims).setSubject(email).setIssuedAt(now).setExpiration(expiryDate).signWith(getSigningKey()).compact();
+        return Jwts.builder().setClaims(claims).setSubject(username).setIssuedAt(now).setExpiration(expiryDate).signWith(getSigningKey()).compact();
     }
 
-    public String getEmailFromToken(String token) {
+    public String getUsernameFromToken(String token) {
         return getAllClaimsFromToken(token).getSubject();
     }
 
