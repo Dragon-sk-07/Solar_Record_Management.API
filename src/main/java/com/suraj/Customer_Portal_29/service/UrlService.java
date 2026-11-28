@@ -30,11 +30,16 @@ public class UrlService {
     );
 
     public List<UrlResponseDto> getUserUrls(String userId) {
-        if (!urlRepository.existsByUserId(userId)) {
+        List<UrlEntity> existingUrls = urlRepository.findByUserIdOrderByIsDefaultDescIdDesc(userId);
+
+        boolean hasDefaults = existingUrls.stream().anyMatch(UrlEntity::isDefault);
+
+        if (!hasDefaults) {
             initDefaultUrlsForUser(userId);
+            existingUrls = urlRepository.findByUserIdOrderByIsDefaultDescIdDesc(userId);
         }
-        return urlRepository.findByUserIdOrderByIsDefaultDescIdDesc(userId)
-                .stream()
+
+        return existingUrls.stream()
                 .map(this::mapToDto)
                 .collect(Collectors.toList());
     }
@@ -71,9 +76,6 @@ public class UrlService {
 
         if (!entity.getUserId().equals(userId)) {
             throw new RuntimeException("Unauthorized");
-        }
-        if (entity.isDefault()) {
-            throw new RuntimeException("Cannot delete system default URLs");
         }
         urlRepository.delete(entity);
     }
